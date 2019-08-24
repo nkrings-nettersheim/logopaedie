@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<content>
+
+<form method="POST" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="field_wrapper">
+        {{ form.pa_address.errors }}
+        <label for="{{ form.pa_address.id_for_label }}">Anrede:</label>
+        {{ form.pa_address }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.patient_id.errors }}
+        <label for="{{ form.patient_id.id_for_label }}">Patinten-ID:</label>
+        {{ form.patient_id }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_first_name.errors }}
+        <label for="{{ form.pa_first_name.id_for_label }}">Vorname:</label>
+        {{ form.pa_first_name }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_last_name.errors }}
+        <label for="{{ form.pa_last_name.id_for_label }}">Nachname:</label>
+        {{ form.pa_last_name }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_street.errors }}
+        <label for="{{ form.pa_street.id_for_label }}">Strasse:</label>
+        {{ form.pa_street }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_zip_code.errors }}
+        <label for="{{ form.pa_zip_code.id_for_label }}">PLZ:</label>
+        {{ form.pa_zip_code }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_city.errors }}
+        <label for="{{ form.pa_city.id_for_label }}">Ort:</label>
+        {{ form.pa_city }}
+    </div>
+    <input type="submit" value="Save">
+</form>
+
+</content>
+{% endblock %}
+
+

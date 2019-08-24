@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e3.css' %}">
+{% endblock %}
+
+{% block therapiebericht%}
+    <aside id="therapiebericht">
+        <h5>Therapieberichte</h5>
+            <a href="#therapiebericht_1.html">20190521_xyz</a><br>
+            <a href="#therapiebericht_2.html">20180418_xyz</a><br>
+            <a href="#therapiebericht_3.html">201511_12_xyz</a><br>
+    </aside>
+{% endblock%}
+
+{% block content %}
+<content>
+{% if patients_list %}
+    <ul>
+    {% for patient in patients_list %}
+        <li>{{ patient.pa_first_name}} {{ patient.pa_last_name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}
+</content>
+{% endblock %}
+
+{% block verlaufsprotokoll%}
+    <aside id="verlaufsprotokoll">    
+        <h5>Verlaufsprotokolle</h5>
+            <a href="#therapiebericht_1.html">20190521_xyz</a><br>
+            <a href="#therapiebericht_2.html">20180418_xyz</a><br>
+            <a href="#therapiebericht_3.html">201511_12_xyz</a><br>
+    </aside>
+{% endblock %}

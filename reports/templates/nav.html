@@ -1,0 +1,13 @@
+    <nav>
+            <label >Register-ID:</label>
+            <form action="{% url 'reports:search_patient' %}" method="post">
+                {% csrf_token %}
+                <input type="text" minlength="1" maxlength="10" name="patient_id" size="15"><br><br>
+                <input type="submit" value="suchen">
+            </form>
+
+            <a href="{% url 'reports:add_patient' %}" >Patient anlegen</a><br>
+            <a href="{% url 'reports:add_therapy' %}" >Therapie anlegen</a><br>
+            <a href="{% url 'reports:add_therapy_report' %}" >Therapie-Report anlegen</a><br>
+    </nav>
+

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block content %}
+<content>
+<h1>Patientendaten:</h1>
+    {{ patient.get_pa_address_display }}<br>
+    {{ patient.patient_id }}<br>
+    {{ patient.pa_first_name}} {{ patient.pa_last_name}}<br>
+    {{ patient.pa_street}} <br>
+    {{ patient.pa_zip_code}} {{ patient.pa_city}}<br><br>
+
+    <a href="/reports/edit/patient/{{ patient.id }}/" >Patientendaten ändern</a>
+</content>
+{% endblock %}

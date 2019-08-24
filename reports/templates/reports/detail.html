@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block content %}
+<content>
+<h4>{{ question.question_text }}</h4>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'reports:vote' question.id %}" method="post">
+{% csrf_token %}
+
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+{% endfor %}
+
+<input type="submit" value="Vote">
+</form>
+</content>
+{% endblock %}

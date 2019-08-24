@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block content %}
+<content>
+<h1>TherapieReportdaten:</h1>
+    {{ therapy_report.therapy_treatment}} <br>
+    {{ therapy_report.therapy_content}} <br>
+    {{ therapy_report.therapy_exercises}} <br>
+    {{ therapy_report.therapy_results}} <br>
+    {{ therapy_report.therapy}} <br><br>
+
+    <a href="/reports/edit/therapy_report/{{ therapy_report.id }}/" >Therapie Reportdaten ändern</a>
+</content>
+{% endblock %}

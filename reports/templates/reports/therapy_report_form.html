@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<content>
+
+<form method="POST" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="field_wrapper">
+        {{ form.therapy_treatment.errors }}
+        <label for="{{ form.therapy_treatment.id_for_label }}">Wievielte Therapie: </label>
+        {{ form.therapy_treatment }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.therapy_content.errors }}
+        <label for="{{ form.therapy_content.id_for_label }}">Therapieinhalt: </label>
+        {{ form.therapy_content }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.therapy_exercises.errors }}
+        <label for="{{ form.therapy_exercises.id_for_label }}">Übungen: </label>
+        {{ form.therapy_exercises }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.therapy_results.errors }}
+        <label for="{{ form.therapy_results.id_for_label }}">Ergebnis: </label>
+        {{ form.therapy_results }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.therapy.errors }}
+        <label for="{{ form.therapy.id_for_label }}">Therapy: </label>
+        {{ form.therapy }}
+    </div>
+
+    <input type="submit" value="Save">
+</form>
+
+</content>
+{% endblock %}
+
+

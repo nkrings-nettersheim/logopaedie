@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<content>
+
+<form method="POST" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="field_wrapper">
+        {{ form.pa_address.errors }}
+        <label for="{{ form.recipe_date.id_for_label }}">Rezeptdatum: </label>
+        {{ form.recipe_date }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.patient_id.errors }}
+        <label for="{{ form.therapy_start.id_for_label }}">Therapie Start: </label>
+        {{ form.therapy_start }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_first_name.errors }}
+        <label for="{{ form.therapy_end.id_for_label }}">Therapie Ende: </label>
+        {{ form.therapy_end }}
+    </div>
+    <div class="field_wrapper">
+        {{ form.pa_last_name.errors }}
+        <label for="{{ form.patients.id_for_label }}">Patient: </label>
+        {{ form.patients }}
+    </div>
+
+    <input type="submit" value="Save">
+</form>
+
+</content>
+{% endblock %}
+
+

@@ -1,0 +1,15 @@
+{% extends "base_login.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e1.css' %}">
+{% endblock %}
+
+{% block content %}
+<content>
+    <p>Auf Wiedersehen!</p>
+    <p></p>
+    <p><a href="{% url 'login' %}">Zur Login-Seite</a></p>
+</content>
+
+{% endblock %}

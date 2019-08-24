@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<content>
+
+   <form action="{% url 'reports:search_patient' %}" method="post">
+        {% csrf_token %}
+        <label >Register-ID: </label><input type="text" minlength="1" maxlength="10" name="patient_id" size="15">
+        <input type="submit" value="suchen">
+   </form>
+</content>
+{% endblock %}
+
+
