@@ -9,7 +9,7 @@ class SearchPatient(forms.Form):
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ['pa_address', 'patient_id','pa_first_name', 'pa_last_name', 'pa_street', 'pa_zip_code', 'pa_city']
+        fields = ['pa_address', 'patient_id', 'pa_first_name', 'pa_last_name', 'pa_street', 'pa_zip_code', 'pa_city']
 
 
 class TherapyForm(forms.ModelForm):

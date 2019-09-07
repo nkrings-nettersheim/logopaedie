@@ -13,7 +13,7 @@ class Patient(models.Model):
     patient_id = models.IntegerField()
     pa_address = models.CharField(max_length=1, choices=ADDRESS, default='1')
     pa_first_name = models.CharField(max_length=50)
-    pa_geburtsdatum = models.CharField(max_length=255)
+    pa_geburtsdatum = models.CharField(max_length=255, default='')
     pa_last_name = models.CharField(max_length=50)
     pa_street = models.CharField(max_length=100)
     pa_zip_code = models.CharField(max_length=5)
