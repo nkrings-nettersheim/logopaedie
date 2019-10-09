@@ -10,36 +10,54 @@
 <content>
 
 <form method="POST" enctype="multipart/form-data" action="">
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
+    <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+    <p></p>
+
     {% csrf_token %}
     {{ form.non_field_errors }}
-
-    <div class="field_wrapper">
+<div class="container">
+    <div class="form-group row">
         {{ form.therapy_treatment.errors }}
-        <label for="{{ form.therapy_treatment.id_for_label }}">Wievielte Therapie: </label>
-        {{ form.therapy_treatment }}
+        <label for="{{ form.therapy_treatment.id_for_label }}" class="col-sm-2 control-label">Wievielte Therapie: </label>
+        <div class="col-sm-6">
+            {{ form.therapy_treatment }}
+        </div>
     </div>
-    <div class="field_wrapper">
+    <div class="form-group row">
         {{ form.therapy_content.errors }}
-        <label for="{{ form.therapy_content.id_for_label }}">Therapieinhalt: </label>
-        {{ form.therapy_content }}
+        <label for="{{ form.therapy_content.id_for_label }}" class="col-sm-2 control-label">Therapieinhalt: </label>
+        <div class="col-sm-6">
+            {{ form.therapy_content }}
+        </div>
     </div>
-    <div class="field_wrapper">
+    <div class="form-group row">
         {{ form.therapy_exercises.errors }}
-        <label for="{{ form.therapy_exercises.id_for_label }}">Übungen: </label>
-        {{ form.therapy_exercises }}
+        <label for="{{ form.therapy_exercises.id_for_label }}" class="col-sm-2 control-label">Übungen: </label>
+        <div class="col-sm-6">
+            {{ form.therapy_exercises }}
+        </div>
     </div>
-    <div class="field_wrapper">
+    <div class="form-group row">
         {{ form.therapy_results.errors }}
-        <label for="{{ form.therapy_results.id_for_label }}">Ergebnis: </label>
-        {{ form.therapy_results }}
+        <label for="{{ form.therapy_results.id_for_label }}" class="col-sm-2 control-label">Ergebnis: </label>
+        <div class="col-sm-6">
+            {{ form.therapy_results }}
+        </div>
     </div>
-    <div class="field_wrapper">
+    <div class="form-group row">
         {{ form.therapy.errors }}
-        <label for="{{ form.therapy.id_for_label }}">Therapy: </label>
-        {{ form.therapy }}
+        <label for="{{ form.therapy.id_for_label }}" class="col-sm-2 control-label">Therapy: </label>
+        <div class="col-sm-6">
+            {{ form.therapy }}
+        </div>
     </div>
-
-    <input type="submit" value="Save">
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-6">
+            <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+        </div>
+    </div>
+</div>
 </form>
 
 </content>

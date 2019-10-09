@@ -4,8 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.template import loader
+from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Patient, Therapy, Therapy_report
+from .models import Patient, Therapy, Therapy_report, Process_report
 from .forms import PatientForm, TherapyForm, TherapyReportForm
 from .forms import SearchPatient
 
@@ -28,7 +29,6 @@ class PatientView(generic.ListView):
 def search_patient(request):
     if request.method == 'POST':
         id = request.POST['patient_id']
-        print('Patient_ID ' + id)
         return redirect('/reports/patient/' + str(id) + '/')
 
 
@@ -45,29 +45,36 @@ def add_patient(request):
 
 
 def edit_patient(request, id=None):
-    item = get_object_or_404(Patient, id=id)
+    item = get_object_or_404(Patient, patient_id=id)
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        return redirect('/reports/patient/' + str(item.id) + '/')
+        return redirect('/reports/patient/' + str(item.patient_id) + '/')
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
 def patient(request, id=id):
-    patient = Patient.objects.get(patient_id=id)
-    return render(request, 'reports/patient.html', {'patient': patient})
+    try:
+        patient_result = Patient.objects.get(patient_id=id)
+        patient_helper = patient_result.id
+        therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
+        return render(request, 'reports/patient.html', {'patient': patient_result, 'therapy': therapy_result})
+    except ObjectDoesNotExist:
+        return redirect('/reports/')
 
 
 def add_therapy(request):
     if request.method == "POST":
         form = TherapyForm(request.POST)
+        patient_result = Patient.objects.get(id=request.POST.get('patients'))
         if form.is_valid():
-            therapy_item = form.save(commit=False)
-            therapy_item.save()
-            return redirect('/reports/therapy/' + str(therapy_item.id) + '/')
+                therapy_item = form.save(commit=False)
+                therapy_item.save()
+                return redirect('/reports/patient/' + str(patient_result.patient_id) + '/')
     else:
-        form = TherapyForm()
-    return render(request, 'reports/therapy_form.html', {'form': form})
+        form = TherapyForm(initial={'patients': request.GET.get('id')})
+        patient_result = Patient.objects.get(id=request.GET.get('id'))
+    return render(request, 'reports/therapy_form.html', {'form': form, 'patient': patient_result})
 
 
 def edit_therapy(request, id=None):
@@ -76,12 +83,19 @@ def edit_therapy(request, id=None):
     if form.is_valid():
         form.save()
         return redirect('/reports/therapy/' + str(item.id) + '/')
-    return render(request, 'reports/therapy_form.html', {'form': form})
+
+    return render(request, 'reports/therapy_form.html', {'form': form, 'patient': item.patients})
 
 
 def therapy(request, id=id):
-    therapy = Therapy.objects.get(id=id)
-    return render(request, 'reports/therapy.html', {'therapy': therapy})
+    therapy_result = Therapy.objects.get(id=id)
+    patient_value = Patient.objects.get(id=str((therapy_result.patients.id)))
+    therapy_report_value = Therapy_report.objects.filter(therapy_id=therapy_result.id)
+    process_report_value = Process_report.objects.filter(patients_id=therapy_result.patients.id)
+    return render(request, 'reports/therapy.html', {'therapy': therapy_result,
+                                                    'patient': patient_value,
+                                                    'therapy_report': therapy_report_value,
+                                                    'process_report': process_report_value})
 
 
 def add_therapy_report(request):
@@ -90,10 +104,11 @@ def add_therapy_report(request):
         if form.is_valid():
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
-            return redirect('/reports/therapy_report/' + str(therapy_report_item.id) + '/')
+            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
     else:
-        form = TherapyReportForm()
-    return render(request, 'reports/therapy_report_form.html', {'form': form})
+        therapy_result = Therapy.objects.get(id=request.GET.get('id'))
+        form = TherapyReportForm(initial={'therapy_treatment': Therapy_report.objects.filter(therapy_id=request.GET.get('id')).count() + 1, 'therapy': therapy_result})
+        return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
 def edit_therapy_report(request, id=None):

@@ -7,12 +7,57 @@
 
 {% block content %}
 <content>
-<h1>Therapiedaten:</h1>
-    {{ therapy.therapy_id }}<br>
-    {{ therapy.therapy_start}} <br>
-    {{ therapy.therapy_end}} <br>
-    {{ therapy.patients}} <br><br>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.patient_id %}" role="button">Zurück</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezeptdaten ändern</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Verlauf ergänzen</a>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                Patient: <strong>{{ patient.pa_first_name }} {{ patient.pa_last_name }}</strong>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm">
+                Therapiedaten:
+            </div>
+        </div>
 
-    <a href="/reports/edit/therapy/{{ therapy.id }}/" >Therapydaten ändern</a>
+        <div class="row">
+            <div class="col-sm">
+                Rezeptdatum: <strong>{{ therapy.recipe_date|date:"d.m.Y" }}</strong>
+            </div>
+            <div class="col-sm">
+                Beginn: <strong>{{ therapy.therapy_start|date:"d.m.Y" }}</strong>
+            </div>
+            <div class="col-sm">
+                Ende: <strong>{{ therapy.therapy_end|date:"d.m.Y" }}</strong>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="align-top">Behand-<br>lung:</th>
+          <th scope="col" class="align-top">Therapieinhalt</th>
+          <th scope="col" class="align-top">Übungen</th>
+          <th scope="col" class="align-top">Ergebnis<br>+;-;0</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in therapy_report %}
+        <tr>
+          <th scope="row" class="align-top">{{ item.therapy_treatment }}</th>
+          <td class="align-top">{{ item.therapy_content }}</td>
+          <td class="align-top">{{ item.therapy_exercises }}</td>
+          <td class="align-top">{{ item.therapy_results }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
 </content>
 {% endblock %}

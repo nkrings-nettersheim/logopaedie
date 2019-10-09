@@ -7,13 +7,86 @@
 
 {% block content %}
 <content>
-<h1>Patientendaten:</h1>
-    {{ patient.get_pa_address_display }}<br>
-    {{ patient.patient_id }}<br>
-    {{ patient.pa_first_name}} {{ patient.pa_last_name}}<br>
-    {{ patient.pa_street}} <br>
-    {{ patient.pa_zip_code}} {{ patient.pa_city}}<br><br>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_patient' patient.patient_id %}" role="button">Daten ändern</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy' %}?id={{ patient.id }}" role="button">Therapie anlegen</a>
+    <p></p>
+    <div class="container">
+          <div class="row">
+            <div class="col-sm">
+                Patientennummer: <strong>{{ patient.patient_id }}</strong>
+            </div>
 
-    <a href="/reports/edit/patient/{{ patient.id }}/" >Patientendaten ändern</a>
+          </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                Anrede: <br> <strong> {{ patient.get_pa_address_display }}</strong>
+            </div>
+            <div class="col">
+              Titel: <br> <strong> {{ patient.pa_title }}</strong>
+            </div>
+            <div class="col-3">
+              Vorname: <br> <strong> {{ patient.pa_first_name}}</strong>
+            </div>
+            <div class="col-3">
+              Nachname: <br> <strong> {{ patient.pa_last_name}}</strong>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm">
+              Straße: <br> <strong>  {{ patient.pa_street}}</strong>
+            </div>
+            <div class="col-sm">
+              PLZ: <br> <strong> {{ patient.pa_zip_code}}</strong>
+            </div>
+            <div class="col-sm">
+              Ort: <br> <strong> {{ patient.pa_city}}</strong>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+         <br>
+        <div class="row">
+            <div class="col-sm">
+              Geburtsdatum: <br> <strong> {{ patient.pa_date_of_birth|date:"d.m.Y" }}</strong>
+            </div>
+            <div class="col-sm">
+              Geschlecht: <br> <strong> {{ patient.get_pa_gender_display }}</strong>
+            </div>
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+         <br>
+        <div class="row">
+            <div class="col-sm">
+              Telefon: <br> <strong> {{ patient.pa_phone }}</strong>
+            </div>
+            <div class="col-sm">
+              Mobilfunk: <br> <strong> {{ patient.pa_cell_phone }}</strong>
+            </div>
+            <div class="col-sm">
+              Hausarzt: <br> <strong> {{ patient.pa_family_doctor }}</strong>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+   </div>
+ <hr>
+    <ul>
+        {% for item in therapy %}
+        <li> Rezept: <strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong> vom: <strong>{{ item.therapy_start|date:"d.m.Y" }}</strong> bis: <strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></li>
+        {% endfor %}
+    </ul>
 </content>
 {% endblock %}
