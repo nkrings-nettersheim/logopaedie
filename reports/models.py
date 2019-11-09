@@ -1,7 +1,17 @@
-import datetime
 
 from django.db import models
-from django.utils import timezone
+
+
+class Doctor(models.Model):
+    doctor_name1 = models.CharField(max_length=50, blank=True, default='')
+    doctor_name2 = models.CharField(max_length=50, blank=True, default='')
+    doctor_street = models.CharField(max_length=50, blank=True, default='')
+    doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
+    doctor_city = models.CharField(max_length=50, blank=True, default='')
+
+    def __str__(self):
+        return self.doctor_name1 + ' ' + self.doctor_name2 + '; ' + self.doctor_city
+
 
 
 class Patient(models.Model):
@@ -26,20 +36,10 @@ class Patient(models.Model):
     pa_cell_phone = models.CharField(max_length=20, blank=True, default='')
     pa_date_of_birth = models.DateField(default='1900-01-01')
     pa_gender = models.CharField(max_length=1, choices=GENDER, default='1')
-    pa_family_doctor = models.CharField(max_length=50, blank=True, default='')
+    pa_family_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.pa_last_name
-
-
-class Process_report(models.Model):
-    report_date = models.CharField(max_length=8)
-    diagnostic_1 = models.CharField(max_length=255)
-    diagonstic_2 = models.CharField(max_length=255)
-    patients = models.ForeignKey(Patient, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.report_date
+        return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city
 
 
 class Therapy(models.Model):
@@ -53,36 +53,32 @@ class Therapy(models.Model):
 
 
 class Therapy_report(models.Model):
-    therapy_treatment = models.IntegerField()
-    therapy_content = models.CharField(max_length=255)
-    therapy_exercises = models.CharField(max_length=255)
-    therapy_results = models.CharField(max_length=255)
+    report_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    therapy_current_result = models.TextField(default='')
+    therapy_emphases = models.TextField(default='')
+    therapy_forecast = models.TextField(default='')
+    therapy_indication_key = models.CharField(max_length=10, default='')
+    therapy_indicated = models.BooleanField(default='0')
+    therapy_break = models.BooleanField(default='0')
+    therapy_break_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    therapy_success = models.BooleanField(default='0')
+    therapy_success_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.therapy_content
+        return str(self.report_date)
 
 
-
-
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-
-    #    def was_published_recently(self):
-    #        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+class Process_report(models.Model):
+    process_treatment = models.IntegerField()
+    process_content = models.CharField(max_length=255)
+    process_exercises = models.CharField(max_length=255)
+    process_results = models.CharField(max_length=255)
+    therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.question_text
+        return self.process_content
 
 
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.choice_text
+

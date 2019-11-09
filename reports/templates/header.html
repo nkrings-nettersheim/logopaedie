@@ -6,7 +6,7 @@
            <p></p>
            <p>
                 {% if user.is_authenticated %}
-                    Hallo {{ user.first_name }}
+                    Hallo {{ user.first_name }} {{ user.group }}
                 {% else %}
                 {% endif %}
             </p>

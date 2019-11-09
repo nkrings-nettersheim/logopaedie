@@ -27,10 +27,10 @@
               Titel: <br> <strong> {{ patient.pa_title }}</strong>
             </div>
             <div class="col-3">
-              Vorname: <br> <strong> {{ patient.pa_first_name}}</strong>
+              Nachname: <br> <strong> {{ patient.pa_last_name}}</strong>
             </div>
             <div class="col-3">
-              Nachname: <br> <strong> {{ patient.pa_last_name}}</strong>
+              Vorname: <br> <strong> {{ patient.pa_first_name}}</strong>
             </div>
             <div class="col-sm">
 
@@ -83,6 +83,14 @@
         </div>
    </div>
  <hr>
+    <div class="container">
+          <div class="row">
+            <div class="col-sm">
+                Es wurden bislang <strong>{{ therapy_count }}</strong> Rezepte ausgestellt und <strong>{{ process_count }}</strong> Behandlungen durchgeführt:
+            </div>
+
+          </div>
+    </div>
     <ul>
         {% for item in therapy %}
         <li> Rezept: <strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong> vom: <strong>{{ item.therapy_start|date:"d.m.Y" }}</strong> bis: <strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></li>

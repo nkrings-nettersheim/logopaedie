@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block content %}
+<content>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_doctor' doctor.id %}" role="button">Daten ändern</a>
+    <p></p>
+    <div class="container">
+          <div class="row">
+            <div class="col-sm">
+                Name: <br> <strong>{{ doctor.doctor_name1 }}</strong>
+            </div>
+          </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                weitere Namen: <br> <strong> {{ doctor.doctor_name2 }}</strong>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm">
+              Straße: <br> <strong>  {{ doctor.doctor_street}}</strong>
+            </div>
+            <div class="col-sm">
+              PLZ: <br> <strong> {{ doctor.doctor_zip_code}}</strong>
+            </div>
+            <div class="col-sm">
+              Ort: <br> <strong> {{ doctor.doctor_city}}</strong>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+         <br>
+   </div>
+ <hr>
+</content>
+{% endblock %}

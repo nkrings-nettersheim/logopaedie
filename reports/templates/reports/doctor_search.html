@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<content>
+    <form action="{% url 'reports:search_doctor' %}" method="post">
+        {% csrf_token %}
+       <div class="container">
+               <div class="form-group row">
+                   <div class="col-sm-6">
+                       <h5>Arzt suchen:</h5>
+                   </div>
+               </div>
+               <div class="form-group row">
+                   <label class="col-sm-2 control-label">Name: </label>
+                   <div class="col-sm-6">
+                       <input type="text" maxlength="15" name="name1" size="50">
+                   </div>
+               </div>
+                <div class="form-group row">
+                   <div class="col-sm-6">
+                       <input type="submit" value="suchen">
+                   </div>
+               </div>
+       </div>
+    </form>
+</content>
+{% endblock %}
+
+

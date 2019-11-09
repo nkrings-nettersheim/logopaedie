@@ -10,11 +10,11 @@
     <content>
             <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
 <p></p>
-        <h4>Suchergebnis</h4>
-    {% if patients_list %}
+        <h4>Suchergebnis in der Ärzteliste</h4>
+    {% if doctors_list %}
         <ul>
-        {% for patient in patients_list %}
-            <li><a href="/reports/patient/{{ patient.patient_id }}">{{ patient.pa_last_name }}</a>, {{ patient.pa_first_name}} </li>
+        {% for doctor in doctors_list %}
+            <li><a href="/reports/doctor/{{ doctor.id }}">{{ doctor.doctor_name1 }} {{ doctor.doctor_name2}} </a>; {{ doctor.doctor_city }}  </li>
         {% endfor %}
         </ul>
     {% else %}

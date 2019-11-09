@@ -1,11 +1,8 @@
 <nav>
-    <label >Patienten-ID:</label>
-    <form action="{% url 'reports:search_patient' %}" method="post">
-        {% csrf_token %}
-        <input type="text" minlength="1" maxlength="10" name="patient_id" size="10">
-        <input type="submit" value="?">
-    </form>
     <p></p>
+    <a href="{% url 'reports:index' %}" >Patient suchen</a><br>
     <a href="{% url 'reports:add_patient' %}" >Patient anlegen</a><br>
+    <a href="{% url 'reports:search_doctor' %}" >Arzt suchen</a><br>
+    <a href="{% url 'reports:add_doctor' %}" >Arzt anlegen</a><br>
 </nav>
 
