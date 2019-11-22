@@ -49,12 +49,8 @@ class PatientView(generic.ListView):
 
 def search_patient(request):
     if request.method == 'POST':
-        #id = request.POST['patient_id']
         last_name = request.POST['last_name']
         date_of_birth = request.POST['date_of_birth']
-        #if id != "":
-        #    logger.info("search_patient: Patient mit der ID: " + id + " gefunden")
-        #    return redirect('/reports/patient/' + str(id) + '/')
         if last_name != "":
             patients_list = Patient.objects.filter(pa_last_name__startswith=last_name)
             if len(patients_list) > 1:
@@ -158,7 +154,7 @@ def add_patient(request):
         if form.is_valid():
             patient_item = form.save(commit=False)
             patient_item.save()
-            logger.info('add_patient')
+            logger.info('add_patient: Patient mit der ID:' + str(patient_item.id) + ' gespeichert')
             return redirect('/reports/patient/' + str(patient_item.id) + '/')
     else:
         logger.info('add_patient: Formular aufgerufen')
@@ -171,7 +167,9 @@ def edit_patient(request, id=None):
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
+        logger.info('edit_patient: Patient mit der ID:' + str(item.id) + ' geändert')
         return redirect('/reports/patient/' + str(item.id) + '/')
+    logger.info('edit_patient: Patient mit der ID: ' + str(id) + ' zwecks Änderung aufgerufen')
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
@@ -184,12 +182,13 @@ def patient(request, id=id):
         process_result_count = 0
         for therapy_result_item in therapy_result:
             process_result_count = Process_report.objects.filter(therapy_id=therapy_result_item.id).count() + process_result_count
-        #assert False
+        logger.info('patient: Patient mit der ID: ' + str(id) + ' aufgerufen')
         return render(request, 'reports/patient.html', {'patient': patient_result,
                                                         'therapy': therapy_result,
                                                         'therapy_count': therapy_result_count,
                                                         'process_count': process_result_count})
     except ObjectDoesNotExist:
+        logger.info('patient: Objekt existiert nicht')
         return redirect('/reports/')
 
 
@@ -205,8 +204,10 @@ def add_therapy(request):
         if form.is_valid():
             therapy_item = form.save(commit=False)
             therapy_item.save()
+            logger.info('add_therapy: Rezept für Patient mit ID: ' + str(patient_result.id) + ' angelegt')
             return redirect('/reports/patient/' + str(patient_result.id) + '/')
     else:
+        logger.info('add_therapy: Formular aufgerufen um eine Rezept anzulegen')
         form = TherapyForm(initial={'patients': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': patient_result})
@@ -217,8 +218,9 @@ def edit_therapy(request, id=None):
     form = TherapyForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
+        logger.info('edit_therapy: Rezept mit der ID:' + str(item.id) + ' geändert')
         return redirect('/reports/therapy/' + str(item.id) + '/')
-
+    logger.info('edit_therapy: Rezeptformular des Patienten mit der ID: ' + str(item.id) + ' zwecks Änderung aufgerufen')
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': item.patients})
 
 
@@ -230,7 +232,7 @@ def therapy(request, id=id):
         therapy_report_value = Therapy_report.objects.get(therapy_id=id)
     else:
         therapy_report_value = ''
-    #assert False
+    logger.info('therapy: Rezept mit der ID: ' + str(id) + ' aufgerufen')
     return render(request, 'reports/therapy.html', {'therapy': therapy_result,
                                                     'patient': patient_value,
                                                     'therapy_report': therapy_report_value,
@@ -248,12 +250,14 @@ def add_process_report(request):
         if form.is_valid():
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
+            logger.info('add_process_report: Verlaufsprotokoll gespeichert mit ID: ' + str(request.POST.get('therapy')))
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
         form = ProcessReportForm(
             initial={'process_treatment': Process_report.objects.filter(therapy_id=request.GET.get('id')).count() + 1,
                      'therapy': therapy_result})
+        logger.info('add_process_report: Verlaufsprotokoll anlegen mit ID: ' + request.GET.get('id'))
         return render(request, 'reports/process_report_form.html', {'form': form})
 
 
@@ -262,12 +266,15 @@ def edit_process_report(request, id=None):
     form = ProcessReportForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
+        logger.info('edit_process_report: Verlaufsprotokoll ändern mit ID: ' + str(item.id))
         return redirect('/reports/process_report/' + str(item.id) + '/')
+    logger.info('edit_process_report: Verlaufsprotokoll anlegen mit ID: ' + id)
     return render(request, 'reports/process_report_form.html', {'form': form})
 
 
 def process_report(request, id=id):
     process_report = Process_report.objects.get(id=id)
+    logger.info('process_report: Verlaufsprotokoll mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/process_report.html', {'process_report': process_report})
 
 
@@ -286,6 +293,7 @@ def show_process_report(request):
         return x, y
 
     id = request.GET.get('id')
+    logger.info('show_process_report: Verlaufsprotokoll mit ID: ' + id + ' gedruckt')
     therapy_value = Therapy.objects.get(id=id)
     pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
     pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
@@ -370,6 +378,7 @@ def add_therapy_report(request):
         if form.is_valid():
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
+            logger.info('add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(request.POST.get('therapy')))
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
         else:
             print('not valid')
@@ -379,21 +388,24 @@ def add_therapy_report(request):
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
         form = TherapyReportForm(
             initial={'therapy': therapy_result})
+        logger.info('add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(request.POST.get('therapy')))
         return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
 def edit_therapy_report(request, id=None):
     item = get_object_or_404(Therapy_report, id=id)
     form = TherapyReportForm(request.POST or None, instance=item)
-    #assert False
     if form.is_valid():
         form.save()
+        logger.info('edit_therapy_report: Therapiebericht ändern mit ID: ' + str(id))
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/')
+    logger.info('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
 def therapy_report(request, id=id):
     therapy_report = Therapy_report.objects.get(id=id)
+    logger.info('therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
 
 
@@ -414,6 +426,7 @@ def show_therapy_report(request):
     pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
 
     id = request.GET.get('id')
+    logger.info('show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
     therapy_result = Therapy.objects.get(id=id)
     pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
     pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
@@ -617,7 +630,7 @@ logging.config.dictConfig({
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'file',
-            'filename': '/tmp/debug.log'
+            'filename': '/Users/nkrings/PycharmProjects/logopaedie.log'
         }
     },
     'loggers': {
