@@ -5,23 +5,47 @@
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
 {% endblock %}
 
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Patient</a>
+      </li>
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezeptdaten ändern</a>
+      </li>
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf bearbeiten</a>
+      </li>
+    {% if request.user.groups.all.0.name == 'Leitung' %}
+      <li class="nav-item">
+        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>
+      </li>
+    {% endif %}
+      <li class="nav-item">
+        {% if therapy_report.therapy_id %}
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Therapiebericht ändern.</a>
+        {% else %}
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht anl.</a>
+        {% endif %}
+      </li>
+    {% if request.user.groups.all.0.name == 'Leitung' %}
+      <li class="nav-item">
+        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
+      </li>
+    {% endif %}
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
 {% block content %}
 <content>
-    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
-    <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.patient_id %}" role="button">Zurück</a>
-    <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezeptdaten ändern</a>
-    <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf ergänzen</a>
-    {% if request.user.groups.all.0.name == 'Leitung' %}
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>
-    {% endif %}
-    {% if therapy_report.therapy_id %}
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Therapiebericht ändern.</a>
-    {% else %}
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht anl.</a>
-    {% endif %}
-    {% if request.user.groups.all.0.name == 'Leitung' %}
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
-    {% endif %}
     <p></p>
     <div class="container">
         <div class="row">
@@ -32,7 +56,7 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                Therapiedaten:
+                Rezeptdaten:
             </div>
         </div>
 
@@ -45,6 +69,38 @@
             </div>
             <div class="col-sm">
                 Ende: <strong>{{ therapy.therapy_end|date:"d.m.Y" }}</strong>
+            </div>
+        </div>
+
+       <div class="row">
+            <div class="col-sm">
+                Verordnungsmenge: <strong>{{ therapy.therapy_regulation_amount }}</strong>
+            </div>
+            <div class="col-sm">
+                Therapiedauer: <strong>{{ therapy.therapy_duration }}</strong>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+
+       <div class="row">
+            <div class="col-sm">
+                Indikationsschlüssel: <strong>{{ therapy.therapy_indication_key }}</strong>
+            </div>
+            <div class="col-sm">
+                ICD-CoD: <strong>{{ therapy.therapy_icd_cod }}</strong>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+
+       <div class="row">
+            <div class="col-sm">
+                Arzt: <strong>{{ therapy.therapy_doctor }}</strong>
+            </div>
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
             </div>
         </div>
 

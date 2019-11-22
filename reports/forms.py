@@ -15,49 +15,50 @@ class SearchPatient(forms.Form):
 
 class DoctorForm(forms.ModelForm):
     doctor_name1 = forms.CharField(required=True,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Name eingeben ...'
-                                   }
-                               )
-                               )
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'autofocus': 'autofocus',
+                                           'placeholder': 'Name eingeben ...'
+                                       }
+                                   )
+                                   )
 
     doctor_name2 = forms.CharField(required=False,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Weitere Namen eingeben ...'
-                                   }
-                               )
-                               )
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'placeholder': 'Weitere Namen eingeben ...'
+                                       }
+                                   )
+                                   )
 
     doctor_street = forms.CharField(required=True,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Strasse eingeben ...'
-                                   }
-                               )
-                               )
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control',
+                                            'placeholder': 'Strasse eingeben ...'
+                                        }
+                                    )
+                                    )
 
     doctor_zip_code = forms.CharField(required=True,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'PLZ eingeben ...'
-                                   }
-                               )
-                               )
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': 'PLZ eingeben ...'
+                                          }
+                                      )
+                                      )
 
     doctor_city = forms.CharField(required=True,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Ort eingeben ...'
-                                   }
-                               )
-                               )
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          'class': 'form-control',
+                                          'placeholder': 'Ort eingeben ...'
+                                      }
+                                  )
+                                  )
 
     class Meta:
         model = Doctor
@@ -69,38 +70,7 @@ class DoctorForm(forms.ModelForm):
                   ]
 
 
-
 class PatientForm(forms.ModelForm):
-    pa_title = forms.CharField(required=False,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Titel eingeben ...'
-                                   }
-                               )
-                               )
-
-    ADDRESS = (
-        ('1', 'Frau'),
-        ('2', 'Herr'),
-        ('3', 'Firma'),
-    )
-
-    pa_address = forms.ChoiceField(choices=ADDRESS, label="", initial=1, widget=forms.Select(
-        attrs={
-            'class': 'form-control'
-        }
-    ))
-
-    patient_id = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Interne Patienten-Nr. eingeben ...'
-            }
-        )
-    )
-
     pa_first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -114,6 +84,7 @@ class PatientForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
+                'autofocus': 'autofocus',
                 'placeholder': 'Nachnamen eingeben ...'
             }
         )
@@ -124,15 +95,6 @@ class PatientForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Strasse eingeben ...'
-            }
-        )
-    )
-
-    pa_zip_code = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'PLZ eingeben ...'
             }
         )
     )
@@ -164,7 +126,7 @@ class PatientForm(forms.ModelForm):
                                     )
                                     )
 
-    pa_date_of_birth = forms.DateField(required=False,
+    pa_date_of_birth = forms.DateField(required=True,
                                        widget=forms.DateInput(
                                            attrs={
                                                'class': 'form-control',
@@ -188,13 +150,9 @@ class PatientForm(forms.ModelForm):
 
     class Meta:
         model = Patient
-        fields = ['pa_title',
-                  'pa_address',
-                  'patient_id',
-                  'pa_first_name',
+        fields = ['pa_first_name',
                   'pa_last_name',
                   'pa_street',
-                  'pa_zip_code',
                   'pa_city',
                   'pa_phone',
                   'pa_cell_phone',
@@ -209,6 +167,7 @@ class TherapyForm(forms.ModelForm):
                                   widget=forms.DateInput(
                                       attrs={
                                           'class': 'form-control',
+                                          'autofocus': 'autofocus',
                                           'placeholder': 'Rezeptdatum eingeben ...'
                                       }
                                   )
@@ -232,6 +191,55 @@ class TherapyForm(forms.ModelForm):
                                   )
                                   )
 
+    therapy_regulation_amount = forms.IntegerField(required=False,
+                                                   widget=forms.NumberInput(
+                                                   )
+                                                   )
+
+    therapy_duration = forms.CharField(required=False,
+                                       widget=forms.TextInput(
+                                           attrs={
+                                               'class': 'form-control',
+                                               'placeholder': 'Therapiedauer ...'
+                                           }
+                                       )
+                                       )
+
+    INDICATION = (
+        ('ST1', 'ST1'),
+        ('ST2', 'ST2'),
+        ('ST3', 'ST3'),
+        ('ST4', 'ST4'),
+        ('SP1', 'SP1'),
+        ('SP2', 'SP2'),
+        ('SP3', 'SP3'),
+        ('SP4', 'SP4'),
+        ('SP5', 'SP5'),
+        ('SP6', 'SP6'),
+        ('RE1', 'RE1'),
+        ('RE2', 'RE2'),
+        ('SF', 'SF'),
+        ('SC1', 'SC1'),
+        ('SC2', 'SC2'),
+    )
+
+    therapy_indication_key = forms.ChoiceField(choices=INDICATION, label="", initial=1, widget=forms.Select(
+        attrs={
+            'class': 'form-control'
+        }
+    ))
+
+    therapy_icd_cod = forms.CharField(required=False,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': 'ICD-CoD eingeben ...'
+                                          }
+                                      )
+                                      )
+
+    therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.all())
+
     patients = forms.ModelChoiceField(queryset=Patient.objects.all())
 
     class Meta:
@@ -239,16 +247,21 @@ class TherapyForm(forms.ModelForm):
         fields = ['recipe_date',
                   'therapy_start',
                   'therapy_end',
+                  'therapy_regulation_amount',
+                  'therapy_duration',
+                  'therapy_indication_key',
+                  'therapy_icd_cod',
+                  'therapy_doctor',
                   'patients']
 
 
 class ProcessReportForm(forms.ModelForm):
     process_treatment = forms.CharField(widget=forms.TextInput(
-                                      attrs={
-                                          'class': 'form-control-plaintext',
-                                          'readonly': ''
-                                      }
-                                  )
+        attrs={
+            'class': 'form-control-plaintext',
+            'readonly': ''
+        }
+    )
     )
 
     process_content = forms.CharField(widget=forms.Textarea(
@@ -271,43 +284,44 @@ class ProcessReportForm(forms.ModelForm):
 
 class TherapyReportForm(forms.ModelForm):
     report_date = forms.DateField(required=False,
-                               widget=forms.DateInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Report Datum festlegen ...'
-                                   }
-                               )
-                               )
+                                  widget=forms.DateInput(
+                                      attrs={
+                                          'class': 'form-control',
+                                          'autofocus': 'autofocus',
+                                          'placeholder': 'Report Datum festlegen ...'
+                                      }
+                                  )
+                                  )
 
     therapy_current_result = forms.CharField(required=False,
                                              max_length=500,
                                              widget=forms.Textarea(
-        attrs={
-            'class': 'form-control',
-            'cols': '20',
-            'rows': '5'
-        }
-    ))
+                                                 attrs={
+                                                     'class': 'form-control',
+                                                     'cols': '20',
+                                                     'rows': '5'
+                                                 }
+                                             ))
 
     therapy_emphases = forms.CharField(required=False,
                                        max_length=500,
                                        widget=forms.Textarea(
-        attrs={
-            'class': 'form-control',
-            'cols': '20',
-            'rows': '5'
-        }
-    ))
+                                           attrs={
+                                               'class': 'form-control',
+                                               'cols': '20',
+                                               'rows': '5'
+                                           }
+                                       ))
 
     therapy_forecast = forms.CharField(required=False,
                                        max_length=500,
                                        widget=forms.Textarea(
-        attrs={
-            'class': 'form-control',
-            'cols': '20',
-            'rows': '5'
-        }
-    ))
+                                           attrs={
+                                               'class': 'form-control',
+                                               'cols': '20',
+                                               'rows': '5'
+                                           }
+                                       ))
 
     INDICATION = (
         ('ST1', 'ST1'),
@@ -327,38 +341,33 @@ class TherapyReportForm(forms.ModelForm):
         ('SC2', 'SC2'),
     )
 
-
     therapy_indication_key = forms.ChoiceField(choices=INDICATION, label="", initial=1, widget=forms.Select(
         attrs={
             'class': 'form-control'
         }
     ))
 
-
     therapy_indicated = forms.NullBooleanField()
 
     therapy_break = forms.NullBooleanField()
 
     therapy_break_date = forms.DateField(required=False,
-                               widget=forms.DateInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Datum festlegen ...'
-                                   }
-                               )
-                               )
+                                         widget=forms.DateInput(
+                                             attrs={
+                                                 'class': 'form-control',
+                                                 'placeholder': 'Datum festlegen ...'
+                                             }
+                                         )
+                                         )
 
-    therapy_success = forms.NullBooleanField()
-
-
-    therapy_success_date = forms.DateField(required=False,
-                               widget=forms.DateInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Datum festlegen ...'
-                                   }
-                               )
-                               )
+    therapy_comment = forms.CharField(required=False,
+                                       widget=forms.TextInput(
+                                           attrs={
+                                               'class': 'form-control',
+                                               'placeholder': 'Bemerkung ...'
+                                           }
+                                       )
+                                       )
 
     class Meta:
         model = Therapy_report
@@ -370,6 +379,5 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_indicated',
                   'therapy_break',
                   'therapy_break_date',
-                  'therapy_success',
-                  'therapy_success_date',
+                  'therapy_comment',
                   'therapy']

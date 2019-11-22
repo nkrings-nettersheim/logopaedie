@@ -1,0 +1,21 @@
+.backgroundcompanycolor{
+    background: #cb9cfc;
+}
+.backgroundsilver{
+    background: silver;
+}
+
+.header {
+  padding: 1rem;
+  background-color: #cb9cfc;
+}
+
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #cb9cfc;
+  text-align: center;
+}

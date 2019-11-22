@@ -5,38 +5,32 @@
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
 {% endblock %}
 
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+    </ul>
+  </div>
+</nav>
+{% endblock %}
 
 {% block content %}
 <content>
+    <p></p>
     <form method="POST" enctype="multipart/form-data" action="">
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' form.patient_id.value %}" role="button">Zurück</a>
-        <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
-        <p></p>
         {% csrf_token %}
         {{ form.non_field_errors }}
     <div class="container">
-        <div class="form-group row">
-            {{ form.patient_id.errors }}
-            <label for="{{ form.patient_id.id_for_label }}" class="col-sm-2 control-label">Patienten-ID:</label>
-            <div class="col-sm-6">
-                {{ form.patient_id }}
+        <div class="row">
+            <div class="col-sm">
+                <h4>Patient erfassen:</h4>
             </div>
         </div>
-        <div class="form-group row">
-            {{ form.pa_address.errors }}
-            <label for="{{ form.pa_address.id_for_label }}" class="col-sm-2 control-label">Anrede:</label>
-            <div class="col-sm-6">
-                 {{ form.pa_address }}
-            </div>
-        </div>
-        <div class="form-group row">
-            {{ form.pa_title.errors }}
-            <label for="{{ form.pa_title.id_for_label }}" class="col-sm-2 control-label">Titel:</label>
-            <div class="col-sm-6">
-                 {{ form.pa_title }}
-            </div>
-        </div>
+
         <div class="form-group row">
             {{ form.pa_last_name.errors }}
             <label for="{{ form.pa_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
@@ -56,13 +50,6 @@
             <label for="{{ form.pa_street.id_for_label }}" class="col-sm-2 control-label">Strasse:</label>
             <div class="col-sm-6">
                 {{ form.pa_street }}
-            </div>
-        </div>
-        <div class="form-group row">
-            {{ form.pa_zip_code.errors }}
-            <label for="{{ form.pa_zip_code.id_for_label }}" class="col-sm-2 control-label">PLZ:</label>
-            <div class="col-sm-6">
-                {{ form.pa_zip_code }}
             </div>
         </div>
         <div class="form-group row">

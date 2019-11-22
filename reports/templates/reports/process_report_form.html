@@ -19,7 +19,7 @@
 <div class="container">
     <div class="form-group row">
         {{ form.process_treatment.errors }}
-        <label for="{{ form.process_treatment.id_for_label }}" class="col-sm-2 control-label">Wievielte Therapie: </label>
+        <label for="{{ form.process_treatment.id_for_label }}" class="col-sm-2 control-label">Therapie: </label>
         <div class="col-sm-6">
             {{ form.process_treatment }}
         </div>
@@ -45,11 +45,11 @@
             {{ form.process_results }}
         </div>
     </div>
-    <div class="form-group row">
-        {{ form.therapy.errors }}
+    <div class="invisible">
         <label for="{{ form.therapy.id_for_label }}" class="col-sm-2 control-label">Rezept: </label>
-        <div class="col-sm-6">
+        <div class="invisible">
             {{ form.therapy }}
+            {{ form.therapy.errors }}
         </div>
     </div>
     <div class="form-group row">

@@ -5,13 +5,23 @@
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
 {% endblock %}
 
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+    </ul>
+  </div>
+</nav>
+{% endblock %}
 
 {% block content %}
 <content>
 
 <form method="POST" enctype="multipart/form-data" action="">
-    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
-    <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
     <p></p>
 
     {% csrf_token %}
@@ -75,23 +85,16 @@
     </div>
     <div class="form-group row">
         {{ form.therapy_success.errors }}
-        <label for="{{ form.therapy_success.id_for_label }}" class="col-sm-2 control-label">Erfolgreich: </label>
+        <label for="{{ form.therapy_comment.id_for_label }}" class="col-sm-2 control-label">Bemerkung: </label>
         <div class="col-sm-6">
-            {{ form.therapy_success }}
+            {{ form.therapy_comment }}
         </div>
     </div>
-    <div class="form-group row">
-        {{ form.therapy_success_date.errors }}
-        <label for="{{ form.therapy_success_date.id_for_label }}" class="col-sm-2 control-label">Datum beendet: </label>
-        <div class="col-sm-6">
-            {{ form.therapy_success_date }}
-        </div>
-    </div>
-    <div class="form-group row">
-        {{ form.therapy.errors }}
+    <div class="invisible">
         <label for="{{ form.therapy.id_for_label }}" class="col-sm-2 control-label">Rezept: </label>
-        <div class="col-sm-6">
+        <div class="invisible">
             {{ form.therapy }}
+            {{ form.therapy.errors }}
         </div>
     </div>
     <div class="form-group row">

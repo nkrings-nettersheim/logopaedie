@@ -5,21 +5,37 @@
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
 {% endblock %}
 
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  </div>
+</nav>
+{% endblock %}
 
 {% block content %}
-    <content>
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
-<p></p>
-        <h4>Suchergebnis</h4>
-    {% if patients_list %}
-        <ul>
-        {% for patient in patients_list %}
-            <li><a href="/reports/patient/{{ patient.patient_id }}">{{ patient.pa_last_name }}</a>, {{ patient.pa_first_name}} </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No reports are available.</p>
-    {% endif %}
-    </content>
+<content>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Suchergebnis</h4>
+            </div>
+        </div>
+        <div class="row">
+            {% if patients_list %}
+                <ul>
+                    {% for patient in patients_list %}
+                        <li><a href="/reports/patient/{{ patient.id }}">{{ patient.pa_last_name }}</a>, {{ patient.pa_first_name}} </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No reports are available.</p>
+            {% endif %}
+        </div>
+</content>
 {% endblock %}
 

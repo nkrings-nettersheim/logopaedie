@@ -49,20 +49,20 @@ class PatientView(generic.ListView):
 
 def search_patient(request):
     if request.method == 'POST':
-        id = request.POST['patient_id']
+        #id = request.POST['patient_id']
         last_name = request.POST['last_name']
         date_of_birth = request.POST['date_of_birth']
-        if id != "":
-            logger.info("search_patient: Patient mit der ID: " + id + " gefunden")
-            return redirect('/reports/patient/' + str(id) + '/')
-        elif last_name != "":
-            patients_list = Patient.objects.filter(pa_last_name__icontains=last_name)
+        #if id != "":
+        #    logger.info("search_patient: Patient mit der ID: " + id + " gefunden")
+        #    return redirect('/reports/patient/' + str(id) + '/')
+        if last_name != "":
+            patients_list = Patient.objects.filter(pa_last_name__startswith=last_name)
             if len(patients_list) > 1:
                 logger.info("search_patient: Mehrere Patienten mit dem Nachnamen " + last_name + " gefunden")
                 return render(request, 'reports/patients.html', {'patients_list': patients_list})
             elif len(patients_list) == 1:
                 logger.info("search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
-                return redirect('/reports/patient/' + str(patients_list[0].patient_id) + '/')
+                return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
             else:
                 logger.info("search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
                 return redirect('/reports/')
@@ -73,7 +73,7 @@ def search_patient(request):
                 return render(request, 'reports/patients.html', {'patients_list': patients_list})
             elif len(patients_list) == 1:
                 logger.info("search_patient: Patient mit dem Geburtsdatum: " + date_of_birth + " gefunden")
-                return redirect('/reports/patient/' + str(patients_list[0].patient_id) + '/')
+                return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
             else:
                 logger.info("search_patient: Kein Patient mit dem Geburtsdatum: " + last_name + " gefunden")
                 return redirect('/reports/')
@@ -167,17 +167,17 @@ def add_patient(request):
 
 
 def edit_patient(request, id=None):
-    item = get_object_or_404(Patient, patient_id=id)
+    item = get_object_or_404(Patient, id=id)
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        return redirect('/reports/patient/' + str(item.patient_id) + '/')
+        return redirect('/reports/patient/' + str(item.id) + '/')
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
 def patient(request, id=id):
     try:
-        patient_result = Patient.objects.get(patient_id=id)
+        patient_result = Patient.objects.get(id=id)
         patient_helper = patient_result.id
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
         therapy_result_count = therapy_result.count()
@@ -205,7 +205,7 @@ def add_therapy(request):
         if form.is_valid():
             therapy_item = form.save(commit=False)
             therapy_item.save()
-            return redirect('/reports/patient/' + str(patient_result.patient_id) + '/')
+            return redirect('/reports/patient/' + str(patient_result.id) + '/')
     else:
         form = TherapyForm(initial={'patients': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
@@ -224,7 +224,7 @@ def edit_therapy(request, id=None):
 
 def therapy(request, id=id):
     therapy_result = Therapy.objects.get(id=id)
-    patient_value = Patient.objects.get(id=str((therapy_result.patients.id)))
+    patient_value = Patient.objects.get(id=str((therapy_result.patients_id)))
     process_report_value = Process_report.objects.filter(therapy_id=id)
     if Therapy_report.objects.filter(therapy_id=id).exists():
         therapy_report_value = Therapy_report.objects.get(therapy_id=id)
@@ -414,11 +414,10 @@ def show_therapy_report(request):
     pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
 
     id = request.GET.get('id')
-    therapy_value = Therapy.objects.get(id=id)
+    therapy_result = Therapy.objects.get(id=id)
     pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
     pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
     pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
-    pa_id = Therapy.objects.get(id=id).patients.pa_family_doctor_id
     recipe_date = Therapy.objects.get(id=id).recipe_date
     therapy_start = Therapy.objects.get(id=id).therapy_start
     therapy_end = Therapy.objects.get(id=id).therapy_end
@@ -427,24 +426,14 @@ def show_therapy_report(request):
 
     result = Therapy_report.objects.get(therapy=id)
 
-    doctor_result = Doctor.objects.get(id=pa_id)
+    doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
 
-    #wert = result.therapy_current_result
-    #assert False
-    #process_report_value = Therapy_report.objects.values_list('report_date',
-    #                                                         'diagnostic_1',
-    #                                                         'diagnostic_2'
-    #                                                          ).filter(therapy=id)
-    #assert False
-    # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 
     # Create the PDF object, using the buffer as its "file."
     p = canvas.Canvas(buffer)
 
     # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    #p.setFillColor(magenta)
     p.setFillColorRGB(0.66, 0.50, 0.82)
     p.rect(0, 0, 20, 850, fill=True, stroke=False)
     p.rect(200, 822, 400, 20, fill=True, stroke=False)
@@ -477,11 +466,13 @@ def show_therapy_report(request):
     p.drawString(2.5 * cm, 17.9 * cm, "Behandlungen vom:")
     p.drawString(12.0 * cm, 17.9 * cm, "bis:")
     p.drawString(2.2 * cm, 17.4 * cm, "Indikationsschlüssel:")
+    p.drawString(11.1 * cm, 17.4 * cm, "ICD-Cod:")
     p.drawString(2.2 * cm, 6.6 * cm, "Behandlung weiter indiziert:")
     p.drawString(2.2 * cm, 5.8 * cm, "Pause:")
     p.drawString(10.2 * cm, 5.8 * cm, "Fortsetzung ab:")
-    p.drawString(2.2 * cm, 5.0 * cm, "Erfolgreich abgeschlossen")
-    p.drawString(12.2 * cm, 5.0 * cm, "am:")
+    p.drawString(2.2 * cm, 5.0 * cm, "Bemerkung:")
+    #p.drawString(2.2 * cm, 5.0 * cm, "Erfolgreich abgeschlossen")
+    #p.drawString(12.2 * cm, 5.0 * cm, "am:")
 
     p.setFont('Helvetica', 10)
     p.drawString(6.2 * cm, 18.9 * cm, pa_last_name + ", " + pa_first_name)
@@ -490,17 +481,24 @@ def show_therapy_report(request):
     p.drawString(6.2 * cm, 17.9 * cm, str(therapy_start.strftime("%d.%m.%Y")))
     p.drawString(13.2 * cm, 17.9 * cm, str(therapy_end.strftime("%d.%m.%Y")))
     p.drawString(2.2 * cm, 17.9 * cm, str(process_count))
-    p.drawString(6.2 * cm, 17.4 * cm, str(result.therapy_indication_key))
-    p.drawString(14.0 * cm, 5.8 * cm, str(result.therapy_break_date.strftime("%d.%m.%Y")))
-    p.drawString(14.0 * cm, 5.0 * cm, str(result.therapy_success_date.strftime("%d.%m.%Y")))
+    p.drawString(6.2 * cm, 17.4 * cm, str(therapy_result.therapy_indication_key))
+    p.drawString(13.2 * cm, 17.4 * cm, str(therapy_result.therapy_icd_cod))
+    p.drawString(6.2 * cm, 5.0 * cm, str(result.therapy_comment))
+
+    if result.therapy_break_date:
+        p.drawString(14.0 * cm, 5.8 * cm, str(result.therapy_break_date.strftime("%d.%m.%Y")))
+
+    #if result.therapy_success_date:
+    #    p.drawString(14.0 * cm, 5.0 * cm, str(result.therapy_success_date.strftime("%d.%m.%Y")))
+
     if result.therapy_indicated:
         p.drawString(8.12 * cm, 6.6 * cm, "X")
 
     if result.therapy_break:
         p.drawString(8.12 * cm, 5.8 * cm, "X")
 
-    if result.therapy_success:
-        p.drawString(8.12 * cm, 5.0 * cm, "X")
+    #if result.therapy_success:
+    #    p.drawString(8.12 * cm, 5.0 * cm, "X")
 
     p.setFont('Helvetica', 8)
     p.drawString(2.8 * cm, 24.7 * cm, "Logopädie Praxis Petra Klein - Rathausstrasse 8 - 53879 Euskirchen")
@@ -539,7 +537,7 @@ def show_therapy_report(request):
     p.setStrokeColor(black)
     p.grid([8.0*cm, 8.5*cm], [6.5*cm, 7.0*cm])
     p.grid([8.0*cm, 8.5*cm], [5.7*cm, 6.2*cm])
-    p.grid([8.0*cm, 8.5*cm], [4.9*cm, 5.4*cm])
+    #p.grid([8.0*cm, 8.5*cm], [4.9*cm, 5.4*cm])
 
     data = []
 

@@ -15,22 +15,13 @@ class Doctor(models.Model):
 
 
 class Patient(models.Model):
-    ADDRESS = (
-        ('1', 'Frau'),
-        ('2', 'Herr'),
-        ('3', 'Firma'),
-    )
     GENDER = (
         ('1', 'weiblich'),
         ('2', 'männlich'),
     )
-    patient_id = models.IntegerField()
-    pa_title = models.CharField(max_length=50, blank=True, default='')
-    pa_address = models.CharField(max_length=1, choices=ADDRESS, default='1')
     pa_first_name = models.CharField(max_length=50)
     pa_last_name = models.CharField(max_length=50)
     pa_street = models.CharField(max_length=100)
-    pa_zip_code = models.CharField(max_length=5)
     pa_city = models.CharField(max_length=255)
     pa_phone = models.CharField(max_length=20, blank=True, default='')
     pa_cell_phone = models.CharField(max_length=20, blank=True, default='')
@@ -46,6 +37,11 @@ class Therapy(models.Model):
     recipe_date = models.DateField(auto_now=False, auto_now_add=False)
     therapy_start = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     therapy_end = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    therapy_regulation_amount = models.IntegerField(blank=True, null=True)
+    therapy_duration = models.CharField(max_length=10, default='')
+    therapy_indication_key = models.CharField(max_length=10, default='')
+    therapy_icd_cod = models.CharField(max_length=10, default='')
+    therapy_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patients = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -61,8 +57,7 @@ class Therapy_report(models.Model):
     therapy_indicated = models.BooleanField(default='0')
     therapy_break = models.BooleanField(default='0')
     therapy_break_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
-    therapy_success = models.BooleanField(default='0')
-    therapy_success_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    therapy_comment = models.CharField(max_length=50, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
 
     def __str__(self):
