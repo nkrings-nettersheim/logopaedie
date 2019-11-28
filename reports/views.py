@@ -1,28 +1,27 @@
-import logging
 import io
+import logging
+from datetime import datetime
+from dateutil.parser import parse
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, FileResponse
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template import loader
 from django.views import generic
-
-from datetime import datetime
-
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.pdfgen import canvas
-from reportlab.platypus import Table, TableStyle, Paragraph
-from reportlab.lib.enums import TA_LEFT, TA_CENTER
 from reportlab.lib.colors import black
+from reportlab.lib.enums import TA_LEFT, TA_CENTER
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Table, TableStyle, Paragraph
 
-from .forms import PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm
+from logopaedie.settings import BASE_DIR
+from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor
-
 
 logger = logging.getLogger(__name__)
 
@@ -32,10 +31,9 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    template = loader.get_template('reports/index.html')
     logger.info('Indexseite wurde geladen')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    form = IndexForm()
+    return render(request, 'reports/index.html', {'form': form})
 
 
 class PatientView(generic.ListView):
@@ -49,37 +47,43 @@ class PatientView(generic.ListView):
 
 def search_patient(request):
     if request.method == 'POST':
-        last_name = request.POST['last_name']
-        date_of_birth = request.POST['date_of_birth']
-        if last_name != "":
-            patients_list = Patient.objects.filter(pa_last_name__startswith=last_name)
-            if len(patients_list) > 1:
-                logger.info("search_patient: Mehrere Patienten mit dem Nachnamen " + last_name + " gefunden")
-                return render(request, 'reports/patients.html', {'patients_list': patients_list})
-            elif len(patients_list) == 1:
-                logger.info("search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
-                return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
-            else:
-                logger.info("search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
-                return redirect('/reports/')
-        elif date_of_birth != "":
-            patients_list = Patient.objects.filter(pa_date_of_birth=date_of_birth)
-            if len(patients_list) > 1:
-                logger.info("search_patient: Mehrere Patienten mit dem Geburtsdatum " + date_of_birth + " gefunden")
-                return render(request, 'reports/patients.html', {'patients_list': patients_list})
-            elif len(patients_list) == 1:
-                logger.info("search_patient: Patient mit dem Geburtsdatum: " + date_of_birth + " gefunden")
-                return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
-            else:
-                logger.info("search_patient: Kein Patient mit dem Geburtsdatum: " + last_name + " gefunden")
-                return redirect('/reports/')
+        form = IndexForm(request.POST)
+        if form.is_valid():
+            last_name = request.POST['last_name']
+            date_of_birth = request.POST['date_of_birth']
+            logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth)
+            if last_name != "":
+                patients_list = Patient.objects.filter(pa_last_name__startswith=last_name)
+                if len(patients_list) > 1:
+                    logger.info("search_patient: Mehrere Patienten mit dem Nachnamen " + last_name + " gefunden")
+                    return render(request, 'reports/patients.html', {'patients_list': patients_list})
+                elif len(patients_list) == 1:
+                    logger.info("search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
+                    return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
+                else:
+                    logger.info("search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
+                    return redirect('/reports/')
+            elif date_of_birth != "":
+                #datum = parse_date(date_of_birth)
+                #assert False
+                patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True))
+                if len(patients_list) > 1:
+                    logger.info("search_patient: Mehrere Patienten mit dem Geburtsdatum " + date_of_birth + " gefunden")
+                    return render(request, 'reports/patients.html', {'patients_list': patients_list})
+                elif len(patients_list) == 1:
+                    logger.info("search_patient: Patient mit dem Geburtsdatum: " + date_of_birth + " gefunden")
+                    return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
+                else:
+                    logger.info("search_patient: Kein Patient mit dem Geburtsdatum: " + last_name + " gefunden")
+                    return redirect('/reports/')
 
-        else:
-            logger.info("search_patient: Kein Suchkriterium eingegeben ")
-            return redirect('/reports/')
+            else:
+                logger.info("search_patient: Kein Suchkriterium eingegeben ")
+                return redirect('/reports/')
     else:
         logger.info("search_patient: Kein POST Befehl erhalten")
         return redirect('/reports/')
+    return render(request, 'reports/index.html', {'form': form})
 
 
 ##########################################################################
@@ -484,8 +488,6 @@ def show_therapy_report(request):
     p.drawString(2.2 * cm, 5.8 * cm, "Pause:")
     p.drawString(10.2 * cm, 5.8 * cm, "Fortsetzung ab:")
     p.drawString(2.2 * cm, 5.0 * cm, "Bemerkung:")
-    #p.drawString(2.2 * cm, 5.0 * cm, "Erfolgreich abgeschlossen")
-    #p.drawString(12.2 * cm, 5.0 * cm, "am:")
 
     p.setFont('Helvetica', 10)
     p.drawString(6.2 * cm, 18.9 * cm, pa_last_name + ", " + pa_first_name)
@@ -501,17 +503,11 @@ def show_therapy_report(request):
     if result.therapy_break_date:
         p.drawString(14.0 * cm, 5.8 * cm, str(result.therapy_break_date.strftime("%d.%m.%Y")))
 
-    #if result.therapy_success_date:
-    #    p.drawString(14.0 * cm, 5.0 * cm, str(result.therapy_success_date.strftime("%d.%m.%Y")))
-
     if result.therapy_indicated:
         p.drawString(8.12 * cm, 6.6 * cm, "X")
 
     if result.therapy_break:
         p.drawString(8.12 * cm, 5.8 * cm, "X")
-
-    #if result.therapy_success:
-    #    p.drawString(8.12 * cm, 5.0 * cm, "X")
 
     p.setFont('Helvetica', 8)
     p.drawString(2.8 * cm, 24.7 * cm, "Logopädie Praxis Petra Klein - Rathausstrasse 8 - 53879 Euskirchen")
@@ -521,7 +517,6 @@ def show_therapy_report(request):
     p.drawString(4.0 * cm, 26.4 * cm, "Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen")
     p.drawString(4.0 * cm, 25.9 * cm, "sowie Mutismus")
 
-
     #RGB Wert wird errechnet aus RGB Wert / 256
     p.setFillColorRGB(0.66, 0.66, 0.66)
     p.setFont('TNRB', 22)
@@ -529,7 +524,6 @@ def show_therapy_report(request):
     p.drawString(4.0 * cm, 27.1 * cm, "Staatlich geprüfte Logopädin")
     p.setFont('TNRB', 18)
     p.drawString(13.2 * cm, 29.15 * cm, "seit 1987")
-
 
     p.setFont('Helvetica', 10)
     p.drawString(15.3 * cm, 28.0 * cm, "Rathausstrasse 8")
@@ -545,52 +539,43 @@ def show_therapy_report(request):
     p.drawString(15.3 * cm, 23.8 * cm, "Fax.")
     p.drawString(16.6 * cm, 23.8 * cm, "02486 / 80 29 60")
 
-    p.drawInlineImage('reports/static/reports/images/logopaedie.jpeg', 1.3 * cm, 25.6 * cm, width=2.12 * cm, height=3.72 * cm)
-    p.drawInlineImage('reports/static/reports/images/unterschrift.jpeg', 3.0 * cm, 1.5 * cm, width=4.0 * cm, height=1.74 * cm)
+    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/logopaedie.jpeg', 1.3 * cm, 25.6 * cm, width=2.12 * cm, height=3.72 * cm)
+    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/unterschrift.jpeg', 3.0 * cm, 1.5 * cm, width=4.0 * cm, height=1.74 * cm)
     p.setStrokeColor(black)
     p.grid([8.0*cm, 8.5*cm], [6.5*cm, 7.0*cm])
     p.grid([8.0*cm, 8.5*cm], [5.7*cm, 6.2*cm])
-    #p.grid([8.0*cm, 8.5*cm], [4.9*cm, 5.4*cm])
 
     data = []
-
-    ccontent = Paragraph((str(result.therapy_current_result)), styleN)
+    content = str(str(result.therapy_current_result)).replace('\n', '<br />\n')
+    ccontent = Paragraph(content, styleN)
     data.append([ccontent])
 
-    #create table
     table = Table(data, colWidths=[18 * cm])
 
-    #table.setStyle(TableStyle([('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
-    #                           ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
-    #                           ]))
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
     table.drawOn(p, *coord(2.0, 13.0, height - h, cm))
 
     data = []
-
-    ccontent = Paragraph((str(result.therapy_emphases)), styleN)
+    content = str(str(result.therapy_emphases)).replace('\n', '<br />\n')
+    ccontent = Paragraph((content), styleN)
     data.append([ccontent])
 
-    #create table
+
     table = Table(data, colWidths=[18 * cm])
 
-    #table.setStyle(TableStyle([('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
-    #                           ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
-    #                           ]))
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
     table.drawOn(p, *coord(2.0, 16.0, height - h, cm))
 
     data = []
-
-    ccontent = Paragraph((str(result.therapy_forecast)), styleN)
+    content = str(str(result.therapy_forecast)).replace('\n', '<br />\n')
+    ccontent = Paragraph(content, styleN)
+    #ccontent = str(ccontent).replace('\n', '<br />\n')
     data.append([ccontent])
 
-    # create table
     table = Table(data, colWidths=[18 * cm])
 
-    #table.setStyle(TableStyle([]))
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
     table.drawOn(p, *coord(2.0, 18.6, height - h, cm))
@@ -603,7 +588,7 @@ def show_therapy_report(request):
     # present the option to save the file.
     buffer.seek(0)
 
-    file_name = pa_last_name + "_" + pa_first_name + ".pdf"
+    file_name = pa_last_name + "_" + pa_first_name + "_" + str(recipe_date) + ".pdf"
     return FileResponse(buffer, as_attachment=True, filename=file_name)
 
 
@@ -630,7 +615,7 @@ logging.config.dictConfig({
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'file',
-            'filename': '/Users/nkrings/PycharmProjects/logopaedie.log'
+            'filename': BASE_DIR + '/logopaedie.log'
         }
     },
     'loggers': {

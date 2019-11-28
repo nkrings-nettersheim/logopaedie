@@ -1,8 +1,10 @@
     {% load static %}
-    <div class="p-0 container-fluid text-center header">
+    <div class="container-fluid text-center header">
         <div class="row" >
-            <div class="col-sm-1 d-none d-md-block"><img src="{% static 'reports/images/logopaedie.png' %}" width=70px margin="0" alt="Logopädie"></div>
-            <div class="col-sm">
+            <div class="col-sm-1 d-none d-md-block">
+                <img src="{% static 'reports/images/logopaedie.png' %}" width=70px margin="0" alt="Logopädie">
+            </div>
+            <div class="col-sm-9">
                 <div class="row">
                     <div class="col-sm">
                         &nbsp;
@@ -23,6 +25,17 @@
                         <h6>{% if user.is_authenticated %} Hallo {{ user.first_name }}! {% endif %}</h6>
                     </div>
                 </div>
+            </div>
+            <div class="col-sm-2 d-none d-md-block">
+                <div class="col-sm">
+                        &nbsp;
+                </div>
+                {% if user.is_authenticated %}
+                <div class="row"></div>
+                <div class="row"><a href="{% url 'logout' %}">Ausloggen</a></div>
+                <div class="row"><a href="{% url 'password_change' %}">Passwort ändern</a></div>
+                {% else %}
+                {% endif %}
             </div>
         </div>
     </div>

@@ -28,66 +28,59 @@
     {{ form.non_field_errors }}
 <div class="container">
     <div class="form-group row">
-        {{ form.report_date.errors }}
-        <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Datum: </label>
+        <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Berichtsdatum: </label>
         <div class="col-sm-6">
             {{ form.report_date }}
+            {{ form.report_date.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_current_result.errors }}
         <label for="{{ form.therapy_current_result.id_for_label }}" class="col-sm-2 control-label">Aktueller Stand: </label>
         <div class="col-sm-6">
             {{ form.therapy_current_result }}
+            {{ form.therapy_current_result.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_emphases.errors }}
         <label for="{{ form.therapy_emphases.id_for_label }}" class="col-sm-2 control-label">Therapieschwerpunkte: </label>
         <div class="col-sm-6">
             {{ form.therapy_emphases }}
+            {{ form.therapy_emphases.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_forecast.errors }}
         <label for="{{ form.therapy_forecast.id_for_label }}" class="col-sm-2 control-label">Prognose: </label>
         <div class="col-sm-6">
             {{ form.therapy_forecast }}
+            {{ form.therapy_forecast.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_indication_key.errors }}
-        <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Indikationsschlüssel: </label>
-        <div class="col-sm-6">
-            {{ form.therapy_indication_key }}
-        </div>
-    </div>
-    <div class="form-group row">
-        {{ form.therapy_indicated.errors }}
         <label for="{{ form.therapy_indicated.id_for_label }}" class="col-sm-2 control-label">weiter indiziert: </label>
         <div class="col-sm-6">
             {{ form.therapy_indicated }}
+            {{ form.therapy_indicated.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_break.errors }}
         <label for="{{ form.therapy_break.id_for_label }}" class="col-sm-2 control-label">Pause: </label>
         <div class="col-sm-6">
             {{ form.therapy_break }}
+            {{ form.therapy_break.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_break_date.errors }}
         <label for="{{ form.therapy_break_date.id_for_label }}" class="col-sm-2 control-label">Wiederaufnahme: </label>
         <div class="col-sm-6">
             {{ form.therapy_break_date }}
+            {{ form.therapy_break_date.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.therapy_success.errors }}
         <label for="{{ form.therapy_comment.id_for_label }}" class="col-sm-2 control-label">Bemerkung: </label>
         <div class="col-sm-6">
             {{ form.therapy_comment }}
+            {{ form.therapy_success.errors }}
         </div>
     </div>
     <div class="invisible">

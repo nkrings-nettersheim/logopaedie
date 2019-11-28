@@ -29,7 +29,7 @@
     {% endif %}
       <li class="nav-item">
         {% if therapy_report.therapy_id %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Therapiebericht ändern.</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Therapiebericht ändern</a>
         {% else %}
             <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht anl.</a>
         {% endif %}
@@ -135,24 +135,20 @@
       </thead>
       <tbody>
         <tr>
-          <td scope="col" class="align-top" width="15%">Reportdatum:</td>
+          <td scope="col" class="align-top" width="15%">Berichtsdatum:</td>
           <td class="align-top" colspan="3">{{ therapy_report.report_date }}</td>
         </tr>
         <tr>
-          <td scope="col" class="align-top">Indikationsschlüssel:</td>
-          <td class="align-top" colspan="3">{{ therapy_report.therapy_indication_key }}</td>
-        </tr>
-        <tr>
           <td scope="col" class="align-top">Aktueller Stand:</td>
-          <td class="align-top" colspan="3">{{ therapy_report.therapy_current_result }}</td>
+          <td class="align-top" colspan="3">{{ therapy_report.therapy_current_result|linebreaks }}</td>
         </tr>
         <tr>
           <td scope="col" class="align-top">Therapieschwerpunkte:</td>
-          <td class="align-top" colspan="3">{{ therapy_report.therapy_emphases }}</td>
+          <td class="align-top" colspan="3">{{ therapy_report.therapy_emphases|linebreaks }}</td>
         </tr>
         <tr>
           <td scope="col" class="align-top">Prognose:</td>
-          <td class="align-top" colspan="3">{{ therapy_report.therapy_forecast }}</td>
+          <td class="align-top" colspan="3">{{ therapy_report.therapy_forecast|linebreaks }}</td>
         </tr>
         <tr>
           <td scope="col" class="align-top">Behandlung weiter indiziert:</td>
@@ -169,6 +165,10 @@
           <td class="align-top">{% if therapy_report.therapy_success %} X {% endif %}</td>
           <td class="align-top">am:</td>
           <td class="align-top">{{ therapy_report.therapy_success_date|date:"d.m.Y" }}</td>
+        </tr>
+        <tr>
+          <td scope="col" class="align-top">Bemerkung:</td>
+          <td class="align-top" colspan="3">{{ therapy_report.therapy_comment }}</td>
         </tr>
       </tbody>
     </table>

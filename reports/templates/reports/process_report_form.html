@@ -5,44 +5,53 @@
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
 {% endblock %}
 
-
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+    </ul>
+  </div>
+</nav>
+{% endblock %}
 {% block content %}
 <content>
 
 <form method="POST" enctype="multipart/form-data" action="">
-    <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">Start</a>
-    <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
     <p></p>
 
     {% csrf_token %}
     {{ form.non_field_errors }}
 <div class="container">
     <div class="form-group row">
-        {{ form.process_treatment.errors }}
         <label for="{{ form.process_treatment.id_for_label }}" class="col-sm-2 control-label">Therapie: </label>
         <div class="col-sm-6">
             {{ form.process_treatment }}
+            {{ form.process_treatment.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.process_content.errors }}
         <label for="{{ form.process_content.id_for_label }}" class="col-sm-2 control-label">Therapieinhalt: </label>
         <div class="col-sm-6">
             {{ form.process_content }}
+            {{ form.process_content.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.process_exercises.errors }}
         <label for="{{ form.process_exercises.id_for_label }}" class="col-sm-2 control-label">Übungen: </label>
         <div class="col-sm-6">
             {{ form.process_exercises }}
+            {{ form.process_exercises.errors }}
         </div>
     </div>
     <div class="form-group row">
-        {{ form.process_results.errors }}
         <label for="{{ form.process_results.id_for_label }}" class="col-sm-2 control-label">Ergebnis: </label>
         <div class="col-sm-6">
             {{ form.process_results }}
+            {{ form.process_results.errors }}
         </div>
     </div>
     <div class="invisible">

@@ -42,22 +42,19 @@
                </div>
            </div>
            <div class="form-group row">
-               <label class="col-sm-2 control-label">Nachname: </label>
-               <div class="col-sm-3" onfocus="" >
-                   <input type="text" maxlength="15" name="last_name" size="15" autofocus>
-               </div>
-           </div>
+                <label for="{{ form.last_name.id_for_label }}" class="col-sm-2 control-label">Nachame:</label>
+                <div class="col-sm-6">
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </div>
+            </div>
            <div class="form-group row">
-               <div class="col-sm-2">
-                   <h6>oder</h6>
-               </div>
-           </div>
-           <div class="form-group row">
-               <label class="col-sm-2 control-label">Geburtstag: (JJJJ-MM-TT)</label>
-               <div class="col-sm-3">
-                   <input type="text" maxlength="10" name="date_of_birth" size="15">
-               </div>
-           </div>
+                <label for="{{ form.date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtstag:</label>
+                <div class="col-sm-6">
+                    {{ form.date_of_birth }}
+                    {{ form.date_of_birth.errors }}
+                </div>
+            </div>
            <div class="form-group row">
                <div class="col-sm-12">
                    <button type="submit" class="btn btn-primary btn-sm">suchen</button>

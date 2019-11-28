@@ -2,6 +2,27 @@ from django import forms
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor
 
 
+class IndexForm(forms.Form):
+    last_name = forms.CharField(widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control',
+                                        'autofocus': 'autofocus',
+                                        'placeholder': 'Nachnamen eingeben ...'
+                                    }
+                                ),
+                                required=False
+                                )
+
+    date_of_birth = forms.DateField(widget=forms.DateInput(
+                                        attrs={
+                                            'class': 'form-control',
+                                            'placeholder': 'Geburtsdatum eingeben ...'
+                                        }
+                                    ),
+                                    required=False
+                                    )
+
+
 class SearchPatient(forms.Form):
     patient_id = forms.CharField(label='Patienten ID', max_length=10)
 
@@ -206,6 +227,7 @@ class TherapyForm(forms.ModelForm):
                                        )
 
     INDICATION = (
+        ('n/a', 'auswählen'),
         ('ST1', 'ST1'),
         ('ST2', 'ST2'),
         ('ST3', 'ST3'),
@@ -323,33 +345,9 @@ class TherapyReportForm(forms.ModelForm):
                                            }
                                        ))
 
-    INDICATION = (
-        ('ST1', 'ST1'),
-        ('ST2', 'ST2'),
-        ('ST3', 'ST3'),
-        ('ST4', 'ST4'),
-        ('SP1', 'SP1'),
-        ('SP2', 'SP2'),
-        ('SP3', 'SP3'),
-        ('SP4', 'SP4'),
-        ('SP5', 'SP5'),
-        ('SP6', 'SP6'),
-        ('RE1', 'RE1'),
-        ('RE2', 'RE2'),
-        ('SF', 'SF'),
-        ('SC1', 'SC1'),
-        ('SC2', 'SC2'),
-    )
+    therapy_indicated = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_indication_key = forms.ChoiceField(choices=INDICATION, label="", initial=1, widget=forms.Select(
-        attrs={
-            'class': 'form-control'
-        }
-    ))
-
-    therapy_indicated = forms.NullBooleanField()
-
-    therapy_break = forms.NullBooleanField()
+    therapy_break = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
     therapy_break_date = forms.DateField(required=False,
                                          widget=forms.DateInput(
@@ -361,13 +359,13 @@ class TherapyReportForm(forms.ModelForm):
                                          )
 
     therapy_comment = forms.CharField(required=False,
-                                       widget=forms.TextInput(
-                                           attrs={
-                                               'class': 'form-control',
-                                               'placeholder': 'Bemerkung ...'
-                                           }
-                                       )
-                                       )
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': 'Bemerkung ...'
+                                          }
+                                      )
+                                      )
 
     class Meta:
         model = Therapy_report
@@ -375,7 +373,6 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_current_result',
                   'therapy_emphases',
                   'therapy_forecast',
-                  'therapy_indication_key',
                   'therapy_indicated',
                   'therapy_break',
                   'therapy_break_date',
