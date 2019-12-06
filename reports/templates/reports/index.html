@@ -42,10 +42,17 @@
                </div>
            </div>
            <div class="form-group row">
-                <label for="{{ form.last_name.id_for_label }}" class="col-sm-2 control-label">Nachame:</label>
+                <label for="{{ form.last_name.id_for_label }}" class="col-sm-2 control-label">Name:</label>
                 <div class="col-sm-6">
                     {{ form.last_name }}
                     {{ form.last_name.errors }}
+                </div>
+            </div>
+           <div class="form-group row">
+                <label for="{{ form.first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
+                <div class="col-sm-6">
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
                 </div>
             </div>
            <div class="form-group row">

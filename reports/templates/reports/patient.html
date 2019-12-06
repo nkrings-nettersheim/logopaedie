@@ -31,10 +31,32 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-              Nachname: <br> <strong> {{ patient.pa_last_name}}</strong>
+                <div class="small">Name: </div> <strong> {{ patient.pa_last_name}}</strong>
             </div>
             <div class="col-sm">
-              Vorname: <br> <strong> {{ patient.pa_first_name}}</strong>
+                <div class="small">Vorname: </div> <strong> {{ patient.pa_first_name}}</strong>
+            </div>
+            <div class="col-sm">
+                <div class="small">Geburtsdatum: </div> <strong> {{ patient.pa_date_of_birth|date:"d.m.Y" }}</strong>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm">
+                <div class="small">Ort: </div> <strong> {{ patient.pa_city}}</strong>
+            </div>
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="small">Straße: </div> <strong>  {{ patient.pa_street}}</strong>
+            </div>
+            <div class="col-sm">
             </div>
             <div class="col-sm">
 
@@ -43,59 +65,66 @@
         <br>
         <div class="row">
             <div class="col-sm">
-              Straße: <br> <strong>  {{ patient.pa_street}}</strong>
+                <div class="small">Telefon: </div> <strong> {{ patient.pa_phone }}</strong>
             </div>
             <div class="col-sm">
-              Ort: <br> <strong> {{ patient.pa_city}}</strong>
+                <div class="small">Mobilfunk: </div> <strong> {{ patient.pa_cell_phone }}</strong>
             </div>
             <div class="col-sm">
 
             </div>
         </div>
-         <br>
+        <br>
         <div class="row">
             <div class="col-sm">
-              Geburtsdatum: <br> <strong> {{ patient.pa_date_of_birth|date:"d.m.Y" }}</strong>
+              <div class="small"> weitere Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add1 }}</strong>
             </div>
             <div class="col-sm">
-              Geschlecht: <br> <strong> {{ patient.get_pa_gender_display }}</strong>
+                <div class="small">weitere Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add2 }}</strong>
             </div>
             <div class="col-sm">
 
             </div>
-
         </div>
-         <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="small">Achtung: </div> <strong><div class="text-danger"> {{ patient.pa_attention }}</div></strong>
+            </div>
+            <div class="col-sm-4">
+                <div class="small">Hausarzt: </div> <strong> {{ patient.pa_family_doctor }}</strong>
+            </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-sm">
-              Telefon: <br> <strong> {{ patient.pa_phone }}</strong>
-            </div>
-            <div class="col-sm">
-              Mobilfunk: <br> <strong> {{ patient.pa_cell_phone }}</strong>
-            </div>
-            <div class="col-sm">
-              Arzt: <br> <strong> {{ patient.pa_family_doctor }}</strong>
-            </div>
-            <div class="col-sm">
-
+                <div class="small">Bemerkung: </div> <strong> {{ patient.pa_note }}</strong>
             </div>
         </div>
-   </div>
- <hr>
+    </div>
+
     <div class="container">
-          <div class="row">
+        <hr>
+        <div class="row">
             <div class="col-sm">
-                Es wurden bislang <strong>{{ therapy_count }}</strong> Rezepte ausgestellt und <strong>{{ process_count }}</strong> Behandlungen durchgeführt:
+                Es wurden bislang <strong>{{ therapy_count }}</strong> Rezepte ausgestellt und <strong>{{ process_count }}</strong> Gesamtbehandlungen durchgeführt:
             </div>
 
-          </div>
-          <div class="row">
-              <ul>
-                {% for item in therapy %}
-                    <li> Rezept: <strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong> vom: <strong>{{ item.therapy_start|date:"d.m.Y" }}</strong> bis: <strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></li>
-                {% endfor %}
-              </ul>
-          </div>
+        </div>
+        <hr>
+
+        {% for item in therapy %}
+        <div class="row">
+            <div class="col-sm-1">Rezept:</div>
+            <div class="col-sm-1"><span class="float-right"><strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong></span></div>
+            <div class="col-sm-1 text-center">vom: </div>
+            <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_start|date:"d.m.Y" }}</strong></span></div>
+            <div class="col-sm-1 text-center">bis: </div>
+            <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></span></div>
+            <div class="col-sm-1 text-center"><strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
+        </div>
+        {% endfor %}
+
     </div>
 </content>
 {% endblock %}

@@ -32,31 +32,31 @@
         </div>
 
         <div class="form-group row">
-            {{ form.pa_last_name.errors }}
             <label for="{{ form.pa_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
             <div class="col-sm-6">
                 {{ form.pa_last_name }}
+                {{ form.pa_last_name.errors }}
             </div>
         </div>
         <div class="form-group row">
-            {{ form.pa_first_name.errors }}
             <label for="{{ form.pa_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
             <div class="col-sm-6">
                 {{ form.pa_first_name }}
+                {{ form.pa_first_name.errors }}
             </div>
         </div>
         <div class="form-group row">
-            {{ form.pa_street.errors }}
             <label for="{{ form.pa_street.id_for_label }}" class="col-sm-2 control-label">Strasse:</label>
             <div class="col-sm-6">
                 {{ form.pa_street }}
+                {{ form.pa_street.errors }}
             </div>
         </div>
         <div class="form-group row">
-            {{ form.pa_city.errors }}
             <label for="{{ form.pa_city.id_for_label }}" class="col-sm-2 control-label">Ort:</label>
             <div class="col-sm-6">
                 {{ form.pa_city }}
+                {{ form.pa_city.errors }}
             </div>
         </div>
         <div class="form-group row">
@@ -67,31 +67,59 @@
             </div>
         </div>
         <div class="form-group row">
-            {{ form.pa_phone.errors }}
             <label for="{{ form.pa_phone.id_for_label }}" class="col-sm-2 control-label">Telefonnummer:</label>
             <div class="col-sm-6">
                 {{ form.pa_phone }}
+                {{ form.pa_phone.errors }}
             </div>
         </div>
         <div class="form-group row">
-            {{ form.pa_cell_phone.errors }}
             <label for="{{ form.pa_cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunk:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone }}
+                {{ form.pa_cell_phone.errors }}
             </div>
         </div>
         <div class="form-group row">
-            {{ form.pa_gender.errors }}
+            <label for="{{ form.pa_cell_phone_add1.id_for_label }}" class="col-sm-2 control-label">weitere Mobilfunknr.:</label>
+            <div class="col-sm-6">
+                {{ form.pa_cell_phone_add1 }}
+                {{ form.pa_cell_phone_add1.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.pa_cell_phone_add2.id_for_label }}" class="col-sm-2 control-label">weitere Mobilfunknr:</label>
+            <div class="col-sm-6">
+                {{ form.pa_cell_phone_add2 }}
+                {{ form.pa_cell_phone_add2.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="{{ form.pa_gender.id_for_label }}" class="col-sm-2 control-label">Geschlecht:</label>
             <div class="col-sm-6">
                 {{ form.pa_gender }}
+                {{ form.pa_gender.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.pa_attention.id_for_label }}" class="col-sm-2 control-label">Wichtige Hinweise:</label>
+            <div class="col-sm-6">
+                {{ form.pa_attention }}
+                {{ form.pa_attention.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.pa_note.id_for_label }}" class="col-sm-2 control-label">Notizen:</label>
+            <div class="col-sm-6">
+                {{ form.pa_note }}
+                {{ form.pa_note.errors }}
             </div>
         </div>
          <div class="form-group row">
-            {{ form.pa_family_doctor.errors }}
             <label for="{{ form.pa_family_doctor.id_for_label }}" class="col-sm-2 control-label">Hausarzt:</label>
             <div class="col-sm-6">
                 {{ form.pa_family_doctor }}
+                {{ form.pa_family_doctor.errors }}
             </div>
         </div>
        <div class="form-group row">

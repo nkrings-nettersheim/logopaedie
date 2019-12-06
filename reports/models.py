@@ -23,11 +23,15 @@ class Patient(models.Model):
     pa_last_name = models.CharField(max_length=50)
     pa_street = models.CharField(max_length=100)
     pa_city = models.CharField(max_length=255)
-    pa_phone = models.CharField(max_length=20, blank=True, default='')
-    pa_cell_phone = models.CharField(max_length=20, blank=True, default='')
+    pa_phone = models.CharField(max_length=30, blank=True, default='')
+    pa_cell_phone = models.CharField(max_length=30, blank=True, default='')
+    pa_cell_phone_add1 = models.CharField(max_length=30, blank=True, default='')
+    pa_cell_phone_add2 = models.CharField(max_length=30, blank=True, default='')
     pa_date_of_birth = models.DateField(default='1900-01-01')
     pa_gender = models.CharField(max_length=1, choices=GENDER, default='1')
     pa_family_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    pa_attention = models.CharField(max_length=100, blank=True, default='')
+    pa_note = models.CharField(max_length=255, blank=True, default='')
 
     def __str__(self):
         return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city
@@ -46,6 +50,10 @@ class Therapy(models.Model):
 
     def __str__(self):
         return str(self.recipe_date)
+
+    def save(self, force_insert=False, force_update=False):
+        self.therapy_icd_cod = self.therapy_icd_cod.upper()
+        super(Therapy, self).save(force_insert, force_update)
 
 
 class Therapy_report(models.Model):

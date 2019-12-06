@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor
 
@@ -7,7 +8,17 @@ class IndexForm(forms.Form):
                                     attrs={
                                         'class': 'form-control',
                                         'autofocus': 'autofocus',
-                                        'placeholder': 'Nachnamen eingeben ...'
+                                        'placeholder': 'Name eingeben ...'
+                                    }
+                                ),
+                                required=False
+                                )
+
+    first_name = forms.CharField(widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control',
+                                        'autofocus': 'autofocus',
+                                        'placeholder': 'Vornamen eingeben ...'
                                     }
                                 ),
                                 required=False
@@ -129,32 +140,57 @@ class PatientForm(forms.ModelForm):
         )
     )
 
-    pa_phone = forms.CharField(required=False,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       'class': 'form-control',
-                                       'placeholder': 'Festnetz-Rufnummer eingeben ...'
-                                   }
-                               )
-                               )
+    pa_phone = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Festnetz-Rufnummer eingeben ...'
+            }
+        )
+    )
 
-    pa_cell_phone = forms.CharField(required=False,
-                                    widget=forms.TextInput(
-                                        attrs={
-                                            'class': 'form-control',
-                                            'placeholder': 'Mobilfunk-Rufnummer eingeben ...'
-                                        }
-                                    )
-                                    )
+    pa_cell_phone = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Mobilfunk-Rufnummer eingeben ...'
+            }
+        )
+    )
 
-    pa_date_of_birth = forms.DateField(required=True,
-                                       widget=forms.DateInput(
-                                           attrs={
-                                               'class': 'form-control',
-                                               'placeholder': 'Geburtsdatum eingeben ...'
-                                           }
-                                       )
-                                       )
+    pa_cell_phone_add1 = forms.CharField(
+        required=False,
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'weitere Mobilfunk-Rufnummer eingeben ...'
+            }
+        )
+    )
+
+    pa_cell_phone_add2 = forms.CharField(
+        required=False,
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'weitere Mobilfunk-Rufnummer eingeben ...'
+            }
+        )
+    )
+
+    pa_date_of_birth = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+           attrs={
+              'class': 'form-control',
+               'placeholder': 'Geburtsdatum eingeben ...'
+           }
+        )
+    )
 
     GENDER = (
         ('1', 'weiblich'),
@@ -169,6 +205,29 @@ class PatientForm(forms.ModelForm):
 
     pa_family_doctor = forms.ModelChoiceField(queryset=Doctor.objects.all())
 
+    pa_attention = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Wichtige Info ...'
+            }
+        )
+    )
+
+    pa_note = forms.CharField(
+         required=False,
+         max_length=255,
+         widget=forms.Textarea(
+             attrs={
+                 'class': 'form-control',
+                 'cols': '20',
+                 'rows': '5',
+                 'placeholder': "Notizen ..."
+             }
+         )
+    )
+
     class Meta:
         model = Patient
         fields = ['pa_first_name',
@@ -177,13 +236,18 @@ class PatientForm(forms.ModelForm):
                   'pa_city',
                   'pa_phone',
                   'pa_cell_phone',
+                  'pa_cell_phone_add1',
+                  'pa_cell_phone_add2',
                   'pa_date_of_birth',
                   'pa_gender',
-                  'pa_family_doctor'
+                  'pa_family_doctor',
+                  'pa_attention',
+                  'pa_note'
                   ]
 
 
 class TherapyForm(forms.ModelForm):
+
     recipe_date = forms.DateField(required=True,
                                   widget=forms.DateInput(
                                       attrs={
@@ -217,14 +281,17 @@ class TherapyForm(forms.ModelForm):
                                                    )
                                                    )
 
-    therapy_duration = forms.CharField(required=False,
-                                       widget=forms.TextInput(
-                                           attrs={
-                                               'class': 'form-control',
-                                               'placeholder': 'Therapiedauer ...'
-                                           }
-                                       )
-                                       )
+    DURATION = (
+        ('30', '30'),
+        ('45', '45'),
+        ('60', '60'),
+    )
+
+    therapy_duration = forms.ChoiceField(choices=DURATION,  label="", initial=45, widget=forms.Select(
+                                        attrs={
+                                            'class': 'form-control'
+                                        }
+                                    ))
 
     INDICATION = (
         ('n/a', 'auswählen'),
@@ -255,7 +322,8 @@ class TherapyForm(forms.ModelForm):
                                       widget=forms.TextInput(
                                           attrs={
                                               'class': 'form-control',
-                                              'placeholder': 'ICD-CoD eingeben ...'
+                                              'placeholder': 'ICD-CoD eingeben ...',
+                                              'style': 'text-transform:uppercase;'
                                           }
                                       )
                                       )
@@ -289,6 +357,7 @@ class ProcessReportForm(forms.ModelForm):
     process_content = forms.CharField(widget=forms.Textarea(
         attrs={
             'class': 'form-control',
+            'autofocus': 'autofocus',
             'cols': '20',
             'rows': '5'
         }
@@ -305,12 +374,14 @@ class ProcessReportForm(forms.ModelForm):
 
 
 class TherapyReportForm(forms.ModelForm):
+    now = datetime.datetime.now()
+    placeholder = now.strftime('%d.%m.%Y')
     report_date = forms.DateField(required=False,
                                   widget=forms.DateInput(
                                       attrs={
                                           'class': 'form-control',
                                           'autofocus': 'autofocus',
-                                          'placeholder': 'Report Datum festlegen ...'
+                                          'placeholder': placeholder
                                       }
                                   )
                                   )

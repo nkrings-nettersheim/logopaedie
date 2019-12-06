@@ -9,6 +9,7 @@ app_name = 'reports'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('impressum/', views.impressum, name='impressum'),
     path('search/patient/', views.search_patient, name='search_patient'),
     path('add/patient/', views.add_patient, name='add_patient'),
     path('edit/patient/<id>/', views.edit_patient, name='edit_patient'),

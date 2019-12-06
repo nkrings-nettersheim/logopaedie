@@ -35,6 +35,9 @@ def index(request):
     form = IndexForm()
     return render(request, 'reports/index.html', {'form': form})
 
+def impressum(request):
+    logger.info('Impressumseite aufgerufen')
+    return render(request, 'reports/impressum.html')
 
 class PatientView(generic.ListView):
     model = Patient
@@ -50,12 +53,14 @@ def search_patient(request):
         form = IndexForm(request.POST)
         if form.is_valid():
             last_name = request.POST['last_name']
+            first_name = request.POST['first_name']
             date_of_birth = request.POST['date_of_birth']
             logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth)
+
             if last_name != "":
                 patients_list = Patient.objects.filter(pa_last_name__startswith=last_name)
                 if len(patients_list) > 1:
-                    logger.info("search_patient: Mehrere Patienten mit dem Nachnamen " + last_name + " gefunden")
+                    logger.info("search_patient: Mehrere Patienten mit dem Namen: " + last_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
                 elif len(patients_list) == 1:
                     logger.info("search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
@@ -63,9 +68,20 @@ def search_patient(request):
                 else:
                     logger.info("search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
                     return redirect('/reports/')
+
+            elif first_name != "":
+                patients_list = Patient.objects.filter(pa_first_name__startswith=first_name)
+                if len(patients_list) > 1:
+                    logger.info("search_patient: Mehrere Patienten mit dem Vornamen: " + first_name + " gefunden")
+                    return render(request, 'reports/patients.html', {'patients_list': patients_list})
+                elif len(patients_list) == 1:
+                    logger.info("search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
+                    return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
+                else:
+                    logger.info("search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
+                    return redirect('/reports/')
+
             elif date_of_birth != "":
-                #datum = parse_date(date_of_birth)
-                #assert False
                 patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True))
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Geburtsdatum " + date_of_birth + " gefunden")
@@ -184,13 +200,17 @@ def patient(request, id=id):
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
         therapy_result_count = therapy_result.count()
         process_result_count = 0
+        i = 0
         for therapy_result_item in therapy_result:
             process_result_count = Process_report.objects.filter(therapy_id=therapy_result_item.id).count() + process_result_count
+            therapy_result[i].single = Process_report.objects.filter(therapy_id=therapy_result_item.id).count()
+            i = i + 1
         logger.info('patient: Patient mit der ID: ' + str(id) + ' aufgerufen')
         return render(request, 'reports/patient.html', {'patient': patient_result,
                                                         'therapy': therapy_result,
                                                         'therapy_count': therapy_result_count,
-                                                        'process_count': process_result_count})
+                                                        'process_count': process_result_count
+                                                        })
     except ObjectDoesNotExist:
         logger.info('patient: Objekt existiert nicht')
         return redirect('/reports/')
@@ -271,7 +291,7 @@ def edit_process_report(request, id=None):
     if form.is_valid():
         form.save()
         logger.info('edit_process_report: Verlaufsprotokoll ändern mit ID: ' + str(item.id))
-        return redirect('/reports/process_report/' + str(item.id) + '/')
+        return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
     logger.info('edit_process_report: Verlaufsprotokoll anlegen mit ID: ' + id)
     return render(request, 'reports/process_report_form.html', {'form': form})
 
@@ -510,12 +530,12 @@ def show_therapy_report(request):
         p.drawString(8.12 * cm, 5.8 * cm, "X")
 
     p.setFont('Helvetica', 8)
-    p.drawString(2.8 * cm, 24.7 * cm, "Logopädie Praxis Petra Klein - Rathausstrasse 8 - 53879 Euskirchen")
+    p.drawString(2.8 * cm, 24.7 * cm, "Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 – 53879 Euskirchen")
 
     p.setFillColorRGB(0.66, 0.5, 0.82)
     p.setFont('Helvetica', 10)
-    p.drawString(4.0 * cm, 26.4 * cm, "Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen")
-    p.drawString(4.0 * cm, 25.9 * cm, "sowie Mutismus")
+    p.drawString(4.0 * cm, 26.4 * cm, "Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen,")
+    p.drawString(4.0 * cm, 25.9 * cm, "Mutismus, Autismus, Dyslalie, Störung der Wahrnehmung")
 
     #RGB Wert wird errechnet aus RGB Wert / 256
     p.setFillColorRGB(0.66, 0.66, 0.66)

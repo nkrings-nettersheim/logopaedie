@@ -14,13 +14,13 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Patient</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Patient/Deckblatt</a>
       </li>
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezeptdaten ändern</a>
       </li>
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf bearbeiten</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf ergänzen</a>
       </li>
     {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
@@ -118,7 +118,7 @@
       <tbody>
       {% for item in process_report %}
         <tr>
-          <th scope="row" class="align-top">{{ item.process_treatment }}</th>
+          <th scope="row" class="align-top"><a href="{% url 'reports:edit_process_report' item.id %}">Nr. {{ item.process_treatment }}</a>  </th>
           <td class="align-top">{{ item.process_content }}</td>
           <td class="align-top">{{ item.process_exercises }}</td>
           <td class="align-top">{{ item.process_results }}</td>
