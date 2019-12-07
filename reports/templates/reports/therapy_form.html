@@ -71,6 +71,13 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Therapiefrequenze: </label>
+                <div class="col-sm-6">
+                    {{ form.therapy_frequence }}
+                    {{ form.therapy_frequence.errors }}
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Indikationsschlüssel: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_indication_key }}

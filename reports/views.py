@@ -477,37 +477,40 @@ def show_therapy_report(request):
 
     p.setFillColor(black)
     p.setFont('Helvetica', 12)
-    p.drawString(2.2 * cm, 3.3 * cm, "Mit freundlichen Grüßen")
+    p.drawString(1.2 * cm, 3.3 * cm, "Mit freundlichen Grüßen")
+
+    p.setFont('Helvetica-Bold', 10)
+    p.drawString(1.2 * cm, 23.5 * cm, str(doctor_result.doctor_name1))
+    p.drawString(1.2 * cm, 23.0 * cm, str(doctor_result.doctor_name2))
+
     p.setFont('Helvetica-Bold', 12)
-    p.drawString(2.2 * cm, 19.7 * cm, "Mitteilung des Therapeuten an den verordnenden Arzt:")
-    p.drawString(2.2 * cm, 16.7 * cm, "Aktueller Stand der Therapie:")
-    p.drawString(2.2 * cm, 23.5 * cm, str(doctor_result.doctor_name1))
-    p.drawString(2.2 * cm, 23.0 * cm, str(doctor_result.doctor_name2))
-    p.drawString(2.2 * cm, 22.0 * cm, str(doctor_result.doctor_street))
-    p.drawString(2.2 * cm, 21.5 * cm, str(doctor_result.doctor_zip_code) + " " + str(doctor_result.doctor_city))
+    p.drawString(1.2 * cm, 19.7 * cm, "Mitteilung des Therapeuten an den verordnenden Arzt:")
+    p.drawString(1.2 * cm, 16.7 * cm, "Aktueller Stand der Therapie:")
+    p.drawString(1.2 * cm, 22.0 * cm, str(doctor_result.doctor_street))
+    p.drawString(1.2 * cm, 21.5 * cm, str(doctor_result.doctor_zip_code) + " " + str(doctor_result.doctor_city))
 
 
-    p.line(2.2 * cm, 16.6 * cm, 8.15 * cm, 16.6 * cm)
-    p.drawString(2.2 * cm, 13.7 * cm, "Therapieschwerpunkte:")
-    p.line(2.2 * cm, 13.6 * cm, 7.0 * cm, 13.6 * cm)
-    p.drawString(2.2 * cm, 11.1 * cm, "Prognostische Einschätzung mit Angabe der Restsymptomatik:")
-    p.line(2.2 * cm, 11.0 * cm, 15.0 * cm, 11.0 * cm)
-    p.drawString(2.2 * cm, 4.0 * cm, "Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!")
+    p.line(1.2 * cm, 16.6 * cm, 7.15 * cm, 16.6 * cm)
+    p.drawString(1.2 * cm, 13.7 * cm, "Therapieschwerpunkte:")
+    p.line(1.2 * cm, 13.6 * cm, 6.0 * cm, 13.6 * cm)
+    p.drawString(1.2 * cm, 11.1 * cm, "Prognostische Einschätzung mit Angabe der Restsymptomatik:")
+    p.line(1.2 * cm, 11.0 * cm, 14.0 * cm, 11.0 * cm)
+    p.drawString(1.2 * cm, 4.0 * cm, "Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!")
     p.drawString(11 * cm, 2.3 * cm, "Vielen Dank für die Kooperation")
 
     p.setFont('Helvetica-Bold', 10)
     p.drawString(12.8 * cm, 22.3 * cm, "Euskirchen den: " + str(datetime.now().strftime("%d.%m.%Y")))
-    p.drawString(2.2 * cm, 18.9 * cm, "Name des Patienten:")
+    p.drawString(1.2 * cm, 18.9 * cm, "Name des Patienten:")
     p.drawString(11.2 * cm, 18.9 * cm, "geb. am:")
-    p.drawString(2.2 * cm, 18.4 * cm, "Rezeptdatum:")
-    p.drawString(2.5 * cm, 17.9 * cm, "Behandlungen vom:")
+    p.drawString(1.2 * cm, 18.4 * cm, "Rezeptdatum:")
+    p.drawString(1.5 * cm, 17.9 * cm, "Behandlungen vom:")
     p.drawString(12.0 * cm, 17.9 * cm, "bis:")
-    p.drawString(2.2 * cm, 17.4 * cm, "Indikationsschlüssel:")
+    p.drawString(1.2 * cm, 17.4 * cm, "Indikationsschlüssel:")
     p.drawString(11.1 * cm, 17.4 * cm, "ICD-Cod:")
-    p.drawString(2.2 * cm, 6.6 * cm, "Behandlung weiter indiziert:")
-    p.drawString(2.2 * cm, 5.8 * cm, "Pause:")
+    p.drawString(1.2 * cm, 6.6 * cm, "Behandlung weiter indiziert:")
+    p.drawString(1.2 * cm, 5.8 * cm, "Pause:")
     p.drawString(10.2 * cm, 5.8 * cm, "Fortsetzung ab:")
-    p.drawString(2.2 * cm, 5.0 * cm, "Bemerkung:")
+    p.drawString(1.2 * cm, 5.0 * cm, "Bemerkung:")
 
     p.setFont('Helvetica', 10)
     p.drawString(6.2 * cm, 18.9 * cm, pa_last_name + ", " + pa_first_name)
@@ -515,7 +518,7 @@ def show_therapy_report(request):
     p.drawString(6.2 * cm, 18.4 * cm, str(recipe_date.strftime("%d.%m.%Y")))
     p.drawString(6.2 * cm, 17.9 * cm, str(therapy_start.strftime("%d.%m.%Y")))
     p.drawString(13.2 * cm, 17.9 * cm, str(therapy_end.strftime("%d.%m.%Y")))
-    p.drawString(2.2 * cm, 17.9 * cm, str(process_count))
+    p.drawString(1.2 * cm, 17.9 * cm, str(process_count))
     p.drawString(6.2 * cm, 17.4 * cm, str(therapy_result.therapy_indication_key))
     p.drawString(13.2 * cm, 17.4 * cm, str(therapy_result.therapy_icd_cod))
     p.drawString(6.2 * cm, 5.0 * cm, str(result.therapy_comment))
@@ -529,8 +532,8 @@ def show_therapy_report(request):
     if result.therapy_break:
         p.drawString(8.12 * cm, 5.8 * cm, "X")
 
-    p.setFont('Helvetica', 8)
-    p.drawString(2.8 * cm, 24.7 * cm, "Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 – 53879 Euskirchen")
+    p.setFont('Helvetica', 6)
+    p.drawString(1.2 * cm, 24.7 * cm, "Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 – 53879 Euskirchen")
 
     p.setFillColorRGB(0.66, 0.5, 0.82)
     p.setFont('Helvetica', 10)
@@ -559,8 +562,8 @@ def show_therapy_report(request):
     p.drawString(15.3 * cm, 23.8 * cm, "Fax.")
     p.drawString(16.6 * cm, 23.8 * cm, "02486 / 80 29 60")
 
-    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/logopaedie.jpeg', 1.3 * cm, 25.6 * cm, width=2.12 * cm, height=3.72 * cm)
-    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/unterschrift.jpeg', 3.0 * cm, 1.5 * cm, width=4.0 * cm, height=1.74 * cm)
+    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/logopaedie.jpeg', 0.8 * cm, 25.6 * cm, width=2.12 * cm, height=3.72 * cm)
+    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/unterschrift.jpeg', 1.0 * cm, 1.5 * cm, width=4.0 * cm, height=1.74 * cm)
     p.setStrokeColor(black)
     p.grid([8.0*cm, 8.5*cm], [6.5*cm, 7.0*cm])
     p.grid([8.0*cm, 8.5*cm], [5.7*cm, 6.2*cm])
@@ -574,7 +577,7 @@ def show_therapy_report(request):
 
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(2.0, 13.0, height - h, cm))
+    table.drawOn(p, *coord(1.0, 13.0, height - h, cm))
 
     data = []
     content = str(str(result.therapy_emphases)).replace('\n', '<br />\n')
@@ -586,7 +589,7 @@ def show_therapy_report(request):
 
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(2.0, 16.0, height - h, cm))
+    table.drawOn(p, *coord(1.0, 16.0, height - h, cm))
 
     data = []
     content = str(str(result.therapy_forecast)).replace('\n', '<br />\n')
@@ -598,7 +601,7 @@ def show_therapy_report(request):
 
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(2.0, 18.6, height - h, cm))
+    table.drawOn(p, *coord(1.0, 18.6, height - h, cm))
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()

@@ -52,57 +52,52 @@
             <div class="col-sm">
                 Patient: <strong>{{ patient.pa_last_name }}, {{ patient.pa_first_name }} </strong>
             </div>
-        </div>
-        <br>
-        <div class="row">
             <div class="col-sm">
-                Rezeptdaten:
+                Arzt: <strong>{{ therapy.therapy_doctor }}</strong>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-sm">
                 Rezeptdatum: <strong>{{ therapy.recipe_date|date:"d.m.Y" }}</strong>
             </div>
-            <div class="col-sm">
-                Beginn: <strong>{{ therapy.therapy_start|date:"d.m.Y" }}</strong>
-            </div>
-            <div class="col-sm">
-                Ende: <strong>{{ therapy.therapy_end|date:"d.m.Y" }}</strong>
-            </div>
-        </div>
 
+        </div>
+        <br>
        <div class="row">
             <div class="col-sm">
                 Verordnungsmenge: <strong>{{ therapy.therapy_regulation_amount }}</strong>
             </div>
             <div class="col-sm">
-                Therapiedauer: <strong>{{ therapy.therapy_duration }}</strong>
+                Indikationsschlüssel: <strong>{{ therapy.therapy_indication_key }}</strong>
             </div>
             <div class="col-sm">
+                Therapiebeginn: <strong>{{ therapy.therapy_start|date:"d.m.Y" }}</strong>
             </div>
         </div>
-
-       <div class="row">
+        <div class="row">
             <div class="col-sm">
-                Indikationsschlüssel: <strong>{{ therapy.therapy_indication_key }}</strong>
+                Therapiedauer: <strong>{{ therapy.therapy_duration }}</strong>
             </div>
             <div class="col-sm">
                 ICD-CoD: <strong>{{ therapy.therapy_icd_cod }}</strong>
             </div>
             <div class="col-sm">
+                Therapieende: <strong>{{ therapy.therapy_end|date:"d.m.Y" }}</strong>
             </div>
         </div>
 
-       <div class="row">
+
+
+
+        <div class="row">
             <div class="col-sm">
-                Arzt: <strong>{{ therapy.therapy_doctor }}</strong>
+                Therapiefrequenz: <strong>{{ therapy.therapy_frequence }}</strong>
             </div>
             <div class="col-sm">
+
             </div>
             <div class="col-sm">
             </div>
         </div>
+
 
     </div>
     <br>
@@ -118,7 +113,7 @@
       <tbody>
       {% for item in process_report %}
         <tr>
-          <th scope="row" class="align-top"><a href="{% url 'reports:edit_process_report' item.id %}">Nr. {{ item.process_treatment }}</a>  </th>
+          <th scope="row" class="align-top"><a href="{% url 'reports:edit_process_report' item.id %}">Th. {{ item.process_treatment }}</a>  </th>
           <td class="align-top">{{ item.process_content }}</td>
           <td class="align-top">{{ item.process_exercises }}</td>
           <td class="align-top">{{ item.process_results }}</td>

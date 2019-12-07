@@ -17,7 +17,6 @@ class IndexForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(
                                     attrs={
                                         'class': 'form-control',
-                                        'autofocus': 'autofocus',
                                         'placeholder': 'Vornamen eingeben ...'
                                     }
                                 ),
@@ -47,6 +46,7 @@ class SearchPatient(forms.Form):
 
 class DoctorForm(forms.ModelForm):
     doctor_name1 = forms.CharField(required=True,
+                                   max_length=50,
                                    widget=forms.TextInput(
                                        attrs={
                                            'class': 'form-control',
@@ -57,6 +57,7 @@ class DoctorForm(forms.ModelForm):
                                    )
 
     doctor_name2 = forms.CharField(required=False,
+                                   max_length=50,
                                    widget=forms.TextInput(
                                        attrs={
                                            'class': 'form-control',
@@ -66,6 +67,7 @@ class DoctorForm(forms.ModelForm):
                                    )
 
     doctor_street = forms.CharField(required=True,
+                                    max_length=50,
                                     widget=forms.TextInput(
                                         attrs={
                                             'class': 'form-control',
@@ -75,6 +77,7 @@ class DoctorForm(forms.ModelForm):
                                     )
 
     doctor_zip_code = forms.CharField(required=True,
+                                      max_length=5,
                                       widget=forms.TextInput(
                                           attrs={
                                               'class': 'form-control',
@@ -84,6 +87,7 @@ class DoctorForm(forms.ModelForm):
                                       )
 
     doctor_city = forms.CharField(required=True,
+                                  max_length=50,
                                   widget=forms.TextInput(
                                       attrs={
                                           'class': 'form-control',
@@ -142,6 +146,7 @@ class PatientForm(forms.ModelForm):
 
     pa_phone = forms.CharField(
         required=False,
+        max_length=35,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
@@ -152,6 +157,7 @@ class PatientForm(forms.ModelForm):
 
     pa_cell_phone = forms.CharField(
         required=False,
+        max_length=35,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
@@ -162,22 +168,22 @@ class PatientForm(forms.ModelForm):
 
     pa_cell_phone_add1 = forms.CharField(
         required=False,
-        max_length=30,
+        max_length=35,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'weitere Mobilfunk-Rufnummer eingeben ...'
+                'placeholder': 'weitere Rufnummer eingeben ...'
             }
         )
     )
 
     pa_cell_phone_add2 = forms.CharField(
         required=False,
-        max_length=30,
+        max_length=35,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'weitere Mobilfunk-Rufnummer eingeben ...'
+                'placeholder': 'weitere Rufnummer eingeben ...'
             }
         )
     )
@@ -203,7 +209,6 @@ class PatientForm(forms.ModelForm):
         }
     ))
 
-    pa_family_doctor = forms.ModelChoiceField(queryset=Doctor.objects.all())
 
     pa_attention = forms.CharField(
         max_length=100,
@@ -240,7 +245,6 @@ class PatientForm(forms.ModelForm):
                   'pa_cell_phone_add2',
                   'pa_date_of_birth',
                   'pa_gender',
-                  'pa_family_doctor',
                   'pa_attention',
                   'pa_note'
                   ]
@@ -281,6 +285,17 @@ class TherapyForm(forms.ModelForm):
                                                    )
                                                    )
 
+    therapy_frequence = forms.CharField(required=False,
+                                        max_length=5,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': 'Therapiefrequenz erfassen ...'
+                                          }
+                                      )
+                                      )
+
+
     DURATION = (
         ('30', '30'),
         ('45', '45'),
@@ -319,6 +334,7 @@ class TherapyForm(forms.ModelForm):
     ))
 
     therapy_icd_cod = forms.CharField(required=False,
+                                      max_length=10,
                                       widget=forms.TextInput(
                                           attrs={
                                               'class': 'form-control',
@@ -339,6 +355,7 @@ class TherapyForm(forms.ModelForm):
                   'therapy_end',
                   'therapy_regulation_amount',
                   'therapy_duration',
+                  'therapy_frequence',
                   'therapy_indication_key',
                   'therapy_icd_cod',
                   'therapy_doctor',
