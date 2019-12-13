@@ -10,7 +10,7 @@ class Doctor(models.Model):
     doctor_city = models.CharField(max_length=50, blank=True, default='')
 
     def __str__(self):
-        return self.doctor_name1 + ' ' + self.doctor_name2 + '; ' + self.doctor_city
+        return self.doctor_name1 + '; ' + self.doctor_city
 
 
 
@@ -43,6 +43,8 @@ class Therapy(models.Model):
     therapy_regulation_amount = models.IntegerField(blank=True, null=True)
     therapy_duration = models.CharField(max_length=10, default='')
     therapy_frequence = models.CharField(max_length=5, default='')
+    therapy_rid_of = models.BooleanField(default=False)
+    therapy_report_no_yes = models.BooleanField(default=True)
     therapy_indication_key = models.CharField(max_length=10, default='')
     therapy_icd_cod = models.CharField(max_length=10, default='')
     therapy_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
@@ -73,9 +75,15 @@ class Therapy_report(models.Model):
 
 class Process_report(models.Model):
     process_treatment = models.IntegerField()
-    process_content = models.CharField(max_length=255)
-    process_exercises = models.CharField(max_length=255)
-    process_results = models.CharField(max_length=255)
+    process_content = models.CharField(max_length=255, blank=True, default='')
+    process_exercises = models.CharField(max_length=50, blank=True, default='')
+    process_results = models.CharField(max_length=50, blank=True, default='')
+    process_content_2 = models.CharField(max_length=255, blank=True, default='')
+    process_exercises_2 = models.CharField(max_length=50, blank=True, default='')
+    process_results_2 = models.CharField(max_length=50, blank=True, default='')
+    process_content_3 = models.CharField(max_length=255, blank=True, default='')
+    process_exercises_3 = models.CharField(max_length=50, blank=True, default='')
+    process_results_3 = models.CharField(max_length=50, blank=True, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
 
     def __str__(self):

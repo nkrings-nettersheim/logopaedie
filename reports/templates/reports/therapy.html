@@ -35,9 +35,15 @@
         {% endif %}
       </li>
     {% if request.user.groups.all.0.name == 'Leitung' %}
-      <li class="nav-item">
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
-      </li>
+        {% if therapy.therapy_end == None %}
+            <li class="nav-item">
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
+            </li>
+        {% endif %}
     {% endif %}
     </ul>
   </div>
@@ -63,7 +69,7 @@
         <br>
        <div class="row">
             <div class="col-sm">
-                Verordnungsmenge: <strong>{{ therapy.therapy_regulation_amount }}</strong>
+                Verordnungsmenge: <strong>{{ therapy.therapy_regulation_amount }} </strong>
             </div>
             <div class="col-sm">
                 Indikationsschlüssel: <strong>{{ therapy.therapy_indication_key }}</strong>
@@ -84,9 +90,6 @@
             </div>
         </div>
 
-
-
-
         <div class="row">
             <div class="col-sm">
                 Therapiefrequenz: <strong>{{ therapy.therapy_frequence }}</strong>
@@ -98,6 +101,16 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-sm">
+                Befreit: <strong>{% if therapy.therapy_rid_of %} ja {% else %} nein {% endif %}</strong>
+            </div>
+            <div class="col-sm">
+                Bericht: <strong>{% if therapy.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
 
     </div>
     <br>
@@ -113,10 +126,20 @@
       <tbody>
       {% for item in process_report %}
         <tr>
-          <th scope="row" class="align-top"><a href="{% url 'reports:edit_process_report' item.id %}">Th. {{ item.process_treatment }}</a>  </th>
+          <th scope="row" rowspan="3" class="align-top"><a href="{% url 'reports:edit_process_report' item.id %}">Th. {{ item.process_treatment }}</a>  </th>
           <td class="align-top">{{ item.process_content }}</td>
           <td class="align-top">{{ item.process_exercises }}</td>
           <td class="align-top">{{ item.process_results }}</td>
+        </tr>
+        <tr>
+          <td class="align-top">{{ item.process_content_2 }}</td>
+          <td class="align-top">{{ item.process_exercises_2 }}</td>
+          <td class="align-top">{{ item.process_results_2 }}</td>
+        </tr>
+        <tr>
+          <td class="align-top">{{ item.process_content_3 }}</td>
+          <td class="align-top">{{ item.process_exercises_3 }}</td>
+          <td class="align-top">{{ item.process_results_3 }}</td>
         </tr>
       {% endfor %}
       </tbody>

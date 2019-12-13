@@ -7,3 +7,7 @@ content {
     grid-row:    2 / 4;                 
 }
 
+.inline {
+    display: inline;
+}
+

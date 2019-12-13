@@ -31,32 +31,21 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <div class="small">Name: </div> <strong> {{ patient.pa_last_name}}</strong>
+                <div class="small inline">Name: </div> <strong> {{ patient.pa_last_name}}</strong>
             </div>
             <div class="col-sm">
-                <div class="small">Vorname: </div> <strong> {{ patient.pa_first_name}}</strong>
+                <div class="small inline">Vorname: </div> <strong> {{ patient.pa_first_name}}</strong>
             </div>
             <div class="col-sm">
-                <div class="small">Geburtsdatum: </div> <strong> {{ patient.pa_date_of_birth|date:"d.m.Y" }}</strong>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm">
-                <div class="small">Ort: </div> <strong> {{ patient.pa_city}}</strong>
-            </div>
-            <div class="col-sm">
-
-            </div>
-            <div class="col-sm">
-
+                <div class="small inline">Geburtsdatum: </div> <strong> {{ patient.pa_date_of_birth|date:"d.m.Y" }}</strong>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
-                <div class="small">Straße: </div> <strong>  {{ patient.pa_street}}</strong>
+                <div class="small inline">Ort: </div> <strong> {{ patient.pa_city}}</strong>
             </div>
             <div class="col-sm">
+                <div class="small inline">Straße: </div> <strong>  {{ patient.pa_street}}</strong>
             </div>
             <div class="col-sm">
 
@@ -65,22 +54,21 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                <div class="small">Telefon: </div> <strong> {{ patient.pa_phone }}</strong>
+                <div class="small inline">Telefon&nbsp;&nbsp;&nbsp;&nbsp;: </div> <strong> {{ patient.pa_phone }}</strong>
             </div>
             <div class="col-sm">
-                <div class="small">Mobilfunk: </div> <strong> {{ patient.pa_cell_phone }}</strong>
+                <div class="small inline">Mobilfunk: </div> <strong> {{ patient.pa_cell_phone }}</strong>
             </div>
             <div class="col-sm">
 
             </div>
         </div>
-        <br>
         <div class="row">
             <div class="col-sm">
-              <div class="small">Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add1 }}</strong>
+              <div class="small inline">Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add1 }}</strong>
             </div>
             <div class="col-sm">
-                <div class="small">Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add2 }}</strong>
+                <div class="small inline">Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add2 }}</strong>
             </div>
             <div class="col-sm">
 
@@ -115,13 +103,15 @@
 
         {% for item in therapy %}
         <div class="row">
-            <div class="col-sm-1">Rezept:</div>
+            <div class="col-sm-1 text-center small">Rezept:</div>
             <div class="col-sm-1"><span class="float-right"><strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong></span></div>
-            <div class="col-sm-1 text-center">vom: </div>
+            <div class="col-sm-1 text-center small">vom: </div>
             <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_start|date:"d.m.Y" }}</strong></span></div>
-            <div class="col-sm-1 text-center">bis: </div>
+            <div class="col-sm-1 text-center small">bis: </div>
             <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></span></div>
-            <div class="col-sm-1 text-center"><strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
+            <div class="col-sm-2"><div class="small inline">Th.:</div><strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
+            <div class="col-sm-2"><div class="small inline">Ber.:</div> <strong>{% if item.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong></div>
+            <div class="col-sm-2"><div class="small inline">verschickt:</div> <strong>{% if item.therapy_end %} <div class="text-success inline">ja</div> {% else %} <div class="text-danger inline">nein</div> {% endif %}</strong></div>
         </div>
         {% endfor %}
 

@@ -252,6 +252,10 @@ class PatientForm(forms.ModelForm):
 
 class TherapyForm(forms.ModelForm):
 
+    def check_indication(value):
+        if value == "n/a":
+            raise forms.ValidationError("Bitte Indikationsschlüssel auswählen")
+
     recipe_date = forms.DateField(required=True,
                                   widget=forms.DateInput(
                                       attrs={
@@ -307,6 +311,9 @@ class TherapyForm(forms.ModelForm):
                                             'class': 'form-control'
                                         }
                                     ))
+    therapy_rid_of = forms.NullBooleanField(required=False, initial=False, widget=forms.NullBooleanSelect)
+
+    therapy_report_no_yes = forms.NullBooleanField(required=False, initial=True, widget=forms.NullBooleanSelect)
 
     INDICATION = (
         ('n/a', 'auswählen'),
@@ -331,7 +338,8 @@ class TherapyForm(forms.ModelForm):
         attrs={
             'class': 'form-control'
         }
-    ))
+    ), validators=[check_indication, ])
+
 
     therapy_icd_cod = forms.CharField(required=False,
                                       max_length=10,
@@ -356,6 +364,8 @@ class TherapyForm(forms.ModelForm):
                   'therapy_regulation_amount',
                   'therapy_duration',
                   'therapy_frequence',
+                  'therapy_rid_of',
+                  'therapy_report_no_yes',
                   'therapy_indication_key',
                   'therapy_icd_cod',
                   'therapy_doctor',
@@ -363,6 +373,7 @@ class TherapyForm(forms.ModelForm):
 
 
 class ProcessReportForm(forms.ModelForm):
+
     process_treatment = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control-plaintext',
@@ -380,12 +391,94 @@ class ProcessReportForm(forms.ModelForm):
         }
     ))
 
+    process_exercises = forms.CharField(required=False,
+                                        max_length=10,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                      }
+                                      )
+                                      )
+
+
+    process_results = forms.CharField(required=False,
+                                        max_length=20,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                      }
+                                      )
+                                      )
+
+
+    process_content_2 = forms.CharField(widget=forms.Textarea(
+        attrs={
+            'class': 'form-control',
+            'cols': '20',
+            'rows': '5'
+        }
+    ))
+
+
+    process_exercises_2 = forms.CharField(required=False,
+                                        max_length=20,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                      }
+                                      )
+                                      )
+
+
+    process_results_2 = forms.CharField(required=False,
+                                        max_length=20,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                      }
+                                      )
+                                      )
+
+
+    process_content_3 = forms.CharField(widget=forms.Textarea(
+        attrs={
+            'class': 'form-control',
+            'cols': '20',
+            'rows': '5'
+        }
+    ))
+
+    process_exercises_3 = forms.CharField(required=False,
+                                        max_length=20,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                      }
+                                      )
+                                      )
+
+    process_results_3 = forms.CharField(required=False,
+                                        max_length=20,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                      }
+                                      )
+                                      )
+
+
     class Meta:
         model = Process_report
         fields = ['process_treatment',
                   'process_content',
                   'process_exercises',
                   'process_results',
+                  'process_content_2',
+                  'process_exercises_2',
+                  'process_results_2',
+                  'process_content_3',
+                  'process_exercises_3',
+                  'process_results_3',
                   'therapy'
                   ]
 
@@ -393,12 +486,14 @@ class ProcessReportForm(forms.ModelForm):
 class TherapyReportForm(forms.ModelForm):
     now = datetime.datetime.now()
     placeholder = now.strftime('%d.%m.%Y')
+
+
     report_date = forms.DateField(required=False,
+                                  initial=placeholder,
                                   widget=forms.DateInput(
                                       attrs={
                                           'class': 'form-control',
-                                          'autofocus': 'autofocus',
-                                          'placeholder': placeholder
+                                          'autofocus': 'autofocus'
                                       }
                                   )
                                   )

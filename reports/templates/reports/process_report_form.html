@@ -22,36 +22,65 @@
 
 <form method="POST" enctype="multipart/form-data" action="">
     <p></p>
-
     {% csrf_token %}
     {{ form.non_field_errors }}
 <div class="container">
     <div class="form-group row">
-        <label for="{{ form.process_treatment.id_for_label }}" class="col-sm-2 control-label">Therapie: </label>
-        <div class="col-sm-6">
+        <label for="{{ form.process_treatment.id_for_label }}" class="col-sm-1 control-label">Therapie: </label>
+        <div class="col-sm-10">
             {{ form.process_treatment }}
             {{ form.process_treatment.errors }}
         </div>
     </div>
     <div class="form-group row">
-        <label for="{{ form.process_content.id_for_label }}" class="col-sm-2 control-label">Therapieinhalt: </label>
-        <div class="col-sm-6">
+        <label for="{{ form.process_content.id_for_label }}" class="col-sm-1 control-label">Inhalt: </label>
+        <div class="col-sm-4">
             {{ form.process_content }}
             {{ form.process_content.errors }}
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="{{ form.process_exercises.id_for_label }}" class="col-sm-2 control-label">Übungen: </label>
-        <div class="col-sm-6">
+        <label for="{{ form.process_exercises.id_for_label }}" class="col-sm-1 control-label">Übungen: </label>
+        <div class="col-sm-2">
             {{ form.process_exercises }}
             {{ form.process_exercises.errors }}
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="{{ form.process_results.id_for_label }}" class="col-sm-2 control-label">Ergebnis: </label>
-        <div class="col-sm-6">
+        <label for="{{ form.process_results.id_for_label }}" class="col-sm-1 control-label">Ergebnis: </label>
+        <div class="col-sm-2">
             {{ form.process_results }}
             {{ form.process_results.errors }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="{{ form.process_content_2.id_for_label }}" class="col-sm-1 control-label">Inhalt: </label>
+        <div class="col-sm-4">
+            {{ form.process_content_2 }}
+            {{ form.process_content_2.errors }}
+        </div>
+        <label for="{{ form.process_exercises_2.id_for_label }}" class="col-sm-1 control-label">Übungen: </label>
+        <div class="col-sm-2">
+            {{ form.process_exercises_2 }}
+            {{ form.process_exercises_2.errors }}
+        </div>
+        <label for="{{ form.process_results_2.id_for_label }}" class="col-sm-1 control-label">Ergebnis: </label>
+        <div class="col-sm-2">
+            {{ form.process_results_2 }}
+            {{ form.process_results_2.errors }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="{{ form.process_content_3.id_for_label }}" class="col-sm-1 control-label">Inhalt: </label>
+        <div class="col-sm-4">
+            {{ form.process_content_3 }}
+            {{ form.process_content_3.errors }}
+        </div>
+        <label for="{{ form.process_exercises_3.id_for_label }}" class="col-sm-1 control-label">Übungen: </label>
+        <div class="col-sm-2">
+            {{ form.process_exercises_3 }}
+            {{ form.process_exercises_3.errors }}
+        </div>
+        <label for="{{ form.process_results_3.id_for_label }}" class="col-sm-1 control-label">Ergebnis: </label>
+        <div class="col-sm-2">
+            {{ form.process_results_3 }}
+            {{ form.process_results_3.errors }}
         </div>
     </div>
     <div class="invisible">
@@ -62,7 +91,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-sm-offset-2 col-sm-6">
+        <div class="col-sm-offset-2 col-sm">
             <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
         </div>
     </div>

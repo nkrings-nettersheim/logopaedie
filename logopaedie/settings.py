@@ -127,3 +127,11 @@ LOGIN_REDIRECT_URL = '/reports/'
 
 #Eingefügt nk 21.07.2019
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+# Email settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'logopaedieklein.raspberry@gmail.com'
+EMAIL_HOST_PASSWORD = 'Nn78RnwNNa'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = 'True'

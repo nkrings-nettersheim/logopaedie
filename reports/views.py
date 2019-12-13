@@ -125,7 +125,13 @@ def search_doctor(request):
     if request.method == 'POST':
         name1 = request.POST['name1']
         if name1 != "":
+            #doctors_list3 =[]
             doctors_list = Doctor.objects.filter(doctor_name1__icontains=name1)
+            if len(doctors_list) == 0:
+                doctors_list = Doctor.objects.filter(doctor_name2__icontains=name1)
+            #doctors_list3.append(doctors_list)
+            #doctors_list3.append(doctors_list2)
+            #assert False
             if len(doctors_list) > 1:
                 logger.info('search_doctor: mehr als einen Arzt gefunden mit dem Suchbegriff: ' + name1)
                 return render(request, 'reports/doctors.html', {'doctors_list': doctors_list})
@@ -257,7 +263,7 @@ def therapy(request, id=id):
     else:
         therapy_report_value = ''
     logger.info('therapy: Rezept mit der ID: ' + str(id) + ' aufgerufen')
-    return render(request, 'reports/therapy.html', {'therapy': therapy_result,
+    return render(request, 'reports/therapy_new.html', {'therapy': therapy_result,
                                                     'patient': patient_value,
                                                     'therapy_report': therapy_report_value,
                                                     'process_report': process_report_value})
@@ -449,9 +455,10 @@ def show_therapy_report(request):
 
     pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
 
+    logger.info('test für Kein Endedatum')
     id = request.GET.get('id')
-    logger.info('show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
     therapy_result = Therapy.objects.get(id=id)
+
     pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
     pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
     pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
@@ -464,6 +471,10 @@ def show_therapy_report(request):
     result = Therapy_report.objects.get(therapy=id)
 
     doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
+
+    logger.info('show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
+
+
 
     buffer = io.BytesIO()
 

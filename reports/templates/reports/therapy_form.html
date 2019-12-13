@@ -49,6 +49,7 @@
                     {{ form.therapy_start.errors }}
                 </div>
             </div>
+            {% if request.user.groups.all.0.name == 'Leitung' %}
             <div class="form-group row">
                 <label for="{{ form.therapy_end.id_for_label }}" class="col-sm-2 control-label">Therapie Ende: </label>
                 <div class="col-sm-6">
@@ -56,6 +57,7 @@
                     {{ form.therapy_end.errors }}
                 </div>
             </div>
+            {% endif %}
             <div class="form-group row">
                 <label for="{{ form.therapy_regulation_amount.id_for_label }}" class="col-sm-2 control-label">Verordnungsmenge: </label>
                 <div class="col-sm-6">
@@ -78,10 +80,17 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="{{ form.therapy_rid_of.id_for_label }}" class="col-sm-2 control-label">Befreit: </label>
+                <div class="col-sm-6">
+                    {{ form.therapy_rid_of }}
+                    {{ form.therapy_rid_of.errors }}
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Indikationsschlüssel: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_indication_key }}
-                    {{ form.therapy_indication_key.errors }}
+                    <div class="text-danger">{{ form.therapy_indication_key.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
@@ -89,6 +98,13 @@
                 <div class="col-sm-6">
                     {{ form.therapy_icd_cod }}
                     {{ form.therapy_icd_cod.errors }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.therapy_report_no_yes.id_for_label }}" class="col-sm-2 control-label">Bericht: </label>
+                <div class="col-sm-6">
+                    {{ form.therapy_report_no_yes }}
+                    {{ form.therapy_report_no_yes.errors }}
                 </div>
             </div>
              <div class="form-group row">
