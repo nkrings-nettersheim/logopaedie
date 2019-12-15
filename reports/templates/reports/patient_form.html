@@ -30,89 +30,93 @@
                 <h4>Patient erfassen:</h4>
             </div>
         </div>
-
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
         <div class="form-group row">
             <label for="{{ form.pa_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
             <div class="col-sm-6">
                 {{ form.pa_last_name }}
-                {{ form.pa_last_name.errors }}
+                <div class="text-danger">{{ form.pa_last_name.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
             <div class="col-sm-6">
                 {{ form.pa_first_name }}
-                {{ form.pa_first_name.errors }}
+                <div class="text-danger">{{ form.pa_first_name.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_street.id_for_label }}" class="col-sm-2 control-label">Strasse:</label>
             <div class="col-sm-6">
                 {{ form.pa_street }}
-                {{ form.pa_street.errors }}
+                <div class="text-danger">{{ form.pa_street.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_city.id_for_label }}" class="col-sm-2 control-label">Ort:</label>
             <div class="col-sm-6">
                 {{ form.pa_city }}
-                {{ form.pa_city.errors }}
+                <div class="text-danger">{{ form.pa_city.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtsdatum:</label>
             <div class="col-sm-6">
                 {{ form.pa_date_of_birth }}
-                {{ form.pa_date_of_birth.errors }}
+                <div class="text-danger">{{ form.pa_date_of_birth.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_phone.id_for_label }}" class="col-sm-2 control-label">Telefonnummer:</label>
             <div class="col-sm-6">
                 {{ form.pa_phone }}
-                {{ form.pa_phone.errors }}
+                <div class="text-danger">{{ form.pa_phone.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunk:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone }}
-                {{ form.pa_cell_phone.errors }}
+                <div class="text-danger">{{ form.pa_cell_phone.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_cell_phone_add1.id_for_label }}" class="col-sm-2 control-label">Telefonnr.:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone_add1 }}
-                {{ form.pa_cell_phone_add1.errors }}
+                <div class="text-danger">{{ form.pa_cell_phone_add1.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_cell_phone_add2.id_for_label }}" class="col-sm-2 control-label">Telefonnr:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone_add2 }}
-                {{ form.pa_cell_phone_add2.errors }}
+                <div class="bg_warning">{{ form.pa_cell_phone_add2.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_gender.id_for_label }}" class="col-sm-2 control-label">Geschlecht:</label>
             <div class="col-sm-6">
                 {{ form.pa_gender }}
-                {{ form.pa_gender.errors }}
+                <div class="text-danger">{{ form.pa_gender.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_attention.id_for_label }}" class="col-sm-2 control-label">Achtung!:</label>
             <div class="col-sm-6">
                 {{ form.pa_attention }}
-                {{ form.pa_attention.errors }}
+                <div class="text-danger">{{ form.pa_attention.errors }}</div>
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.pa_note.id_for_label }}" class="col-sm-2 control-label">Notizen:</label>
             <div class="col-sm-6">
                 {{ form.pa_note }}
-                {{ form.pa_note.errors }}
+                <div class="text-danger">{{ form.pa_note.errors }}</div>
             </div>
         </div>
        <div class="form-group row">

@@ -34,17 +34,19 @@
             <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht anl.</a>
         {% endif %}
       </li>
-    {% if request.user.groups.all.0.name == 'Leitung' %}
-        {% if therapy.therapy_end == None %}
-            <li class="nav-item">
-                <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
-            </li>
+        {% if therapy_report.therapy_id %}
+            {% if request.user.groups.all.0.name == 'Leitung' %}
+                {% if therapy_report.report_date == None %}
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
+                    </li>
+                {% endif %}
+            {% endif %}
         {% endif %}
-    {% endif %}
     </ul>
   </div>
 </nav>
@@ -59,7 +61,7 @@
                 Patient: <strong>{{ patient.pa_last_name }}, {{ patient.pa_first_name }} </strong>
             </div>
             <div class="col-sm">
-                Arzt: <strong>{{ therapy.therapy_doctor }}</strong>
+                Arzt: <strong>{{ therapy.therapy_doctor|truncatechars:40 }}</strong>
             </div>
             <div class="col-sm">
                 Rezeptdatum: <strong>{{ therapy.recipe_date|date:"d.m.Y" }}</strong>
@@ -75,7 +77,7 @@
                 Indikationsschlüssel: <strong>{{ therapy.therapy_indication_key }}</strong>
             </div>
             <div class="col-sm">
-                Therapiebeginn: <strong>{{ therapy.therapy_start|date:"d.m.Y" }}</strong>
+                Therapiebeginn: <strong>{{ therapy_report.therapy_start|date:"d.m.Y" }}</strong>
             </div>
         </div>
         <div class="row">
@@ -86,7 +88,7 @@
                 ICD-CoD: <strong>{{ therapy.therapy_icd_cod }}</strong>
             </div>
             <div class="col-sm">
-                Therapieende: <strong>{{ therapy.therapy_end|date:"d.m.Y" }}</strong>
+                Therapieende: <strong>{{ therapy_report.therapy_end|date:"d.m.Y" }}</strong>
             </div>
         </div>
 
@@ -140,17 +142,17 @@
                       <div class="col-sm text-white">Therapie {{ item.process_treatment }} <a class="text-white" href="{% url 'reports:edit_process_report' item.id %}">(ändern)</a></div>
                   </div>
                   <div class="row bg-white ">
-                      <div class="col-sm-8">{{ item.process_content }}</div>
+                      <div class="col-sm-8">{{ item.process_content|linebreaks }}</div>
                       <div class="col-sm-2">{{ item.process_exercises }}</div>
                       <div class="col-sm-2">{{ item.process_results }}</div>
                   </div>
                   <div class="row bg-white ">
-                      <div class="col-sm-8">{{ item.process_content_2 }}</div>
+                      <div class="col-sm-8">{{ item.process_content_2|linebreaks }}</div>
                       <div class="col-sm-2">{{ item.process_exercises_2 }}</div>
                       <div class="col-sm-2">{{ item.process_results_2 }}</div>
                   </div>
                   <div class="row bg-white ">
-                      <div class="col-sm-8">{{ item.process_content_3 }}</div>
+                      <div class="col-sm-8">{{ item.process_content_3|linebreaks }}</div>
                       <div class="col-sm-2">{{ item.process_exercises_3 }}</div>
                       <div class="col-sm-2">{{ item.process_results_3 }}</div>
                   </div>

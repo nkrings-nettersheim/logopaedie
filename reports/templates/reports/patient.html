@@ -54,10 +54,10 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                <div class="small inline">Telefon&nbsp;&nbsp;&nbsp;&nbsp;: </div> <strong> {{ patient.pa_phone }}</strong>
+                <div class="small inline">Telefon: </div> <strong> {% if patient.pa_phone %} {{ patient.pa_phone }} {% endif %}</strong>
             </div>
             <div class="col-sm">
-                <div class="small inline">Mobilfunk: </div> <strong> {{ patient.pa_cell_phone }}</strong>
+                <div class="small inline">Mobilfunk: </div> <strong> {% if patient.pa_cell_phone %} {{ patient.pa_cell_phone }} {% endif %}</strong>
             </div>
             <div class="col-sm">
 
@@ -65,10 +65,10 @@
         </div>
         <div class="row">
             <div class="col-sm">
-              <div class="small inline">Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add1 }}</strong>
+              <div class="small inline">Telefonnr.: </div> <strong> {% if patient.pa_cell_phone_add1 %} {{ patient.pa_cell_phone_add1 }} {% endif %}</strong>
             </div>
             <div class="col-sm">
-                <div class="small inline">Telefonnr.: </div> <strong> {{ patient.pa_cell_phone_add2 }}</strong>
+                <div class="small inline">Telefonnr.: </div> <strong> {% if patient.pa_cell_phone_add2 %} {{ patient.pa_cell_phone_add2 }} {% endif %}</strong>
             </div>
             <div class="col-sm">
 
@@ -103,15 +103,16 @@
 
         {% for item in therapy %}
         <div class="row">
-            <div class="col-sm-1 text-center small">Rezept:</div>
+            <div class="col-sm-1 text-center small inline">Rezept:</div>
             <div class="col-sm-1"><span class="float-right"><strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong></span></div>
             <div class="col-sm-1 text-center small">vom: </div>
             <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_start|date:"d.m.Y" }}</strong></span></div>
             <div class="col-sm-1 text-center small">bis: </div>
             <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></span></div>
-            <div class="col-sm-2"><div class="small inline">Th.:</div><strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
-            <div class="col-sm-2"><div class="small inline">Ber.:</div> <strong>{% if item.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong></div>
-            <div class="col-sm-2"><div class="small inline">verschickt:</div> <strong>{% if item.therapy_end %} <div class="text-success inline">ja</div> {% else %} <div class="text-danger inline">nein</div> {% endif %}</strong></div>
+            <div class="col-sm-1"><div class="small inline">Th.:</div><strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
+            <div class="col-sm-1"><div class="small inline">Ber.:</div> <strong>{% if item.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong></div>
+            <div class="col-sm-2"><div class="small inline">Erst..:</div> <strong>{% if item.report_id %}<div class="text-success inline">ja</div> {% else %} nein {% endif %}</strong></div>
+            <div class="col-sm-2"><div class="small inline">verschickt:</div> <strong>{% if item.report_date %} <div class="text-success inline">ja</div> {% else %} <div class="text-danger inline">nein</div> {% endif %}</strong></div>
         </div>
         {% endfor %}
 

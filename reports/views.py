@@ -1,6 +1,8 @@
 import io
 import logging
 from datetime import datetime
+from html import escape
+
 from dateutil.parser import parse
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -35,9 +37,11 @@ def index(request):
     form = IndexForm()
     return render(request, 'reports/index.html', {'form': form})
 
+
 def impressum(request):
     logger.info('Impressumseite aufgerufen')
     return render(request, 'reports/impressum.html')
+
 
 class PatientView(generic.ListView):
     model = Patient
@@ -210,6 +214,14 @@ def patient(request, id=id):
         for therapy_result_item in therapy_result:
             process_result_count = Process_report.objects.filter(therapy_id=therapy_result_item.id).count() + process_result_count
             therapy_result[i].single = Process_report.objects.filter(therapy_id=therapy_result_item.id).count()
+            therapy_report_result = Therapy_report.objects.filter(therapy_id=therapy_result_item.id)
+            try:
+                therapy_result[i].therapy_start = therapy_report_result[0].therapy_start
+                therapy_result[i].therapy_end = therapy_report_result[0].therapy_end
+                therapy_result[i].report_date = therapy_report_result[0].report_date
+                therapy_result[i].report_id = therapy_report_result[0].id
+            except:
+                logger.info("Try Exception")
             i = i + 1
         logger.info('patient: Patient mit der ID: ' + str(id) + ' aufgerufen')
         return render(request, 'reports/patient.html', {'patient': patient_result,
@@ -257,7 +269,7 @@ def edit_therapy(request, id=None):
 def therapy(request, id=id):
     therapy_result = Therapy.objects.get(id=id)
     patient_value = Patient.objects.get(id=str((therapy_result.patients_id)))
-    process_report_value = Process_report.objects.filter(therapy_id=id)
+    process_report_value = Process_report.objects.filter(therapy_id=id).order_by('-process_treatment')
     if Therapy_report.objects.filter(therapy_id=id).exists():
         therapy_report_value = Therapy_report.objects.get(therapy_id=id)
     else:
@@ -330,8 +342,15 @@ def show_process_report(request):
     process_report_value = Process_report.objects.values_list('process_treatment',
                                                              'process_content',
                                                              'process_exercises',
-                                                             'process_results'
+                                                             'process_results',
+                                                              'process_content_2',
+                                                              'process_exercises_2',
+                                                              'process_results_2',
+                                                              'process_content_3',
+                                                              'process_exercises_3',
+                                                              'process_results_3'
                                                               ).filter(therapy=id)
+    #assert False
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 
@@ -365,14 +384,28 @@ def show_process_report(request):
 
     # write header to data
     data.append([htreatment, hcontent, hexercises, hresult])
-
     # write contentelements to data
     for item in list(process_report_value):
         ctreatment = Paragraph((str(item[0])), styleNC)
-        ccontent = Paragraph((str(item[1])), styleN)
-        cexercises = Paragraph((str(item[2])), styleNC)
-        cresult = Paragraph((str(item[3])), styleNC)
+        content = str(escape(item[1])).replace('\n', '<br />\n')
+        ccontent = Paragraph(((content)), styleN)
+        cexercises = Paragraph((escape(item[2])), styleNC)
+        cresult = Paragraph((escape(item[3])), styleNC)
         data.append([ctreatment, ccontent, cexercises, cresult])
+        if item[4]:
+            ctreatment = ''
+            content = str(escape(item[4])).replace('\n', '<br />\n')
+            ccontent = Paragraph(((content)), styleN)
+            cexercises = Paragraph((escape(item[5])), styleNC)
+            cresult = Paragraph((escape(item[6])), styleNC)
+            data.append([ctreatment, ccontent, cexercises, cresult])
+        if item[7]:
+            ctreatment = ''
+            content = str(escape(item[7])).replace('\n', '<br />\n')
+            ccontent = Paragraph(((content)), styleN)
+            cexercises = Paragraph((escape(item[8])), styleNC)
+            cresult = Paragraph((escape(item[9])), styleNC)
+            data.append([ctreatment, ccontent, cexercises, cresult])
 
     #create table
     table = Table(data, colWidths=[2 * cm, 12.5 * cm, 2 * cm,
@@ -455,7 +488,6 @@ def show_therapy_report(request):
 
     pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
 
-    logger.info('test für Kein Endedatum')
     id = request.GET.get('id')
     therapy_result = Therapy.objects.get(id=id)
 
@@ -463,8 +495,8 @@ def show_therapy_report(request):
     pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
     pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
     recipe_date = Therapy.objects.get(id=id).recipe_date
-    therapy_start = Therapy.objects.get(id=id).therapy_start
-    therapy_end = Therapy.objects.get(id=id).therapy_end
+    #therapy_start = Therapy.objects.get(id=id).therapy_start
+    #therapy_end = Therapy.objects.get(id=id).therapy_end
 
     process_count = Process_report.objects.filter(therapy=id).count()
 
@@ -477,7 +509,7 @@ def show_therapy_report(request):
 
 
     buffer = io.BytesIO()
-
+    leftborder = 1.9
     # Create the PDF object, using the buffer as its "file."
     p = canvas.Canvas(buffer)
 
@@ -488,48 +520,49 @@ def show_therapy_report(request):
 
     p.setFillColor(black)
     p.setFont('Helvetica', 12)
-    p.drawString(1.2 * cm, 3.3 * cm, "Mit freundlichen Grüßen")
+    p.drawString(leftborder * cm, 3.3 * cm, "Mit freundlichen Grüßen")
 
     p.setFont('Helvetica-Bold', 10)
-    p.drawString(1.2 * cm, 23.5 * cm, str(doctor_result.doctor_name1))
-    p.drawString(1.2 * cm, 23.0 * cm, str(doctor_result.doctor_name2))
+    p.drawString(leftborder * cm, 23.5 * cm, str(doctor_result.doctor_name1))
+    p.drawString(leftborder * cm, 23.0 * cm, str(doctor_result.doctor_name2))
+
+    p.setFont('Helvetica-Bold', 11)
+    p.drawString(leftborder * cm, 22.0 * cm, str(doctor_result.doctor_street))
+    p.drawString(leftborder * cm, 21.5 * cm, str(doctor_result.doctor_zip_code) + " " + str(doctor_result.doctor_city))
 
     p.setFont('Helvetica-Bold', 12)
-    p.drawString(1.2 * cm, 19.7 * cm, "Mitteilung des Therapeuten an den verordnenden Arzt:")
-    p.drawString(1.2 * cm, 16.7 * cm, "Aktueller Stand der Therapie:")
-    p.drawString(1.2 * cm, 22.0 * cm, str(doctor_result.doctor_street))
-    p.drawString(1.2 * cm, 21.5 * cm, str(doctor_result.doctor_zip_code) + " " + str(doctor_result.doctor_city))
+    p.drawString(leftborder * cm, 19.7 * cm, "Mitteilung des Therapeuten an den verordnenden Arzt:")
 
-
-    p.line(1.2 * cm, 16.6 * cm, 7.15 * cm, 16.6 * cm)
-    p.drawString(1.2 * cm, 13.7 * cm, "Therapieschwerpunkte:")
-    p.line(1.2 * cm, 13.6 * cm, 6.0 * cm, 13.6 * cm)
-    p.drawString(1.2 * cm, 11.1 * cm, "Prognostische Einschätzung mit Angabe der Restsymptomatik:")
-    p.line(1.2 * cm, 11.0 * cm, 14.0 * cm, 11.0 * cm)
-    p.drawString(1.2 * cm, 4.0 * cm, "Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!")
+    p.drawString(leftborder * cm, 16.7 * cm, "Aktueller Stand der Therapie:")
+    p.line(leftborder * cm, 16.6 * cm, (leftborder + 5.9) * cm, 16.6 * cm)
+    p.drawString(leftborder * cm, 13.5 * cm, "Therapieschwerpunkte:")
+    p.line(leftborder * cm, 13.4 * cm, (leftborder + 4.75) * cm, 13.4 * cm)
+    p.drawString(leftborder * cm, 10.2 * cm, "Prognostische Einschätzung mit Angabe der Restsymptomatik:")
+    p.line(leftborder * cm, 10.1 * cm, (leftborder + 12.8) * cm, 10.1 * cm)
+    p.drawString(leftborder * cm, 4.0 * cm, "Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!")
     p.drawString(11 * cm, 2.3 * cm, "Vielen Dank für die Kooperation")
 
     p.setFont('Helvetica-Bold', 10)
     p.drawString(12.8 * cm, 22.3 * cm, "Euskirchen den: " + str(datetime.now().strftime("%d.%m.%Y")))
-    p.drawString(1.2 * cm, 18.9 * cm, "Name des Patienten:")
+    p.drawString(leftborder * cm, 18.9 * cm, "Name des Patienten:")
     p.drawString(11.2 * cm, 18.9 * cm, "geb. am:")
-    p.drawString(1.2 * cm, 18.4 * cm, "Rezeptdatum:")
-    p.drawString(1.5 * cm, 17.9 * cm, "Behandlungen vom:")
+    p.drawString(leftborder * cm, 18.4 * cm, "Rezeptdatum:")
+    p.drawString((leftborder + 0.3) * cm, 17.9 * cm, "Behandlungen vom:")
     p.drawString(12.0 * cm, 17.9 * cm, "bis:")
-    p.drawString(1.2 * cm, 17.4 * cm, "Indikationsschlüssel:")
+    p.drawString(leftborder * cm, 17.4 * cm, "Indikationsschlüssel:")
     p.drawString(11.1 * cm, 17.4 * cm, "ICD-Cod:")
-    p.drawString(1.2 * cm, 6.6 * cm, "Behandlung weiter indiziert:")
-    p.drawString(1.2 * cm, 5.8 * cm, "Pause:")
+    p.drawString(leftborder * cm, 6.6 * cm, "Behandlung weiter indiziert:")
+    p.drawString(leftborder * cm, 5.8 * cm, "Pause:")
     p.drawString(10.2 * cm, 5.8 * cm, "Fortsetzung ab:")
-    p.drawString(1.2 * cm, 5.0 * cm, "Bemerkung:")
+    p.drawString(leftborder * cm, 5.0 * cm, "Bemerkung:")
 
     p.setFont('Helvetica', 10)
     p.drawString(6.2 * cm, 18.9 * cm, pa_last_name + ", " + pa_first_name)
     p.drawString(13.2 * cm, 18.9 * cm, str(pa_date_of_birth.strftime("%d.%m.%Y")))
     p.drawString(6.2 * cm, 18.4 * cm, str(recipe_date.strftime("%d.%m.%Y")))
-    p.drawString(6.2 * cm, 17.9 * cm, str(therapy_start.strftime("%d.%m.%Y")))
-    p.drawString(13.2 * cm, 17.9 * cm, str(therapy_end.strftime("%d.%m.%Y")))
-    p.drawString(1.2 * cm, 17.9 * cm, str(process_count))
+    p.drawString(6.2 * cm, 17.9 * cm, str(result.therapy_start.strftime("%d.%m.%Y")))
+    p.drawString(13.2 * cm, 17.9 * cm, str(result.therapy_end.strftime("%d.%m.%Y")))
+    p.drawString(leftborder * cm, 17.9 * cm, str(process_count))
     p.drawString(6.2 * cm, 17.4 * cm, str(therapy_result.therapy_indication_key))
     p.drawString(13.2 * cm, 17.4 * cm, str(therapy_result.therapy_icd_cod))
     p.drawString(6.2 * cm, 5.0 * cm, str(result.therapy_comment))
@@ -544,12 +577,12 @@ def show_therapy_report(request):
         p.drawString(8.12 * cm, 5.8 * cm, "X")
 
     p.setFont('Helvetica', 6)
-    p.drawString(1.2 * cm, 24.7 * cm, "Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 – 53879 Euskirchen")
+    p.drawString(leftborder * cm, 24.7 * cm, "Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 – 53879 Euskirchen")
 
     p.setFillColorRGB(0.66, 0.5, 0.82)
     p.setFont('Helvetica', 10)
     p.drawString(4.0 * cm, 26.4 * cm, "Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen,")
-    p.drawString(4.0 * cm, 25.9 * cm, "Mutismus, Autismus, Dyslalie, Störung der Wahrnehmung")
+    p.drawString(4.0 * cm, 25.9 * cm, "Mutismus, Autismus, Demenz, Hörstörungen")
 
     #RGB Wert wird errechnet aus RGB Wert / 256
     p.setFillColorRGB(0.66, 0.66, 0.66)
@@ -580,7 +613,8 @@ def show_therapy_report(request):
     p.grid([8.0*cm, 8.5*cm], [5.7*cm, 6.2*cm])
 
     data = []
-    content = str(str(result.therapy_current_result)).replace('\n', '<br />\n')
+    content = str(escape(result.therapy_current_result)).replace(' ', '&nbsp;')
+    content = str((content)).replace('\n', '<br />\n')
     ccontent = Paragraph(content, styleN)
     data.append([ccontent])
 
@@ -588,10 +622,11 @@ def show_therapy_report(request):
 
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.0, 13.0, height - h, cm))
+    table.drawOn(p, *coord(1.7, 13.0, height - h, cm))
 
     data = []
-    content = str(str(result.therapy_emphases)).replace('\n', '<br />\n')
+    content = str(escape(result.therapy_emphases)).replace(' ', '&nbsp;')
+    content = str((content)).replace('\n', '<br />\n')
     ccontent = Paragraph((content), styleN)
     data.append([ccontent])
 
@@ -600,19 +635,19 @@ def show_therapy_report(request):
 
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.0, 16.0, height - h, cm))
+    table.drawOn(p, *coord(1.7, 16.2, height - h, cm))
 
     data = []
-    content = str(str(result.therapy_forecast)).replace('\n', '<br />\n')
+    content = str(escape(result.therapy_forecast)).replace(' ', '&nbsp;')
+    content = str((content)).replace('\n', '<br />\n')
     ccontent = Paragraph(content, styleN)
-    #ccontent = str(ccontent).replace('\n', '<br />\n')
     data.append([ccontent])
 
     table = Table(data, colWidths=[18 * cm])
 
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.0, 18.6, height - h, cm))
+    table.drawOn(p, *coord(1.7, 19.6, height - h, cm))
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()

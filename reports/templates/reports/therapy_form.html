@@ -35,55 +35,44 @@
                     <p></p>
                 </div>
             </div>
+           <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+                </div>
+            </div>
             <div class="form-group row">
                 <label for="{{ form.recipe_date.id_for_label }}" class="col-sm-2 control-label">Rezeptdatum: </label>
                 <div class="col-sm-6">
                     {{ form.recipe_date }}
-                    {{ form.recipe_date.errors }}
+                    <div class="text-danger">{{ form.recipe_date.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="{{ form.therapy_start.id_for_label }}" class="col-sm-2 control-label">Therapie Start: </label>
-                <div class="col-sm-6">
-                    {{ form.therapy_start }}
-                    {{ form.therapy_start.errors }}
-                </div>
-            </div>
-            {% if request.user.groups.all.0.name == 'Leitung' %}
-            <div class="form-group row">
-                <label for="{{ form.therapy_end.id_for_label }}" class="col-sm-2 control-label">Therapie Ende: </label>
-                <div class="col-sm-6">
-                    {{ form.therapy_end }}
-                    {{ form.therapy_end.errors }}
-                </div>
-            </div>
-            {% endif %}
             <div class="form-group row">
                 <label for="{{ form.therapy_regulation_amount.id_for_label }}" class="col-sm-2 control-label">Verordnungsmenge: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_regulation_amount }}
-                    {{ form.therapy_regulation_amount.errors }}
+                    <div class="text-danger">{{ form.therapy_regulation_amount.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="{{ form.therapy_duration.id_for_label }}" class="col-sm-2 control-label">Therapie Dauer: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_duration }}
-                    {{ form.therapy_duration.errors }}
+                    <div class="text-danger">{{ form.therapy_duration.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Therapiefrequenze: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_frequence }}
-                    {{ form.therapy_frequence.errors }}
+                    <div class="text-danger">{{ form.therapy_frequence.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="{{ form.therapy_rid_of.id_for_label }}" class="col-sm-2 control-label">Befreit: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_rid_of }}
-                    {{ form.therapy_rid_of.errors }}
+                    <div class="text-danger">{{ form.therapy_rid_of.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
@@ -97,28 +86,28 @@
                 <label for="{{ form.therapy_icd_cod.id_for_label }}" class="col-sm-2 control-label">ICD-CoD: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_icd_cod }}
-                    {{ form.therapy_icd_cod.errors }}
+                    <div class="text-danger">{{ form.therapy_icd_cod.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="{{ form.therapy_report_no_yes.id_for_label }}" class="col-sm-2 control-label">Bericht: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_report_no_yes }}
-                    {{ form.therapy_report_no_yes.errors }}
+                    <div class="text-danger">{{ form.therapy_report_no_yes.errors }}</div>
                 </div>
             </div>
              <div class="form-group row">
                 <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">Arzt:</label>
                 <div class="col-sm-6">
                     {{ form.therapy_doctor }}
-                    {{ form.therapy_doctor.errors }}
+                    <div class="text-danger">{{ form.therapy_doctor.errors }}</div>
                 </div>
             </div>
 
             <div class="invisible">
                 <div class="invisible">
                     {{ form.patients }}
-                    {{ form.patients.errors }}
+                    <div class="text-danger">{{ form.patients.errors }}</div>
                 </div>
             </div>
            <div class="form-group row">

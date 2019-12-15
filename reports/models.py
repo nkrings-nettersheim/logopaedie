@@ -13,7 +13,6 @@ class Doctor(models.Model):
         return self.doctor_name1 + '; ' + self.doctor_city
 
 
-
 class Patient(models.Model):
     GENDER = (
         ('1', 'weiblich'),
@@ -23,10 +22,10 @@ class Patient(models.Model):
     pa_last_name = models.CharField(max_length=50)
     pa_street = models.CharField(max_length=100)
     pa_city = models.CharField(max_length=255)
-    pa_phone = models.CharField(max_length=35, blank=True, default='')
-    pa_cell_phone = models.CharField(max_length=35, blank=True, default='')
-    pa_cell_phone_add1 = models.CharField(max_length=35, blank=True, default='')
-    pa_cell_phone_add2 = models.CharField(max_length=35, blank=True, default='')
+    pa_phone = models.CharField(max_length=35, blank=True, default='', null=True)
+    pa_cell_phone = models.CharField(max_length=35, blank=True, default='', null=True)
+    pa_cell_phone_add1 = models.CharField(max_length=35, blank=True, default='', null=True)
+    pa_cell_phone_add2 = models.CharField(max_length=35, blank=True, default='', null=True)
     pa_date_of_birth = models.DateField(default='1900-01-01')
     pa_gender = models.CharField(max_length=1, choices=GENDER, default='1')
     pa_attention = models.CharField(max_length=100, blank=True, default='')
@@ -38,12 +37,10 @@ class Patient(models.Model):
 
 class Therapy(models.Model):
     recipe_date = models.DateField(auto_now=False, auto_now_add=False)
-    therapy_start = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
-    therapy_end = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     therapy_regulation_amount = models.IntegerField(blank=True, null=True)
     therapy_duration = models.CharField(max_length=10, default='')
     therapy_frequence = models.CharField(max_length=5, default='')
-    therapy_rid_of = models.BooleanField(default=False)
+    therapy_rid_of = models.BooleanField(default=False, null=True)
     therapy_report_no_yes = models.BooleanField(default=True)
     therapy_indication_key = models.CharField(max_length=10, default='')
     therapy_icd_cod = models.CharField(max_length=10, default='')
@@ -60,6 +57,8 @@ class Therapy(models.Model):
 
 class Therapy_report(models.Model):
     report_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    therapy_start = models.DateField(blank=True, default=None, null=True, auto_now=False, auto_now_add=False)
+    therapy_end = models.DateField(blank=True, default=None, null=True, auto_now=False, auto_now_add=False)
     therapy_current_result = models.TextField(default='')
     therapy_emphases = models.TextField(default='')
     therapy_forecast = models.TextField(default='')
@@ -88,7 +87,4 @@ class Process_report(models.Model):
 
     def __str__(self):
         return self.process_content
-
-
-
 

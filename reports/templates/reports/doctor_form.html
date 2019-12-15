@@ -25,6 +25,16 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
     <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Neuen Arzt erfassen:</h4>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
         <div class="form-group row">
             {{ form.doctor_name1.errors }}
             <label for="{{ form.doctor_name1.id_for_label }}" class="col-sm-2 control-label">Name:</label>
