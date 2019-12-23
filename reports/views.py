@@ -22,8 +22,9 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Table, TableStyle, Paragraph
 
 from logopaedie.settings import BASE_DIR
-from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm
-from .models import Patient, Therapy, Process_report, Therapy_report, Doctor
+from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
+from .forms import SearchDoctorForm, SearchTherapistForm
+from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,156 @@ class PatientView(generic.ListView):
         return Patient.objects.all()
 
 
+
+
+##########################################################################
+# Area Doctor create and change
+##########################################################################
+
+
+def add_doctor(request):
+    if request.method == "POST":
+        form = DoctorForm(request.POST)
+        if form.is_valid():
+            doctor_item = form.save(commit=False)
+            doctor_item.save()
+            logger.info("add_doctor: Arzt mit Namen: " + str(doctor_item.doctor_name1) + " angelegt")
+            return redirect('/reports/doctor/' + str(doctor_item.id) + '/')
+    else:
+        logger.info('add_doctor: Formular zur Bearbeitung/Erfassung der Arztdaten')
+        form = DoctorForm()
+    return render(request, 'reports/doctor_form.html', {'form': form})
+
+
+def search_doctor_start(request):
+    logger.info('Suchmaske Arzt geladen')
+    form = SearchDoctorForm()
+    return render(request, 'reports/doctor_search.html', {'form': form})
+
+
+def search_doctor(request):
+    form = SearchTherapistForm()
+    if request.method == 'POST':
+        name1 = request.POST['name1']
+        if name1 != "":
+            doctors_list = Doctor.objects.filter(doctor_name1__icontains=name1)
+            if len(doctors_list) == 0:
+                doctors_list = Doctor.objects.filter(doctor_name2__icontains=name1)
+            if len(doctors_list) > 1:
+                logger.info('search_doctor: mehr als einen Arzt gefunden mit dem Suchbegriff: ' + name1)
+                return render(request, 'reports/doctors.html', {'doctors_list': doctors_list})
+            elif len(doctors_list) == 1:
+                logger.info('search_doctor: Arzt gefunden mit dem Suchbegriff: ' + name1)
+                return redirect('/reports/doctor/' + str(doctors_list[0].id) + '/')
+            else:
+                logger.info('search_doctor: Keinen Arzt gefunden mit dem Suchbegriff: ' + name1)
+                return render(request, 'reports/doctor_search.html', {'form': form})
+
+        else:
+            logger.info('search_doctor: Keinen Suchbegriff eingegeben:')
+            return render(request, 'reports/doctor_search.html', {'form': form})
+    else:
+        logger.info('search_doctor: Keinen Suchbegriff eingegeben')
+        return render(request, 'reports/doctor_search.html')
+
+
+def edit_doctor(request, id=None):
+    item = get_object_or_404(Doctor, id=id)
+    form = DoctorForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        logger.info('edit_doctor: Daten werden gespeichert')
+        return redirect('/reports/doctor/' + str(item.id) + '/')
+    logger.info('edit_doctor: Bearbeitungsformular aufgerufen ID: ' + id)
+    return render(request, 'reports/doctor_form.html', {'form': form})
+
+
+def doctor(request, id=id):
+    try:
+        doctor_result = Doctor.objects.get(id=id)
+        logger.info('doctor: Arzt mit der ID: ' + id + ' aufgerufen')
+        return render(request, 'reports/doctor.html', {'doctor': doctor_result})
+    except ObjectDoesNotExist:
+        return redirect('/reports/')
+
+
+##########################################################################
+# Area Therapist create and change
+##########################################################################
+
+
+def add_therapist(request):
+    if request.method == "POST":
+        form = TherapistForm(request.POST)
+        if form.is_valid():
+            therapist_item = form.save(commit=False)
+            therapist_item.save()
+            logger.info("add_therapist: Therapist mit Namen: " + str(therapist_item.tp_last_name) + " angelegt")
+            return redirect('/reports/therapist/' + str(therapist_item.id) + '/')
+    else:
+        logger.info('add_therapist: Formular zur Bearbeitung/Erfassung der Therapistdaten')
+        form = TherapistForm()
+    return render(request, 'reports/therapist_form.html', {'form': form})
+
+
+def search_therapist_start(request):
+    logger.info('Suchmaske Therapeut geladen')
+    form = SearchTherapistForm()
+    return render(request, 'reports/therapist_search.html', {'form': form})
+
+
+def search_therapist(request):
+    form = SearchTherapistForm()
+    if request.method == 'POST':
+        kuerzel = request.POST['tp_initial']
+        print(kuerzel)
+        if kuerzel != "":
+            therapists_list = Therapist.objects.filter(tp_initial__icontains=kuerzel)
+            if len(therapists_list) > 1:
+                logger.info('search_therapist: mehr als einen Therapeut gefunden mit dem Suchbegriff: ' + kuerzel)
+                return render(request, 'reports/therapists.html', {'therapists_list': therapists_list})
+            elif len(therapists_list) == 1:
+                logger.info('search_therapist: Therpeut gefunden mit dem Suchbegriff: ' + kuerzel)
+                logger.info(str(therapists_list[0].id))
+                return redirect('/reports/therapist/' + str(therapists_list[0].id) + '/')
+            else:
+                logger.info('search_therapist: Keinen Therapeut gefunden mit dem Suchbegriff: ' + kuerzel)
+                return render(request, 'reports/therapist_search.html', {'form': form})
+
+        else:
+            logger.info('search_therapist: Keinen Suchbegriff eingegeben:')
+            return render(request, 'reports/therapist_search.html', {'form': form})
+    else:
+        logger.info('search_therapist: Keinen Suchbegriff eingegeben')
+        return render(request, 'reports/therapist_search.html', {'form': form})
+
+
+def edit_therapist(request, id=None):
+    item = get_object_or_404(Therapist, id=id)
+    form = TherapistForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        logger.info('edit_therapist: Daten werden gespeichert')
+        return redirect('/reports/therapist/' + str(item.id) + '/')
+    logger.info('edit_therapist: Bearbeitungsformular aufgerufen ID: ' + id)
+    return render(request, 'reports/therapist_form.html', {'form': form})
+
+
+def therapist(request, id=id):
+    try:
+        therapist_result = Therapist.objects.get(id=id)
+        logger.info('therapist: Therapeut mit der ID: ' + id + ' aufgerufen')
+        return render(request, 'reports/therapist.html', {'therapist': therapist_result})
+    except ObjectDoesNotExist:
+        return redirect('/reports/')
+
+
+
+##########################################################################
+# Area Patient search, create and change
+##########################################################################
+
+
 def search_patient(request):
     if request.method == 'POST':
         form = IndexForm(request.POST)
@@ -62,7 +213,7 @@ def search_patient(request):
             logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth)
 
             if last_name != "":
-                patients_list = Patient.objects.filter(pa_last_name__startswith=last_name)
+                patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name)
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Namen: " + last_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -74,7 +225,7 @@ def search_patient(request):
                     return redirect('/reports/')
 
             elif first_name != "":
-                patients_list = Patient.objects.filter(pa_first_name__startswith=first_name)
+                patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name)
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Vornamen: " + first_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -104,78 +255,6 @@ def search_patient(request):
         logger.info("search_patient: Kein POST Befehl erhalten")
         return redirect('/reports/')
     return render(request, 'reports/index.html', {'form': form})
-
-
-##########################################################################
-# Area Doctor create and change
-##########################################################################
-
-
-def add_doctor(request):
-    if request.method == "POST":
-        form = DoctorForm(request.POST)
-        if form.is_valid():
-            doctor_item = form.save(commit=False)
-            doctor_item.save()
-            logger.info("add_doctor: Arzt mit Namen: " + str(doctor_item.doctor_name1) + " angelegt")
-            return redirect('/reports/doctor/' + str(doctor_item.id) + '/')
-    else:
-        logger.info('add_doctor: Formular zur Bearbeitung/Erfassung der Arztdaten')
-        form = DoctorForm()
-    return render(request, 'reports/doctor_form.html', {'form': form})
-
-
-def search_doctor(request):
-    if request.method == 'POST':
-        name1 = request.POST['name1']
-        if name1 != "":
-            #doctors_list3 =[]
-            doctors_list = Doctor.objects.filter(doctor_name1__icontains=name1)
-            if len(doctors_list) == 0:
-                doctors_list = Doctor.objects.filter(doctor_name2__icontains=name1)
-            #doctors_list3.append(doctors_list)
-            #doctors_list3.append(doctors_list2)
-            #assert False
-            if len(doctors_list) > 1:
-                logger.info('search_doctor: mehr als einen Arzt gefunden mit dem Suchbegriff: ' + name1)
-                return render(request, 'reports/doctors.html', {'doctors_list': doctors_list})
-            elif len(doctors_list) == 1:
-                logger.info('search_doctor: Arzt gefunden mit dem Suchbegriff: ' + name1)
-                return redirect('/reports/doctor/' + str(doctors_list[0].id) + '/')
-            else:
-                logger.info('search_doctor: Keinen Arzt gefunden mit dem Suchbegriff: ' + name1)
-                return render(request, 'reports/doctor_search.html')
-
-        else:
-            logger.info('search_doctor: Keinen Suchbegriff eingegeben:')
-            return render(request, 'reports/doctor_search.html')
-    else:
-        logger.info('search_doctor: Keinen Suchbegriff eingegeben')
-        return render(request, 'reports/doctor_search.html')
-
-
-def edit_doctor(request, id=None):
-    item = get_object_or_404(Doctor, id=id)
-    form = DoctorForm(request.POST or None, instance=item)
-    if form.is_valid():
-        form.save()
-        logger.info('edit_doctor: Daten werden gespeichert')
-        return redirect('/reports/doctor/' + str(item.id) + '/')
-    logger.info('edit_doctor: Bearbeitungsformular aufgerufen ID: ' + id)
-    return render(request, 'reports/doctor_form.html', {'form': form})
-
-
-def doctor(request, id=id):
-    try:
-        doctor_result = Doctor.objects.get(id=id)
-        logger.info('doctor: Arzt mit der ID: ' + id + ' aufgerufen')
-        return render(request, 'reports/doctor.html', {'doctor': doctor_result})
-    except ObjectDoesNotExist:
-        return redirect('/reports/')
-
-##########################################################################
-# Area Patient create and change
-##########################################################################
 
 
 def add_patient(request):
@@ -275,7 +354,7 @@ def therapy(request, id=id):
     else:
         therapy_report_value = ''
     logger.info('therapy: Rezept mit der ID: ' + str(id) + ' aufgerufen')
-    return render(request, 'reports/therapy_new.html', {'therapy': therapy_result,
+    return render(request, 'reports/therapy.html', {'therapy': therapy_result,
                                                     'patient': patient_value,
                                                     'therapy_report': therapy_report_value,
                                                     'process_report': process_report_value})
@@ -560,8 +639,12 @@ def show_therapy_report(request):
     p.drawString(6.2 * cm, 18.9 * cm, pa_last_name + ", " + pa_first_name)
     p.drawString(13.2 * cm, 18.9 * cm, str(pa_date_of_birth.strftime("%d.%m.%Y")))
     p.drawString(6.2 * cm, 18.4 * cm, str(recipe_date.strftime("%d.%m.%Y")))
-    p.drawString(6.2 * cm, 17.9 * cm, str(result.therapy_start.strftime("%d.%m.%Y")))
-    p.drawString(13.2 * cm, 17.9 * cm, str(result.therapy_end.strftime("%d.%m.%Y")))
+    if result.therapy_start:
+        p.drawString(6.2 * cm, 17.9 * cm, str(result.therapy_start.strftime("%d.%m.%Y")))
+
+    if result.therapy_end:
+        p.drawString(13.2 * cm, 17.9 * cm, str(result.therapy_end.strftime("%d.%m.%Y")))
+
     p.drawString(leftborder * cm, 17.9 * cm, str(process_count))
     p.drawString(6.2 * cm, 17.4 * cm, str(therapy_result.therapy_indication_key))
     p.drawString(13.2 * cm, 17.4 * cm, str(therapy_result.therapy_icd_cod))

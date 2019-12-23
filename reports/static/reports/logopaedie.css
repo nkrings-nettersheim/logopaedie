@@ -18,3 +18,7 @@
   background-color: #cb9cfc;
   text-align: center;
 }
+
+.inline {
+    display: inline;
+}

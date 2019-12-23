@@ -1,8 +1,7 @@
 import datetime
 from django import forms
-from reportlab.platypus.paragraph import strip
 
-from .models import Patient, Therapy, Process_report, Therapy_report, Doctor
+from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist
 
 
 class IndexForm(forms.Form):
@@ -44,6 +43,30 @@ class SearchPatient(forms.Form):
             'placeholder': 'Titel eingeben ...'
         }
     ))
+
+
+class SearchTherapistForm(forms.Form):
+    tp_initial = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'autofocus': 'autofocus',
+            'placeholder': 'Kürzel eingeben ...'
+        }
+    ),
+        required=False
+    )
+
+
+class SearchDoctorForm(forms.Form):
+    name1 = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'autofocus': 'autofocus',
+            'placeholder': 'Name eingeben ...'
+        }
+    ),
+        required=False
+    )
 
 
 class DoctorForm(forms.ModelForm):
@@ -105,6 +128,46 @@ class DoctorForm(forms.ModelForm):
                   'doctor_street',
                   'doctor_zip_code',
                   'doctor_city'
+                  ]
+
+
+class TherapistForm(forms.ModelForm):
+    tp_first_name = forms.CharField(required=True,
+                                    max_length=50,
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control',
+                                            'placeholder': 'Vorname eingeben ...'
+                                        }
+                                    )
+                                    )
+
+    tp_last_name = forms.CharField(required=False,
+                                   max_length=50,
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'autofocus': 'autofocus',
+                                           'placeholder': 'Name eingeben ...'
+                                       }
+                                   )
+                                   )
+
+    tp_initial = forms.CharField(required=True,
+                                 max_length=5,
+                                 widget=forms.TextInput(
+                                     attrs={
+                                         'class': 'form-control',
+                                         'placeholder': 'Kürzel eingeben ...'
+                                     }
+                                 )
+                                 )
+
+    class Meta:
+        model = Therapist
+        fields = ['tp_first_name',
+                  'tp_last_name',
+                  'tp_initial'
                   ]
 
 
@@ -370,7 +433,6 @@ class TherapyForm(forms.ModelForm):
                                   )
                                   )
 
-
     therapy_regulation_amount = forms.IntegerField(required=True,
                                                    widget=forms.NumberInput(
                                                    )
@@ -442,6 +504,8 @@ class TherapyForm(forms.ModelForm):
 
     patients = forms.ModelChoiceField(queryset=Patient.objects.all())
 
+    therapists = forms.ModelChoiceField(queryset=Therapist.objects.all())
+
     class Meta:
         model = Therapy
         fields = ['recipe_date',
@@ -453,7 +517,8 @@ class TherapyForm(forms.ModelForm):
                   'therapy_indication_key',
                   'therapy_icd_cod',
                   'therapy_doctor',
-                  'patients']
+                  'patients',
+                  'therapists']
 
 
 class ProcessReportForm(forms.ModelForm):

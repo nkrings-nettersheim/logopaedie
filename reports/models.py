@@ -1,4 +1,3 @@
-
 from django.db import models
 
 
@@ -11,6 +10,15 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.doctor_name1 + '; ' + self.doctor_city
+
+
+class Therapist(models.Model):
+    tp_first_name = models.CharField(max_length=50, blank=True, default='')
+    tp_last_name = models.CharField(max_length=50, blank=True, default='')
+    tp_initial = models.CharField(max_length=5, blank=True, default='')
+
+    def __str__(self):
+        return self.tp_initial
 
 
 class Patient(models.Model):
@@ -44,8 +52,9 @@ class Therapy(models.Model):
     therapy_report_no_yes = models.BooleanField(default=True)
     therapy_indication_key = models.CharField(max_length=10, default='')
     therapy_icd_cod = models.CharField(max_length=10, default='')
-    therapy_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    patients = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    therapy_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, default='')
+    patients = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
+    therapists = models.ForeignKey(Therapist, on_delete=models.CASCADE, default='', null=True)
 
     def __str__(self):
         return str(self.recipe_date)
@@ -73,7 +82,7 @@ class Therapy_report(models.Model):
 
 
 class Process_report(models.Model):
-    process_treatment = models.IntegerField()
+    process_treatment = models.IntegerField(default=0)
     process_content = models.CharField(max_length=255, blank=True, default='')
     process_exercises = models.CharField(max_length=50, blank=True, default='')
     process_results = models.CharField(max_length=50, blank=True, default='')
@@ -83,8 +92,37 @@ class Process_report(models.Model):
     process_content_3 = models.CharField(max_length=255, blank=True, default='')
     process_exercises_3 = models.CharField(max_length=50, blank=True, default='')
     process_results_3 = models.CharField(max_length=50, blank=True, default='')
-    therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
+    therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
 
     def __str__(self):
         return self.process_content
 
+
+class InitialAssessment (models.Model):
+
+    RESULT = (
+        ('1', 'sehr gut'),
+        ('2', 'gut'),
+        ('3', 'befriedigend'),
+        ('4', 'schlecht'),
+        ('5', 'sehr schlecht')
+    )
+
+    ia_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    ia_assessment = models.CharField(max_length=100, blank=True, default='')
+    ia_artikulation = models.CharField(max_length=100, blank=True, default='')
+    ia_syntax = models.CharField(max_length=100, blank=True, default='')
+    ia_semantik = models.CharField(max_length=100, blank=True, default='')
+    ia_understanding = models.CharField(max_length=100, blank=True, default='')
+    ia_expiration = models.CharField(max_length=100, blank=True, default='')
+    ia_motor_skills = models.CharField(max_length=100, blank=True, default='')
+    ia_perception = models.CharField(max_length=100, blank=True, default='')
+    ia_breathing = models.CharField(max_length=100, blank=True, default='')
+    ia_other = models.CharField(max_length=100, blank=True, default='')
+    ia_test = models.CharField(max_length=100, blank=True, default='')
+    ia_test_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    ia_test_result = models.CharField(max_length=1, choices=RESULT, default='1')
+    therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+
+    def __str__(self):
+        return self.ia_assessment

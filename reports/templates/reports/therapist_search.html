@@ -21,19 +21,19 @@
 {% block content %}
 <content>
     <p></p>
-    <form action="{% url 'reports:search_doctor' %}" method="post">
+    <form action="{% url 'reports:search_therapist' %}" method="post">
         {% csrf_token %}
        <div class="container">
            <div class="form-group row">
                <div class="col-sm-6">
-                   <h5>Arzt suchen:</h5>
+                   <h5>Therapeut suchen:</h5>
                </div>
            </div>
            <div class="form-group row">
-                <label for="{{ form.name1.id_for_label }}" class="col-sm-2 control-label">Name:</label>
+                <label for="{{ form.tp_initial.id_for_label }}" class="col-sm-2 control-label">Therapeut Kürzel:</label>
                 <div class="col-sm-6">
-                    {{ form.name1 }}
-                    {{ form.name1.errors }}
+                    {{ form.tp_initial }}
+                    {{ form.tp_initial.errors }}
                 </div>
             </div>
             <div class="form-group row">
@@ -45,5 +45,3 @@
     </form>
 </content>
 {% endblock %}
-
-

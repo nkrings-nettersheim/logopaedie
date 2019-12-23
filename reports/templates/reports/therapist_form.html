@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<content>
+    <form method="POST" enctype="multipart/form-data" action="">
+        <p></p>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Therapeut erfassen/ändern:</h4>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.tp_last_name.id_for_label }}" class="col-sm-2 control-label">Name:</label>
+            <div class="col-sm-6">
+                {{ form.tp_last_name }}
+                {{ form.tp_last_name.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.tp_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
+            <div class="col-sm-6">
+                {{ form.tp_first_name }}
+                {{ form.tp_first_name.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.tp_initial.id_for_label }}" class="col-sm-2 control-label">Kürzel:</label>
+            <div class="col-sm-6">
+                {{ form.tp_initial }}
+                {{ form.tp_initial.errors }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</content>
+{% endblock %}
+
+

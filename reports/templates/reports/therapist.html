@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_doctor' doctor.id %}" role="button">Daten ändern</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapist' therapist.id %}" role="button">Daten ändern</a>
       </li>
     </ul>
   </div>
@@ -29,41 +29,26 @@
             <div class="col-sm-1">
                 <div class="small inline">Name:</div>
             </div>
-              <div class="col-sm-2">
-                 <strong>{{ doctor.doctor_name1 }}</strong>
-              </div>
+            <div class="col-sm-2">
+                 <strong>{{ therapist.tp_last_name }}</strong>
+            </div>
           </div>
+        <br>
         <div class="row">
             <div class="col-sm-1">
-                <div class="small inline">weitere:</div>
+                <div class="small inline">Vorname:</div>
             </div>
             <div class="col-sm-2">
-                <strong>{{ doctor.doctor_name2 }}</strong>
+                 <strong>{{ therapist.tp_first_name }}</strong>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-sm-1">
-                <div class="small inline">Straße:</div>
+                <div class="small inline">Kürzel:</div>
             </div>
             <div class="col-sm-2">
-                <strong>{{ doctor.doctor_street }}</strong>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="small inline">PLZ:</div>
-            </div>
-            <div class="col-sm-2">
-                <strong>{{ doctor.doctor_zip_code }}</strong>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="small inline">Ort:</div>
-            </div>
-            <div class="col-sm-2">
-                <strong>{{ doctor.doctor_city }}</strong>
+                 <strong>{{ therapist.tp_initial }}</strong>
             </div>
         </div>
    </div>

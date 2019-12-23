@@ -10,23 +10,40 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import json
 import os
+
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# To get the secret information from a special file
+# https://stackoverflow.com/questions/42077532/django-security-and-settings
+
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
+
+
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q3^#tyh%ppv4w9zil5y+4y@)6_ew%0k8lazb))q6-bvp*9jnah'
+# SECRET_KEY = 'q3^#tyh%ppv4w9zil5y+4y@)6_ew%0k8lazb))q6-bvp*9jnah'
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -70,16 +87,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'logopaedie.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if get_secret('DB_ENVIRONMENT') == 'prod':
+     DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': get_secret('DB_NAME'),
+            'USER': get_secret('DB_USER'),
+            'PASSWORD': get_secret('DB_PASSWORD'),
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        }
+     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 
 
 # Password validation
@@ -100,11 +127,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'de-de'
+LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -114,24 +140,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/reports/'
 
-
-#Eingefügt nk 21.07.2019
+# Eingefügt nk 21.07.2019
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-
 # Email settings
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'logopaedieklein.raspberry@gmail.com'
-EMAIL_HOST_PASSWORD = 'Nn78RnwNNa'
-EMAIL_PORT = '587'
-EMAIL_USE_TLS = 'True'
+EMAIL_HOST = get_secret('EMAIL_HOST')
+EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = get_secret('EMAIL_PORT')
+EMAIL_USE_TLS = get_secret('EMAIL_USE_TLS')

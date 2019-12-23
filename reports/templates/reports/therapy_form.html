@@ -41,6 +41,13 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="{{ form.therapists.id_for_label }}" class="col-sm-2 control-label">Therapeut:</label>
+                <div class="col-sm-6">
+                    {{ form.therapists }}
+                    <div class="text-danger">{{ form.therapists.errors }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="{{ form.recipe_date.id_for_label }}" class="col-sm-2 control-label">Rezeptdatum: </label>
                 <div class="col-sm-6">
                     {{ form.recipe_date }}

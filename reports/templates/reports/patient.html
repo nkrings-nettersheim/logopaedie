@@ -103,19 +103,64 @@
 
         {% for item in therapy %}
         <div class="row">
-            <div class="col-sm-1 text-center small inline">Rezept:</div>
-            <div class="col-sm-1"><span class="float-right"><strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.Y" }}</a></strong></span></div>
-            <div class="col-sm-1 text-center small">vom: </div>
-            <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_start|date:"d.m.Y" }}</strong></span></div>
-            <div class="col-sm-1 text-center small">bis: </div>
-            <div class="col-sm-1"><span class="float-right"><strong>{{ item.therapy_end|date:"d.m.Y" }}</strong></span></div>
-            <div class="col-sm-1"><div class="small inline">Th.:</div><strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
-            <div class="col-sm-1"><div class="small inline">Ber.:</div> <strong>{% if item.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong></div>
-            <div class="col-sm-2"><div class="small inline">Erst..:</div> <strong>{% if item.report_id %}<div class="text-success inline">ja</div> {% else %} nein {% endif %}</strong></div>
-            <div class="col-sm-2"><div class="small inline">verschickt:</div> <strong>{% if item.report_date %} <div class="text-success inline">ja</div> {% else %} <div class="text-danger inline">nein</div> {% endif %}</strong></div>
+            <div class="col-sm-2 inline">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="small inline">{% if item.therapists %} <strong>{{ item.therapists }}</strong> {% endif %}</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="small inline">Rezept: </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="float-right"><strong><a href="/reports/therapy/{{ item.id }}/"> {{ item.recipe_date|date:"d.m.y" }}</a></strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="small inline">vom: </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="float-right"><strong>{{ item.therapy_start|date:"d.m.y" }}</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="small inline">bis: </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="float-right"><strong>{{ item.therapy_end|date:"d.m.y" }}</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="small inline">Th.:</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="inline"> <strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="small inline">Ber.:</div> <div class="inline"><strong>{% if item.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="small inline">Erst..:</div> <div class="inline"><strong>{% if item.therapy_end %}<div class="text-success inline">ja</div> {% else %} <div class="text-danger inline">nein</div> {% endif %}</strong></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="small inline">Versch.:</div> <div class="inline"><strong>{% if item.report_date %} <div class="text-success inline">ja</div> {% else %} <div class="text-danger inline">nein</div> {% endif %}</strong></div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
-
     </div>
 </content>
 {% endblock %}
