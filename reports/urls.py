@@ -35,4 +35,6 @@ urlpatterns = [
     path('edit/therapist/<id>/', views.edit_therapist, name='edit_therapist'),
     path('add/therapist/', views.add_therapist, name='add_therapist'),
     path('therapist/<id>/', views.therapist, name='therapist'),
+    path('add/ia/', views.add_ia, name='add_ia'),
+    path('edit/ia/<id>/', views.edit_ia, name='edit_ia'),
 ]

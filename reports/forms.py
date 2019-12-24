@@ -1,7 +1,7 @@
 import datetime
 from django import forms
 
-from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist
+from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
 
 
 class IndexForm(forms.Form):
@@ -508,7 +508,8 @@ class TherapyForm(forms.ModelForm):
 
     class Meta:
         model = Therapy
-        fields = ['recipe_date',
+        fields = ['id',
+                  'recipe_date',
                   'therapy_regulation_amount',
                   'therapy_duration',
                   'therapy_frequence',
@@ -728,3 +729,143 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_break_date',
                   'therapy_comment',
                   'therapy']
+
+
+class InitialAssessmentForm(forms.ModelForm):
+    ia_date = forms.DateField(required=False,
+                              widget=forms.DateInput(
+                                  attrs={
+                                      'class': 'form-control',
+                                      'autofocus': 'autofocus',
+                                      'placeholder': 'Datum festlegen ...'
+                                  }
+                              )
+                              )
+
+    ia_assessment = forms.CharField(required=False,
+                                    max_length=100,
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control'
+                                        }
+                                    )
+                                    )
+
+    ia_artikulation = forms.CharField(required=False,
+                                      max_length=100,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                          }
+                                      )
+                                      )
+
+    ia_syntax = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_semantik = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_understanding = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_expiration = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_motor_skills = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_perception = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_breathing = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_other = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_test = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
+    ia_test_date = forms.DateField(required=False,
+                              widget=forms.DateInput(
+                                  attrs={
+                                      'class': 'form-control',
+                                      'placeholder': 'Datum festlegen ...'
+                                  }
+                              )
+                              )
+
+    class Meta:
+        model = InitialAssessment
+        fields = [
+            'ia_date',
+            'ia_assessment',
+            'ia_artikulation',
+            'ia_syntax',
+            'ia_semantik',
+            'ia_understanding',
+            'ia_expiration',
+            'ia_motor_skills',
+            'ia_perception',
+            'ia_breathing',
+            'ia_other',
+            'ia_test',
+            'ia_test_date',
+            'ia_test_result',
+            'therapy'
+        ]

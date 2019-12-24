@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Patient, Therapy, Therapy_report, Process_report, Doctor, Therapist
+from .models import Patient, Therapy, Therapy_report, Process_report, Doctor, Therapist, InitialAssessment
 
 
 class TherapyAdmin(admin.ModelAdmin):
@@ -16,3 +16,4 @@ admin.site.register(Therapy_report)
 admin.site.register(Process_report)
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(Therapist)
+admin.site.register(InitialAssessment)
