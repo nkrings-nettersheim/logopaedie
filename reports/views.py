@@ -482,10 +482,11 @@ def show_process_report(request):
     p.drawString(14 * cm, 27 * cm, "Patient: " + pa_last_name + ", " + pa_first_name)
     p.setFont('Helvetica', 10)
     p.drawString(1.5 * cm, 1 * cm, "Bericht: ")
-    p.drawString(11 * cm, 1 * cm, "Behandlung von: " +
-                 str(therapy_value.therapy_start.strftime("%d.%m.%Y")) +
-                 " bis: " +
-                 str(therapy_value.therapy_end.strftime("%d.%m.%Y")))
+    p.drawString(11 * cm, 1 * cm, "Behandlung von: ")
+    if therapy_value.therapy_start:
+        p.drawString(11 * cm, 3 * cm, str(therapy_value.therapy_start.strftime("%d.%m.%Y")) + " bis: ")
+    if therapy_value.therapy_end:
+        p.drawString(11 * cm, 5 * cm, str(therapy_value.therapy_end.strftime("%d.%m.%Y")))
     p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.now().strftime("%d.%m.%Y %H:%M")))
 
 
