@@ -96,13 +96,7 @@
             {{ form.process_results_3.errors }}
         </div>
     </div>
-    <div class="invisible">
-        <label for="{{ form.therapy.id_for_label }}" class="col-sm-2 control-label">Rezept: </label>
-        <div class="invisible">
-            {{ form.therapy }}
-            {{ form.therapy.errors }}
-        </div>
-    </div>
+        <input type="hidden" id="id_therapy" name="therapy" value="{{ form.therapy.value }}">
     <div class="form-group row">
         <div class="col-sm-offset-2 col-sm">
             <button type="submit" class="btn btn-primary btn-sm">Speichern</button>

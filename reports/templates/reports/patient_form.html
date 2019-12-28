@@ -13,9 +13,11 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
+        {% if form.id %}
         <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' form.id %}" role="button">zurück</a>
         </li>
+        {% endif %}
     </ul>
   </div>
 </nav>

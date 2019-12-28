@@ -19,6 +19,9 @@
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy' %}?id={{ patient.id }}" role="button">Rezept anlegen</a>
       </li>
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:document' %}?id={{ patient.id }}" role="button">Dokumente</a>
+      </li>
     </ul>
   </div>
 </nav>

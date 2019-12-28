@@ -9,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template import loader
+from django.conf import settings
 from django.views import generic
 from reportlab.lib import colors
 from reportlab.lib.colors import black
@@ -23,8 +24,8 @@ from reportlab.platypus import Table, TableStyle, Paragraph
 
 from logopaedie.settings import BASE_DIR
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
-from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm
-from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
+from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm
+from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document
 
 logger = logging.getLogger(__name__)
 
@@ -330,7 +331,9 @@ def add_ia(request):
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
     else:
         logger.info('add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds')
-        form = InitialAssessmentForm()
+        therapy_result = Therapy.objects.get(id=request.GET.get('id'))
+        form = InitialAssessmentForm(
+            initial={'therapy': therapy_result})
     return render(request, 'reports/ia_form.html', {'form': form})
 
 def edit_ia(request, id=None):
@@ -777,6 +780,42 @@ def show_therapy_report(request):
     file_name = pa_last_name + "_" + pa_first_name + "_" + str(recipe_date) + ".pdf"
     return FileResponse(buffer, as_attachment=True, filename=file_name)
 
+
+##########################################################################
+# Area Document upload
+##########################################################################
+
+def upload_document(request):
+    if request.method == 'POST':
+        item_form = DocumentForm(request.POST, request.FILES)
+        patient_result = Patient.objects.get(id=request.POST.get('patient'))
+        #assert False
+        if item_form.is_valid():
+            logger.debug('upload_document: Dokument zum speichern valide')
+
+            item = item_form.save(commit=False)
+            item.patient_id = patient_result.id
+            item.save()
+            logger.debug('upload_document: Dokument gespeichert')
+            return redirect('/reports/patient/' + str(patient_result.id) + '/')
+    else:
+        logger.debug('upload_document: Formular aufgerufen um Dokumente zu sehen oder hochzuladen')
+        form = DocumentForm(initial={'patient': request.GET.get('id')})
+        patient_result = Patient.objects.get(id=request.GET.get('id'))
+        documents = Document.objects.filter(patient_id=request.GET.get('id'))
+    return render(request, 'reports/document_form.html', {'form': form, 'patient': patient_result, 'documents': documents})
+
+IMAGE_FILE_TYPES = ['pdf']
+
+def download_document(request):
+    if request.method == 'GET':
+        file_id = request.GET.get('id')
+        file_info = Document.objects.get(id=file_id)
+        document_name = file_info.document.name
+        document_path = settings.MEDIA_ROOT + '/' + document_name
+        #assert False
+        response = FileResponse(open(document_path, 'rb'), as_attachment=True)
+        return response
 
 
 # **************************************************************************************************

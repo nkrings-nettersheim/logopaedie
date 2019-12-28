@@ -13,9 +13,11 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
+        {% if form.id %}
         <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.id %}" role="button">zurück</a>
         </li>
+        {% endif %}
         <li class="nav-item">
             <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">zum Patienten</a>
         </li>
@@ -34,7 +36,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <h5>Rezeptdaten erfassen für {{ patient.pa_first_name }} {{ patient.pa_last_name }}: </h5>
+                    <h5>Rezeptdaten erfassen/ändern für {{ patient.pa_first_name }} {{ patient.pa_last_name }}: </h5>
                     <p></p>
                 </div>
             </div>
@@ -114,12 +116,7 @@
                 </div>
             </div>
 
-            <div class="invisible">
-                <div class="invisible">
-                    {{ form.patients }}
-                    <div class="text-danger">{{ form.patients.errors }}</div>
-                </div>
-            </div>
+         <input type="hidden" id="id_patients" name="patients" value="{{ form.patients.value }}">
            <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-6">
                     <button type="submit" class="btn btn-primary btn-sm">Speichern</button>

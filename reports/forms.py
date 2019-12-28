@@ -2,6 +2,7 @@ import datetime
 from django import forms
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
+from .models import Document
 
 
 class IndexForm(forms.Form):
@@ -868,4 +869,14 @@ class InitialAssessmentForm(forms.ModelForm):
             'ia_test_date',
             'ia_test_result',
             'therapy'
+        ]
+
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = [
+            'description',
+            'document',
+            'patient'
         ]

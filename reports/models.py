@@ -1,3 +1,4 @@
+import os
 from django.db import models
 
 
@@ -126,3 +127,13 @@ class InitialAssessment (models.Model):
 
     def __str__(self):
         return self.ia_assessment
+
+def dynamik_path(instance, filename):
+    file_path = 'patient/{patient_id}/{filename}'.format(patient_id=instance.patient_id, filename=filename)
+    return file_path
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to=dynamik_path, max_length=100)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
