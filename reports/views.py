@@ -24,8 +24,9 @@ from reportlab.platypus import Table, TableStyle, Paragraph
 
 from logopaedie.settings import BASE_DIR
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
-from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm
+from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document
+from .models import Therapy_Something
 
 logger = logging.getLogger(__name__)
 
@@ -328,7 +329,7 @@ def add_ia(request):
             InitialAssessment_item = form.save(commit=False)
             InitialAssessment_item.save()
             logger.info("add_ia: Erstbefund mit id: " + str(InitialAssessment_item.id) + " angelegt")
-            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
+            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=1')
     else:
         logger.info('add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds')
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
@@ -345,6 +346,37 @@ def edit_ia(request, id=None):
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=1')
     logger.info('edit_ia: Erstbefund anlegen mit ID: ' + id)
     return render(request, 'reports/ia_form.html', {'form': form})
+
+
+##########################################################################
+# Area Initial Assessment create and change
+##########################################################################
+
+def add_therapy_something(request):
+    if request.method == "POST":
+        form = TherapySomethingForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            logger.info("add_therapy_something: Sonstiges mit id: " + str(item.id) + " angelegt")
+            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=2')
+    else:
+        logger.info('add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld')
+        therapy_result = Therapy.objects.get(id=request.GET.get('id'))
+        form = TherapySomethingForm(
+            initial={'therapy': therapy_result})
+    return render(request, 'reports/something_form.html', {'form': form})
+
+def edit_therapy_something(request, id=None):
+    item = get_object_or_404(Therapy_Something, id=id)
+    form = TherapySomethingForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        logger.info('edit_therapy_something: Erstbefund ändern mit ID: ' + str(id))
+        return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=2')
+    logger.info('edit_therapy_something: Erstbefund anlegen mit ID: ' + id)
+    return render(request, 'reports/something_form.html', {'form': form})
+
 
 ##########################################################################
 # Area Therapy create and change
@@ -390,10 +422,15 @@ def therapy(request, id=id):
         ia_value = InitialAssessment.objects.get(therapy_id=id)
     else:
         ia_value = ''
+    if Therapy_Something.objects.filter(therapy_id=id).exists():
+        therapy_something_value = Therapy_Something.objects.get(therapy_id=id)
+    else:
+        therapy_something_value = ''
     logger.info('therapy: Rezept mit der ID: ' + str(id) + ' aufgerufen')
     return render(request, 'reports/therapy.html', {'therapy': therapy_result,
                                                     'patient': patient_value,
                                                     'ia': ia_value,
+                                                    'ts': therapy_something_value,
                                                     'therapy_report': therapy_report_value,
                                                     'process_report': process_report_value})
 
@@ -409,7 +446,7 @@ def add_process_report(request):
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
             logger.info('add_process_report: Verlaufsprotokoll gespeichert mit ID: ' + str(request.POST.get('therapy')))
-            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
+            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=3')
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
         form = ProcessReportForm(
@@ -425,7 +462,7 @@ def edit_process_report(request, id=None):
     if form.is_valid():
         form.save()
         logger.info('edit_process_report: Verlaufsprotokoll ändern mit ID: ' + str(item.id))
-        return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=2')
+        return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=3')
     logger.info('edit_process_report: Verlaufsprotokoll anlegen mit ID: ' + id)
     return render(request, 'reports/process_report_form.html', {'form': form})
 
@@ -450,11 +487,18 @@ def show_process_report(request):
         x, y = x * unit, height - y * unit
         return x, y
 
+    therapy_start_value = ''
+    therapy_end_value = ''
     id = request.GET.get('id')
     logger.info('show_process_report: Verlaufsprotokoll mit ID: ' + id + ' gedruckt')
     therapy_value = Therapy.objects.get(id=id)
     pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
     pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
+    if Therapy_report.objects.filter(therapy=id):
+        therapy_report_value = Therapy_report.objects.get(therapy=id)
+        therapy_start_value = therapy_report_value.therapy_start
+        therapy_end_value = therapy_report_value.therapy_end
+
     process_report_value = Process_report.objects.values_list('process_treatment',
                                                              'process_content',
                                                              'process_exercises',
@@ -483,10 +527,10 @@ def show_process_report(request):
     p.setFont('Helvetica', 10)
     p.drawString(1.5 * cm, 1 * cm, "Bericht: ")
     p.drawString(11 * cm, 1 * cm, "Behandlung von: ")
-    if therapy_value.therapy_start:
-        p.drawString(11 * cm, 3 * cm, str(therapy_value.therapy_start.strftime("%d.%m.%Y")) + " bis: ")
-    if therapy_value.therapy_end:
-        p.drawString(11 * cm, 5 * cm, str(therapy_value.therapy_end.strftime("%d.%m.%Y")))
+    if therapy_start_value != '':
+        p.drawString(13.8 * cm, 1 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
+    if therapy_end_value != '':
+        p.drawString(16.3 * cm, 1 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
     p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.now().strftime("%d.%m.%Y %H:%M")))
 
 
@@ -559,7 +603,7 @@ def add_therapy_report(request):
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
             logger.info('add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(request.POST.get('therapy')))
-            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/')
+            return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=4')
         else:
             print('not valid')
             return render(request, 'reports/therapy_report_form.html', {'form': form})
@@ -578,7 +622,7 @@ def edit_therapy_report(request, id=None):
     if form.is_valid():
         form.save()
         logger.info('edit_therapy_report: Therapiebericht ändern mit ID: ' + str(id))
-        return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=3')
+        return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
     logger.info('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 

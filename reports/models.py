@@ -8,9 +8,10 @@ class Doctor(models.Model):
     doctor_street = models.CharField(max_length=50, blank=True, default='')
     doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
     doctor_city = models.CharField(max_length=50, blank=True, default='')
+    doctor_lanr = models.CharField(max_length=9, blank=False, default='999999999')
 
     def __str__(self):
-        return self.doctor_name1 + '; ' + self.doctor_city
+        return self.doctor_lanr
 
 
 class Therapist(models.Model):
@@ -137,3 +138,10 @@ class Document(models.Model):
     document = models.FileField(upload_to=dynamik_path, max_length=100)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
+
+
+class Therapy_Something(models.Model):
+    something_else = models.TextField()
+    therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+
+

@@ -1,8 +1,9 @@
 import datetime
 from django import forms
+# from django.contrib.admin.widgets import AdminDateWidget
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
-from .models import Document
+from .models import Document, Therapy_Something
 
 
 class IndexForm(forms.Form):
@@ -122,13 +123,27 @@ class DoctorForm(forms.ModelForm):
                                   )
                                   )
 
+
+    doctor_lanr = forms.CharField(required=True,
+                                  max_length=9,
+                                  min_length=9,
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          'class': 'form-control',
+                                          'placeholder': 'Arzt LANR eingeben ...'
+                                      }
+                                  )
+                                  )
+
+
     class Meta:
         model = Doctor
         fields = ['doctor_name1',
                   'doctor_name2',
                   'doctor_street',
                   'doctor_zip_code',
-                  'doctor_city'
+                  'doctor_city',
+                  'doctor_lanr'
                   ]
 
 
@@ -356,6 +371,7 @@ class PatientForm(forms.ModelForm):
         )
     )
 
+    #    pa_date_of_birth = forms.DateField(widget=AdminDateWidget())
     pa_date_of_birth = forms.DateField(
         required=True,
         widget=forms.DateInput(
@@ -501,7 +517,7 @@ class TherapyForm(forms.ModelForm):
                                       )
                                       )
 
-    therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.all())
+    therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.order_by('doctor_lanr'))
 
     patients = forms.ModelChoiceField(queryset=Patient.objects.all())
 
@@ -771,85 +787,85 @@ class InitialAssessmentForm(forms.ModelForm):
                                 )
 
     ia_semantik = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                  max_length=100,
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          'class': 'form-control'
+                                      }
+                                  )
+                                  )
 
     ia_understanding = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                       max_length=100,
+                                       widget=forms.TextInput(
+                                           attrs={
+                                               'class': 'form-control'
+                                           }
+                                       )
+                                       )
 
     ia_expiration = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                    max_length=100,
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control'
+                                        }
+                                    )
+                                    )
 
     ia_motor_skills = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                      max_length=100,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                          }
+                                      )
+                                      )
 
     ia_perception = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                    max_length=100,
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control'
+                                        }
+                                    )
+                                    )
 
     ia_breathing = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                   max_length=100,
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control'
+                                       }
+                                   )
+                                   )
 
     ia_other = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                               max_length=100,
+                               widget=forms.TextInput(
+                                   attrs={
+                                       'class': 'form-control'
+                                   }
+                               )
+                               )
 
     ia_test = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
-
-    ia_test_date = forms.DateField(required=False,
-                              widget=forms.DateInput(
+                              max_length=100,
+                              widget=forms.TextInput(
                                   attrs={
-                                      'class': 'form-control',
-                                      'placeholder': 'Datum festlegen ...'
+                                      'class': 'form-control'
                                   }
                               )
                               )
+
+    ia_test_date = forms.DateField(required=False,
+                                   widget=forms.DateInput(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'placeholder': 'Datum festlegen ...'
+                                       }
+                                   )
+                                   )
 
     class Meta:
         model = InitialAssessment
@@ -879,4 +895,22 @@ class DocumentForm(forms.ModelForm):
             'description',
             'document',
             'patient'
+        ]
+
+
+class TherapySomethingForm(forms.ModelForm):
+    something_else = forms.CharField(required=False,
+                                     widget=forms.Textarea(
+                                         attrs={
+                                             'class': 'form-control',
+                                             'cols': '50',
+                                             'rows': '20'
+                                         }
+                                     ))
+
+    class Meta:
+        model = Therapy_Something
+        fields = [
+            'something_else',
+            'therapy'
         ]
