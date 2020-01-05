@@ -14,13 +14,13 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_patient' patient.id %}" role="button">Daten ändern</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_patient' patient.id %}" role="button">Patientendaten ändern</a>
       </li>
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy' %}?id={{ patient.id }}" role="button">Rezept anlegen</a>
       </li>
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:document' %}?id={{ patient.id }}" role="button">Dokumente</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:document' %}?id={{ patient.id }}" role="button">externe Arzt Dok.</a>
       </li>
     </ul>
   </div>

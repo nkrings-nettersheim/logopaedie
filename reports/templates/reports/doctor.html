@@ -13,8 +13,14 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+        </li>
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_doctor' doctor.id %}" role="button">Daten ändern</a>
+      </li>
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_doctor' %}" role="button">Neuen Arzt anlegen</a>
       </li>
     </ul>
   </div>

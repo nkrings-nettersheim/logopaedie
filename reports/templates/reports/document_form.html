@@ -13,9 +13,9 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
-        <li class="nav-item">
-
-        </li>
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -27,6 +27,7 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.non_field_errors }}
+    <input type="hidden" id="id_patient" name="patient" value="{{ patient.id }}">
     <div class="container">
         <div class="row">
             <div class="col-sm">
@@ -35,22 +36,20 @@
         </div>
         <div class="form-group row">
             <label for="{{ form.description.id_for_label }}" class="col-sm-2 control-label">Beschreibung:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 {{ form.description }}
                 <div class="text-danger">{{ form.description.errors }}</div>
             </div>
+            <div class="col-sm-sm-7 "></div>
         </div>
         <div class="form-group row">
             <label for="{{ form.document.id_for_label }}" class="col-sm-2 control-label">Dokument:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 {{ form.document }}
                 <div class="text-danger">{{ form.document.errors }}</div>
             </div>
-        </div>
-                 <input type="hidden" id="id_patient" name="patient" value="{{ patient.id }}">
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-6">
-                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+            <div class="col-sm-sm-7 ">
+                <button type="submit" class="btn btn-primary btn-sm">Fertig stellen</button>
             </div>
         </div>
     </div>
@@ -68,12 +67,19 @@
                     <div class="small inline">Datei: {{ obj.document.name }}</div>
                 </div>
                 <div class="col-sm-4">
-                     <small>(Uploaded am: {{ obj.uploaded_at }})</small>
+                     <small>(Hochgeladen am: {{ obj.uploaded_at }})</small>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <div class="small inline">
                         <a href="{% url 'reports:download' %}?id={{ obj.id }}">
-                            <button type="button" class="btn btn-primary">Download</button>
+                            <button type="button" class="btn btn-primary">Öffnen</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="small inline">
+                        <a href="{% url 'reports:delete' %}?id={{ obj.id }}&patient_id={{ patient.id }} ">
+                            <button type="button" class="btn btn-primary">Löschen</button>
                         </a>
                     </div>
                 </div>

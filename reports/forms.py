@@ -70,6 +70,16 @@ class SearchDoctorForm(forms.Form):
         required=False
     )
 
+    lanr = forms.CharField(required=False, max_length=9, min_length=9,
+                           widget=forms.TextInput(
+                               attrs={
+                                   'class': 'form-control',
+                                   'autofocus': 'autofocus',
+                                   'placeholder': 'Arztnummer eingeben (Zahnarzt mit "Z" starten) ...'
+                               }
+                           )
+                           )
+
 
 class DoctorForm(forms.ModelForm):
     doctor_name1 = forms.CharField(required=True,
@@ -123,7 +133,6 @@ class DoctorForm(forms.ModelForm):
                                   )
                                   )
 
-
     doctor_lanr = forms.CharField(required=True,
                                   max_length=9,
                                   min_length=9,
@@ -134,7 +143,6 @@ class DoctorForm(forms.ModelForm):
                                       }
                                   )
                                   )
-
 
     class Meta:
         model = Doctor
@@ -440,11 +448,20 @@ class TherapyForm(forms.ModelForm):
         if value == "n/a":
             raise forms.ValidationError("Bitte Indikationsschlüssel auswählen")
 
+    def clean_therapy_doctor(self):
+        data = self.cleaned_data['therapy_doctor']
+        if len(data) == 9:
+            therapy_doctor_instance = Doctor.objects.filter(doctor_lanr=data)
+            if len(therapy_doctor_instance) == 1:
+                therapy_doctor = Doctor.objects.get(doctor_lanr=data)
+                return therapy_doctor
+            else:
+                raise forms.ValidationError("Arzt wurde nicht gefunden. Ggf. als neuen Arzt erfassen.")
+
     recipe_date = forms.DateField(required=True,
                                   widget=forms.DateInput(
                                       attrs={
                                           'class': 'form-control',
-                                          'autofocus': 'autofocus',
                                           'placeholder': 'Rezeptdatum eingeben ...'
                                       }
                                   )
@@ -517,7 +534,15 @@ class TherapyForm(forms.ModelForm):
                                       )
                                       )
 
-    therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.order_by('doctor_lanr'))
+    # therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.order_by('doctor_lanr'))
+
+    therapy_doctor = forms.CharField(required=True, max_length=9, min_length=9,
+                                     widget=forms.TextInput(
+                                         attrs={
+                                             'class': 'form-control',
+                                             'placeholder': '9-stellige Arztnummer ...'
+                                         }
+                                     ))
 
     patients = forms.ModelChoiceField(queryset=Patient.objects.all())
 

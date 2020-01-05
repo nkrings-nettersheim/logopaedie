@@ -39,6 +39,7 @@ urlpatterns = [
     path('edit/ia/<id>/', views.edit_ia, name='edit_ia'),
     path('document/', views.upload_document, name='document'),
     path('download/', views.download_document, name='download'),
+    path('delete/', views.del_document, name='delete'),
     path('add/something/', views.add_therapy_something, name='add_something'),
     path('edit/something/<id>/', views.edit_therapy_something, name='edit_something')
 ]

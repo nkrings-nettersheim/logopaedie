@@ -1,4 +1,5 @@
 import io
+import os
 import logging
 from datetime import datetime
 from html import escape
@@ -83,9 +84,10 @@ def search_doctor_start(request):
 
 
 def search_doctor(request):
-    form = SearchTherapistForm()
+    form = SearchDoctorForm()
     if request.method == 'POST':
         name1 = request.POST['name1']
+        lanr = request.POST['lanr']
         if name1 != "":
             doctors_list = Doctor.objects.filter(doctor_name1__icontains=name1)
             if len(doctors_list) == 0:
@@ -99,7 +101,14 @@ def search_doctor(request):
             else:
                 logger.info('search_doctor: Keinen Arzt gefunden mit dem Suchbegriff: ' + name1)
                 return render(request, 'reports/doctor_search.html', {'form': form})
-
+        elif lanr != "":
+            doctors_list = Doctor.objects.filter(doctor_lanr=lanr)
+            if len(doctors_list) == 1:
+                logger.info('search_doctor: Arzt gefunden mit dem Suchbegriff: ' + lanr)
+                return redirect('/reports/doctor/' + str(doctors_list[0].id) + '/')
+            else:
+                logger.info('search_doctor: Keinen Arzt gefunden mit dem Suchbegriff: ' + lanr)
+                return render(request, 'reports/doctor_search.html', {'form': form})
         else:
             logger.info('search_doctor: Keinen Suchbegriff eingegeben:')
             return render(request, 'reports/doctor_search.html', {'form': form})
@@ -158,7 +167,6 @@ def search_therapist(request):
     form = SearchTherapistForm()
     if request.method == 'POST':
         kuerzel = request.POST['tp_initial']
-        print(kuerzel)
         if kuerzel != "":
             therapists_list = Therapist.objects.filter(tp_initial__icontains=kuerzel)
             if len(therapists_list) > 1:
@@ -407,6 +415,7 @@ def edit_therapy(request, id=None):
         return redirect('/reports/therapy/' + str(item.id) + '/')
     logger.info('edit_therapy: Rezeptformular des Patienten mit der ID: ' + str(item.id) + ' zwecks Änderung aufgerufen')
     form.id = item.id
+    form.therapy_doctor_value = item.therapy_doctor.doctor_lanr
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': item.patients})
 
 
@@ -521,16 +530,17 @@ def show_process_report(request):
     # See the ReportLab documentation for the full list of functionality.
     p.setFont('Helvetica', 18)
     p.drawString(6 * cm, 28 * cm, "Therapieverlaufdokumentation")
-    p.setFont('Helvetica', 14)
-    p.drawString(1.5 * cm, 27 * cm, "Rezept - Datum: " + str(therapy_value.recipe_date.strftime("%d.%m.%Y")))
-    p.drawString(14 * cm, 27 * cm, "Patient: " + pa_last_name + ", " + pa_first_name)
     p.setFont('Helvetica', 10)
-    p.drawString(1.5 * cm, 1 * cm, "Bericht: ")
-    p.drawString(11 * cm, 1 * cm, "Behandlung von: ")
+    p.drawString(1.5 * cm, 27 * cm, "Rezept - Datum: " + str(therapy_value.recipe_date.strftime("%d.%m.%Y")))
+    p.drawString(12 * cm, 27 * cm, "Patient: " + pa_last_name + ", " + pa_first_name)
+    p.setFont('Helvetica', 10)
+    p.drawString(1.5 * cm, 26.5 * cm, "Bericht: ")
+    p.drawString(13 * cm, 26.5 * cm, "Behandlung von: ")
+    #assert False
     if therapy_start_value != '':
-        p.drawString(13.8 * cm, 1 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
+        p.drawString(15.8 * cm, 26.5 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
     if therapy_end_value != '':
-        p.drawString(16.3 * cm, 1 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
+        p.drawString(18.3 * cm, 26.5 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
     p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.now().strftime("%d.%m.%Y %H:%M")))
 
 
@@ -577,7 +587,7 @@ def show_process_report(request):
                                ]))
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.5, 3, height - h, cm))
+    table.drawOn(p, *coord(1.5, 3.5, height - h, cm))
 
     # Close the PDF object cleanly, and we're done.
     p.showPage()
@@ -647,7 +657,8 @@ def show_therapy_report(request):
         x, y = x * unit, height - y * unit
         return x, y
 
-    pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
+    #pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
+    pdfmetrics.registerFont(TTFont('TNRB', settings.BASE_DIR + '/fonts/TIMESBD0.TTF'))
 
     id = request.GET.get('id')
     therapy_result = Therapy.objects.get(id=id)
@@ -823,8 +834,8 @@ def show_therapy_report(request):
     buffer.seek(0)
 
     file_name = pa_last_name + "_" + pa_first_name + "_" + str(recipe_date) + ".pdf"
-    return FileResponse(buffer, as_attachment=True, filename=file_name)
 
+    return FileResponse(buffer, as_attachment=True, filename=file_name, content_type='application/pdf')
 
 ##########################################################################
 # Area Document upload
@@ -834,20 +845,18 @@ def upload_document(request):
     if request.method == 'POST':
         item_form = DocumentForm(request.POST, request.FILES)
         patient_result = Patient.objects.get(id=request.POST.get('patient'))
-        #assert False
         if item_form.is_valid():
             logger.debug('upload_document: Dokument zum speichern valide')
-
             item = item_form.save(commit=False)
             item.patient_id = patient_result.id
             item.save()
             logger.debug('upload_document: Dokument gespeichert')
-            return redirect('/reports/patient/' + str(patient_result.id) + '/')
+            return redirect('/reports/document/?id=' + str(patient_result.id))
     else:
         logger.debug('upload_document: Formular aufgerufen um Dokumente zu sehen oder hochzuladen')
         form = DocumentForm(initial={'patient': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
-        documents = Document.objects.filter(patient_id=request.GET.get('id'))
+        documents = Document.objects.filter(patient_id=request.GET.get('id')).order_by('-uploaded_at')
     return render(request, 'reports/document_form.html', {'form': form, 'patient': patient_result, 'documents': documents})
 
 IMAGE_FILE_TYPES = ['pdf']
@@ -858,16 +867,32 @@ def download_document(request):
         file_info = Document.objects.get(id=file_id)
         document_name = file_info.document.name
         document_path = settings.MEDIA_ROOT + '/' + document_name
-        #assert False
         response = FileResponse(open(document_path, 'rb'), as_attachment=True)
         return response
+
+    return redirect('/reports/')
+
+
+def del_document(request):
+    if request.method == 'GET':
+        file_id = request.GET.get('id')
+        file_info = Document.objects.get(id=file_id)
+        document_name = file_info.document.name
+        document_path = settings.MEDIA_ROOT + '/' + document_name
+        if os.path.exists(document_path):
+            os.remove(document_path)
+            file_info.delete()
+            logger.debug('del_document: Dokument: ' + document_name + " gelöscht")
+        else:
+            logger.debug('del_document: Dokument: ' + document_path + " konnte nicht gelöscht werden")
+        return redirect('/reports/document/?id=' + request.GET.get('patient_id'))
 
 
 # **************************************************************************************************
 
 logging.config.dictConfig({
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'formatters': {
         'console': {
             'format': '%(name)-12s %(levelname)-8s %(message)s'

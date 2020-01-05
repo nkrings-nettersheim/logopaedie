@@ -3,8 +3,8 @@ from django.db import models
 
 
 class Doctor(models.Model):
-    doctor_name1 = models.CharField(max_length=50, blank=True, default='')
-    doctor_name2 = models.CharField(max_length=50, blank=True, default='')
+    doctor_name1 = models.CharField(max_length=75, blank=True, default='')
+    doctor_name2 = models.CharField(max_length=75, blank=True, default='')
     doctor_street = models.CharField(max_length=50, blank=True, default='')
     doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
     doctor_city = models.CharField(max_length=50, blank=True, default='')

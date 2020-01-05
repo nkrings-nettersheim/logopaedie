@@ -17,6 +17,10 @@
         <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' form.id %}" role="button">zurück</a>
         </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+        </li>
         {% endif %}
     </ul>
   </div>

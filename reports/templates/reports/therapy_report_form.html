@@ -47,6 +47,12 @@
                 {{ form.report_date.errors }}
             </div>
         </div>
+        {% else %}
+            {% if form.report_date %}
+                     <input type="hidden" id="id_report_date" name="report_date" value="{{ form.report_date.value|date:'d.m.Y' }}">
+            {% else %}
+                     <input type="hidden" id="id_report_date" name="report_date">
+             {% endif %}
         {% endif %}
         <div class="form-group row">
             <label for="{{ form.therapy_start.id_for_label }}" class="col-sm-2 control-label">Therapie Start: </label>

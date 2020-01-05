@@ -13,6 +13,9 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+        </li>
     </ul>
   </div>
 </nav>
@@ -34,6 +37,13 @@
                 <div class="col-sm-6">
                     {{ form.name1 }}
                     {{ form.name1.errors }}
+                </div>
+            </div>
+           <div class="form-group row">
+                <label for="{{ form.lanr.id_for_label }}" class="col-sm-2 control-label">Arzt-Nummer:</label>
+                <div class="col-sm-6">
+                    {{ form.lanr }}
+                    {{ form.lanr.errors }}
                 </div>
             </div>
             <div class="form-group row">

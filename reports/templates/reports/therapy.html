@@ -34,7 +34,7 @@
         {% endif %}
       </li>
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf hinzufügen</a>
       </li>
     {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
