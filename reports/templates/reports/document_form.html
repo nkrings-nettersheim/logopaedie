@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
+          <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
       </li>
     </ul>
   </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-sm-1">
                     <div class="small inline">
-                        <a href="{% url 'reports:delete' %}?id={{ obj.id }}&patient_id={{ patient.id }} ">
+                        <a href="{% url 'reports:delete' obj.id %}">
                             <button type="button" class="btn btn-primary">Löschen</button>
                         </a>
                     </div>

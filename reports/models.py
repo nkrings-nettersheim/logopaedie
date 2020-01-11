@@ -1,10 +1,12 @@
 import os
 from django.db import models
+from ckeditor.fields import RichTextField
 
 
 class Doctor(models.Model):
     doctor_name1 = models.CharField(max_length=75, blank=True, default='')
     doctor_name2 = models.CharField(max_length=75, blank=True, default='')
+    doctor_name3 = models.CharField(max_length=75, blank=True, default='')
     doctor_street = models.CharField(max_length=50, blank=True, default='')
     doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
     doctor_city = models.CharField(max_length=50, blank=True, default='')
@@ -51,7 +53,7 @@ class Therapy(models.Model):
     therapy_duration = models.CharField(max_length=10, default='')
     therapy_frequence = models.CharField(max_length=5, default='')
     therapy_rid_of = models.BooleanField(default=False, null=True)
-    therapy_report_no_yes = models.BooleanField(default=True)
+    therapy_report_no_yes = models.BooleanField(default=True, null=True)
     therapy_indication_key = models.CharField(max_length=10, default='')
     therapy_icd_cod = models.CharField(max_length=10, default='')
     therapy_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, default='')
@@ -70,9 +72,9 @@ class Therapy_report(models.Model):
     report_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     therapy_start = models.DateField(blank=True, default=None, null=True, auto_now=False, auto_now_add=False)
     therapy_end = models.DateField(blank=True, default=None, null=True, auto_now=False, auto_now_add=False)
-    therapy_current_result = models.TextField(default='')
-    therapy_emphases = models.TextField(default='')
-    therapy_forecast = models.TextField(default='')
+    therapy_current_result = RichTextField()
+    therapy_emphases = RichTextField()
+    therapy_forecast = RichTextField()
     therapy_indicated = models.BooleanField(default=False)
     therapy_break = models.BooleanField(default=False)
     therapy_break_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
@@ -107,7 +109,8 @@ class InitialAssessment (models.Model):
         ('2', 'gut'),
         ('3', 'befriedigend'),
         ('4', 'schlecht'),
-        ('5', 'sehr schlecht')
+        ('5', 'sehr schlecht'),
+        ('6', 'nicht auswertbar')
     )
 
     ia_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
@@ -124,6 +127,8 @@ class InitialAssessment (models.Model):
     ia_test = models.CharField(max_length=100, blank=True, default='')
     ia_test_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     ia_test_result = models.CharField(max_length=1, choices=RESULT, default='1')
+    ia_need = models.BooleanField(default=False, null=True)
+    ia_enhancement = models.BooleanField(default=False, null=True)
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
 
     def __str__(self):
@@ -141,7 +146,7 @@ class Document(models.Model):
 
 
 class Therapy_Something(models.Model):
-    something_else = models.TextField()
+    something_else = RichTextField()
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
 
 

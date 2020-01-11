@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% load static %}
+    <meta charset="utf-8">
+    <title>Therapiebericht</title>
+    <meta name="description" content="Therapiebericht Logopädische Praxis Petra Klein">
+    <meta name="author" content="Norbert Krings">
+</head>
+<body>
+<img id="logo" src="file:////{{ result.static_root}}/images/logopaedie.jpeg">
+
+<div id="kopfbalken"></div>
+<div id="seitenbalken"></div>
+<div id="kopf">seit 1987</div>
+<div id="kopf1">Petra Klein</div>
+<div id="kopf2">Staatlich geprüfte Logopädin</div>
+<div id="kopf3">Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen,<br>Mutismus, Autismus, Demenz, Hörstörungen</div>
+<div id="adresse">
+    Rathausstrasse 8<br>
+    53879 Euskirchen<br><br>
+    Tel. <br>
+    Fax. <br><br><br>
+    Bahnhofstrasse 26<br>
+    53947 Nettersheim<br><br>
+    Tel. <br>
+    Fax.
+</div>
+<div id="tel_eu">
+    02251 / 5 97 62<br>
+    02251 / 7 15 11
+</div>
+<div id="tel_net">
+    02486 / 80 29 50<br>
+    02486 / 80 29 60
+</div>
+<div id="fenster_headline">Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 - 53879 Euskirchen</div>
+
+<div id="adresse_arzt">
+    {{ doctor.doctor_name1 | truncatechars:50}}<br>
+    {{ doctor.doctor_name2 | truncatechars:50}}<br>
+    {{ doctor.doctor_name3 | truncatechars:50}}<br><br>
+    {{ doctor.doctor_street }}<br>
+    {{ doctor.doctor_zip_code }} {{ doctor.doctor_city }}
+</div>
+<div id="datum">Euskirchen den: {{ result.report_date | date:"d.m.Y" }}</div>
+
+<div id="betreff">Mitteilung des Therapeuten an den verordnenden Arzt:</div>
+<div id="patient1">Name des Patienten:</div>
+<div id="patient2">{{ result.pa_last_name}}, {{ result.pa_first_name}}</div>
+<div id="geburtsdatum1">geb. am:</div>
+<div id="geburtsdatum2">{{ result.pa_date_of_birth | date:"d.m.Y"}}</div>
+<div id="rezeptdatum1">Rezeptdatum:</div>
+<div id="rezeptdatum2">{{ result.recipe_date | date:"d.m.Y" }}</div>
+<div id="behandlungen1">{{ result.process_count }}</div>
+<div id="behandlungen2">Behandlungen vom:</div>
+<div id="behandlung_vom">{{ result.therapy_start | date:"d.m.Y" }}</div>
+<div id="behandlung_bis1">bis:</div>
+<div id="behandlung_bis2">{{ result.therapy_end | date:"d.m.Y" }}</div>
+<div id="indikation1">Indikationsschlüssel:</div>
+<div id="indikation2">{{ therapy.therapy_indication_key }}</div>
+<div id="icd1">ICD-Cod:</div>
+<div id="icd2">{{ therapy.therapy_icd_cod }}</div>
+
+<div id="therapy_current_result_header">Aktueller Stand der Therapie:</div>
+<div id="therapy_current_result">{{ result.therapy_current_result | safe }}</div>
+
+<div id="therapy_emphases_header">Therapieschwerpunkte:</div>
+<div id="therapy_emphases">{{ result.therapy_emphases | safe }}</div>
+
+<div id="therapy_forecast_header">Prognostische Einschätzung mit Angabe der Restsymptomatik:</div>
+<div id="therapy_forecast">{{ result.therapy_forecast | safe }}</div>
+
+<div id="behandlung1">Behandlung weiter indiziert:</div>
+<div id="behandlung2"></div>
+<div id="behandlung3">{% if result.therapy_indicated %} X {% endif %}</div>
+<div id="pause1">Pause:</div>
+<div id="pause2"></div>
+<div id="pause3">{% if result.therapy_break %} X {% endif %}</div>
+<div id="fortsetzung1">Fortsetzung ab:</div>
+<div id="fortsetzung2">{{ result.therapy_break_date|date:"d.m.Y" }}</div>
+<div id="bemerkung1">Bemerkung:</div>
+<div id="bemerkung2">{{ result.therapy_comment }}</div>
+<div id="fragen">Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!</div>
+<div id="gruss">Mit freundlichen Grüßen</div>
+<img id="unterschrift" src="file:////{{ result.static_root}}/images/unterschrift.jpeg">
+<div id="dank">Vielen Dank für die Kooperation</div>
+
+</body>
+</html>

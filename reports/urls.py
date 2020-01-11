@@ -2,6 +2,8 @@ from django.conf.urls import url
 from django.urls import path
 
 from . import views
+from .views import del_document
+
 
 
 app_name = 'reports'
@@ -25,6 +27,7 @@ urlpatterns = [
     path('edit/therapy_report/<id>/', views.edit_therapy_report, name='edit_therapy_report'),
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),
     path('show_therapy_report/', views.show_therapy_report, name='show_therapy_report'),
+    path('show_therapy_report2/', views.show_therapy_report2, name='show_therapy_report2'),
     path('search/doctor/start', views.search_doctor_start, name='search_doctor_start'),
     path('search/doctor/', views.search_doctor, name='search_doctor'),
     path('edit/doctor/<id>/', views.edit_doctor, name='edit_doctor'),
@@ -39,7 +42,7 @@ urlpatterns = [
     path('edit/ia/<id>/', views.edit_ia, name='edit_ia'),
     path('document/', views.upload_document, name='document'),
     path('download/', views.download_document, name='download'),
-    path('delete/', views.del_document, name='delete'),
+    path('delete/<pk>', views.del_document.as_view(), name='delete'),
     path('add/something/', views.add_therapy_something, name='add_something'),
     path('edit/something/<id>/', views.edit_therapy_something, name='edit_something')
 ]

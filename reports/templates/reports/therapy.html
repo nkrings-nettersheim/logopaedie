@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
+          <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button"><strong>Deckblatt</strong></a>
       </li>
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezept ändern</a>
@@ -56,7 +56,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
+                        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report2' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
                     </li>
                 {% endif %}
             {% endif %}
@@ -75,7 +75,7 @@
                 Patient: <strong>{{ patient.pa_last_name }}, {{ patient.pa_first_name }}</strong>
             </div>
             <div class="col-sm">
-                Arzt: <strong>{{ therapy.therapy_doctor.doctor_name1|truncatechars:40 }}</strong>
+                Arzt: <strong>{{ therapy.therapy_doctor.doctor_name1|truncatechars:30 }}</strong>
             </div>
             <div class="col-sm">
                 Rezeptdatum: <strong>{{ therapy.recipe_date|date:"d.m.Y" }}</strong>
@@ -119,11 +119,9 @@
 
         <div class="row">
             <div class="col-sm">
-                Befreit: <strong>{% if therapy.therapy_rid_of %} ja {% else %} nein {% endif %}</strong>
-            </div>
-            <div class="col-sm">
                 Bericht: <strong>{% if therapy.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong>
             </div>
+            <div class="col-sm inline">Eigenanteil: <strong>{% if therapy.therapy_rid_of %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong></div>
             <div class="col-sm">
                 Therapeut: <strong>{{ therapy.therapists }}</strong>
             </div>
@@ -238,6 +236,14 @@
                   <div class="col-sm-2">Ergebnis:</div>
                   <div class="col-sm-10"><strong>{{ ia.get_ia_test_result_display }}</strong></div>
               </div>
+              <div class="row bg-white">
+                  <div class="col-sm-2">Therapiebedarf:</div>
+                  <div class="col-sm-10"><strong>{% if ia.ia_need %}Ja{% else %}Nein{% endif%}</strong></div>
+              </div>
+              <div class="row bg-white">
+                  <div class="col-sm-2">Ergebnis:</div>
+                  <div class="col-sm-10"><strong>{% if ia.ia_enhancement %}Ja{% else %}Nein{% endif%}</strong></div>
+              </div>
               <div class="row bg-light">
                   <div class="col-sm-2"></div>
                   <div class="col-sm-10"><strong></strong></div>
@@ -259,7 +265,7 @@
               </div>
               <div class="row bg-white ">
                   <div class="col-sm-1"></div>
-                  <div class="col-sm-9"><strong>{{ ts.something_else|linebreaks }}</strong></div>
+                  <div class="col-sm-9">{{ ts.something_else| safe }}</div>
               </div>
 
               </div>
@@ -318,15 +324,15 @@
               </div>
               <div class="row bg-light">
                   <div class="col-sm-2">Aktueller Stand:</div>
-                  <div class="col-sm-10"><strong>{{ therapy_report.therapy_current_result|linebreaks }}</strong></div>
+                  <div class="col-sm-7">{{ therapy_report.therapy_current_result | safe }}</div>
               </div>
               <div class="row bg-white">
                   <div class="col-sm-2">Therapieschwerpunkte:</div>
-                  <div class="col-sm-10"><strong>{{ therapy_report.therapy_emphases|linebreaks }}</strong></div>
+                  <div class="col-sm-7">{{ therapy_report.therapy_emphases | safe }}</div>
               </div>
               <div class="row bg-light">
                   <div class="col-sm-2">Prognose:</div>
-                  <div class="col-sm-10"><strong>{{ therapy_report.therapy_forecast|linebreaks }}</strong></div>
+                  <div class="col-sm-7">{{ therapy_report.therapy_forecast | safe }}</div>
               </div>
               <div class="row bg-white">
                   <div class="col-sm-2">Behandlung weiter indiziert:</div>
@@ -337,12 +343,6 @@
                   <div class="col-sm-2"><strong>{% if therapy_report.therapy_break %} X {% endif %}</strong></div>
                   <div class="col-sm-2">Fortsetzung ab:</div>
                   <div class="col-sm-2"><strong>{{ therapy_report.therapy_break_date|date:"d.m.Y" }}</strong></div>
-              </div>
-              <div class="row bg-white">
-                  <div class="col-sm-2">Erfolgreich abgeschlossen:</div>
-                  <div class="col-sm-2"><strong>{% if therapy_report.therapy_success %} X {% endif %}</strong></div>
-                  <div class="col-sm-2">am:</div>
-                  <div class="col-sm-10"><strong>{{ therapy_report.therapy_success_date|date:"d.m.Y" }}</strong></div>
               </div>
               <div class="row bg-light">
                   <div class="col-sm-2">Bemerkung:</div>

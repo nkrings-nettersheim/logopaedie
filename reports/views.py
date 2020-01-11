@@ -7,8 +7,10 @@ from html import escape
 from dateutil.parser import parse
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
 from django.template import loader
 from django.conf import settings
 from django.views import generic
@@ -22,6 +24,12 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Table, TableStyle, Paragraph
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML, CSS
+import tempfile
+
 
 from logopaedie.settings import BASE_DIR
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
@@ -642,6 +650,32 @@ def therapy_report(request, id=id):
     logger.info('therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
 
+def show_therapy_report2(request):
+
+    id = request.GET.get('id')
+    therapy_result = Therapy.objects.get(id=request.GET.get('id'))
+    result = Therapy_report.objects.get(therapy=request.GET.get('id'))
+    doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
+    result.pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
+    result.pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
+    result.pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
+    result.recipe_date = Therapy.objects.get(id=id).recipe_date
+    result.process_count = Process_report.objects.filter(therapy=id).count()
+    result.static_root = settings.STATIC_ROOT
+
+    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
+
+    html_string = render_to_string('pdf_templates/therapy_report.html', {'therapy': therapy_result,
+                                                                         'result': result,
+                                                                         'doctor': doctor_result
+                                                                         })
+
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + '/reports/therapy_report.css')])
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename=' + filename
+
+    return response
 
 def show_therapy_report(request):
     width, height = A4
@@ -873,20 +907,26 @@ def download_document(request):
     return redirect('/reports/')
 
 
-def del_document(request):
-    if request.method == 'GET':
-        file_id = request.GET.get('id')
-        file_info = Document.objects.get(id=file_id)
-        document_name = file_info.document.name
-        document_path = settings.MEDIA_ROOT + '/' + document_name
-        if os.path.exists(document_path):
-            os.remove(document_path)
-            file_info.delete()
-            logger.debug('del_document: Dokument: ' + document_name + " gelöscht")
-        else:
-            logger.debug('del_document: Dokument: ' + document_path + " konnte nicht gelöscht werden")
-        return redirect('/reports/document/?id=' + request.GET.get('patient_id'))
+class del_document(DeleteView):
+        model = Document
+        template_name = 'reports/document_confirm_delete.html'
+        context_object_name = 'documents'
+        success_url = reverse_lazy('reports:document')
 
+        def post(self, request, *args, **kwargs):
+            patient_id = request.POST.get('patient_id')
+            file_id = kwargs['pk']
+            file_info = Document.objects.get(id=file_id)
+            document_name = file_info.document.name
+            document_path = settings.MEDIA_ROOT + '/' + document_name
+            if os.path.exists(document_path):
+                os.remove(document_path)
+                file_info.delete()
+                logger.debug('del_document: Dokument: ' + document_name + " gelöscht")
+            else:
+                logger.debug('del_document: Dokument: ' + document_path + " konnte nicht gelöscht werden")
+
+            return HttpResponseRedirect(self.success_url + "?id=" + patient_id)
 
 # **************************************************************************************************
 

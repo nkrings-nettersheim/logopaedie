@@ -2,6 +2,8 @@ import datetime
 from django import forms
 # from django.contrib.admin.widgets import AdminDateWidget
 
+from ckeditor.widgets import CKEditorWidget
+
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
 from .models import Document, Therapy_Something
 
@@ -83,7 +85,7 @@ class SearchDoctorForm(forms.Form):
 
 class DoctorForm(forms.ModelForm):
     doctor_name1 = forms.CharField(required=True,
-                                   max_length=50,
+                                   max_length=75,
                                    widget=forms.TextInput(
                                        attrs={
                                            'class': 'form-control',
@@ -94,7 +96,17 @@ class DoctorForm(forms.ModelForm):
                                    )
 
     doctor_name2 = forms.CharField(required=False,
-                                   max_length=50,
+                                   max_length=75,
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control',
+                                           'placeholder': 'Weitere Namen eingeben ...'
+                                       }
+                                   )
+                                   )
+
+    doctor_name3 = forms.CharField(required=False,
+                                   max_length=40,
                                    widget=forms.TextInput(
                                        attrs={
                                            'class': 'form-control',
@@ -148,6 +160,7 @@ class DoctorForm(forms.ModelForm):
         model = Doctor
         fields = ['doctor_name1',
                   'doctor_name2',
+                  'doctor_name3',
                   'doctor_street',
                   'doctor_zip_code',
                   'doctor_city',
@@ -493,9 +506,13 @@ class TherapyForm(forms.ModelForm):
             'class': 'form-control'
         }
     ))
-    therapy_rid_of = forms.NullBooleanField(required=False, initial=False, widget=forms.NullBooleanSelect)
+
+    therapy_rid_of = forms.NullBooleanField(required=True,
+                                            error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                            widget=forms.NullBooleanSelect)
 
     therapy_report_no_yes = forms.NullBooleanField(required=True,
+                                                   error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
                                                    widget=forms.NullBooleanSelect)
 
     INDICATION = (
@@ -515,6 +532,9 @@ class TherapyForm(forms.ModelForm):
         ('SF', 'SF'),
         ('SC1', 'SC1'),
         ('SC2', 'SC2'),
+        ('SPZ', 'SPZ'),
+        ('SPC', 'SPC'),
+        ('OFZ', 'OFZ'),
     )
 
     therapy_indication_key = forms.ChoiceField(choices=INDICATION, label="", initial=1, widget=forms.Select(
@@ -707,34 +727,19 @@ class TherapyReportForm(forms.ModelForm):
                                   )
 
     therapy_current_result = forms.CharField(required=False,
-                                             max_length=700,
-                                             widget=forms.Textarea(
-                                                 attrs={
-                                                     'class': 'form-control',
-                                                     'cols': '50',
-                                                     'rows': '6'
-                                                 }
-                                             ))
+                                             max_length=800,
+                                             widget=CKEditorWidget()
+                                             )
 
     therapy_emphases = forms.CharField(required=False,
-                                       max_length=700,
-                                       widget=forms.Textarea(
-                                           attrs={
-                                               'class': 'form-control',
-                                               'cols': '50',
-                                               'rows': '6'
-                                           }
-                                       ))
+                                       max_length=800,
+                                       widget=CKEditorWidget()
+                                       )
 
     therapy_forecast = forms.CharField(required=False,
-                                       max_length=700,
-                                       widget=forms.Textarea(
-                                           attrs={
-                                               'class': 'form-control',
-                                               'cols': '50',
-                                               'rows': '6'
-                                           }
-                                       ))
+                                       max_length=800,
+                                       widget=CKEditorWidget()
+                                       )
 
     therapy_indicated = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
@@ -892,6 +897,21 @@ class InitialAssessmentForm(forms.ModelForm):
                                    )
                                    )
 
+    RESULT = (
+        ('1', 'sehr gut'),
+        ('2', 'gut'),
+        ('3', 'befriedigend'),
+        ('4', 'schlecht'),
+        ('5', 'sehr schlecht'),
+        ('6', 'nicht auswertbar')
+    )
+
+    ia_test_result = forms.ChoiceField(choices=RESULT, initial=6, widget=forms.Select(
+        attrs={
+            'class': 'form-control',
+        }
+    ))
+
     class Meta:
         model = InitialAssessment
         fields = [
@@ -909,6 +929,8 @@ class InitialAssessmentForm(forms.ModelForm):
             'ia_test',
             'ia_test_date',
             'ia_test_result',
+            'ia_need',
+            'ia_enhancement',
             'therapy'
         ]
 
@@ -924,14 +946,7 @@ class DocumentForm(forms.ModelForm):
 
 
 class TherapySomethingForm(forms.ModelForm):
-    something_else = forms.CharField(required=False,
-                                     widget=forms.Textarea(
-                                         attrs={
-                                             'class': 'form-control',
-                                             'cols': '50',
-                                             'rows': '20'
-                                         }
-                                     ))
+    something_else = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         model = Therapy_Something
