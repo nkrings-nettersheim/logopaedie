@@ -2858,3 +2858,140 @@ AssertionError
 2020-01-11 16:08:56,976 reports.views           INFO     Try Exception
 2020-01-11 16:08:56,984 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
 2020-01-11 16:08:59,235 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-11 16:53:19,029 reports.views           INFO     Indexseite wurde geladen
+2020-01-11 16:53:29,538 reports.views           INFO     Indexseite wurde geladen
+2020-01-11 16:53:33,062 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-11 16:53:33,064 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-11 16:53:33,080 reports.views           INFO     Try Exception
+2020-01-11 16:53:33,082 reports.views           INFO     Try Exception
+2020-01-11 16:53:33,090 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-11 16:53:35,373 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 11:58:35,425 reports.views           INFO     Indexseite wurde geladen
+2020-01-12 11:58:49,054 reports.views           INFO     Indexseite wurde geladen
+2020-01-12 11:58:51,559 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-12 11:58:51,561 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-12 11:58:51,577 reports.views           INFO     Try Exception
+2020-01-12 11:58:51,579 reports.views           INFO     Try Exception
+2020-01-12 11:58:51,591 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-12 11:58:53,923 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 11:59:16,828 django.request          WARNING  Not Found: /
+2020-01-12 11:59:16,959 django.request          WARNING  Not Found: /favicon.ico
+2020-01-12 11:59:16,961 django.request          WARNING  Not Found: /apple-touch-icon-precomposed.png
+2020-01-12 11:59:16,965 django.request          WARNING  Not Found: /apple-touch-icon.png
+2020-01-12 11:59:17,548 django.request          WARNING  Not Found: /favicon.ico
+2020-01-12 11:59:24,107 django.request          WARNING  Not Found: /
+2020-01-12 11:59:24,753 reports.views           INFO     Indexseite wurde geladen
+2020-01-12 11:59:24,963 django.request          WARNING  Not Found: /favicon.ico
+2020-01-12 11:59:40,383 reports.views           INFO     Indexseite wurde geladen
+2020-01-12 11:59:41,874 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-12 11:59:41,876 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-12 11:59:41,889 reports.views           INFO     Try Exception
+2020-01-12 11:59:41,891 reports.views           INFO     Try Exception
+2020-01-12 11:59:41,901 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-12 11:59:43,982 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 13:43:11,894 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:43:15,983 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:43:30,663 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:47:12,569 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:49:38,539 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:50:28,847 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:51:41,266 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:52:00,232 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:52:44,495 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 13:52:50,424 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 13:52:53,147 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 13:56:48,452 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 14:05:10,593 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 14:05:15,202 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 14:05:17,104 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:07:22,615 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:07:35,109 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 14:07:37,561 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 14:09:48,256 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 14:09:52,499 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:13:07,132 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:13:53,241 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:14:10,965 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:23:22,126 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:25:58,398 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 2
+2020-01-12 14:25:58,427 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 14:26:00,391 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:28:46,894 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 14:28:48,884 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:31:45,577 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:36:14,228 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:37:21,966 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:37:40,480 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:39:40,892 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:39:51,058 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 2
+2020-01-12 14:39:51,077 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 14:39:55,456 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:52:12,211 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 14:52:45,651 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 2
+2020-01-12 14:52:45,664 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 15:19:44,460 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-12 15:19:49,664 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 15:19:52,449 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 15:20:12,686 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 15:20:39,617 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 15:21:17,012 reports.views           INFO     edit_therapy_report: Therapiebericht ändern mit ID: 7
+2020-01-12 15:21:17,025 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 15:34:05,208 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 15:34:19,506 reports.views           INFO     edit_therapy_report: Therapiebericht ändern mit ID: 7
+2020-01-12 15:34:19,522 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 15:34:22,873 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-12 15:34:22,963 django.request          ERROR    Internal Server Error: /reports/show_process_report/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 549, in show_process_report
+    p.drawString(15.8 * cm, 26.5 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
+AttributeError: 'NoneType' object has no attribute 'strftime'
+2020-01-12 15:38:00,088 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 15:38:02,410 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-12 16:04:03,425 reports.views           INFO     Indexseite wurde geladen
+2020-01-12 16:04:05,614 reports.views           INFO     add_doctor: Formular zur Bearbeitung/Erfassung der Arztdaten
+2020-01-12 16:04:38,123 reports.views           INFO     Indexseite wurde geladen
+2020-01-12 16:12:33,824 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-12 16:12:33,828 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-12 16:12:33,863 reports.views           INFO     Try Exception
+2020-01-12 16:12:33,865 reports.views           INFO     Try Exception
+2020-01-12 16:12:33,879 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-12 16:18:37,173 reports.views           INFO     Try Exception
+2020-01-12 16:18:37,175 reports.views           INFO     Try Exception
+2020-01-12 16:18:37,186 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-12 16:18:41,811 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:18:45,546 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:18:48,385 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:18:48,399 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:18:50,970 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:18:54,094 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:18:54,124 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:18:59,409 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:03,795 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:03,817 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:06,924 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:10,198 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:10,214 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:12,325 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:14,820 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:14,833 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:16,514 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:19,345 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:19,391 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:21,925 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:26,955 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:26,969 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:29,086 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:32,046 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:32,066 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:34,162 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-12 16:19:37,655 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 6
+2020-01-12 16:19:37,670 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-12 16:19:53,947 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-12 16:20:09,810 reports.views           INFO     edit_therapy_report: Therapiebericht ändern mit ID: 7
+2020-01-12 16:20:09,853 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen

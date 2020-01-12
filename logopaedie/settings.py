@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'logopaedie.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 if get_secret('DB_ENVIRONMENT') == 'prod':
-     DATABASES = {
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': get_secret('DB_NAME'),
@@ -100,8 +100,11 @@ if get_secret('DB_ENVIRONMENT') == 'prod':
             'PASSWORD': get_secret('DB_PASSWORD'),
             'HOST': '127.0.0.1',
             'PORT': '3306',
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
         }
-     }
+    }
 else:
     DATABASES = {
         'default': {
@@ -109,7 +112,6 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -173,10 +175,25 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {'default':
-                        {'toolbar': 'Custom', 'toolbar_Custom':
-                            [
-                                ['Bold', 'Italic', 'Underline', 'Strike', 'BulletedList'],
-                            ],
-                         }}
+                        {'height': 160,
+                         'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
+                         'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
+                         'toolbar': 'Custom', 'toolbar_Custom':
+                                 [
+                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor' ],
+                                 ],
+                         },
+                    'something':
+                        {'height': 380,
+                         'width': 800,
+                         'defaultLanguage': 'de',
+                         'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
+                         'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
+                         'toolbar': 'Custom', 'toolbar_Custom':
+                             [
+                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Source'],
+                             ],
+                         }
+                    }
 
 ###################################

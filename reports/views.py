@@ -545,9 +545,9 @@ def show_process_report(request):
     p.drawString(1.5 * cm, 26.5 * cm, "Bericht: ")
     p.drawString(13 * cm, 26.5 * cm, "Behandlung von: ")
     #assert False
-    if therapy_start_value != '':
+    if therapy_start_value != '' and therapy_start_value is not None:
         p.drawString(15.8 * cm, 26.5 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
-    if therapy_end_value != '':
+    if therapy_end_value != '' and therapy_start_value is not None:
         p.drawString(18.3 * cm, 26.5 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
     p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.now().strftime("%d.%m.%Y %H:%M")))
 
@@ -650,6 +650,7 @@ def therapy_report(request, id=id):
     logger.info('therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
 
+
 def show_therapy_report2(request):
 
     id = request.GET.get('id')
@@ -673,9 +674,10 @@ def show_therapy_report2(request):
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + '/reports/therapy_report.css')])
     response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename=' + filename
+    response['Content-Disposition'] = 'attachment; filename=' + filename
 
     return response
+
 
 def show_therapy_report(request):
     width, height = A4

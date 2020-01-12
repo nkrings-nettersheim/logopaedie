@@ -10,7 +10,7 @@ class Doctor(models.Model):
     doctor_street = models.CharField(max_length=50, blank=True, default='')
     doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
     doctor_city = models.CharField(max_length=50, blank=True, default='')
-    doctor_lanr = models.CharField(max_length=9, blank=False, default='999999999')
+    doctor_lanr = models.CharField(max_length=9, blank=False, unique=True, default='')
 
     def __str__(self):
         return self.doctor_lanr

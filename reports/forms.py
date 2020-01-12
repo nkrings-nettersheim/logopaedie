@@ -533,7 +533,7 @@ class TherapyForm(forms.ModelForm):
         ('SC1', 'SC1'),
         ('SC2', 'SC2'),
         ('SPZ', 'SPZ'),
-        ('SPC', 'SPC'),
+        ('SCZ', 'SCZ'),
         ('OFZ', 'OFZ'),
     )
 
@@ -936,6 +936,15 @@ class InitialAssessmentForm(forms.ModelForm):
 
 
 class DocumentForm(forms.ModelForm):
+    description = forms.CharField(required=True,
+                                    max_length=100,
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control'
+                                        }
+                                    )
+                                    )
+
     class Meta:
         model = Document
         fields = [
@@ -946,7 +955,7 @@ class DocumentForm(forms.ModelForm):
 
 
 class TherapySomethingForm(forms.ModelForm):
-    something_else = forms.CharField(widget=CKEditorWidget())
+    something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
 
     class Meta:
         model = Therapy_Something

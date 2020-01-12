@@ -36,11 +36,9 @@
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf hinzufügen</a>
       </li>
-    {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
         <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>
       </li>
-    {% endif %}
       <li class="nav-item">
         {% if therapy_report.therapy_id %}
             <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Th.Bericht ändern</a>
