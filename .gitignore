@@ -8,3 +8,5 @@ reports/__pycache__/
 reports/migrations/__pycache__/
 media/
 reports/tests/__pycache__/
+/static/admin/
+/static/ckeditor/

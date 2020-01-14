@@ -40,9 +40,15 @@ urlpatterns = [
     path('therapist/<id>/', views.therapist, name='therapist'),
     path('add/ia/', views.add_ia, name='add_ia'),
     path('edit/ia/<id>/', views.edit_ia, name='edit_ia'),
+
     path('document/', views.upload_document, name='document'),
     path('download/', views.download_document, name='download'),
     path('delete/<pk>', views.del_document.as_view(), name='delete'),
+
+    path('document_therapy/', views.upload_document_therapy, name='document_therapy'),
+    path('download_therapy/', views.download_document_therapy, name='download_therapy'),
+    path('delete_therapy/<pk>', views.del_document_therapy.as_view(), name='delete_therapy'),
+
     path('add/something/', views.add_therapy_something, name='add_something'),
     path('edit/something/<id>/', views.edit_therapy_something, name='edit_something')
 ]

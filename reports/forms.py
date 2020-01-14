@@ -5,7 +5,7 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
-from .models import Document, Therapy_Something
+from .models import Document, Document_therapy, Therapy_Something
 
 
 class IndexForm(forms.Form):
@@ -470,6 +470,7 @@ class TherapyForm(forms.ModelForm):
                 return therapy_doctor
             else:
                 raise forms.ValidationError("Arzt wurde nicht gefunden. Ggf. als neuen Arzt erfassen.")
+        return data
 
     recipe_date = forms.DateField(required=True,
                                   widget=forms.DateInput(
@@ -951,6 +952,24 @@ class DocumentForm(forms.ModelForm):
             'description',
             'document',
             'patient'
+        ]
+
+class DocumentTherapyForm(forms.ModelForm):
+    description = forms.CharField(required=True,
+                                    max_length=100,
+                                    widget=forms.TextInput(
+                                        attrs={
+                                            'class': 'form-control'
+                                        }
+                                    )
+                                    )
+
+    class Meta:
+        model = Document_therapy
+        fields = [
+            'description',
+            'document',
+            'therapy'
         ]
 
 

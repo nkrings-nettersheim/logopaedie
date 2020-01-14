@@ -102,8 +102,7 @@ class Process_report(models.Model):
         return self.process_content
 
 
-class InitialAssessment (models.Model):
-
+class InitialAssessment(models.Model):
     RESULT = (
         ('1', 'sehr gut'),
         ('2', 'gut'),
@@ -134,9 +133,11 @@ class InitialAssessment (models.Model):
     def __str__(self):
         return self.ia_assessment
 
+
 def dynamik_path(instance, filename):
     file_path = 'patient/{patient_id}/{filename}'.format(patient_id=instance.patient_id, filename=filename)
     return file_path
+
 
 class Document(models.Model):
     description = models.CharField(max_length=255, blank=True)
@@ -145,8 +146,18 @@ class Document(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
 
 
-class Therapy_Something(models.Model):
-    something_else = RichTextField()
+def dynamik_path_therapy(instance, filename):
+    file_path = 'therapy/{therapy_id}/{filename}'.format(therapy_id=instance.therapy_id, filename=filename)
+    return file_path
+
+
+class Document_therapy(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to=dynamik_path_therapy, max_length=100)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
 
 
+class Therapy_Something(models.Model):
+    something_else = RichTextField()
+    therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')

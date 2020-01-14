@@ -111,7 +111,7 @@
              <div class="form-group row">
                 <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">Arzt-Nummer:</label>
                 <div class="col-sm-6">
-                    <input type="text" id="id_therapy_doctor" name="therapy_doctor" minlength="9" maxlength="9" value="{{ form.therapy_doctor_value }}">
+                    {{ form.therapy_doctor }}
                     <div class="text-danger">{{ form.therapy_doctor.errors }}</div>
                 </div>
             </div>

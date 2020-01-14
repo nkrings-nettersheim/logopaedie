@@ -21,20 +21,23 @@
       </li>
       <li class="nav-item">
         {% if ia.therapy_id %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Befundb. änd.</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Befund</a>
         {% else %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Befundb.</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Befund</a>
         {% endif %}
       </li>
       <li class="nav-item">
         {% if ts.therapy_id %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_something' ts.id%}" role="button">Sonstiges ändern</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_something' ts.id%}" role="button">Sonstiges</a>
         {% else %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_something' %}?id={{ therapy.id }}" role="button">Sonstiges anl.</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_something' %}?id={{ therapy.id }}" role="button">Sonstiges</a>
         {% endif %}
       </li>
       <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf hinzufügen</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:document_therapy' %}?id={{ therapy.id }}" role="button">Dokumente</a>
+      </li>
+      <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf</a>
       </li>
       <li class="nav-item">
         <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>

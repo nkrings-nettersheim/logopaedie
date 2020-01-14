@@ -2995,3 +2995,627 @@ AttributeError: 'NoneType' object has no attribute 'strftime'
 2020-01-12 16:19:53,947 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
 2020-01-12 16:20:09,810 reports.views           INFO     edit_therapy_report: Therapiebericht ändern mit ID: 7
 2020-01-12 16:20:09,853 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:23:45,537 reports.views           INFO     Indexseite wurde geladen
+2020-01-13 13:23:47,535 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-13 13:23:47,537 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-13 13:23:47,553 reports.views           INFO     Try Exception
+2020-01-13 13:23:47,556 reports.views           INFO     Try Exception
+2020-01-13 13:23:47,564 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 13:23:49,984 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:25:23,465 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:25:23,618 django.request          ERROR    Internal Server Error: /reports/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 453, in therapy
+    'process_report': process_report_value})
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 443, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/urls/base.py", line 87, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/urls/resolvers.py", line 677, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'document_therapy' with arguments '(6,)' not found. 1 pattern(s) tried: ['reports/therapy_document/$']
+2020-01-13 13:25:36,002 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:25:36,114 django.request          ERROR    Internal Server Error: /reports/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 453, in therapy
+    'process_report': process_report_value})
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 443, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/urls/base.py", line 87, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/urls/resolvers.py", line 677, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'document_therapy' with arguments '(6,)' not found. 1 pattern(s) tried: ['reports/therapy_document/$']
+2020-01-13 13:26:45,639 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:26:55,411 django.request          ERROR    Internal Server Error: /reports/therapy_document/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 955, in upload_document_therapy
+    return render(request, 'reports/document_therapy_form.html', {'form': form, 'patient': therapy_result, 'documents': documents})
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 443, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/urls/base.py", line 87, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/urls/resolvers.py", line 677, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'therapy' with arguments '('',)' not found. 1 pattern(s) tried: ['reports/therapy/(?P<id>[^/]+)/$']
+2020-01-13 13:31:18,596 reports.views           INFO     Try Exception
+2020-01-13 13:31:18,598 reports.views           INFO     Try Exception
+2020-01-13 13:31:18,608 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 13:32:13,523 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:33:32,879 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:34:06,352 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:34:35,490 django.request          ERROR    Internal Server Error: /reports/therapy_document/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 947, in upload_document_therapy
+    item.save()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/base.py", line 746, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/base.py", line 784, in save_base
+    force_update, using, update_fields,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/base.py", line 886, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/base.py", line 925, in _do_insert
+    using=using, raw=raw,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 1204, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1376, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1321, in as_sql
+    for obj in self.query.objs
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1321, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1320, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1271, in pre_save_val
+    return field.pre_save(obj, add=True)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/files.py", line 288, in pre_save
+    file.save(file.name, file.file, save=False)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/files.py", line 86, in save
+    name = self.field.generate_filename(self.instance, name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/files.py", line 303, in generate_filename
+    filename = self.upload_to(instance, filename)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/models.py", line 138, in dynamik_path
+    file_path = 'patient/{patient_id}/{filename}'.format(patient_id=instance.patient_id, filename=filename)
+AttributeError: 'Document_therapy' object has no attribute 'patient_id'
+2020-01-13 13:43:16,146 django.request          WARNING  Not Found: /reports/document_therapy/
+2020-01-13 13:45:45,016 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:46:19,450 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 13:48:50,569 django.request          ERROR    Internal Server Error: /reports/document/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 895, in upload_document
+    patient_result = Patient.objects.get(id=request.GET.get('id'))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+reports.models.Patient.DoesNotExist: Patient matching query does not exist.
+2020-01-13 13:49:05,431 django.request          ERROR    Internal Server Error: /reports/document/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1768, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 895, in upload_document
+    patient_result = Patient.objects.get(id=request.GET.get('id'))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 404, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1301, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1155, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1772, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-01-13 13:59:16,756 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 14:01:52,307 reports.views           INFO     Try Exception
+2020-01-13 14:01:52,309 reports.views           INFO     Try Exception
+2020-01-13 14:01:52,317 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 14:01:55,410 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 16:53:34,933 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 16:58:19,572 django.request          ERROR    Internal Server Error: /reports/add/therapy/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 407, in add_therapy
+    if form.is_valid():
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 180, in is_valid
+    return self.is_bound and not self.errors
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 175, in errors
+    self.full_clean()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 376, in full_clean
+    self._clean_fields()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 394, in _clean_fields
+    value = field.clean(value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/fields.py", line 150, in clean
+    self.run_validators(value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/fields.py", line 135, in run_validators
+    v(value)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/forms.py", line 461, in check_indication
+    data = value.cleaned_data['therapy_doctor']
+AttributeError: 'str' object has no attribute 'cleaned_data'
+2020-01-13 17:06:59,406 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:07:25,614 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:07:30,672 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:15:18,122 reports.views           INFO     Try Exception
+2020-01-13 17:15:18,124 reports.views           INFO     Try Exception
+2020-01-13 17:15:18,132 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 17:15:19,547 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:18:17,694 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:18:42,609 reports.views           INFO     Indexseite wurde geladen
+2020-01-13 17:18:45,427 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-13 17:18:45,429 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-13 17:18:45,444 reports.views           INFO     Try Exception
+2020-01-13 17:18:45,446 reports.views           INFO     Try Exception
+2020-01-13 17:18:45,454 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 17:18:48,068 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 17:18:52,458 reports.views           INFO     Try Exception
+2020-01-13 17:18:52,461 reports.views           INFO     Try Exception
+2020-01-13 17:18:52,468 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 17:18:54,589 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:25:51,350 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:26:32,666 reports.views           INFO     Try Exception
+2020-01-13 17:26:32,669 reports.views           INFO     Try Exception
+2020-01-13 17:26:32,677 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 17:26:34,704 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 17:26:36,700 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 17:27:00,328 reports.views           INFO     Try Exception
+2020-01-13 17:27:00,330 reports.views           INFO     Try Exception
+2020-01-13 17:27:00,339 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 17:27:02,391 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:28:16,091 django.request          ERROR    Internal Server Error: /reports/add/therapy/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 407, in add_therapy
+    if form.is_valid():
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 180, in is_valid
+    return self.is_bound and not self.errors
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 175, in errors
+    self.full_clean()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 378, in full_clean
+    self._post_clean()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/models.py", line 399, in _post_clean
+    self.instance = construct_instance(self, self.instance, opts.fields, opts.exclude)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/models.py", line 62, in construct_instance
+    f.save_form_data(instance, cleaned_data[f.name])
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 885, in save_form_data
+    setattr(instance, self.name, data)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/related_descriptors.py", line 219, in __set__
+    self.field.remote_field.model._meta.object_name,
+ValueError: Cannot assign "'8888888'": "Therapy.therapy_doctor" must be a "Doctor" instance.
+2020-01-13 17:28:28,834 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 17:28:49,018 django.request          ERROR    Internal Server Error: /reports/add/therapy/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 407, in add_therapy
+    if form.is_valid():
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 180, in is_valid
+    return self.is_bound and not self.errors
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 175, in errors
+    self.full_clean()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/forms.py", line 378, in full_clean
+    self._post_clean()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/models.py", line 399, in _post_clean
+    self.instance = construct_instance(self, self.instance, opts.fields, opts.exclude)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/models.py", line 62, in construct_instance
+    f.save_form_data(instance, cleaned_data[f.name])
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 885, in save_form_data
+    setattr(instance, self.name, data)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/related_descriptors.py", line 219, in __set__
+    self.field.remote_field.model._meta.object_name,
+ValueError: Cannot assign "'09999999'": "Therapy.therapy_doctor" must be a "Doctor" instance.
+2020-01-13 18:03:05,254 reports.views           INFO     Try Exception
+2020-01-13 18:03:05,257 reports.views           INFO     Try Exception
+2020-01-13 18:03:05,270 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 18:03:09,604 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 18:03:12,564 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:07:34,896 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:07:38,457 reports.views           INFO     Try Exception
+2020-01-13 18:07:38,459 reports.views           INFO     Try Exception
+2020-01-13 18:07:38,467 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 18:07:41,008 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 18:07:44,129 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:08:17,507 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:08:17,581 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 429, in edit_therapy
+    assert False
+AssertionError
+2020-01-13 18:09:03,743 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:09:03,822 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 430, in edit_therapy
+    assert False
+AssertionError
+2020-01-13 18:09:07,055 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:09:07,087 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 430, in edit_therapy
+    assert False
+AssertionError
+2020-01-13 18:10:11,197 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:10:11,271 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 429, in edit_therapy
+    test2 = form.therapy_doctor
+AttributeError: 'TherapyForm' object has no attribute 'therapy_doctor'
+2020-01-13 18:10:42,255 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:10:42,330 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 429, in edit_therapy
+    test2 = form.therapy_doctor.doctor_name1
+AttributeError: 'TherapyForm' object has no attribute 'therapy_doctor'
+2020-01-13 18:12:19,199 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:12:19,274 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 431, in edit_therapy
+    assert False
+AssertionError
+2020-01-13 18:26:15,011 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:26:57,380 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:27:48,677 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:49:59,778 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 18:49:59,861 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 435, in edit_therapy
+    test2 = form.fields
+AttributeError: 'TherapyFormFormSet' object has no attribute 'fields'
+2020-01-13 18:53:24,674 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 422, in edit_therapy
+    form = TherapyForm(request.POST or None, instance=item, initial=[{'doctor_lanr': '888888888'}])
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/models.py", line 296, in __init__
+    object_data.update(initial)
+ValueError: dictionary update sequence element #0 has length 1; 2 is required
+2020-01-13 18:57:37,117 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 422, in edit_therapy
+    form = TherapyForm(request.POST or None, instance=item, initial=[{'therapy_duration': '88'}])
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/forms/models.py", line 296, in __init__
+    object_data.update(initial)
+ValueError: dictionary update sequence element #0 has length 1; 2 is required
+2020-01-13 18:58:12,844 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 19:26:44,838 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 19:26:44,934 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 451, in edit_therapy
+    assert False
+AssertionError
+2020-01-13 19:33:10,514 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 19:36:08,158 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 19:36:08,257 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1768, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'Doctor'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 428, in edit_therapy
+    doctor_value = Doctor.objects.get(id=item.therapy_doctor)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 404, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1301, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1155, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1772, in get_prep_value
+    ) from e
+TypeError: Field 'id' expected a number but got <Doctor: 123456789>.
+2020-01-13 19:42:05,087 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 19:42:05,224 django.request          ERROR    Internal Server Error: /reports/edit/therapy/6/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 428, in edit_therapy
+    doctor_value = Doctor.objects.get(id=item.therapy_doctor.value)
+AttributeError: 'Doctor' object has no attribute 'value'
+2020-01-13 19:44:10,060 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 6 zwecks Änderung aufgerufen
+2020-01-13 19:44:24,484 reports.views           INFO     edit_therapy: Rezept mit der ID:6 geändert
+2020-01-13 19:44:24,500 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-13 22:02:33,433 reports.views           INFO     Try Exception
+2020-01-13 22:02:33,435 reports.views           INFO     Try Exception
+2020-01-13 22:02:33,444 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 22:02:35,930 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-13 22:03:52,934 reports.views           INFO     add_therapy: Rezept für Patient mit ID: 1 angelegt
+2020-01-13 22:03:52,970 reports.views           INFO     Try Exception
+2020-01-13 22:03:52,979 reports.views           INFO     Try Exception
+2020-01-13 22:03:52,982 reports.views           INFO     Try Exception
+2020-01-13 22:03:52,990 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-13 22:04:06,914 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-13 22:04:09,228 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-13 22:04:21,459 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-01-13 22:04:21,498 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-13 22:04:24,660 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-13 23:29:13,761 reports.views           INFO     Indexseite wurde geladen
+2020-01-13 23:29:45,617 reports.views           INFO     Indexseite wurde geladen
+2020-01-13 23:37:21,204 reports.views           INFO     add_patient: Formular aufgerufen
+2020-01-14 08:52:29,451 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 08:52:31,587 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-14 08:52:31,589 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-14 08:52:31,604 reports.views           INFO     Try Exception
+2020-01-14 08:52:31,611 reports.views           INFO     Try Exception
+2020-01-14 08:52:31,614 reports.views           INFO     Try Exception
+2020-01-14 08:52:31,623 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 08:53:43,241 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-14 08:54:45,963 reports.views           INFO     Try Exception
+2020-01-14 08:54:45,971 reports.views           INFO     Try Exception
+2020-01-14 08:54:45,974 reports.views           INFO     Try Exception
+2020-01-14 08:54:45,984 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 08:55:59,252 reports.views           INFO     Try Exception
+2020-01-14 08:55:59,258 reports.views           INFO     Try Exception
+2020-01-14 08:55:59,261 reports.views           INFO     Try Exception
+2020-01-14 08:55:59,268 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 08:56:02,276 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-14 08:56:03,847 reports.views           INFO     Try Exception
+2020-01-14 08:56:03,854 reports.views           INFO     Try Exception
+2020-01-14 08:56:03,856 reports.views           INFO     Try Exception
+2020-01-14 08:56:03,864 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 08:56:05,631 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-14 08:56:35,110 reports.views           INFO     Try Exception
+2020-01-14 08:56:35,117 reports.views           INFO     Try Exception
+2020-01-14 08:56:35,119 reports.views           INFO     Try Exception
+2020-01-14 08:56:35,133 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 08:58:31,206 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 08:58:42,222 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 09:11:06,737 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 09:20:24,705 reports.views           INFO     add_patient: Formular aufgerufen
+2020-01-14 13:48:14,816 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 13:48:36,404 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 13:49:31,091 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 13:50:53,666 reports.views           INFO     add_patient: Formular aufgerufen

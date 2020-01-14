@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
+          <a class="btn btn-success btn-sm" href="{% url 'reports:therapy' therapy.id %}" role="button">zum Rezept</a>
       </li>
     </ul>
   </div>
@@ -27,11 +27,11 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.non_field_errors }}
-    <input type="hidden" id="id_patient" name="patient" value="{{ patient.id }}">
+    <input type="hidden" id="id_therapy" name="therapy" value="{{ therapy.id }}">
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <h4>Dokument hochladen:</h4>
+                <h4>Dokument zum Rezept hochladen:</h4>
             </div>
         </div>
         <div class="form-group row">
@@ -71,18 +71,14 @@
                 </div>
                 <div class="col-sm-1">
                     <div class="small inline">
-                        <a href="{% url 'reports:download' %}?id={{ obj.id }}">
+                        <a href="{% url 'reports:download_therapy' %}?id={{ obj.id }}">
                             <button type="button" class="btn btn-primary">Öffnen</button>
                         </a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">&nbsp;</div>
-                    <div class="col-sm-6"></div>
-                </div>
                 <div class="col-sm-1">
                     <div class="small inline">
-                        <a href="{% url 'reports:delete' obj.id %}">
+                        <a href="{% url 'reports:delete_therapy' obj.id %}">
                             <button type="button" class="btn btn-primary">Löschen</button>
                         </a>
                     </div>
