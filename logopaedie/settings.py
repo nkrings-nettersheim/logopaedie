@@ -37,7 +37,6 @@ def get_secret(setting, secrets=secrets):
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'q3^#tyh%ppv4w9zil5y+4y@)6_ew%0k8lazb))q6-bvp*9jnah'
 SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -179,22 +178,25 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {'default':
                         {'height': 160,
+                         'scayt_autoStartup': True,
                          'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
                          'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
                          'toolbar': 'Custom', 'toolbar_Custom':
                                  [
-                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor' ],
+                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'Scayt', ],
                                  ],
                          },
                     'something':
                         {'height': 380,
                          'width': 800,
-                         'defaultLanguage': 'de',
+                         'defaultLanguage': "de",
+                         'scayt_autoStartup': True,
+                         'scayt_sLang': "de_DE",
                          'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
                          'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
                          'toolbar': 'Custom', 'toolbar_Custom':
                              [
-                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Source'],
+                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt', 'Source'],
                              ],
                          }
                     }

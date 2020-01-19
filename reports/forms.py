@@ -370,7 +370,7 @@ class PatientForm(forms.ModelForm):
 
     pa_cell_phone_add1 = forms.CharField(
         required=False,
-        max_length=35,
+        max_length=50,
         widget=forms.TextInput(
             attrs={
                 'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,30}',
@@ -382,7 +382,7 @@ class PatientForm(forms.ModelForm):
 
     pa_cell_phone_add2 = forms.CharField(
         required=False,
-        max_length=35,
+        max_length=50,
         widget=forms.TextInput(
             attrs={
                 'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,30}',
@@ -953,6 +953,7 @@ class DocumentForm(forms.ModelForm):
             'document',
             'patient'
         ]
+
 
 class DocumentTherapyForm(forms.ModelForm):
     description = forms.CharField(required=True,
