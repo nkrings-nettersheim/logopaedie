@@ -3619,3 +3619,271 @@ AttributeError: 'Doctor' object has no attribute 'value'
 2020-01-14 13:48:36,404 reports.views           INFO     Indexseite wurde geladen
 2020-01-14 13:49:31,091 reports.views           INFO     Indexseite wurde geladen
 2020-01-14 13:50:53,666 reports.views           INFO     add_patient: Formular aufgerufen
+2020-01-14 15:40:38,540 django.request          WARNING  Not Found: /
+2020-01-14 15:40:39,139 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 15:40:39,416 django.request          WARNING  Not Found: /
+2020-01-14 15:40:42,892 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 15:40:54,724 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 15:40:56,865 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-14 15:40:56,866 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-14 15:40:56,882 reports.views           INFO     Try Exception
+2020-01-14 15:40:56,888 reports.views           INFO     Try Exception
+2020-01-14 15:40:56,890 reports.views           INFO     Try Exception
+2020-01-14 15:40:56,897 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 15:41:01,084 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-14 15:41:02,772 reports.views           INFO     add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld
+2020-01-14 15:41:56,700 reports.views           INFO     add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld
+2020-01-14 15:49:38,463 reports.views           INFO     add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld
+2020-01-14 15:50:58,706 reports.views           INFO     add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld
+2020-01-14 15:53:57,825 reports.views           INFO     add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld
+2020-01-14 15:58:15,289 reports.views           INFO     add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld
+2020-01-14 15:59:42,813 reports.views           INFO     add_therapy_something: Sonstiges mit id: 3 angelegt
+2020-01-14 15:59:42,829 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-14 15:59:47,037 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 3
+2020-01-14 16:00:20,102 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-14 16:00:25,410 reports.views           INFO     Try Exception
+2020-01-14 16:00:25,417 reports.views           INFO     Try Exception
+2020-01-14 16:00:25,419 reports.views           INFO     Try Exception
+2020-01-14 16:00:25,428 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 16:00:27,638 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-14 16:00:29,940 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-14 16:03:51,039 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-14 16:03:53,812 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-14 16:04:09,991 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 16:05:02,871 django.request          WARNING  Not Found: /
+2020-01-14 16:05:03,460 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 16:05:13,564 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 16:05:15,278 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-14 16:05:15,279 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-14 16:05:15,297 reports.views           INFO     Try Exception
+2020-01-14 16:05:15,303 reports.views           INFO     Try Exception
+2020-01-14 16:05:15,305 reports.views           INFO     Try Exception
+2020-01-14 16:05:15,312 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-14 16:05:17,666 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-14 16:05:20,291 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 2
+2020-01-14 16:11:08,829 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-14 16:11:10,585 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-14 16:13:23,675 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 7
+2020-01-14 16:14:40,507 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-14 22:49:48,849 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:50:55,678 reports.views           INFO     Indexseite wurde geladen
+2020-01-14 22:51:14,757 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:52:59,681 django.request          ERROR    Internal Server Error: /accounts/password_reset/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/contrib/auth/views.py", line 222, in dispatch
+    return super().dispatch(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/contrib/auth/views.py", line 235, in form_valid
+    form.save(**opts)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/contrib/auth/forms.py", line 324, in save
+    user_email, html_email_template_name=html_email_template_name,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/contrib/auth/forms.py", line 272, in send_mail
+    email_message.send()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/mail/message.py", line 276, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 102, in send_messages
+    new_conn_created = self.open()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 69, in open
+    self.connection.login(self.username, self.password)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/smtplib.py", line 730, in login
+    raise last_exception
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'5.7.8 Username and Password not accepted. Learn more at\n5.7.8  https://support.google.com/mail/?p=BadCredentials n67sm21166974wmf.46 - gsmtp')
+2020-01-14 22:58:47,401 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:59:04,450 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:59:04,902 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:59:07,842 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:59:14,027 django.request          WARNING  Not Found: /favicon.ico
+2020-01-14 22:59:22,471 reports.views           INFO     Indexseite wurde geladen
+2020-01-17 19:48:27,860 reports.views           INFO     Indexseite wurde geladen
+2020-01-17 19:48:35,597 reports.views           INFO     Indexseite wurde geladen
+2020-01-17 19:48:43,124 django.request          WARNING  Not Found: /favicon.ico
+2020-01-17 20:19:31,788 reports.views           INFO     Indexseite wurde geladen
+2020-01-17 20:48:58,633 reports.views           INFO     Indexseite wurde geladen
+2020-01-17 21:36:40,541 django.request          WARNING  Not Found: /apple-touch-icon-precomposed.png
+2020-01-17 21:36:40,545 django.request          WARNING  Not Found: /favicon.ico
+2020-01-17 21:36:40,555 django.request          WARNING  Not Found: /apple-touch-icon.png
+2020-01-17 21:53:02,688 reports.views           INFO     Indexseite wurde geladen
+2020-01-17 21:59:53,905 django.request          WARNING  Not Found: /favicon.ico
+2020-01-18 06:32:19,210 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 06:53:23,525 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 06:53:43,262 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 07:00:34,606 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 07:53:01,530 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 07:53:38,810 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 07:54:04,792 django.request          WARNING  Not Found: /favicon.ico
+2020-01-18 07:55:11,713 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 08:35:04,468 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 08:35:33,341 django.request          ERROR    Internal Server Error: /accounts/password_change/done/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 469, in parse
+    compile_func = self.tags[command]
+KeyError: 'translate'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loaders/base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 156, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 194, in compile_nodelist
+    return parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 266, in do_extends
+    nodelist = parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 209, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 471, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 527, in invalid_block_tag
+    get_text_list(["'%s'" % p for p in parse_until], 'or'),
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 25: 'translate', expected 'endblock'. Did you forget to register or load this tag?
+2020-01-18 08:35:33,960 django.request          WARNING  Not Found: /favicon.ico
+2020-01-18 08:39:50,935 django.request          WARNING  Not Found: /favicon.ico
+2020-01-18 08:42:54,520 django.request          ERROR    Internal Server Error: /accounts/password_change/done/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 127, in render
+    compiled_parent = self.get_parent(context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 124, in get_parent
+    return self.find_template(parent, context)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 104, in find_template
+    template_name, skip=history,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loaders/base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 156, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 194, in compile_nodelist
+    return parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 205, in do_block
+    raise TemplateSyntaxError("'%s' tag with name '%s' appears more than once" % (bits[0], block_name))
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'content' appears more than once
+2020-01-18 08:43:27,621 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 12:17:26,505 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 12:17:50,676 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 12:18:21,638 reports.views           INFO     Indexseite wurde geladen
+2020-01-18 12:19:48,255 reports.views           INFO     Indexseite wurde geladen
+2020-01-19 12:35:57,979 reports.views           INFO     Indexseite wurde geladen
+2020-01-19 12:36:00,966 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-19 12:36:00,968 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-19 12:36:00,983 reports.views           INFO     Try Exception
+2020-01-19 12:36:00,990 reports.views           INFO     Try Exception
+2020-01-19 12:36:00,992 reports.views           INFO     Try Exception
+2020-01-19 12:36:01,000 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:36:06,287 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-19 12:36:29,288 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-19 12:36:29,305 reports.views           INFO     Try Exception
+2020-01-19 12:36:29,314 reports.views           INFO     Try Exception
+2020-01-19 12:36:29,317 reports.views           INFO     Try Exception
+2020-01-19 12:36:29,327 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:37:06,784 reports.views           INFO     Try Exception
+2020-01-19 12:37:06,790 reports.views           INFO     Try Exception
+2020-01-19 12:37:06,792 reports.views           INFO     Try Exception
+2020-01-19 12:37:06,799 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:37:26,923 reports.views           INFO     Try Exception
+2020-01-19 12:37:26,929 reports.views           INFO     Try Exception
+2020-01-19 12:37:26,931 reports.views           INFO     Try Exception
+2020-01-19 12:37:26,939 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:49:17,434 reports.views           INFO     Try Exception
+2020-01-19 12:49:17,443 reports.views           INFO     Try Exception
+2020-01-19 12:49:17,445 reports.views           INFO     Try Exception
+2020-01-19 12:49:17,453 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:50:40,202 reports.views           INFO     Try Exception
+2020-01-19 12:50:40,207 reports.views           INFO     Try Exception
+2020-01-19 12:50:40,209 reports.views           INFO     Try Exception
+2020-01-19 12:50:40,217 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:50:47,875 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-19 12:51:03,869 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-19 12:51:03,890 reports.views           INFO     Try Exception
+2020-01-19 12:51:03,896 reports.views           INFO     Try Exception
+2020-01-19 12:51:03,898 reports.views           INFO     Try Exception
+2020-01-19 12:51:03,908 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:51:13,374 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-19 12:51:16,582 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 3
+2020-01-19 12:51:32,447 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 3
+2020-01-19 12:51:32,463 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-19 12:51:38,387 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 3
+2020-01-19 12:51:41,094 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 3
+2020-01-19 12:51:41,108 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-19 12:51:46,288 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 3
+2020-01-19 12:56:13,063 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 3
+2020-01-19 12:56:13,078 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-19 12:56:16,515 reports.views           INFO     Try Exception
+2020-01-19 12:56:16,521 reports.views           INFO     Try Exception
+2020-01-19 12:56:16,523 reports.views           INFO     Try Exception
+2020-01-19 12:56:16,531 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 12:58:23,575 reports.views           INFO     Try Exception
+2020-01-19 12:58:23,581 reports.views           INFO     Try Exception
+2020-01-19 12:58:23,583 reports.views           INFO     Try Exception
+2020-01-19 12:58:23,591 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
