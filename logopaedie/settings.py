@@ -167,6 +167,7 @@ EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = get_secret('EMAIL_PORT')
 EMAIL_USE_TLS = get_secret('EMAIL_USE_TLS')
+#DEFAULT_FROM_EMAIL = get_secret('DEFAULT_FROM_EMAIL')
 
 ####################################
 ##  CKEDITOR CONFIGURATION ##

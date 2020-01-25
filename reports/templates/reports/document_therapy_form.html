@@ -3,6 +3,7 @@
 {% block extrahead %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block nav %}
@@ -49,7 +50,7 @@
                 <div class="text-danger">{{ form.document.errors }}</div>
             </div>
             <div class="col-sm-sm-7 ">
-                <button type="submit" class="btn btn-primary btn-sm">Fertig stellen</button>
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-upload"> Fertig stellen</i></button>
             </div>
         </div>
     </div>
@@ -66,20 +67,20 @@
                 <div class="col-sm-6">
                     <div class="small inline">Datei: {{ obj.document.name }}</div>
                 </div>
-                <div class="col-sm-4">
-                     <small>(Hochgeladen am: {{ obj.uploaded_at }})</small>
+                <div class="col-sm-2">
+                     <small>(Upload am: {{ obj.uploaded_at | date:"d.m.Y"}})</small>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <div class="small inline">
                         <a href="{% url 'reports:download_therapy' %}?id={{ obj.id }}">
-                            <button type="button" class="btn btn-primary">Öffnen</button>
+                            <button type="button" class="btn btn-primary"><i class="fa fa-download"> Öffnen</i></button>
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <div class="small inline">
                         <a href="{% url 'reports:delete_therapy' obj.id %}">
-                            <button type="button" class="btn btn-primary">Löschen</button>
+                            <button type="button" class="btn btn-primary"><i class="fa fa-trash"> Löschen</i></button>
                         </a>
                     </div>
                 </div>

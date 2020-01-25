@@ -17,7 +17,7 @@ from django.conf import settings
 from django.views import generic
 from reportlab.lib import colors
 from reportlab.lib.colors import black
-from reportlab.lib.enums import TA_LEFT, TA_CENTER
+from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
@@ -248,7 +248,7 @@ def search_patient(request):
             logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth)
 
             if last_name != "":
-                patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name)
+                patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name, pa_active_no_yes=True)
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Namen: " + last_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -260,7 +260,7 @@ def search_patient(request):
                     return redirect('/reports/')
 
             elif first_name != "":
-                patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name)
+                patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name, pa_active_no_yes=True)
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Vornamen: " + first_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -272,7 +272,7 @@ def search_patient(request):
                     return redirect('/reports/')
 
             elif date_of_birth != "":
-                patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True))
+                patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True, pa_active_no_yes=True))
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Geburtsdatum " + date_of_birth + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -537,10 +537,13 @@ def show_process_report(request):
     styles = getSampleStyleSheet()
     styleN = styles["BodyText"]
     styleN.alignment = TA_LEFT
+    styleN.fontSize = 8
     styleNC = styles['Normal']
-    styleNC.alignment = TA_CENTER
+    styleNC.alignment = TA_JUSTIFY
+    styleNC.fontSize = 8
     styleBH = styles["Normal"]
     styleBH.alignment = TA_CENTER
+    styleBH.fontSize = 8
 
     def coord(x, y, height,  unit=1):
         x, y = x * unit, height - y * unit
@@ -591,6 +594,7 @@ def show_process_report(request):
         p.drawString(15.8 * cm, 26.5 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
     if therapy_end_value != '' and therapy_start_value is not None:
         p.drawString(18.3 * cm, 26.5 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
+    p.setFont('Helvetica', 8)
     p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.now().strftime("%d.%m.%Y %H:%M")))
 
 
@@ -609,31 +613,33 @@ def show_process_report(request):
     for item in list(process_report_value):
         ctreatment = Paragraph((str(item[0])), styleNC)
         content = str(escape(item[1])).replace('\n', '<br />\n')
+        #content = '<font size=8>' + content + '</font>'
         ccontent = Paragraph(((content)), styleN)
-        cexercises = Paragraph((escape(item[2])), styleNC)
+        cexercises = Paragraph((escape(item[2])), styleN)
         cresult = Paragraph((escape(item[3])), styleNC)
         data.append([ctreatment, ccontent, cexercises, cresult])
         if item[4]:
             ctreatment = ''
             content = str(escape(item[4])).replace('\n', '<br />\n')
             ccontent = Paragraph(((content)), styleN)
-            cexercises = Paragraph((escape(item[5])), styleNC)
+            cexercises = Paragraph((escape(item[5])), styleN)
             cresult = Paragraph((escape(item[6])), styleNC)
             data.append([ctreatment, ccontent, cexercises, cresult])
         if item[7]:
             ctreatment = ''
             content = str(escape(item[7])).replace('\n', '<br />\n')
             ccontent = Paragraph(((content)), styleN)
-            cexercises = Paragraph((escape(item[8])), styleNC)
+            cexercises = Paragraph((escape(item[8])), styleN)
             cresult = Paragraph((escape(item[9])), styleNC)
             data.append([ctreatment, ccontent, cexercises, cresult])
 
     #create table
-    table = Table(data, colWidths=[2 * cm, 12.5 * cm, 2 * cm,
-                                   2 * cm])
+    table = Table(data, colWidths=[1.5 * cm, 10 * cm, 5.5 * cm,
+                                   1.7 * cm])
 
     table.setStyle(TableStyle([('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
                                ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+                               ('VALIGN', (0, 0), (-1, -1), 'TOP')
                                ]))
     w, h = table.wrap(width, height)
     table.wrapOn(p, width, height)

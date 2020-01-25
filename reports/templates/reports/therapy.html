@@ -114,17 +114,18 @@
             <div class="col-sm">
 
             </div>
-            <div class="col-sm">
+            <div class="col-sm">Therapeut: <strong>{{ therapy.therapists }}</strong>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm">
-                Bericht: <strong>{% if therapy.therapy_report_no_yes %} ja {% else %} nein {% endif %}</strong>
+                Hausbesuch: <strong>{% if therapy.therapy_homevisit_no_yes %}<div class="text-danger inline">ja</div> {% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
             </div>
             <div class="col-sm inline">Eigenanteil: <strong>{% if therapy.therapy_rid_of %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong></div>
             <div class="col-sm">
-                Therapeut: <strong>{{ therapy.therapists }}</strong>
+                Therapiebericht: <strong>{% if therapy.therapy_report_no_yes %}<div class="text-danger inline">ja</div> {% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
+
             </div>
         </div>
 

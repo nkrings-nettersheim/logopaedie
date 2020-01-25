@@ -3887,3 +3887,259 @@ django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'content' 
 2020-01-19 12:58:23,581 reports.views           INFO     Try Exception
 2020-01-19 12:58:23,583 reports.views           INFO     Try Exception
 2020-01-19 12:58:23,591 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 13:40:00,064 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-19 13:40:08,003 reports.views           INFO     Indexseite wurde geladen
+2020-01-19 13:40:10,448 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-19 13:40:10,449 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-19 13:40:10,467 reports.views           INFO     Try Exception
+2020-01-19 13:40:10,473 reports.views           INFO     Try Exception
+2020-01-19 13:40:10,475 reports.views           INFO     Try Exception
+2020-01-19 13:40:10,483 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 13:40:11,967 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-19 13:40:28,600 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-19 13:40:28,618 reports.views           INFO     Try Exception
+2020-01-19 13:40:28,626 reports.views           INFO     Try Exception
+2020-01-19 13:40:28,628 reports.views           INFO     Try Exception
+2020-01-19 13:40:28,636 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 13:40:38,250 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-19 13:41:14,882 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-19 13:41:14,898 reports.views           INFO     Try Exception
+2020-01-19 13:41:14,904 reports.views           INFO     Try Exception
+2020-01-19 13:41:14,906 reports.views           INFO     Try Exception
+2020-01-19 13:41:14,916 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-19 13:51:53,489 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-19 13:52:12,372 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-19 13:52:12,393 reports.views           INFO     Try Exception
+2020-01-19 13:52:12,399 reports.views           INFO     Try Exception
+2020-01-19 13:52:12,401 reports.views           INFO     Try Exception
+2020-01-19 13:52:12,411 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:12:29,162 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 09:12:37,330 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 09:12:40,772 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-25 09:12:40,773 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-25 09:12:40,789 reports.views           INFO     Try Exception
+2020-01-25 09:12:40,795 reports.views           INFO     Try Exception
+2020-01-25 09:12:40,798 reports.views           INFO     Try Exception
+2020-01-25 09:12:40,805 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:12:45,746 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-25 09:19:15,515 reports.views           INFO     Try Exception
+2020-01-25 09:19:15,523 reports.views           INFO     Try Exception
+2020-01-25 09:19:15,525 reports.views           INFO     Try Exception
+2020-01-25 09:19:15,533 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:19:43,908 reports.views           INFO     Try Exception
+2020-01-25 09:19:43,914 reports.views           INFO     Try Exception
+2020-01-25 09:19:43,916 reports.views           INFO     Try Exception
+2020-01-25 09:19:43,926 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:24:57,137 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-25 09:25:29,306 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-25 09:25:29,322 reports.views           INFO     Try Exception
+2020-01-25 09:25:29,328 reports.views           INFO     Try Exception
+2020-01-25 09:25:29,330 reports.views           INFO     Try Exception
+2020-01-25 09:25:29,341 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:25:35,632 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-25 09:25:44,345 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-25 09:25:44,362 reports.views           INFO     Try Exception
+2020-01-25 09:25:44,369 reports.views           INFO     Try Exception
+2020-01-25 09:25:44,372 reports.views           INFO     Try Exception
+2020-01-25 09:25:44,380 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:25:47,525 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-25 09:25:59,222 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-25 09:25:59,239 reports.views           INFO     Try Exception
+2020-01-25 09:25:59,245 reports.views           INFO     Try Exception
+2020-01-25 09:25:59,248 reports.views           INFO     Try Exception
+2020-01-25 09:25:59,259 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:27:11,169 reports.views           INFO     Try Exception
+2020-01-25 09:27:11,174 reports.views           INFO     Try Exception
+2020-01-25 09:27:11,177 reports.views           INFO     Try Exception
+2020-01-25 09:27:11,185 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:27:13,179 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-25 09:27:23,856 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-25 09:27:23,876 reports.views           INFO     Try Exception
+2020-01-25 09:27:23,883 reports.views           INFO     Try Exception
+2020-01-25 09:27:23,886 reports.views           INFO     Try Exception
+2020-01-25 09:27:23,895 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:27:41,337 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-25 09:27:46,790 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-25 09:27:46,805 reports.views           INFO     Try Exception
+2020-01-25 09:27:46,811 reports.views           INFO     Try Exception
+2020-01-25 09:27:46,814 reports.views           INFO     Try Exception
+2020-01-25 09:27:46,826 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:47:48,945 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-25 09:48:00,430 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 09:48:02,819 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-25 09:48:02,820 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-25 09:48:02,835 reports.views           INFO     Try Exception
+2020-01-25 09:48:02,841 reports.views           INFO     Try Exception
+2020-01-25 09:48:02,843 reports.views           INFO     Try Exception
+2020-01-25 09:48:02,851 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:48:06,689 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-25 09:48:24,300 reports.views           INFO     Try Exception
+2020-01-25 09:48:24,307 reports.views           INFO     Try Exception
+2020-01-25 09:48:24,310 reports.views           INFO     Try Exception
+2020-01-25 09:48:24,317 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 09:49:20,555 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-01-25 10:42:18,415 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 10:42:20,908 reports.views           INFO     add_patient: Formular aufgerufen
+2020-01-25 10:42:40,247 reports.views           INFO     add_patient: Patient mit der ID:3 gespeichert
+2020-01-25 10:42:40,264 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-25 10:42:44,682 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-01-25 10:42:50,350 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-01-25 10:56:00,236 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 10:56:03,723 reports.views           INFO     search_patient: Suchkriterien: Nachname: Kr ; Geburtsdatum: 
+2020-01-25 10:56:03,724 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: Kr gefunden
+2020-01-25 10:56:06,492 reports.views           INFO     Try Exception
+2020-01-25 10:56:06,499 reports.views           INFO     Try Exception
+2020-01-25 10:56:06,501 reports.views           INFO     Try Exception
+2020-01-25 10:56:06,509 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 10:59:00,982 reports.views           INFO     Try Exception
+2020-01-25 10:59:00,990 reports.views           INFO     Try Exception
+2020-01-25 10:59:00,993 reports.views           INFO     Try Exception
+2020-01-25 10:59:01,002 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 10:59:07,456 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-25 11:01:58,784 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-25 11:02:30,055 reports.views           INFO     Try Exception
+2020-01-25 11:02:30,061 reports.views           INFO     Try Exception
+2020-01-25 11:02:30,063 reports.views           INFO     Try Exception
+2020-01-25 11:02:30,070 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 11:03:04,463 reports.views           INFO     Try Exception
+2020-01-25 11:03:04,468 reports.views           INFO     Try Exception
+2020-01-25 11:03:04,470 reports.views           INFO     Try Exception
+2020-01-25 11:03:04,477 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 11:03:19,908 reports.views           INFO     Try Exception
+2020-01-25 11:03:19,913 reports.views           INFO     Try Exception
+2020-01-25 11:03:19,916 reports.views           INFO     Try Exception
+2020-01-25 11:03:19,923 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 11:09:06,099 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 11:09:10,438 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 6
+2020-01-25 11:09:15,973 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 11:09:17,920 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 16
+2020-01-25 11:09:45,079 reports.views           INFO     edit_process_report: Verlaufsprotokoll ändern mit ID: 16
+2020-01-25 11:09:45,102 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 11:09:51,477 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:12:03,496 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 16
+2020-01-25 11:13:40,299 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 16
+2020-01-25 11:15:27,811 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 16
+2020-01-25 11:15:58,281 reports.views           INFO     edit_process_report: Verlaufsprotokoll ändern mit ID: 16
+2020-01-25 11:15:58,305 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 11:16:04,590 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:19:43,990 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:22:16,162 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:34:24,418 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:35:02,351 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:36:01,094 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:39:34,038 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:45:15,280 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:46:53,510 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:48:22,604 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:48:50,172 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:52:34,920 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:53:57,233 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:54:34,606 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:54:54,147 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:57:11,059 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:57:11,196 django.request          ERROR    Internal Server Error: /reports/show_process_report/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 641, in show_process_report
+    w, h = table.wrap(width, height)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/tables.py", line 1208, in wrap
+    self._calc(availWidth, availHeight)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/tables.py", line 659, in _calc
+    self._calc_height(availHeight,availWidth,W=W)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/tables.py", line 583, in _calc_height
+    dW,t = self._listCellGeom(v,w or self._listValueWidth(v),s)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/tables.py", line 423, in _listCellGeom
+    vw, vh = v.wrapOn(canv, aW, aH)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/flowables.py", line 125, in wrapOn
+    w, h = self.wrap(aW,aH)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/paragraph.py", line 1592, in wrap
+    blPara = self.breakLines(self._wrapWidths)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/platypus/paragraph.py", line 1809, in breakLines
+    ascent, descent = getAscentDescent(fontName,fontSize)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/reportlab/pdfbase/pdfmetrics.py", line 730, in getAscentDescent
+    norm = fontSize/1000.
+TypeError: unsupported operand type(s) for /: 'str' and 'float'
+2020-01-25 11:58:02,698 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:58:53,001 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 11:59:12,494 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:00:06,517 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:00:44,235 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:41:30,537 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 12
+2020-01-25 12:41:39,267 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 12:41:42,408 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-25 12:41:42,409 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-01-25 12:41:44,969 reports.views           INFO     Try Exception
+2020-01-25 12:41:44,977 reports.views           INFO     Try Exception
+2020-01-25 12:41:44,979 reports.views           INFO     Try Exception
+2020-01-25 12:41:44,986 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 12:42:07,735 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 12:42:12,167 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 13
+2020-01-25 12:42:29,829 reports.views           INFO     edit_process_report: Verlaufsprotokoll ändern mit ID: 13
+2020-01-25 12:42:29,846 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 12:42:35,026 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:48:34,602 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:50:29,765 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:51:26,722 reports.views           INFO     edit_process_report: Verlaufsprotokoll anlegen mit ID: 13
+2020-01-25 12:52:16,585 reports.views           INFO     edit_process_report: Verlaufsprotokoll ändern mit ID: 13
+2020-01-25 12:52:16,609 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-01-25 12:52:27,877 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 12:58:05,950 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 13:00:43,828 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 6 gedruckt
+2020-01-25 13:01:12,717 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 13:01:14,646 reports.views           INFO     search_patient: Suchkriterien: Nachname: L ; Geburtsdatum: 
+2020-01-25 13:01:14,647 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: L gefunden
+2020-01-25 13:01:14,669 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-01-25 13:01:17,666 reports.views           INFO     therapy: Rezept mit der ID: 3 aufgerufen
+2020-01-25 13:01:20,651 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 3 gedruckt
+2020-01-25 13:08:45,309 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-01-25 13:08:49,760 reports.views           INFO     edit_patient: Patient mit der ID: 2 zwecks Änderung aufgerufen
+2020-01-25 13:09:38,751 reports.views           INFO     edit_patient: Patient mit der ID: 2 zwecks Änderung aufgerufen
+2020-01-25 13:09:43,622 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-01-25 13:09:46,506 reports.views           INFO     edit_patient: Patient mit der ID: 2 zwecks Änderung aufgerufen
+2020-01-25 13:10:14,376 reports.views           INFO     edit_patient: Patient mit der ID: 2 zwecks Änderung aufgerufen
+2020-01-25 13:10:20,339 reports.views           INFO     edit_patient: Patient mit der ID:2 geändert
+2020-01-25 13:10:20,358 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-01-25 13:10:23,042 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 13:10:25,378 reports.views           INFO     add_patient: Formular aufgerufen
+2020-01-25 13:10:33,708 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 13:11:36,889 reports.views           INFO     add_patient: Formular aufgerufen
+2020-01-25 13:11:40,560 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 13:15:56,295 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-25 13:15:56,297 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-01-25 13:15:58,099 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-25 13:15:59,629 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-01-25 13:16:02,959 reports.views           INFO     edit_patient: Patient mit der ID:3 geändert
+2020-01-25 13:16:02,972 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-25 13:16:04,831 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 13:16:06,517 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-25 13:16:06,518 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-25 13:16:06,534 reports.views           INFO     Try Exception
+2020-01-25 13:16:06,543 reports.views           INFO     Try Exception
+2020-01-25 13:16:06,545 reports.views           INFO     Try Exception
+2020-01-25 13:16:06,553 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 13:20:42,029 django.request          WARNING  Not Found: /favicon.ico
+2020-01-25 13:30:09,384 django.request          ERROR    Internal Server Error: /reports/document/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 949, in upload_document
+    return render(request, 'reports/document_form.html', {'form': form, 'patient': patient_result, 'documents': documents})
+UnboundLocalError: local variable 'form' referenced before assignment
+2020-01-25 13:32:22,649 reports.views           INFO     Try Exception
+2020-01-25 13:32:22,656 reports.views           INFO     Try Exception
+2020-01-25 13:32:22,657 reports.views           INFO     Try Exception
+2020-01-25 13:32:22,665 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 13:46:55,618 reports.views           INFO     Try Exception
+2020-01-25 13:46:55,624 reports.views           INFO     Try Exception
+2020-01-25 13:46:55,626 reports.views           INFO     Try Exception
+2020-01-25 13:46:55,634 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 13:46:58,358 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen

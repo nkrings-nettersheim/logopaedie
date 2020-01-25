@@ -57,10 +57,16 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                <div class="small inline">Telefon: </div> <strong> {% if patient.pa_phone %} {{ patient.pa_phone }} {% endif %}</strong>
+                <div class="small inline">
+                {% if patient.pa_phone %}
+                    Telefon: </div> <strong>  {{ patient.pa_phone }} </strong>
+                {% endif %}
             </div>
             <div class="col-sm">
-                <div class="small inline">Mobilfunk: </div> <strong> {% if patient.pa_cell_phone %} {{ patient.pa_cell_phone }} {% endif %}</strong>
+                <div class="small inline">
+                {% if patient.pa_cell_phone %}
+                    Mobilfunk: </div> <strong>  {{ patient.pa_cell_phone }} </strong>
+                {% endif %}
             </div>
             <div class="col-sm">
 
@@ -84,6 +90,7 @@
             </div>
         </div>
         <br>
+        {% if patient.pa_attention %}
         <div class="row">
             <div class="col-sm-8">
                 <div class="small">Achtung: </div> <strong><div class="text-danger"> {{ patient.pa_attention }}</div></strong>
@@ -93,11 +100,25 @@
             </div>
         </div>
         <br>
+        {% endif %}
+        {% if patient.pa_allergy %}
         <div class="row">
-            <div class="col-sm">
-                <div class="small">Bemerkung: </div> <strong> {{ patient.pa_note | safe }}</strong>
+            <div class="col-sm-8">
+                <div class="small">Allergien: </div> <strong><div class="text-danger"> {{ patient.pa_allergy }}</div></strong>
+            </div>
+            <div class="col-sm-4">
+
             </div>
         </div>
+        <br>
+        {% endif %}
+        {% if patient.pa_note %}
+        <div class="row">
+            <div class="col-sm">
+                <div class="small">Bemerkung: </div> <div class="small text-success inline"> {{ patient.pa_note | safe }}</div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <div class="container">

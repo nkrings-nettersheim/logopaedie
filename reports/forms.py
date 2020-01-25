@@ -262,11 +262,12 @@ class PatientForm(forms.ModelForm):
         charvalue2 = ''
         data = self.cleaned_data['pa_cell_phone_add1']
         if data:
-            data = data.replace(' ', '')
             data = data.rsplit("/")
             rightdata = data[1].rsplit("(")
+            data[0] = data[0].replace(' ', '')
+            rightdata[0] = rightdata[0].replace(' ', '')
 
-            if len(rightdata[0]) % 2:
+            if len(rightdata[0]) % 2:                #rightdata[0] ist die Rufnummer
                 for char in rightdata[0]:
                     charvalue = charvalue + char
                     charvalue2 = charvalue2 + char
@@ -287,9 +288,10 @@ class PatientForm(forms.ModelForm):
         charvalue2 = ''
         data = self.cleaned_data['pa_cell_phone_add2']
         if data:
-            data = data.replace(' ', '')
             data = data.rsplit("/")
             rightdata = data[1].rsplit("(")
+            data[0] = data[0].replace(' ', '')
+            rightdata[0] = rightdata[0].replace(' ', '')
 
             if len(rightdata[0]) % 2:
                 for char in rightdata[0]:
@@ -370,10 +372,10 @@ class PatientForm(forms.ModelForm):
 
     pa_cell_phone_add1 = forms.CharField(
         required=False,
-        max_length=50,
+        max_length=60,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,30}',
+                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
             }
@@ -382,10 +384,10 @@ class PatientForm(forms.ModelForm):
 
     pa_cell_phone_add2 = forms.CharField(
         required=False,
-        max_length=50,
+        max_length=60,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,30}',
+                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
             }
@@ -425,6 +427,17 @@ class PatientForm(forms.ModelForm):
         )
     )
 
+    pa_allergy = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Allergie ? '
+            }
+        )
+    )
+
     pa_note = forms.CharField(
         required=False,
         max_length=255,
@@ -437,6 +450,10 @@ class PatientForm(forms.ModelForm):
             }
         )
     )
+
+    pa_active_no_yes = forms.NullBooleanField(required=False, initial=True,
+                                                   widget=forms.CheckboxInput)
+
 
     class Meta:
         model = Patient
@@ -451,7 +468,9 @@ class PatientForm(forms.ModelForm):
                   'pa_date_of_birth',
                   'pa_gender',
                   'pa_attention',
-                  'pa_note'
+                  'pa_allergy',
+                  'pa_note',
+                  'pa_active_no_yes'
                   ]
 
 
@@ -513,6 +532,10 @@ class TherapyForm(forms.ModelForm):
                                             widget=forms.NullBooleanSelect)
 
     therapy_report_no_yes = forms.NullBooleanField(required=True,
+                                                   error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                   widget=forms.NullBooleanSelect)
+
+    therapy_homevisit_no_yes = forms.NullBooleanField(required=False,
                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
                                                    widget=forms.NullBooleanSelect)
 
@@ -578,6 +601,7 @@ class TherapyForm(forms.ModelForm):
                   'therapy_frequence',
                   'therapy_rid_of',
                   'therapy_report_no_yes',
+                  'therapy_homevisit_no_yes',
                   'therapy_indication_key',
                   'therapy_icd_cod',
                   'therapy_doctor',
@@ -606,7 +630,7 @@ class ProcessReportForm(forms.ModelForm):
                                       )
 
     process_exercises = forms.CharField(required=False,
-                                        max_length=10,
+                                        max_length=100,
                                         widget=forms.TextInput(
                                             attrs={
                                                 'class': 'form-control'
@@ -634,7 +658,7 @@ class ProcessReportForm(forms.ModelForm):
                                         )
 
     process_exercises_2 = forms.CharField(required=False,
-                                          max_length=20,
+                                          max_length=100,
                                           widget=forms.TextInput(
                                               attrs={
                                                   'class': 'form-control'
@@ -662,7 +686,7 @@ class ProcessReportForm(forms.ModelForm):
                                         )
 
     process_exercises_3 = forms.CharField(required=False,
-                                          max_length=20,
+                                          max_length=100,
                                           widget=forms.TextInput(
                                               attrs={
                                                   'class': 'form-control'
