@@ -34,7 +34,13 @@
             {% if patients_list %}
                 <ul>
                     {% for patient in patients_list %}
-                        <li><a href="/reports/patient/{{ patient.id }}">{{ patient.pa_last_name }}</a>, {{ patient.pa_first_name}} </li>
+                        <li>
+                            {% if patient.pa_active_no_yes == True %}
+                                <div class="text-success"><a href="/reports/patient/{{ patient.id }}">aufrufen: </a>{{ patient.pa_last_name }}, {{ patient.pa_first_name}}</div>
+                            {% else %}
+                                <div class="text-warning"><a href="/reports/patient/{{ patient.id }}">aufrufen: </a> {{ patient.pa_last_name }}, {{ patient.pa_first_name}}</div>
+                            {% endif %}
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}

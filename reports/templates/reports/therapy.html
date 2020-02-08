@@ -57,7 +57,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report2' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
+                        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
                     </li>
                 {% endif %}
             {% endif %}

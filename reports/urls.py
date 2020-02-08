@@ -27,7 +27,6 @@ urlpatterns = [
     path('edit/therapy_report/<id>/', views.edit_therapy_report, name='edit_therapy_report'),
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),
     path('show_therapy_report/', views.show_therapy_report, name='show_therapy_report'),
-    path('show_therapy_report2/', views.show_therapy_report2, name='show_therapy_report2'),
     path('search/doctor/start', views.search_doctor_start, name='search_doctor_start'),
     path('search/doctor/', views.search_doctor, name='search_doctor'),
     path('edit/doctor/<id>/', views.edit_doctor, name='edit_doctor'),
@@ -50,6 +49,8 @@ urlpatterns = [
     path('delete_therapy/<pk>', views.del_document_therapy.as_view(), name='delete_therapy'),
 
     path('add/something/', views.add_therapy_something, name='add_something'),
-    path('edit/something/<id>/', views.edit_therapy_something, name='edit_something')
+    path('edit/something/<id>/', views.edit_therapy_something, name='edit_something'),
+    path('getSessionTimer/', views.getSessionTimer, name='getSessiontimer'),
+
 ]
 

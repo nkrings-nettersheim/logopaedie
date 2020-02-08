@@ -9,6 +9,7 @@ from .models import Document, Document_therapy, Therapy_Something
 
 
 class IndexForm(forms.Form):
+
     last_name = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control',
@@ -31,12 +32,34 @@ class IndexForm(forms.Form):
     date_of_birth = forms.DateField(widget=forms.DateInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Geburtsdatum eingeben ...'
+            'placeholder': 'Geburtsdatum eingeben ...',
+            'onchange': 'CheckValue(this.value, this.name)'
         }
     ),
         required=False
     )
 
+    phone = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Format: 02251/11223344'
+        }
+    ),
+        required=False
+    )
+
+    cell_phone = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Format: 0171/11223344'
+        }
+    ),
+        required=False
+    )
+
+
+    active = forms.NullBooleanField(required=False, initial=True,
+                                                   widget=forms.CheckboxInput)
 
 class SearchPatient(forms.Form):
     patient_id = forms.CharField(label='Patienten ID', max_length=10)
@@ -217,21 +240,21 @@ class PatientForm(forms.ModelForm):
         data = self.cleaned_data['pa_phone']
         if data:
             data = data.replace(' ', '')
-            data = data.rsplit("/")
-            if len(data[1]) % 2:
-                for char in data[1]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if len(charvalue2) % 2:
-                        charvalue = charvalue + " "
-            else:
-                for char in data[1]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if not len(charvalue2) % 2:
-                        charvalue = charvalue + " "
-
-            data = data[0] + " / " + charvalue
+        #    data = data.rsplit("/")
+        #    if len(data[1]) % 2:
+        #        for char in data[1]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
+        #    else:
+        #        for char in data[1]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if not len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
+        #
+        #    data = data[0] + " / " + charvalue
             return data
 
     def clean_pa_cell_phone(self):
@@ -240,21 +263,21 @@ class PatientForm(forms.ModelForm):
         data = self.cleaned_data['pa_cell_phone']
         if data:
             data = data.replace(' ', '')
-            data = data.rsplit("/")
-            if len(data[1]) % 2:
-                for char in data[1]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if len(charvalue2) % 2:
-                        charvalue = charvalue + " "
-            else:
-                for char in data[1]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if not len(charvalue2) % 2:
-                        charvalue = charvalue + " "
+        #    data = data.rsplit("/")
+        #    if len(data[1]) % 2:
+        #        for char in data[1]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
+        #    else:
+        #        for char in data[1]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if not len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
 
-            data = data[0] + " / " + charvalue
+        #    data = data[0] + " / " + charvalue
             return data
 
     def clean_pa_cell_phone_add1(self):
@@ -267,20 +290,21 @@ class PatientForm(forms.ModelForm):
             data[0] = data[0].replace(' ', '')
             rightdata[0] = rightdata[0].replace(' ', '')
 
-            if len(rightdata[0]) % 2:                #rightdata[0] ist die Rufnummer
-                for char in rightdata[0]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if len(charvalue2) % 2:
-                        charvalue = charvalue + " "
-            else:
-                for char in rightdata[0]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if not len(charvalue2) % 2:
-                        charvalue = charvalue + " "
+        #    if len(rightdata[0]) % 2:                #rightdata[0] ist die Rufnummer
+        #        for char in rightdata[0]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
+        #    else:
+        #        for char in rightdata[0]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if not len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
 
-            data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+        #    data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
             return data
 
     def clean_pa_cell_phone_add2(self):
@@ -293,20 +317,21 @@ class PatientForm(forms.ModelForm):
             data[0] = data[0].replace(' ', '')
             rightdata[0] = rightdata[0].replace(' ', '')
 
-            if len(rightdata[0]) % 2:
-                for char in rightdata[0]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if len(charvalue2) % 2:
-                        charvalue = charvalue + " "
-            else:
-                for char in rightdata[0]:
-                    charvalue = charvalue + char
-                    charvalue2 = charvalue2 + char
-                    if not len(charvalue2) % 2:
-                        charvalue = charvalue + " "
+        #    if len(rightdata[0]) % 2:
+        #        for char in rightdata[0]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
+        #    else:
+        #        for char in rightdata[0]:
+        #            charvalue = charvalue + char
+        #            charvalue2 = charvalue2 + char
+        #            if not len(charvalue2) % 2:
+        #                charvalue = charvalue + " "
 
-            data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+        #   data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
             return data
 
     pa_first_name = forms.CharField(
@@ -400,7 +425,8 @@ class PatientForm(forms.ModelForm):
         widget=forms.DateInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Geburtsdatum eingeben ...'
+                'placeholder': 'Geburtsdatum eingeben ...',
+                'onchange': 'CheckValue(this.value, this.name)'
             }
         )
     )
@@ -495,7 +521,8 @@ class TherapyForm(forms.ModelForm):
                                   widget=forms.DateInput(
                                       attrs={
                                           'class': 'form-control',
-                                          'placeholder': 'Rezeptdatum eingeben ...'
+                                          'placeholder': 'Rezeptdatum eingeben ...',
+                                          'onchange': 'CheckValue(this.value, this.name)'
                                       }
                                   )
                                   )
@@ -535,7 +562,7 @@ class TherapyForm(forms.ModelForm):
                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
                                                    widget=forms.NullBooleanSelect)
 
-    therapy_homevisit_no_yes = forms.NullBooleanField(required=False,
+    therapy_homevisit_no_yes = forms.NullBooleanField(required=True,
                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
                                                    widget=forms.NullBooleanSelect)
 
@@ -728,7 +755,8 @@ class TherapyReportForm(forms.ModelForm):
                                         attrs={
                                             'autofocus': 'autofocus',
                                             'class': 'form-control',
-                                            'placeholder': 'Start der Therapie ...'
+                                            'placeholder': 'Start der Therapie ...',
+                                            'onchange': 'CheckValue(this.value, this.name)'
                                         }
                                     )
                                     )
@@ -737,7 +765,8 @@ class TherapyReportForm(forms.ModelForm):
                                   widget=forms.DateInput(
                                       attrs={
                                           'class': 'form-control',
-                                          'placeholder': 'Ende der Therapie ...'
+                                          'placeholder': 'Ende der Therapie ...',
+                                          'onchange': 'CheckValue(this.value, this.name)'
                                       }
                                   )
                                   )
@@ -746,7 +775,8 @@ class TherapyReportForm(forms.ModelForm):
                                   widget=forms.DateInput(
                                       attrs={
                                           'autofocus': 'autofocus',
-                                          'class': 'form-control'
+                                          'class': 'form-control',
+                                          'onchange': 'CheckValue(this.value, this.name)'
                                       }
                                   )
                                   )
@@ -774,7 +804,8 @@ class TherapyReportForm(forms.ModelForm):
                                          widget=forms.DateInput(
                                              attrs={
                                                  'class': 'form-control',
-                                                 'placeholder': 'Datum festlegen ...'
+                                                 'placeholder': 'Datum festlegen ...',
+                                                 'onchange': 'CheckValue(this.value, this.name)'
                                              }
                                          )
                                          )
@@ -809,7 +840,8 @@ class InitialAssessmentForm(forms.ModelForm):
                                   attrs={
                                       'class': 'form-control',
                                       'autofocus': 'autofocus',
-                                      'placeholder': 'Datum festlegen ...'
+                                      'placeholder': 'Datum festlegen ...',
+                                      'onchange': 'CheckValue(this.value, this.name)'
                                   }
                               )
                               )
@@ -917,7 +949,8 @@ class InitialAssessmentForm(forms.ModelForm):
                                    widget=forms.DateInput(
                                        attrs={
                                            'class': 'form-control',
-                                           'placeholder': 'Datum festlegen ...'
+                                           'placeholder': 'Datum festlegen ...',
+                                           'onchange': 'CheckValue(this.value, this.name)'
                                        }
                                    )
                                    )

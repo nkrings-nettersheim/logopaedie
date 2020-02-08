@@ -157,7 +157,7 @@ LOGIN_REDIRECT_URL = '/reports/'
 
 # Eingefügt nk 21.07.2019
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_EXPIRE_SECONDS = 15*60
+SESSION_EXPIRE_SECONDS = 30*60
 #SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
 
@@ -179,7 +179,9 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {'default':
                         {'height': 160,
+                         'defaultLanguage': "de",
                          'scayt_autoStartup': True,
+                         'scayt_sLang': "de_DE",
                          'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
                          'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
                          'toolbar': 'Custom', 'toolbar_Custom':

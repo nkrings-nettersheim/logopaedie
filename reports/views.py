@@ -239,16 +239,32 @@ def therapist(request, id=id):
 
 def search_patient(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    #logger.info("User: " + str(request.user))
     if request.method == 'POST':
         form = IndexForm(request.POST)
         if form.is_valid():
             last_name = request.POST['last_name']
             first_name = request.POST['first_name']
             date_of_birth = request.POST['date_of_birth']
-            logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth)
+            phone = request.POST['phone']
+            cell_phone = request.POST['cell_phone']
+
+            data = request.POST['phone']
+            if data:
+                phone = data.replace(' ', '')
+
+            data = request.POST['cell_phone']
+            if data:
+                cell_phone = data.replace(' ', '')
 
             if last_name != "":
-                patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name, pa_active_no_yes=True)
+                try:
+                    if request.POST['active']:
+                        patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name,
+                                                               pa_active_no_yes=True)
+                except:
+                    patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name)
+
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Namen: " + last_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -260,7 +276,12 @@ def search_patient(request):
                     return redirect('/reports/')
 
             elif first_name != "":
-                patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name, pa_active_no_yes=True)
+                try:
+                    if request.POST['active']:
+                        patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name, pa_active_no_yes=True)
+                except:
+                    patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name)
+
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Vornamen: " + first_name + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -272,7 +293,13 @@ def search_patient(request):
                     return redirect('/reports/')
 
             elif date_of_birth != "":
-                patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True, pa_active_no_yes=True))
+                #den Teil hier muss ich irgendwann mal anders machen.
+                try:
+                    if request.POST['active']:
+                        patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True), pa_active_no_yes=True)
+                except:
+                        patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True))
+
                 if len(patients_list) > 1:
                     logger.info("search_patient: Mehrere Patienten mit dem Geburtsdatum " + date_of_birth + " gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
@@ -281,6 +308,42 @@ def search_patient(request):
                     return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
                 else:
                     logger.info("search_patient: Kein Patient mit dem Geburtsdatum: " + last_name + " gefunden")
+                    return redirect('/reports/')
+
+            elif phone != "":
+                #den Teil hier muss ich irgendwann mal anders machen.
+                try:
+                    if request.POST['active']:
+                        patients_list = Patient.objects.filter(pa_phone__istartswith=phone, pa_active_no_yes=True)
+                except:
+                        patients_list = Patient.objects.filter(pa_phone__istartswith=phone)
+
+                if len(patients_list) > 1:
+                    logger.info("search_patient: Mehrere Patienten mit der Telefonnummer " + phone + " gefunden")
+                    return render(request, 'reports/patients.html', {'patients_list': patients_list})
+                elif len(patients_list) == 1:
+                    logger.info("search_patient: Patient mit der Telefonnummer: " + phone + " gefunden")
+                    return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
+                else:
+                    logger.info("search_patient: Kein Patient mit der Telefonnummer: " + phone + " gefunden")
+                    return redirect('/reports/')
+
+            elif cell_phone != "":
+                #den Teil hier muss ich irgendwann mal anders machen.
+                try:
+                    if request.POST['active']:
+                        patients_list = Patient.objects.filter(pa_cell_phone__istartswith=cell_phone, pa_active_no_yes=True)
+                except:
+                        patients_list = Patient.objects.filter(pa_cell_phone__istartswith=cell_phone)
+
+                if len(patients_list) > 1:
+                    logger.info("search_patient: Mehrere Patienten mit der Mobilfunknummer " + cell_phone + " gefunden")
+                    return render(request, 'reports/patients.html', {'patients_list': patients_list})
+                elif len(patients_list) == 1:
+                    logger.info("search_patient: Patient mit der Mobilfunknummer: " + cell_phone + " gefunden")
+                    return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
+                else:
+                    logger.info("search_patient: Kein Patient mit der Mobilfunknummer: " + cell_phone + " gefunden")
                     return redirect('/reports/')
 
             else:
@@ -325,6 +388,12 @@ def patient(request, id=id):
     try:
         patient_result = Patient.objects.get(id=id)
         patient_helper = patient_result.id
+
+        patient_result.pa_phone = get_phone_design(patient_result.pa_phone)
+        patient_result.pa_cell_phone = get_phone_design(patient_result.pa_cell_phone)
+        patient_result.pa_cell_phone_add1 = get_special_phone_design(patient_result.pa_cell_phone_add1)
+        patient_result.pa_cell_phone_add2 = get_special_phone_design(patient_result.pa_cell_phone_add2)
+
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
         therapy_result_count = therapy_result.count()
         process_result_count = 0
@@ -350,6 +419,54 @@ def patient(request, id=id):
     except ObjectDoesNotExist:
         logger.info('patient: Objekt existiert nicht')
         return redirect('/reports/')
+
+def get_phone_design(data):
+    charvalue = ''
+    charvalue2 = ''
+
+    if data:
+        data = data.replace(' ', '')
+        data = data.rsplit("/")
+        if len(data[1]) % 2:
+            for char in data[1]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+        else:
+            for char in data[1]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if not len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+
+        return data[0] + " / " + charvalue
+
+
+def get_special_phone_design(data):
+    charvalue = ''
+    charvalue2 = ''
+    if data:
+        data = data.rsplit("/")
+        rightdata = data[1].rsplit("(")
+        data[0] = data[0].replace(' ', '')
+        rightdata[0] = rightdata[0].replace(' ', '')
+
+        if len(rightdata[0]) % 2:  # rightdata[0] ist die Rufnummer
+            for char in rightdata[0]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+        else:
+            for char in rightdata[0]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if not len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+
+        data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+        return data
 
 
 ##########################################################################
@@ -455,6 +572,7 @@ def edit_therapy(request, id=None):
               'therapy_frequence': item.therapy_frequence,
               'therapy_rid_of': item.therapy_rid_of,
               'therapy_report_no_yes': item.therapy_report_no_yes ,
+              'therapy_homevisit_no_yes': item.therapy_homevisit_no_yes ,
               'therapy_indication_key': item.therapy_indication_key ,
               'therapy_icd_cod': item.therapy_icd_cod,
               'therapy_doctor': doctor_value,
@@ -702,7 +820,7 @@ def therapy_report(request, id=id):
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
 
 
-def show_therapy_report2(request):
+def show_therapy_report(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     id = request.GET.get('id')
     therapy_result = Therapy.objects.get(id=request.GET.get('id'))
@@ -730,200 +848,6 @@ def show_therapy_report2(request):
     return response
 
 
-def show_therapy_report(request):
-    request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
-    width, height = A4
-    styles = getSampleStyleSheet()
-    styleN = styles["BodyText"]
-    styleN.alignment = TA_LEFT
-    styleNC = styles['Normal']
-    styleNC.alignment = TA_CENTER
-    styleBH = styles["Normal"]
-    styleBH.alignment = TA_CENTER
-
-    def coord(x, y, height,  unit=1):
-        x, y = x * unit, height - y * unit
-        return x, y
-
-    #pdfmetrics.registerFont(TTFont('TNRB', 'Times New Roman Bold.ttf'))
-    pdfmetrics.registerFont(TTFont('TNRB', settings.BASE_DIR + '/fonts/TIMESBD0.TTF'))
-
-    id = request.GET.get('id')
-    therapy_result = Therapy.objects.get(id=id)
-
-    pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
-    pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
-    pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
-    recipe_date = Therapy.objects.get(id=id).recipe_date
-    #therapy_start = Therapy.objects.get(id=id).therapy_start
-    #therapy_end = Therapy.objects.get(id=id).therapy_end
-
-    process_count = Process_report.objects.filter(therapy=id).count()
-
-    result = Therapy_report.objects.get(therapy=id)
-
-    doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
-
-    logger.info('show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
-
-
-
-    buffer = io.BytesIO()
-    leftborder = 1.9
-    # Create the PDF object, using the buffer as its "file."
-    p = canvas.Canvas(buffer)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    p.setFillColorRGB(0.66, 0.50, 0.82)
-    p.rect(0, 0, 20, 850, fill=True, stroke=False)
-    p.rect(200, 822, 400, 20, fill=True, stroke=False)
-
-    p.setFillColor(black)
-    p.setFont('Helvetica', 12)
-    p.drawString(leftborder * cm, 3.3 * cm, "Mit freundlichen Grüßen")
-
-    p.setFont('Helvetica-Bold', 10)
-    p.drawString(leftborder * cm, 23.5 * cm, str(doctor_result.doctor_name1))
-    p.drawString(leftborder * cm, 23.0 * cm, str(doctor_result.doctor_name2))
-
-    p.setFont('Helvetica-Bold', 11)
-    p.drawString(leftborder * cm, 22.0 * cm, str(doctor_result.doctor_street))
-    p.drawString(leftborder * cm, 21.5 * cm, str(doctor_result.doctor_zip_code) + " " + str(doctor_result.doctor_city))
-
-    p.setFont('Helvetica-Bold', 12)
-    p.drawString(leftborder * cm, 19.7 * cm, "Mitteilung des Therapeuten an den verordnenden Arzt:")
-
-    p.drawString(leftborder * cm, 16.7 * cm, "Aktueller Stand der Therapie:")
-    p.line(leftborder * cm, 16.6 * cm, (leftborder + 5.9) * cm, 16.6 * cm)
-    p.drawString(leftborder * cm, 13.5 * cm, "Therapieschwerpunkte:")
-    p.line(leftborder * cm, 13.4 * cm, (leftborder + 4.75) * cm, 13.4 * cm)
-    p.drawString(leftborder * cm, 10.2 * cm, "Prognostische Einschätzung mit Angabe der Restsymptomatik:")
-    p.line(leftborder * cm, 10.1 * cm, (leftborder + 12.8) * cm, 10.1 * cm)
-    p.drawString(leftborder * cm, 4.0 * cm, "Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!")
-    p.drawString(11 * cm, 2.3 * cm, "Vielen Dank für die Kooperation")
-
-    p.setFont('Helvetica-Bold', 10)
-    p.drawString(12.8 * cm, 22.3 * cm, "Euskirchen den: " + str(datetime.now().strftime("%d.%m.%Y")))
-    p.drawString(leftborder * cm, 18.9 * cm, "Name des Patienten:")
-    p.drawString(11.2 * cm, 18.9 * cm, "geb. am:")
-    p.drawString(leftborder * cm, 18.4 * cm, "Rezeptdatum:")
-    p.drawString((leftborder + 0.3) * cm, 17.9 * cm, "Behandlungen vom:")
-    p.drawString(12.0 * cm, 17.9 * cm, "bis:")
-    p.drawString(leftborder * cm, 17.4 * cm, "Indikationsschlüssel:")
-    p.drawString(11.1 * cm, 17.4 * cm, "ICD-Cod:")
-    p.drawString(leftborder * cm, 6.6 * cm, "Behandlung weiter indiziert:")
-    p.drawString(leftborder * cm, 5.8 * cm, "Pause:")
-    p.drawString(10.2 * cm, 5.8 * cm, "Fortsetzung ab:")
-    p.drawString(leftborder * cm, 5.0 * cm, "Bemerkung:")
-
-    p.setFont('Helvetica', 10)
-    p.drawString(6.2 * cm, 18.9 * cm, pa_last_name + ", " + pa_first_name)
-    p.drawString(13.2 * cm, 18.9 * cm, str(pa_date_of_birth.strftime("%d.%m.%Y")))
-    p.drawString(6.2 * cm, 18.4 * cm, str(recipe_date.strftime("%d.%m.%Y")))
-    if result.therapy_start:
-        p.drawString(6.2 * cm, 17.9 * cm, str(result.therapy_start.strftime("%d.%m.%Y")))
-
-    if result.therapy_end:
-        p.drawString(13.2 * cm, 17.9 * cm, str(result.therapy_end.strftime("%d.%m.%Y")))
-
-    p.drawString(leftborder * cm, 17.9 * cm, str(process_count))
-    p.drawString(6.2 * cm, 17.4 * cm, str(therapy_result.therapy_indication_key))
-    p.drawString(13.2 * cm, 17.4 * cm, str(therapy_result.therapy_icd_cod))
-    p.drawString(6.2 * cm, 5.0 * cm, str(result.therapy_comment))
-
-    if result.therapy_break_date:
-        p.drawString(14.0 * cm, 5.8 * cm, str(result.therapy_break_date.strftime("%d.%m.%Y")))
-
-    if result.therapy_indicated:
-        p.drawString(8.12 * cm, 6.6 * cm, "X")
-
-    if result.therapy_break:
-        p.drawString(8.12 * cm, 5.8 * cm, "X")
-
-    p.setFont('Helvetica', 6)
-    p.drawString(leftborder * cm, 24.7 * cm, "Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 – 53879 Euskirchen")
-
-    p.setFillColorRGB(0.66, 0.5, 0.82)
-    p.setFont('Helvetica', 10)
-    p.drawString(4.0 * cm, 26.4 * cm, "Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen,")
-    p.drawString(4.0 * cm, 25.9 * cm, "Mutismus, Autismus, Demenz, Hörstörungen")
-
-    #RGB Wert wird errechnet aus RGB Wert / 256
-    p.setFillColorRGB(0.66, 0.66, 0.66)
-    p.setFont('TNRB', 22)
-    p.drawString(4.0 * cm, 27.8 * cm, "Petra Klein")
-    p.drawString(4.0 * cm, 27.1 * cm, "Staatlich geprüfte Logopädin")
-    p.setFont('TNRB', 18)
-    p.drawString(13.2 * cm, 29.15 * cm, "seit 1987")
-
-    p.setFont('Helvetica', 10)
-    p.drawString(15.3 * cm, 28.0 * cm, "Rathausstrasse 8")
-    p.drawString(15.3 * cm, 27.6 * cm, "53879 Euskirchen")
-    p.drawString(15.3 * cm, 27.0 * cm, "Tel.")
-    p.drawString(16.6 * cm, 27.0 * cm, "02251 / 5 97 62")
-    p.drawString(15.3 * cm, 26.5 * cm, "Fax.")
-    p.drawString(16.6 * cm, 26.5 * cm, "02251 / 7 15 11")
-    p.drawString(15.3 * cm, 25.5 * cm, "Bahnhofstrasse 26")
-    p.drawString(15.3 * cm, 25.1 * cm, "53947 Nettersheim")
-    p.drawString(15.3 * cm, 24.4 * cm, "Tel.")
-    p.drawString(16.6 * cm, 24.4 * cm, "02486 / 80 29 50")
-    p.drawString(15.3 * cm, 23.8 * cm, "Fax.")
-    p.drawString(16.6 * cm, 23.8 * cm, "02486 / 80 29 60")
-
-    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/logopaedie.jpeg', 0.8 * cm, 25.6 * cm, width=2.12 * cm, height=3.72 * cm)
-    p.drawInlineImage(BASE_DIR + '/reports/static/reports/images/unterschrift.jpeg', 1.0 * cm, 1.5 * cm, width=4.0 * cm, height=1.74 * cm)
-    p.setStrokeColor(black)
-    p.grid([8.0*cm, 8.5*cm], [6.5*cm, 7.0*cm])
-    p.grid([8.0*cm, 8.5*cm], [5.7*cm, 6.2*cm])
-
-    data = []
-    content = str(escape(result.therapy_current_result)).replace(' ', '&nbsp;')
-    content = str((content)).replace('\n', '<br />\n')
-    ccontent = Paragraph(content, styleN)
-    data.append([ccontent])
-
-    table = Table(data, colWidths=[18 * cm])
-
-    w, h = table.wrap(width, height)
-    table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.7, 13.0, height - h, cm))
-
-    data = []
-    content = str(escape(result.therapy_emphases)).replace(' ', '&nbsp;')
-    content = str((content)).replace('\n', '<br />\n')
-    ccontent = Paragraph((content), styleN)
-    data.append([ccontent])
-
-
-    table = Table(data, colWidths=[18 * cm])
-
-    w, h = table.wrap(width, height)
-    table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.7, 16.2, height - h, cm))
-
-    data = []
-    content = str(escape(result.therapy_forecast)).replace(' ', '&nbsp;')
-    content = str((content)).replace('\n', '<br />\n')
-    ccontent = Paragraph(content, styleN)
-    data.append([ccontent])
-
-    table = Table(data, colWidths=[18 * cm])
-
-    w, h = table.wrap(width, height)
-    table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.7, 19.6, height - h, cm))
-
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
-
-    # FileResponse sets the Content-Disposition header so that browsers
-    # present the option to save the file.
-    buffer.seek(0)
-
-    file_name = pa_last_name + "_" + pa_first_name + "_" + str(recipe_date) + ".pdf"
-
-    return FileResponse(buffer, as_attachment=True, filename=file_name, content_type='application/pdf')
 
 ##########################################################################
 # Area Document upload
@@ -1045,6 +969,17 @@ class del_document_therapy(DeleteView):
                 logger.debug('del_document_therapy: Dokument: ' + document_path + " konnte nicht gelöscht werden")
 
             return HttpResponseRedirect(self.success_url + "?id=" + therapy_id)
+
+
+# **************************************************************************************************
+
+def getSessionTimer(request):
+    sessionTimer = request.session.get_expiry_date()
+    context = {'getSessionTimer': str(sessionTimer)}
+    #logger.debug("getSessionTimer: " + str(sessionTimer))
+
+    return render(request, 'getSessionTimer.html', {'form': context})
+
 
 # **************************************************************************************************
 

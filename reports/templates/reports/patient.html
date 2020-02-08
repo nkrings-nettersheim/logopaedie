@@ -57,15 +57,17 @@
         <br>
         <div class="row">
             <div class="col-sm">
-                <div class="small inline">
                 {% if patient.pa_phone %}
-                    Telefon: </div> <strong>  {{ patient.pa_phone }} </strong>
+                <div class="small inline">Telefon: </div> <strong>  {{ patient.pa_phone }} </strong>
+                {% else %}
+                <div class="small inline">&nbsp;</div>
                 {% endif %}
             </div>
             <div class="col-sm">
-                <div class="small inline">
                 {% if patient.pa_cell_phone %}
-                    Mobilfunk: </div> <strong>  {{ patient.pa_cell_phone }} </strong>
+                <div class="small inline">Mobilfunk: </div> <strong>  {{ patient.pa_cell_phone }} </strong>
+                {% else %}
+                <div class="small inline">&nbsp;</div>
                 {% endif %}
             </div>
             <div class="col-sm">
@@ -115,7 +117,7 @@
         {% if patient.pa_note %}
         <div class="row">
             <div class="col-sm">
-                <div class="small">Bemerkung: </div> <div class="small text-success inline"> {{ patient.pa_note | safe }}</div>
+                <div class="small">Bemerkung: </div> <div class="small text-success inline"> {{ patient.pa_note | linebreaks }}</div>
             </div>
         </div>
         {% endif %}

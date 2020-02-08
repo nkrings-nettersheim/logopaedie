@@ -27,11 +27,11 @@
                 </div>
             </div>
             <div class="col-sm-2 d-none d-md-block">
-                <div class="col-sm">
-                        &nbsp;
-                </div>
+                <div class="row">&nbsp;</div>
                 {% if user.is_authenticated %}
-                <div class="row"></div>
+                <div class="row">
+                    <div class="text-success">Logout |&nbsp;</div><div id="minutes" class="text-success">30</div><div class="text-success">:</div><div id="seconds" class="text-success">00</div>
+                </div>
                 <div class="row"><a href="{% url 'logout' %}">Ausloggen</a></div>
                 <div class="row"><a href="{% url 'password_change' %}">Passwort ändern</a></div>
                 {% else %}

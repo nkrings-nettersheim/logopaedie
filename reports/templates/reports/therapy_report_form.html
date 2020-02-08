@@ -42,7 +42,7 @@
         </div>
         {% if request.user.groups.all.0.name == 'Leitung' %}
         <div class="form-group row">
-            <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Berichtsdatum: </label>
+            <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Versanddatum: </label>
             <div class="col-sm-6">
                 {{ form.report_date }}
                 {{ form.report_date.errors }}

@@ -4143,3 +4143,1281 @@ UnboundLocalError: local variable 'form' referenced before assignment
 2020-01-25 13:46:55,626 reports.views           INFO     Try Exception
 2020-01-25 13:46:55,634 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
 2020-01-25 13:46:58,358 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-25 20:00:17,820 reports.views           INFO     Indexseite wurde geladen
+2020-01-25 20:00:22,325 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-25 20:00:22,326 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-25 20:00:22,344 reports.views           INFO     Try Exception
+2020-01-25 20:00:22,351 reports.views           INFO     Try Exception
+2020-01-25 20:00:22,354 reports.views           INFO     Try Exception
+2020-01-25 20:00:22,361 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 20:00:22,473 django.request          ERROR    Internal Server Error: /reports/patient/1/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 469, in parse
+    compile_func = self.tags[command]
+KeyError: 'elsif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 348, in patient
+    'process_count': process_result_count
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loaders/base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 156, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 194, in compile_nodelist
+    return parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 266, in do_extends
+    nodelist = parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 209, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 952, in do_if
+    nodelist = parser.parse(('elif', 'else', 'endif'))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 471, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 527, in invalid_block_tag
+    get_text_list(["'%s'" % p for p in parse_until], 'or'),
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 62: 'elsif', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+2020-01-25 20:00:44,405 reports.views           INFO     Try Exception
+2020-01-25 20:00:44,412 reports.views           INFO     Try Exception
+2020-01-25 20:00:44,414 reports.views           INFO     Try Exception
+2020-01-25 20:00:44,424 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 20:00:44,493 django.request          ERROR    Internal Server Error: /reports/patient/1/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 348, in patient
+    'process_count': process_result_count
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/backends/django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loaders/base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 156, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 194, in compile_nodelist
+    return parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 266, in do_extends
+    nodelist = parser.parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader_tags.py", line 209, in do_block
+    nodelist = parser.parse(('endblock',))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/defaulttags.py", line 959, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/smartif.py", line 190, in parse
+    retval = self.expression()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/smartif.py", line 200, in expression
+    left = t.nud(self)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/smartif.py", line 144, in nud
+    raise parser.error_class("Unexpected end of expression in if tag.")
+django.template.exceptions.TemplateSyntaxError: Unexpected end of expression in if tag.
+2020-01-25 20:01:27,280 reports.views           INFO     Try Exception
+2020-01-25 20:01:27,286 reports.views           INFO     Try Exception
+2020-01-25 20:01:27,288 reports.views           INFO     Try Exception
+2020-01-25 20:01:27,295 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-25 20:01:32,734 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-01-25 20:01:40,639 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-01-25 20:01:40,658 reports.views           INFO     Try Exception
+2020-01-25 20:01:40,663 reports.views           INFO     Try Exception
+2020-01-25 20:01:40,666 reports.views           INFO     Try Exception
+2020-01-25 20:01:40,674 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 19:45:24,622 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-26 19:45:34,271 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 19:45:37,734 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 19:45:37,736 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 19:45:37,750 reports.views           INFO     Try Exception
+2020-01-26 19:45:37,757 reports.views           INFO     Try Exception
+2020-01-26 19:45:37,760 reports.views           INFO     Try Exception
+2020-01-26 19:45:37,767 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 19:45:43,690 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-26 19:45:49,400 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:46:05,830 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-01-26 19:46:05,847 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-26 19:46:10,417 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:48:41,437 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:48:50,365 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-01-26 19:48:50,380 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-26 19:48:53,219 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:54:16,044 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:54:22,745 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-01-26 19:54:22,760 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-26 19:54:25,960 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:54:35,164 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-01-26 19:54:35,179 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-01-26 19:54:37,637 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-01-26 19:55:11,563 reports.views           INFO     Try Exception
+2020-01-26 19:55:11,569 reports.views           INFO     Try Exception
+2020-01-26 19:55:11,571 reports.views           INFO     Try Exception
+2020-01-26 19:55:11,579 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 19:55:13,451 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:03:16,464 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:06:28,005 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:06:31,124 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:06:31,246 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 252, in search_patient
+    patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name, pa_active_no_yes=active)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1301, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1155, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 961, in get_prep_value
+    return self.to_python(value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 954, in to_python
+    params={'value': value},
+django.core.exceptions.ValidationError: ['“on” value must be either True, False, or None.']
+2020-01-26 20:11:37,689 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:11:43,462 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:11:43,585 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 252, in search_patient
+    patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name, pa_active_no_yes=active)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1301, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1155, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 961, in get_prep_value
+    return self.to_python(value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 954, in to_python
+    params={'value': value},
+django.core.exceptions.ValidationError: ['“true” value must be either True, False, or None.']
+2020-01-26 20:17:39,662 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:17:41,265 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:18:17,090 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:23:58,902 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:24:01,797 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 253, in search_patient
+    logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth + "Aktive: " + active)
+TypeError: can only concatenate str (not "bool") to str
+2020-01-26 20:25:05,308 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 252, in search_patient
+    assert False
+AssertionError
+2020-01-26 20:25:36,281 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 253, in search_patient
+    logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth + "Aktive: " + active)
+TypeError: can only concatenate str (not "bool") to str
+2020-01-26 20:27:57,564 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 253, in search_patient
+    logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth + "Aktive: " + active)
+TypeError: can only concatenate str (not "bool") to str
+2020-01-26 20:30:49,905 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: Aktive: True
+2020-01-26 20:30:49,906 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 20:30:49,942 reports.views           INFO     Try Exception
+2020-01-26 20:30:49,948 reports.views           INFO     Try Exception
+2020-01-26 20:30:49,950 reports.views           INFO     Try Exception
+2020-01-26 20:30:49,958 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:30:59,297 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:31:04,987 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 248, in search_patient
+    if 'on' in request.POST['active']:
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+2020-01-26 20:34:34,730 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: Aktive: True
+2020-01-26 20:34:34,732 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 20:34:34,762 reports.views           INFO     Try Exception
+2020-01-26 20:34:34,768 reports.views           INFO     Try Exception
+2020-01-26 20:34:34,770 reports.views           INFO     Try Exception
+2020-01-26 20:34:34,780 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:34:36,897 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:34:41,951 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 248, in search_patient
+    if 'on' in request.POST['active']:
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+2020-01-26 20:35:20,158 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 248, in search_patient
+    if 'on' in request.POST['active']:
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+2020-01-26 20:36:50,304 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 248, in search_patient
+    if request.POST['active'] == 'on':
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+2020-01-26 20:36:55,226 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:36:57,485 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 248, in search_patient
+    if request.POST['active'] == 'on':
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+2020-01-26 20:37:28,950 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 248, in search_patient
+    if request.POST['active']:
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+2020-01-26 20:40:40,998 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: Aktive: True
+2020-01-26 20:40:41,000 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 20:40:41,035 reports.views           INFO     Try Exception
+2020-01-26 20:40:41,041 reports.views           INFO     Try Exception
+2020-01-26 20:40:41,043 reports.views           INFO     Try Exception
+2020-01-26 20:40:41,053 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:40:44,214 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:40:49,794 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: Aktive: None
+2020-01-26 20:40:49,892 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 259, in search_patient
+    patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name, pa_active_no_yes=active)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1301, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1155, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 961, in get_prep_value
+    return self.to_python(value)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 954, in to_python
+    params={'value': value},
+django.core.exceptions.ValidationError: ['“None” value must be either True, False, or None.']
+2020-01-26 20:41:32,774 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 256, in search_patient
+    logger.info('search_patient: Suchkriterien: Nachname: ' + last_name + ' ; Geburtsdatum: ' + date_of_birth + "Aktive: " + active)
+TypeError: can only concatenate str (not "NoneType") to str
+2020-01-26 20:43:11,435 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:43:11,521 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 259, in search_patient
+    patients_list = Patient.objects.filter(active)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1237, in build_filter
+    arg, value = filter_expr
+ValueError: too many values to unpack (expected 2)
+2020-01-26 20:44:28,347 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:44:28,482 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 259, in search_patient
+    patients_list = Patient.objects.filter(active)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1237, in build_filter
+    arg, value = filter_expr
+ValueError: too many values to unpack (expected 2)
+2020-01-26 20:46:12,524 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:46:12,525 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 20:46:12,560 reports.views           INFO     Try Exception
+2020-01-26 20:46:12,565 reports.views           INFO     Try Exception
+2020-01-26 20:46:12,568 reports.views           INFO     Try Exception
+2020-01-26 20:46:12,580 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:46:15,445 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:46:19,578 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:46:19,579 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-01-26 20:46:23,729 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:49:20,649 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:49:20,650 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 20:49:20,682 reports.views           INFO     Try Exception
+2020-01-26 20:49:20,689 reports.views           INFO     Try Exception
+2020-01-26 20:49:20,691 reports.views           INFO     Try Exception
+2020-01-26 20:49:20,701 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:49:24,112 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:49:28,620 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:49:28,621 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-01-26 20:49:30,384 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-26 20:49:33,802 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-01-26 20:49:37,990 reports.views           INFO     edit_patient: Patient mit der ID:3 geändert
+2020-01-26 20:49:38,005 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-26 20:49:40,021 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:49:43,213 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:49:43,215 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-01-26 20:49:45,180 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-26 20:49:46,589 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-01-26 20:49:49,419 reports.views           INFO     edit_patient: Patient mit der ID:3 geändert
+2020-01-26 20:49:49,436 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-26 20:49:51,318 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:49:54,124 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-01-26 20:49:54,125 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-01-26 20:49:54,141 reports.views           INFO     Try Exception
+2020-01-26 20:49:54,150 reports.views           INFO     Try Exception
+2020-01-26 20:49:54,153 reports.views           INFO     Try Exception
+2020-01-26 20:49:54,161 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:50:00,113 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:50:09,132 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 05.12.1996
+2020-01-26 20:50:09,135 reports.views           INFO     search_patient: Mehrere Patienten mit dem Geburtsdatum 05.12.1996 gefunden
+2020-01-26 20:50:13,340 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-01-26 20:50:15,006 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-01-26 20:50:16,877 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:50:30,672 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 05.12.1996
+2020-01-26 20:50:30,673 reports.views           INFO     search_patient: Mehrere Patienten mit dem Geburtsdatum 05.12.1996 gefunden
+2020-01-26 20:51:52,543 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:51:58,444 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 05.12.1996
+2020-01-26 20:51:58,446 reports.views           INFO     search_patient: Patient mit dem Geburtsdatum: 05.12.1996 gefunden
+2020-01-26 20:51:58,466 reports.views           INFO     Try Exception
+2020-01-26 20:51:58,475 reports.views           INFO     Try Exception
+2020-01-26 20:51:58,477 reports.views           INFO     Try Exception
+2020-01-26 20:51:58,488 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-01-26 20:52:02,169 reports.views           INFO     Indexseite wurde geladen
+2020-01-26 20:52:12,018 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 05.12.1996
+2020-01-26 20:52:12,019 reports.views           INFO     search_patient: Mehrere Patienten mit dem Geburtsdatum 05.12.1996 gefunden
+2020-01-26 20:52:13,987 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:10:00,417 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:10:14,360 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:10:33,133 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-02-02 12:10:33,134 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 12:10:33,152 reports.views           INFO     Try Exception
+2020-02-02 12:10:33,160 reports.views           INFO     Try Exception
+2020-02-02 12:10:33,162 reports.views           INFO     Try Exception
+2020-02-02 12:10:33,170 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 12:12:12,522 reports.views           INFO     Try Exception
+2020-02-02 12:12:12,533 reports.views           INFO     Try Exception
+2020-02-02 12:12:12,536 reports.views           INFO     Try Exception
+2020-02-02 12:12:12,545 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 12:14:04,125 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:16:41,376 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:18:13,492 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:22:01,444 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:22:02,008 django.request          WARNING  Not Found: /timer/getSessionTimer/
+2020-02-02 12:22:54,946 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:22:55,394 django.request          WARNING  Not Found: /timer/getSessionTimer/
+2020-02-02 12:25:02,813 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:25:03,244 django.request          WARNING  Not Found: /timer/getSessionTimer/
+2020-02-02 12:26:32,031 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:26:32,471 django.request          WARNING  Not Found: /timer/getSessionTimer/
+2020-02-02 12:32:23,881 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:32:24,527 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1076, in getSessionTimer
+    logger.info("getSessionTimer: " + sessionTimer)
+TypeError: can only concatenate str (not "datetime.datetime") to str
+2020-02-02 12:32:25,339 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:33:11,167 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1076, in getSessionTimer
+    logger.info("getSessionTimer: " + sessionTimer)
+TypeError: can only concatenate str (not "datetime.datetime") to str
+2020-02-02 12:33:12,008 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:34:21,376 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1076, in getSessionTimer
+    logger.info("getSessionTimer: " + sessionTimer)
+TypeError: can only concatenate str (not "datetime.datetime") to str
+2020-02-02 12:34:22,030 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:36:09,153 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1076, in getSessionTimer
+    logger.info("getSessionTimer: " + sessionTimer)
+TypeError: can only concatenate str (not "datetime.datetime") to str
+2020-02-02 12:36:09,859 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:36:21,171 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1076, in getSessionTimer
+    logger.info("getSessionTimer: " + sessionTimer)
+TypeError: can only concatenate str (not "datetime.datetime") to str
+2020-02-02 12:36:21,807 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:38:50,419 reports.views           INFO     getSessionTimer: 2020-02-02 11:53:50.417284+00:00
+2020-02-02 12:38:50,492 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1078, in getSessionTimer
+    return render(request, 'reports/getSessionTimer.html', {'form': context})
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: reports/getSessionTimer.html
+2020-02-02 12:38:51,149 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:39:11,039 reports.views           INFO     getSessionTimer: 2020-02-02 11:54:11.037249+00:00
+2020-02-02 12:39:11,053 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1078, in getSessionTimer
+    return render(request, 'reports/getSessionTimer.html', {'form': context})
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: reports/getSessionTimer.html
+2020-02-02 12:39:11,957 django.request          WARNING  Not Found: /reports/account/logout/
+2020-02-02 12:44:08,763 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:44:09,197 reports.views           INFO     getSessionTimer: 2020-02-02 11:59:09.194924+00:00
+2020-02-02 12:44:09,261 django.request          ERROR    Internal Server Error: /reports/getSessionTimer/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 1078, in getSessionTimer
+    return render(request, 'reports/getSessionTimer.html', {'form': context})
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: reports/getSessionTimer.html
+2020-02-02 12:45:58,265 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:45:58,679 reports.views           INFO     getSessionTimer: 2020-02-02 12:00:58.677215+00:00
+2020-02-02 12:49:21,449 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:49:21,942 reports.views           INFO     getSessionTimer: 2020-02-02 12:04:21.940486+00:00
+2020-02-02 12:53:02,617 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:53:03,085 reports.views           INFO     getSessionTimer: 2020-02-02 12:08:03.082572+00:00
+2020-02-02 12:54:59,068 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 12:54:59,482 reports.views           INFO     getSessionTimer: 2020-02-02 12:09:59.479298+00:00
+2020-02-02 13:04:34,506 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:04:54,552 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:06:02,254 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:06:02,704 reports.views           INFO     getSessionTimer: 2020-02-02 12:21:02.701447+00:00
+2020-02-02 13:10:44,419 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:10:44,865 reports.views           INFO     getSessionTimer: 2020-02-02 12:25:44.862757+00:00
+2020-02-02 13:11:16,506 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:11:16,886 reports.views           INFO     getSessionTimer: 2020-02-02 12:26:16.884244+00:00
+2020-02-02 13:12:29,495 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:12:29,898 reports.views           INFO     getSessionTimer: 2020-02-02 12:27:29.894945+00:00
+2020-02-02 13:14:56,838 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:14:57,234 reports.views           INFO     getSessionTimer: 2020-02-02 12:29:57.231952+00:00
+2020-02-02 13:16:39,703 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:16:40,091 reports.views           INFO     getSessionTimer: 2020-02-02 12:31:40.089450+00:00
+2020-02-02 13:17:43,774 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:17:44,197 reports.views           INFO     getSessionTimer: 2020-02-02 12:32:44.195479+00:00
+2020-02-02 13:18:11,516 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:18:11,911 reports.views           INFO     getSessionTimer: 2020-02-02 12:33:11.909246+00:00
+2020-02-02 13:18:28,653 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:18:29,049 reports.views           INFO     getSessionTimer: 2020-02-02 12:33:29.046981+00:00
+2020-02-02 13:19:53,976 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:19:54,376 reports.views           INFO     getSessionTimer: 2020-02-02 12:34:54.373916+00:00
+2020-02-02 13:20:11,751 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:20:12,131 reports.views           INFO     getSessionTimer: 2020-02-02 12:35:12.129738+00:00
+2020-02-02 13:21:24,343 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:21:24,764 reports.views           INFO     getSessionTimer: 2020-02-02 12:21:34.761742+00:00
+2020-02-02 13:22:06,942 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:22:17,501 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:22:17,879 reports.views           INFO     getSessionTimer: 2020-02-02 12:22:27.876725+00:00
+2020-02-02 13:22:28,843 django.request          WARNING  Not Found: /account/logout/
+2020-02-02 13:23:04,589 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:23:16,695 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:23:17,080 reports.views           INFO     getSessionTimer: 2020-02-02 12:23:27.077386+00:00
+2020-02-02 13:23:55,509 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:23:55,860 reports.views           INFO     getSessionTimer: 2020-02-02 12:24:05.858337+00:00
+2020-02-02 13:27:52,000 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:27:52,351 reports.views           INFO     getSessionTimer: 2020-02-02 12:37:52.349117+00:00
+2020-02-02 13:28:04,160 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-02-02 13:28:04,161 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 13:28:04,177 reports.views           INFO     Try Exception
+2020-02-02 13:28:04,185 reports.views           INFO     Try Exception
+2020-02-02 13:28:04,187 reports.views           INFO     Try Exception
+2020-02-02 13:28:04,195 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 13:28:04,537 reports.views           INFO     getSessionTimer: 2020-02-02 12:38:04.535118+00:00
+2020-02-02 13:28:21,208 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-02 13:28:21,568 reports.views           INFO     getSessionTimer: 2020-02-02 12:38:21.566072+00:00
+2020-02-02 13:32:02,281 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-02 13:32:13,440 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-02 13:32:13,456 reports.views           INFO     Try Exception
+2020-02-02 13:32:13,463 reports.views           INFO     Try Exception
+2020-02-02 13:32:13,465 reports.views           INFO     Try Exception
+2020-02-02 13:32:13,475 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 13:34:04,529 reports.views           INFO     Try Exception
+2020-02-02 13:34:04,535 reports.views           INFO     Try Exception
+2020-02-02 13:34:04,537 reports.views           INFO     Try Exception
+2020-02-02 13:34:04,547 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 13:35:11,731 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 13:35:16,460 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-02-02 13:35:16,461 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 13:35:16,476 reports.views           INFO     Try Exception
+2020-02-02 13:35:16,483 reports.views           INFO     Try Exception
+2020-02-02 13:35:16,485 reports.views           INFO     Try Exception
+2020-02-02 13:35:16,494 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 13:35:24,604 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 13:35:34,237 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-02 13:35:36,864 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-02 13:35:52,697 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 7
+2020-02-02 13:35:52,713 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 13:36:01,640 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 7
+2020-02-02 13:36:01,657 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 13:41:45,272 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 13:42:42,368 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 13:43:20,609 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 15:05:16,714 django.request          WARNING  Not Found: /favicon.ico
+2020-02-02 15:05:23,717 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:05:44,042 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:05:51,469 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-02-02 15:05:51,470 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 15:05:51,490 reports.views           INFO     Try Exception
+2020-02-02 15:05:51,497 reports.views           INFO     Try Exception
+2020-02-02 15:05:51,500 reports.views           INFO     Try Exception
+2020-02-02 15:05:51,509 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:07:07,351 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:07:15,420 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 252, in search_patient
+    assert False
+AssertionError
+2020-02-02 15:08:45,155 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 252, in search_patient
+    assert False
+AssertionError
+2020-02-02 15:12:39,362 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 250, in search_patient
+    test = form.phone
+AttributeError: 'IndexForm' object has no attribute 'phone'
+2020-02-02 15:19:37,287 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 274, in search_patient
+    assert False
+AssertionError
+2020-02-02 15:21:48,287 django.request          WARNING  Not Found: /
+2020-02-02 15:21:54,398 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:22:15,411 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 295, in search_patient
+    assert False
+AssertionError
+2020-02-02 15:29:58,952 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 
+2020-02-02 15:29:58,953 reports.views           INFO     search_patient: Kein Patient mit der Telefonnummer: 02486 / 91 10 56  gefunden
+2020-02-02 15:29:58,977 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:30:06,185 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-02-02 15:30:06,186 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 15:30:06,201 reports.views           INFO     Try Exception
+2020-02-02 15:30:06,206 reports.views           INFO     Try Exception
+2020-02-02 15:30:06,209 reports.views           INFO     Try Exception
+2020-02-02 15:30:06,219 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:30:11,062 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:30:18,386 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 
+2020-02-02 15:30:18,387 reports.views           INFO     search_patient: Patient mit der Telefonnummer: 02251 / 12 34 56  gefunden
+2020-02-02 15:30:18,401 reports.views           INFO     Try Exception
+2020-02-02 15:30:18,407 reports.views           INFO     Try Exception
+2020-02-02 15:30:18,411 reports.views           INFO     Try Exception
+2020-02-02 15:30:18,420 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:32:20,477 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:32:41,051 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 
+2020-02-02 15:32:41,054 reports.views           INFO     search_patient: Patient mit der Telefonnummer: 02251 / 12 34 56  gefunden
+2020-02-02 15:32:41,069 reports.views           INFO     Try Exception
+2020-02-02 15:32:41,076 reports.views           INFO     Try Exception
+2020-02-02 15:32:41,078 reports.views           INFO     Try Exception
+2020-02-02 15:32:41,087 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:32:52,595 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:33:00,112 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 
+2020-02-02 15:33:00,113 reports.views           INFO     search_patient: Kein Patient mit der Mobilfunknummer: 0171 / 1 23 45 67  gefunden
+2020-02-02 15:33:00,123 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:33:03,884 reports.views           INFO     search_patient: Suchkriterien: Nachname: kr ; Geburtsdatum: 
+2020-02-02 15:33:03,885 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 15:33:03,902 reports.views           INFO     Try Exception
+2020-02-02 15:33:03,908 reports.views           INFO     Try Exception
+2020-02-02 15:33:03,910 reports.views           INFO     Try Exception
+2020-02-02 15:33:03,918 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:34:03,942 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:34:11,404 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 
+2020-02-02 15:34:11,405 reports.views           INFO     search_patient: Kein Patient mit der Mobilfunknummer: 0171 / 1 23 45 67  gefunden
+2020-02-02 15:34:11,413 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:36:03,184 reports.views           INFO     Inhalt Cell_Phone: 0171 / 1 23 45 67 
+2020-02-02 15:36:03,184 reports.views           INFO     search_patient: Suchkriterien: Nachname:  ; Geburtsdatum: 
+2020-02-02 15:36:03,186 reports.views           INFO     search_patient: Kein Patient mit der Mobilfunknummer: 0171 / 1 23 45 67  gefunden
+2020-02-02 15:36:03,212 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:36:50,768 reports.views           INFO     Inhalt Cell_Phone: 
+2020-02-02 15:36:50,769 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 15:36:50,797 reports.views           INFO     Try Exception
+2020-02-02 15:36:50,804 reports.views           INFO     Try Exception
+2020-02-02 15:36:50,806 reports.views           INFO     Try Exception
+2020-02-02 15:36:50,814 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:36:58,471 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-02 15:37:09,815 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-02 15:37:09,829 reports.views           INFO     Try Exception
+2020-02-02 15:37:09,841 reports.views           INFO     Try Exception
+2020-02-02 15:37:09,843 reports.views           INFO     Try Exception
+2020-02-02 15:37:09,852 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 15:37:13,686 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 15:37:20,328 reports.views           INFO     Inhalt Cell_Phone: 0171 / 1 23 45 67 
+2020-02-02 15:37:20,329 reports.views           INFO     search_patient: Patient mit der Mobilfunknummer: 0171 / 1 23 45 67  gefunden
+2020-02-02 15:37:20,345 reports.views           INFO     Try Exception
+2020-02-02 15:37:20,352 reports.views           INFO     Try Exception
+2020-02-02 15:37:20,354 reports.views           INFO     Try Exception
+2020-02-02 15:37:20,362 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 20:21:36,867 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 20:21:44,899 reports.views           INFO     search_patient: Kein Patient mit der Telefonnummer: 02251 / 1 23  gefunden
+2020-02-02 20:21:44,910 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 20:26:33,607 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 20:26:33,623 reports.views           INFO     Try Exception
+2020-02-02 20:26:33,630 reports.views           INFO     Try Exception
+2020-02-02 20:26:33,632 reports.views           INFO     Try Exception
+2020-02-02 20:26:33,640 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 20:26:56,660 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 20:27:06,755 reports.views           INFO     search_patient: Patient mit der Telefonnummer: 02251 / 12 34  gefunden
+2020-02-02 20:27:06,773 reports.views           INFO     Try Exception
+2020-02-02 20:27:06,782 reports.views           INFO     Try Exception
+2020-02-02 20:27:06,784 reports.views           INFO     Try Exception
+2020-02-02 20:27:06,792 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 20:33:36,183 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 20:33:39,037 reports.views           INFO     show_process_report: Verlaufsprotokoll mit ID: 7 gedruckt
+2020-02-02 20:34:23,882 reports.views           INFO     Try Exception
+2020-02-02 20:34:23,889 reports.views           INFO     Try Exception
+2020-02-02 20:34:23,891 reports.views           INFO     Try Exception
+2020-02-02 20:34:23,899 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 20:34:28,381 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 20:35:13,288 reports.views           INFO     add_therapy_report: Therapiebericht gespeichert mit ID: None
+2020-02-02 20:35:51,756 reports.views           INFO     add_therapy_report: Therapiebericht gespeichert mit ID: 7
+2020-02-02 20:35:51,776 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 20:43:12,326 reports.views           INFO     Try Exception
+2020-02-02 20:43:12,328 reports.views           INFO     Try Exception
+2020-02-02 20:43:12,339 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 20:47:58,866 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 20:48:01,829 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 242, in search_patient
+    logger.info("User: " + request.user)
+TypeError: can only concatenate str (not "SimpleLazyObject") to str
+2020-02-02 20:48:35,656 reports.views           INFO     User: nkrings
+2020-02-02 20:48:35,658 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 20:48:35,702 reports.views           INFO     Try Exception
+2020-02-02 20:48:35,705 reports.views           INFO     Try Exception
+2020-02-02 20:48:35,714 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 21:11:39,148 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 21:11:41,402 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-02 21:11:41,423 reports.views           INFO     Try Exception
+2020-02-02 21:11:41,425 reports.views           INFO     Try Exception
+2020-02-02 21:11:41,433 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-02 21:11:45,043 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-02 21:49:34,380 reports.views           INFO     Indexseite wurde geladen
+2020-02-02 21:49:40,981 reports.views           INFO     add_patient: Formular aufgerufen
+2020-02-02 21:52:41,435 django.request          WARNING  Not Found: /favicon.ico
+2020-02-02 21:55:16,295 reports.views           INFO     add_patient: Formular aufgerufen
+2020-02-02 21:57:08,639 reports.views           INFO     add_patient: Patient mit der ID:4 gespeichert
+2020-02-02 21:57:08,653 reports.views           INFO     patient: Patient mit der ID: 4 aufgerufen
+2020-02-02 21:57:18,623 reports.views           INFO     edit_patient: Patient mit der ID: 4 zwecks Änderung aufgerufen
+2020-02-02 21:57:24,181 reports.views           INFO     edit_patient: Patient mit der ID:4 geändert
+2020-02-02 21:57:24,193 reports.views           INFO     patient: Patient mit der ID: 4 aufgerufen
+2020-02-02 21:58:07,389 reports.views           INFO     edit_patient: Patient mit der ID: 4 zwecks Änderung aufgerufen
+2020-02-02 21:58:15,288 reports.views           INFO     patient: Patient mit der ID: 4 aufgerufen
+2020-02-02 21:58:21,490 reports.views           INFO     add_therapy: Formular aufgerufen um eine Rezept anzulegen
+2020-02-02 21:58:53,367 reports.views           INFO     patient: Patient mit der ID: 4 aufgerufen
+2020-02-02 22:11:39,629 reports.views           INFO     edit_patient: Patient mit der ID: 4 zwecks Änderung aufgerufen
+2020-02-02 22:31:14,527 reports.views           INFO     patient: Patient mit der ID: 4 aufgerufen
+2020-02-02 22:31:16,642 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:31:19,100 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:31:21,709 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-07 07:31:21,733 reports.views           INFO     Try Exception
+2020-02-07 07:31:21,736 reports.views           INFO     Try Exception
+2020-02-07 07:31:21,744 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 07:31:25,892 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 07:31:28,239 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 3
+2020-02-07 07:33:19,773 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:33:31,251 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:37:11,580 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:37:12,287 django.request          WARNING  Not Found: /favicon.ico
+2020-02-07 07:38:24,651 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:52:51,723 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:54:36,496 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:55:01,366 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 07:57:05,062 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-07 07:57:05,084 reports.views           INFO     Try Exception
+2020-02-07 07:57:05,085 reports.views           INFO     Try Exception
+2020-02-07 07:57:05,095 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 07:57:07,571 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-07 07:57:15,437 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-07 07:57:15,460 reports.views           INFO     Try Exception
+2020-02-07 07:57:15,462 reports.views           INFO     Try Exception
+2020-02-07 07:57:15,469 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 08:01:32,322 reports.views           INFO     Try Exception
+2020-02-07 08:01:32,324 reports.views           INFO     Try Exception
+2020-02-07 08:01:32,332 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 08:07:01,290 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 08:07:11,118 reports.views           INFO     edit_therapy_report: Therapybericht anlegen mit ID: 8
+2020-02-07 08:07:57,991 reports.views           INFO     edit_therapy_report: Therapiebericht ändern mit ID: 8
+2020-02-07 08:07:58,007 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 08:09:58,021 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 08:10:03,659 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:14:38,302 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:15:18,910 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:15:37,829 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:17:01,815 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:18:54,633 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:19:41,011 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:21:01,190 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:21:48,559 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:22:22,678 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:22:43,887 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:23:17,151 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:24:20,932 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:25:07,789 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:25:16,582 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-07 08:25:26,257 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 14:59:41,596 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 14:59:57,883 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 15:00:10,107 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-07 15:00:10,133 reports.views           INFO     Try Exception
+2020-02-07 15:00:10,135 reports.views           INFO     Try Exception
+2020-02-07 15:00:10,141 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 15:00:13,223 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 15:00:16,206 reports.views           INFO     Try Exception
+2020-02-07 15:00:16,208 reports.views           INFO     Try Exception
+2020-02-07 15:00:16,216 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 15:00:19,452 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 15:00:38,578 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-07 15:00:45,885 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-07 15:00:49,584 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-07 15:01:50,633 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-07 15:03:07,619 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 7
+2020-02-07 15:03:07,638 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 15:03:12,096 reports.views           INFO     add_process_report: Verlaufsprotokoll gespeichert mit ID: 7
+2020-02-07 15:03:12,111 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 15:04:04,023 reports.views           INFO     add_process_report: Verlaufsprotokoll anlegen mit ID: 7
+2020-02-07 15:04:09,098 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-07 15:05:15,035 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 15:05:20,542 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: m gefunden
+2020-02-07 15:05:20,559 reports.views           INFO     patient: Patient mit der ID: 4 aufgerufen
+2020-02-07 15:07:19,953 reports.views           INFO     Try Exception
+2020-02-07 15:07:19,955 reports.views           INFO     Try Exception
+2020-02-07 15:07:19,962 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-07 15:08:32,127 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-07 15:47:09,761 reports.views           INFO     Indexseite wurde geladen
+2020-02-07 15:47:16,167 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 06:05:13,296 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 06:05:20,011 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 06:20:03,564 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-08 06:20:03,598 reports.views           INFO     Try Exception
+2020-02-08 06:20:03,601 reports.views           INFO     Try Exception
+2020-02-08 06:20:03,610 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:20:06,153 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:20:08,327 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 06:20:08,349 reports.views           INFO     Try Exception
+2020-02-08 06:20:08,351 reports.views           INFO     Try Exception
+2020-02-08 06:20:08,358 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:20:26,395 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 06:22:50,253 reports.views           INFO     search_patient: Patient mit der Telefonnummer: 02251/123 gefunden
+2020-02-08 06:22:50,290 reports.views           INFO     Try Exception
+2020-02-08 06:22:50,293 reports.views           INFO     Try Exception
+2020-02-08 06:22:50,302 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:26:53,725 reports.views           INFO     Try Exception
+2020-02-08 06:26:53,727 reports.views           INFO     Try Exception
+2020-02-08 06:26:53,734 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:27:06,235 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:27:16,014 reports.views           INFO     Try Exception
+2020-02-08 06:27:16,016 reports.views           INFO     Try Exception
+2020-02-08 06:27:16,025 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:48:20,653 reports.views           INFO     Try Exception
+2020-02-08 06:48:20,656 reports.views           INFO     Try Exception
+2020-02-08 06:48:20,665 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:48:23,719 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:48:27,250 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 06:48:27,272 reports.views           INFO     Try Exception
+2020-02-08 06:48:27,274 reports.views           INFO     Try Exception
+2020-02-08 06:48:27,281 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:49:09,156 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:49:11,413 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 06:49:11,498 django.request          ERROR    Internal Server Error: /reports/patient/1/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 427, in patient
+    patient_result.pa_phone = get_phone_design(patient_result.pa_phone)
+UnboundLocalError: local variable 'get_phone_design' referenced before assignment
+2020-02-08 06:49:52,093 reports.views           INFO     Try Exception
+2020-02-08 06:49:52,096 reports.views           INFO     Try Exception
+2020-02-08 06:49:52,104 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:51:36,894 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:51:41,026 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 06:51:41,048 reports.views           INFO     Try Exception
+2020-02-08 06:51:41,050 reports.views           INFO     Try Exception
+2020-02-08 06:51:41,060 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:51:44,173 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:59:11,548 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 06:59:11,591 reports.views           INFO     Try Exception
+2020-02-08 06:59:11,593 reports.views           INFO     Try Exception
+2020-02-08 06:59:11,601 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:59:18,677 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 06:59:40,341 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 06:59:40,377 reports.views           INFO     Try Exception
+2020-02-08 06:59:40,379 reports.views           INFO     Try Exception
+2020-02-08 06:59:40,387 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 06:59:46,771 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 07:00:22,607 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 07:00:22,635 reports.views           INFO     Try Exception
+2020-02-08 07:00:22,639 reports.views           INFO     Try Exception
+2020-02-08 07:00:22,649 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:00:41,886 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 07:00:48,710 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 07:00:48,737 reports.views           INFO     Try Exception
+2020-02-08 07:00:48,740 reports.views           INFO     Try Exception
+2020-02-08 07:00:48,749 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:02:16,549 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 07:02:20,800 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 07:02:20,823 reports.views           INFO     Try Exception
+2020-02-08 07:02:20,826 reports.views           INFO     Try Exception
+2020-02-08 07:02:20,834 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:02:48,116 reports.views           INFO     Try Exception
+2020-02-08 07:02:48,118 reports.views           INFO     Try Exception
+2020-02-08 07:02:48,126 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:03:36,569 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 07:03:46,907 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 07:03:46,932 reports.views           INFO     Try Exception
+2020-02-08 07:03:46,935 reports.views           INFO     Try Exception
+2020-02-08 07:03:46,947 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:03:50,227 reports.views           INFO     edit_patient: Patient mit der ID: 1 zwecks Änderung aufgerufen
+2020-02-08 07:04:29,656 reports.views           INFO     edit_patient: Patient mit der ID:1 geändert
+2020-02-08 07:04:29,679 reports.views           INFO     Try Exception
+2020-02-08 07:04:29,682 reports.views           INFO     Try Exception
+2020-02-08 07:04:29,690 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:11:38,927 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 07:11:42,658 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-08 07:11:42,682 reports.views           INFO     Try Exception
+2020-02-08 07:11:42,684 reports.views           INFO     Try Exception
+2020-02-08 07:11:42,692 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 07:11:47,980 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 07:11:57,092 reports.views           INFO     search_patient: Patient mit der Mobilfunknummer: 0171/123 gefunden
+2020-02-08 07:11:57,114 reports.views           INFO     Try Exception
+2020-02-08 07:11:57,116 reports.views           INFO     Try Exception
+2020-02-08 07:11:57,124 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:10:36,360 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:10:41,471 reports.views           INFO     search_patient: Patient mit der Mobilfunknummer: 0171 gefunden
+2020-02-08 08:10:41,496 reports.views           INFO     Try Exception
+2020-02-08 08:10:41,498 reports.views           INFO     Try Exception
+2020-02-08 08:10:41,506 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:10:50,184 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:10:56,716 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 334, in search_patient
+    if request.POST['active']:
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 337, in search_patient
+    patients_list = Patient.objects.filter(pa_cell_phone__istartswith=cell_phone, dayfirst=True)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1240, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1077, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1473, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'dayfirst' into field. Choices are: document, id, pa_active_no_yes, pa_allergy, pa_attention, pa_cell_phone, pa_cell_phone_add1, pa_cell_phone_add2, pa_city, pa_date_of_birth, pa_first_name, pa_gender, pa_last_name, pa_note, pa_phone, pa_street, therapy
+2020-02-08 08:11:53,146 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-08 08:11:57,101 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:12:05,431 reports.views           INFO     search_patient: Patient mit dem Suchbegriff:  gefunden
+2020-02-08 08:12:05,454 reports.views           INFO     Try Exception
+2020-02-08 08:12:05,456 reports.views           INFO     Try Exception
+2020-02-08 08:12:05,466 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:12:20,143 reports.views           INFO     search_patient: Mehrere Patienten mit dem Geburtsdatum 05.12.96 gefunden
+2020-02-08 08:12:25,556 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:12:31,463 django.request          ERROR    Internal Server Error: /reports/search/patient/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 316, in search_patient
+    if request.POST['active']:
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'active'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 319, in search_patient
+    patients_list = Patient.objects.filter(pa_phone__istartswith=phone, dayfirst=True)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1340, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1371, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1240, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1077, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1473, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'dayfirst' into field. Choices are: document, id, pa_active_no_yes, pa_allergy, pa_attention, pa_cell_phone, pa_cell_phone_add1, pa_cell_phone_add2, pa_city, pa_date_of_birth, pa_first_name, pa_gender, pa_last_name, pa_note, pa_phone, pa_street, therapy
+2020-02-08 08:15:21,201 reports.views           INFO     search_patient: Patient mit der Telefonnummer: 02251 gefunden
+2020-02-08 08:15:21,241 reports.views           INFO     Try Exception
+2020-02-08 08:15:21,243 reports.views           INFO     Try Exception
+2020-02-08 08:15:21,253 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:15:26,292 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:15:27,222 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:15:33,858 reports.views           INFO     search_patient: Mehrere Patienten mit dem Namen: kr gefunden
+2020-02-08 08:15:35,552 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-02-08 08:15:39,351 reports.views           INFO     edit_patient: Patient mit der ID: 3 zwecks Änderung aufgerufen
+2020-02-08 08:15:48,174 reports.views           INFO     edit_patient: Patient mit der ID:3 geändert
+2020-02-08 08:15:48,185 reports.views           INFO     patient: Patient mit der ID: 3 aufgerufen
+2020-02-08 08:15:54,039 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:16:00,474 reports.views           INFO     search_patient: Mehrere Patienten mit der Telefonnummer 02251 gefunden
+2020-02-08 08:16:03,078 reports.views           INFO     Indexseite wurde geladen
