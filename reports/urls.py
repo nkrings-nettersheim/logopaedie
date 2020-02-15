@@ -50,6 +50,10 @@ urlpatterns = [
 
     path('add/something/', views.add_therapy_something, name='add_something'),
     path('edit/something/<id>/', views.edit_therapy_something, name='edit_something'),
+
+    path('add/pa_something/', views.add_pa_something, name='add_pa_something'),
+    path('edit/pa_something/<id>/', views.edit_pa_something, name='edit_pa_something'),
+
     path('getSessionTimer/', views.getSessionTimer, name='getSessiontimer'),
 
 ]

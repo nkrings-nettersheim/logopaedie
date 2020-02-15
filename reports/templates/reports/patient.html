@@ -22,6 +22,13 @@
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:document' %}?id={{ patient.id }}" role="button">externe Arzt Dok.</a>
       </li>
+      <li class="nav-item">
+          {% if ps.patient_id %}
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_pa_something' ps.id %}" role="button">Hinweise</a>
+          {% else %}
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_pa_something' %}?id={{ patient.id }}" role="button">Hinweise</a>
+          {% endif %}
+      </li>
     </ul>
   </div>
 </nav>
@@ -48,7 +55,7 @@
                 <div class="small inline">Ort: </div> <strong> {{ patient.pa_city}}</strong>
             </div>
             <div class="col-sm">
-                <div class="small inline">Straße: </div> <strong>  {{ patient.pa_street}}</strong>
+                <div class="small inline">Straße/HsNr.: </div> <strong>  {{ patient.pa_street}}</strong>
             </div>
             <div class="col-sm">
                 <div class="small inline">Geschlecht: </div> <strong>  {{ patient.get_pa_gender_display}}</strong>

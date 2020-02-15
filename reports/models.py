@@ -20,6 +20,7 @@ class Therapist(models.Model):
     tp_first_name = models.CharField(max_length=50, blank=True, default='')
     tp_last_name = models.CharField(max_length=50, blank=True, default='')
     tp_initial = models.CharField(max_length=5, blank=True, default='')
+    tp_user_logopakt = models.CharField(max_length=20, blank=True, default='')
 
     def __str__(self):
         return self.tp_initial
@@ -33,6 +34,7 @@ class Patient(models.Model):
     pa_first_name = models.CharField(max_length=50)
     pa_last_name = models.CharField(max_length=50)
     pa_street = models.CharField(max_length=100)
+    pa_zip_code = models.CharField(max_length=10, default='')
     pa_city = models.CharField(max_length=255)
     pa_phone = models.CharField(max_length=100, blank=True, default='', null=True)
     pa_cell_phone = models.CharField(max_length=100, blank=True, default='', null=True)
@@ -52,7 +54,6 @@ class Patient(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['pa_first_name', 'pa_last_name', 'pa_date_of_birth'], name='unique pa_name'),
         ]
-
 
 
 class Therapy(models.Model):
@@ -124,6 +125,7 @@ class InitialAssessment(models.Model):
     ia_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     ia_assessment = models.CharField(max_length=100, blank=True, default='')
     ia_artikulation = models.CharField(max_length=100, blank=True, default='')
+    ia_dysphagie = models.CharField(max_length=100, blank=True, default='')
     ia_syntax = models.CharField(max_length=100, blank=True, default='')
     ia_semantik = models.CharField(max_length=100, blank=True, default='')
     ia_understanding = models.CharField(max_length=100, blank=True, default='')
@@ -135,8 +137,8 @@ class InitialAssessment(models.Model):
     ia_test = models.CharField(max_length=100, blank=True, default='')
     ia_test_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     ia_test_result = models.CharField(max_length=1, choices=RESULT, default='1')
-    ia_need = models.BooleanField(default=False, null=True)
     ia_enhancement = models.BooleanField(default=False, null=True)
+    ia_information = models.CharField(max_length=500, blank=True, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
 
     def __str__(self):
@@ -170,3 +172,8 @@ class Document_therapy(models.Model):
 class Therapy_Something(models.Model):
     something_else = RichTextField()
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+
+
+class Patient_Something(models.Model):
+    pa_something_else = RichTextField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')

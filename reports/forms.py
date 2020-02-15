@@ -5,11 +5,10 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
-from .models import Document, Document_therapy, Therapy_Something
+from .models import Document, Document_therapy, Therapy_Something, Patient_Something
 
 
 class IndexForm(forms.Form):
-
     last_name = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control',
@@ -57,9 +56,10 @@ class IndexForm(forms.Form):
         required=False
     )
 
+    active = forms.NullBooleanField(required=False, initial=True, widget=forms.CheckboxInput)
 
-    active = forms.NullBooleanField(required=False, initial=True,
-                                                   widget=forms.CheckboxInput)
+    inactive = forms.NullBooleanField(required=False, initial=False, widget=forms.CheckboxInput)
+
 
 class SearchPatient(forms.Form):
     patient_id = forms.CharField(label='Patienten ID', max_length=10)
@@ -129,7 +129,7 @@ class DoctorForm(forms.ModelForm):
                                    )
 
     doctor_name3 = forms.CharField(required=False,
-                                   max_length=40,
+                                   max_length=75,
                                    widget=forms.TextInput(
                                        attrs={
                                            'class': 'form-control',
@@ -223,11 +223,22 @@ class TherapistForm(forms.ModelForm):
                                  )
                                  )
 
+    tp_user_logopakt = forms.CharField(required=True,
+                                       max_length=20,
+                                       widget=forms.TextInput(
+                                           attrs={
+                                               'class': 'form-control',
+                                               'placeholder': 'Nutzerkennung eingeben ...'
+                                           }
+                                       )
+                                       )
+
     class Meta:
         model = Therapist
         fields = ['tp_first_name',
                   'tp_last_name',
-                  'tp_initial'
+                  'tp_initial',
+                  'tp_user_logopakt'
                   ]
 
 
@@ -240,21 +251,21 @@ class PatientForm(forms.ModelForm):
         data = self.cleaned_data['pa_phone']
         if data:
             data = data.replace(' ', '')
-        #    data = data.rsplit("/")
-        #    if len(data[1]) % 2:
-        #        for char in data[1]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-        #    else:
-        #        for char in data[1]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if not len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-        #
-        #    data = data[0] + " / " + charvalue
+            #    data = data.rsplit("/")
+            #    if len(data[1]) % 2:
+            #        for char in data[1]:
+            #            charvalue = charvalue + char
+            #            charvalue2 = charvalue2 + char
+            #            if len(charvalue2) % 2:
+            #                charvalue = charvalue + " "
+            #    else:
+            #        for char in data[1]:
+            #            charvalue = charvalue + char
+            #            charvalue2 = charvalue2 + char
+            #            if not len(charvalue2) % 2:
+            #                charvalue = charvalue + " "
+            #
+            #    data = data[0] + " / " + charvalue
             return data
 
     def clean_pa_cell_phone(self):
@@ -263,74 +274,40 @@ class PatientForm(forms.ModelForm):
         data = self.cleaned_data['pa_cell_phone']
         if data:
             data = data.replace(' ', '')
-        #    data = data.rsplit("/")
-        #    if len(data[1]) % 2:
-        #        for char in data[1]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-        #    else:
-        #        for char in data[1]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if not len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
+            #    data = data.rsplit("/")
+            #    if len(data[1]) % 2:
+            #        for char in data[1]:
+            #            charvalue = charvalue + char
+            #            charvalue2 = charvalue2 + char
+            #            if len(charvalue2) % 2:
+            #                charvalue = charvalue + " "
+            #    else:
+            #        for char in data[1]:
+            #            charvalue = charvalue + char
+            #            charvalue2 = charvalue2 + char
+            #            if not len(charvalue2) % 2:
+            #                charvalue = charvalue + " "
 
-        #    data = data[0] + " / " + charvalue
+            #    data = data[0] + " / " + charvalue
             return data
 
     def clean_pa_cell_phone_add1(self):
-        charvalue = ''
-        charvalue2 = ''
         data = self.cleaned_data['pa_cell_phone_add1']
         if data:
             data = data.rsplit("/")
             rightdata = data[1].rsplit("(")
             data[0] = data[0].replace(' ', '')
             rightdata[0] = rightdata[0].replace(' ', '')
-
-        #    if len(rightdata[0]) % 2:                #rightdata[0] ist die Rufnummer
-        #        for char in rightdata[0]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-        #    else:
-        #        for char in rightdata[0]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if not len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-
-        #    data = data[0] + " / " + charvalue + "  (" + rightdata[1]
             data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
             return data
 
     def clean_pa_cell_phone_add2(self):
-        charvalue = ''
-        charvalue2 = ''
         data = self.cleaned_data['pa_cell_phone_add2']
         if data:
             data = data.rsplit("/")
             rightdata = data[1].rsplit("(")
             data[0] = data[0].replace(' ', '')
             rightdata[0] = rightdata[0].replace(' ', '')
-
-        #    if len(rightdata[0]) % 2:
-        #        for char in rightdata[0]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-        #    else:
-        #        for char in rightdata[0]:
-        #            charvalue = charvalue + char
-        #            charvalue2 = charvalue2 + char
-        #            if not len(charvalue2) % 2:
-        #                charvalue = charvalue + " "
-
-        #   data = data[0] + " / " + charvalue + "  (" + rightdata[1]
             data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
             return data
 
@@ -478,8 +455,7 @@ class PatientForm(forms.ModelForm):
     )
 
     pa_active_no_yes = forms.NullBooleanField(required=False, initial=True,
-                                                   widget=forms.CheckboxInput)
-
+                                              widget=forms.CheckboxInput)
 
     class Meta:
         model = Patient
@@ -563,8 +539,8 @@ class TherapyForm(forms.ModelForm):
                                                    widget=forms.NullBooleanSelect)
 
     therapy_homevisit_no_yes = forms.NullBooleanField(required=True,
-                                                   error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                   widget=forms.NullBooleanSelect)
+                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                      widget=forms.NullBooleanSelect)
 
     INDICATION = (
         ('n/a', 'auswählen'),
@@ -873,6 +849,15 @@ class InitialAssessmentForm(forms.ModelForm):
                                 )
                                 )
 
+    ia_dysphagie = forms.CharField(required=False,
+                                max_length=100,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control'
+                                    }
+                                )
+                                )
+
     ia_semantik = forms.CharField(required=False,
                                   max_length=100,
                                   widget=forms.TextInput(
@@ -970,6 +955,18 @@ class InitialAssessmentForm(forms.ModelForm):
         }
     ))
 
+    ia_information = forms.CharField(required=False,
+                                     max_length=300,
+                                     widget=forms.Textarea(
+                                         attrs={
+                                             'class': 'form-control',
+                                             'cols': '20',
+                                             'rows': '5',
+                                             'placeholder': "Notizen ..."
+                                         }
+                                     )
+                                     )
+
     class Meta:
         model = InitialAssessment
         fields = [
@@ -977,6 +974,7 @@ class InitialAssessmentForm(forms.ModelForm):
             'ia_assessment',
             'ia_artikulation',
             'ia_syntax',
+            'ia_dysphagie',
             'ia_semantik',
             'ia_understanding',
             'ia_expiration',
@@ -987,21 +985,21 @@ class InitialAssessmentForm(forms.ModelForm):
             'ia_test',
             'ia_test_date',
             'ia_test_result',
-            'ia_need',
             'ia_enhancement',
+            'ia_information',
             'therapy'
         ]
 
 
 class DocumentForm(forms.ModelForm):
     description = forms.CharField(required=True,
-                                    max_length=100,
-                                    widget=forms.TextInput(
-                                        attrs={
-                                            'class': 'form-control'
-                                        }
-                                    )
-                                    )
+                                  max_length=100,
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          'class': 'form-control'
+                                      }
+                                  )
+                                  )
 
     class Meta:
         model = Document
@@ -1014,13 +1012,13 @@ class DocumentForm(forms.ModelForm):
 
 class DocumentTherapyForm(forms.ModelForm):
     description = forms.CharField(required=True,
-                                    max_length=100,
-                                    widget=forms.TextInput(
-                                        attrs={
-                                            'class': 'form-control'
-                                        }
-                                    )
-                                    )
+                                  max_length=100,
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          'class': 'form-control'
+                                      }
+                                  )
+                                  )
 
     class Meta:
         model = Document_therapy
@@ -1039,4 +1037,15 @@ class TherapySomethingForm(forms.ModelForm):
         fields = [
             'something_else',
             'therapy'
+        ]
+
+
+class PatientSomethingForm(forms.ModelForm):
+    pa_something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
+
+    class Meta:
+        model = Patient_Something
+        fields = [
+            'pa_something_else',
+            'patient'
         ]

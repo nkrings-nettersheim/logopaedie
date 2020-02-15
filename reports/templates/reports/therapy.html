@@ -37,7 +37,11 @@
           <a class="btn btn-primary btn-sm" href="{% url 'reports:document_therapy' %}?id={{ therapy.id }}" role="button">Dokumente</a>
       </li>
       <li class="nav-item">
+          {% if process_report.countvalue  < therapy.therapy_regulation_amount %}
           <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf</a>
+          {% else %}
+          <div class="btn btn-warning btn-sm" onclick="window.alert('Die maximale Anzahl an Therapien ist für dieses Rezept erreicht!');" role="button">Verlauf</div>
+          {% endif %}
       </li>
       <li class="nav-item">
         <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>
@@ -85,8 +89,13 @@
         </div>
         <br>
        <div class="row">
-            <div class="col-sm">
-                Verordnungsmenge: <strong>{{ therapy.therapy_regulation_amount }} </strong>
+            <div class="col-sm inline">
+                Verordnungsmenge:
+                {% if process_report.countvalue  < therapy.therapy_regulation_amount %}
+                    <div class="text-black inline"> <strong>{{ therapy.therapy_regulation_amount }} </strong></div>
+                {% else %}
+                    <div class="text-warning inline"> <strong>{{ therapy.therapy_regulation_amount }} </strong></div>
+                {% endif %}
             </div>
             <div class="col-sm">
                 Indikationsschlüssel: <strong>{{ therapy.therapy_indication_key }}</strong>
@@ -190,6 +199,10 @@
                   <div class="col-sm-2">Artikulation:</div>
                   <div class="col-sm-10"><strong>{{ ia.ia_artikulation }}</strong></div>
               </div>
+              <div class="row bg-white">
+                  <div class="col-sm-2">Dysphagie:</div>
+                  <div class="col-sm-10"><strong>{{ ia.ia_dysphagie }}</strong></div>
+              </div>
               <div class="row bg-light">
                   <div class="col-sm-2">Syntax:</div>
                   <div class="col-sm-10"><strong>{{ ia.ia_syntax }}</strong></div>
@@ -239,12 +252,12 @@
                   <div class="col-sm-10"><strong>{{ ia.get_ia_test_result_display }}</strong></div>
               </div>
               <div class="row bg-white">
-                  <div class="col-sm-2">Therapiebedarf:</div>
-                  <div class="col-sm-10"><strong>{% if ia.ia_need %}Ja{% else %}Nein{% endif%}</strong></div>
+                  <div class="col-sm-2">Verbesserung:</div>
+                  <div class="col-sm-10"><strong>{% if ia.ia_enhancement %}Ja{% else %}Nein{% endif%}</strong></div>
               </div>
               <div class="row bg-white">
-                  <div class="col-sm-2">Ergebnis:</div>
-                  <div class="col-sm-10"><strong>{% if ia.ia_enhancement %}Ja{% else %}Nein{% endif%}</strong></div>
+                  <div class="col-sm-2">Bemerkung:</div>
+                  <div class="col-sm-10"><strong>{{ ia.ia_information | linebreaks }}</strong></div>
               </div>
               <div class="row bg-light">
                   <div class="col-sm-2"></div>

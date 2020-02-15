@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:search_doctor_start' %}" role="button">zurück</a>
         </li>
     </ul>
   </div>
@@ -34,7 +34,7 @@
         {% if doctors_list %}
             <ul>
             {% for doctor in doctors_list %}
-                <li><a href="/reports/doctor/{{ doctor.id }}">{{ doctor.doctor_name1 }} {{ doctor.doctor_name2}} </a>; {{ doctor.doctor_city }}  </li>
+                <li><a href="/reports/doctor/{{ doctor.id }}">{{ doctor.doctor_name1 }}, {{ doctor.doctor_name2}}, {{ doctor.doctor_name3}}  </a>; {{ doctor.doctor_city }}  </li>
             {% endfor %}
             </ul>
         {% else %}

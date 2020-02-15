@@ -36,9 +36,9 @@
                     {% for patient in patients_list %}
                         <li>
                             {% if patient.pa_active_no_yes == True %}
-                                <div class="text-success"><a href="/reports/patient/{{ patient.id }}">aufrufen: </a>{{ patient.pa_last_name }}, {{ patient.pa_first_name}}</div>
+                                <div class="text-success"><a href="/reports/patient/{{ patient.id }}" class="text-success">{{ patient.pa_last_name }}, {{ patient.pa_first_name}}</a></div>
                             {% else %}
-                                <div class="text-warning"><a href="/reports/patient/{{ patient.id }}">aufrufen: </a> {{ patient.pa_last_name }}, {{ patient.pa_first_name}}</div>
+                                <div class="text-warning"><a href="/reports/patient/{{ patient.id }}" class="text-warning"> {{ patient.pa_last_name }}, {{ patient.pa_first_name}}</a></div>
                             {% endif %}
                         </li>
                     {% endfor %}

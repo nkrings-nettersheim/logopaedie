@@ -34,59 +34,61 @@
 {% endblock %}
 
 {% block content %}
-
-
-
 <content>
     <form action="{% url 'reports:search_patient' %}" method="post">
         {% csrf_token %}
         <p></p>
        <div class="container">
            <div class="form-group row">
-               <div class="col-sm-12">
+               <div class="col-sm-4">
                    <h5>Patient suchen:</h5>
                </div>
            </div>
            <div class="form-group row">
                 <label for="{{ form.last_name.id_for_label }}" class="col-sm-2 control-label">Name:</label>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ form.last_name }}
                     {{ form.last_name.errors }}
                 </div>
             </div>
            <div class="form-group row">
                 <label for="{{ form.first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ form.first_name }}
                     {{ form.first_name.errors }}
                 </div>
             </div>
            <div class="form-group row">
                 <label for="{{ form.date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtstag:</label>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ form.date_of_birth }}
                     {{ form.date_of_birth.errors }}
                 </div>
             </div>
            <div class="form-group row">
                 <label for="{{ form.phone.id_for_label }}" class="col-sm-2 control-label">Telefonnr.:</label>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ form.phone }}
                     {{ form.phone.errors }}
                 </div>
             </div>
            <div class="form-group row">
                 <label for="{{ form.cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunknr.:</label>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ form.cell_phone }}
                     {{ form.cell_phone.errors }}
                 </div>
             </div>
            <div class="form-group row">
-                <label for="{{ form.active.id_for_label }}" class="col-sm-2 control-label">Nur Aktive:</label>
-                <div class="col-sm-6">
+                <label for="{{ form.active.id_for_label }}" class="col-sm-2 control-label">Aktive:</label>
+                <div class="col-sm-1">
                     {{ form.active }}
                     {{ form.active.errors }}
+                </div>
+                <label for="{{ form.inactive.id_for_label }}" class="col-sm-2 control-label">Inaktive:</label>
+                <div class="col-sm-1">
+                    {{ form.inactive }}
+                    {{ form.inactive.errors }}
                 </div>
             </div>
            <div class="form-group row">
@@ -96,7 +98,16 @@
            </div>
        </div>
     </form>
+<hr>
+    <div class="container">
+    {% for tp in reports %}
+        <li>
+             <div class="text-success"><a href="">aufrufen: </a>{{ tp.process_treatment }}</div>
+        </li>
+    {% endfor %}
+    </div>
 </content>
+
 <p></p>
 {% endblock %}
 

@@ -5421,3 +5421,321 @@ django.core.exceptions.FieldError: Cannot resolve keyword 'dayfirst' into field.
 2020-02-08 08:15:54,039 reports.views           INFO     Indexseite wurde geladen
 2020-02-08 08:16:00,474 reports.views           INFO     search_patient: Mehrere Patienten mit der Telefonnummer 02251 gefunden
 2020-02-08 08:16:03,078 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:20:20,082 django.request          WARNING  Not Found: /favicon.ico
+2020-02-08 08:33:53,040 django.request          WARNING  Not Found: /
+2020-02-08 08:33:53,144 django.request          WARNING  Not Found: /favicon.ico
+2020-02-08 08:33:53,150 django.request          WARNING  Not Found: /apple-touch-icon-precomposed.png
+2020-02-08 08:33:53,156 django.request          WARNING  Not Found: /apple-touch-icon.png
+2020-02-08 08:33:55,112 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:33:55,479 django.request          WARNING  Not Found: /favicon.ico
+2020-02-08 08:34:12,008 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:41:12,253 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-08 08:41:12,275 reports.views           INFO     Try Exception
+2020-02-08 08:41:12,277 reports.views           INFO     Try Exception
+2020-02-08 08:41:12,285 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:47:25,493 reports.views           INFO     Try Exception
+2020-02-08 08:47:25,495 reports.views           INFO     Try Exception
+2020-02-08 08:47:25,504 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:47:38,437 reports.views           INFO     Try Exception
+2020-02-08 08:47:38,439 reports.views           INFO     Try Exception
+2020-02-08 08:47:38,446 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:49:13,170 reports.views           INFO     Try Exception
+2020-02-08 08:49:13,172 reports.views           INFO     Try Exception
+2020-02-08 08:49:13,180 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:49:18,251 reports.views           INFO     Try Exception
+2020-02-08 08:49:18,253 reports.views           INFO     Try Exception
+2020-02-08 08:49:18,259 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:49:28,142 django.request          WARNING  Not Found: /favicon.ico
+2020-02-08 08:49:39,452 django.request          WARNING  Not Found: /favicon.ico
+2020-02-08 08:49:47,537 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:54:29,687 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:54:38,504 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:54:48,455 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:55:04,573 reports.views           INFO     Try Exception
+2020-02-08 08:55:04,576 reports.views           INFO     Try Exception
+2020-02-08 08:55:04,583 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:55:07,844 reports.views           INFO     Try Exception
+2020-02-08 08:55:07,846 reports.views           INFO     Try Exception
+2020-02-08 08:55:07,853 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-08 08:55:29,817 django.request          WARNING  Not Found: /
+2020-02-08 08:55:29,819 django.request          WARNING  Not Found: /favicon.ico
+2020-02-08 08:55:33,886 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:55:56,742 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:56:03,233 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:57:19,530 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:57:34,141 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:57:39,360 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:58:39,588 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:58:45,828 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:59:47,693 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 08:59:55,970 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:02:37,907 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:03:05,386 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:03:47,589 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:04:42,621 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:05:12,738 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:05:37,240 reports.views           INFO     add_patient: Formular aufgerufen
+2020-02-08 09:22:12,385 reports.views           INFO     add_patient: Formular aufgerufen
+2020-02-08 09:24:32,303 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:25:36,662 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:28:39,838 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:30:07,824 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:31:44,511 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:37:54,054 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:38:41,956 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:39:07,467 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:39:29,162 reports.views           INFO     Indexseite wurde geladen
+2020-02-08 09:39:38,854 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:21:49,889 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:21:55,933 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:21:59,951 reports.views           INFO     search_patient: Patient mit der Telefonnummer: 0 gefunden
+2020-02-09 13:21:59,981 reports.views           INFO     Try Exception
+2020-02-09 13:21:59,984 reports.views           INFO     Try Exception
+2020-02-09 13:21:59,994 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 13:22:08,518 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:10,716 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: a gefunden
+2020-02-09 13:22:10,725 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:12,698 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: b gefunden
+2020-02-09 13:22:12,707 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:14,467 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: c gefunden
+2020-02-09 13:22:14,476 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:15,621 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: d gefunden
+2020-02-09 13:22:15,634 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:16,812 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: e gefunden
+2020-02-09 13:22:16,822 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:18,058 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: f gefunden
+2020-02-09 13:22:18,067 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:19,242 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: g gefunden
+2020-02-09 13:22:19,252 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:20,389 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: h gefunden
+2020-02-09 13:22:20,399 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:21,938 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: i gefunden
+2020-02-09 13:22:21,951 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:23,250 reports.views           INFO     search_patient: Kein Patient mit dem Nachnamen: j gefunden
+2020-02-09 13:22:23,259 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:24,527 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: k gefunden
+2020-02-09 13:22:24,547 reports.views           INFO     Try Exception
+2020-02-09 13:22:24,549 reports.views           INFO     Try Exception
+2020-02-09 13:22:24,558 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 13:22:30,732 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: l gefunden
+2020-02-09 13:22:30,747 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-02-09 13:22:33,637 reports.views           INFO     edit_patient: Patient mit der ID: 2 zwecks Änderung aufgerufen
+2020-02-09 13:22:43,212 reports.views           INFO     edit_patient: Patient mit der ID:2 geändert
+2020-02-09 13:22:43,228 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-02-09 13:22:46,955 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:22:49,887 reports.views           INFO     search_patient: Mehrere Patienten mit der Telefonnummer 0 gefunden
+2020-02-09 13:23:14,957 reports.views           INFO     search_patient: Mehrere Patienten mit der Telefonnummer 0 gefunden
+2020-02-09 13:24:46,215 reports.views           INFO     search_patient: Mehrere Patienten mit der Telefonnummer 0 gefunden
+2020-02-09 13:24:53,909 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:27:23,444 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-09 13:27:23,466 reports.views           INFO     Try Exception
+2020-02-09 13:27:23,468 reports.views           INFO     Try Exception
+2020-02-09 13:27:23,475 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 13:27:26,853 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 13:27:38,565 reports.views           INFO     add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds
+2020-02-09 13:37:11,734 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 13:37:13,686 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-09 13:37:13,711 reports.views           INFO     Try Exception
+2020-02-09 13:37:13,714 reports.views           INFO     Try Exception
+2020-02-09 13:37:13,721 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 13:37:17,025 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 13:37:18,797 reports.views           INFO     add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds
+2020-02-09 13:39:43,926 reports.views           INFO     add_ia: Erstbefund mit id: 2 angelegt
+2020-02-09 13:39:43,945 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 13:40:18,850 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:00:51,229 django.request          ERROR    Internal Server Error: /reports/therapy/7/
+Traceback (most recent call last):
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nkrings/.virtualenvs/Logopaedie/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nkrings/PycharmProjects/Logopaedie/reports/views.py", line 592, in therapy
+    assert False
+AssertionError
+2020-02-09 14:03:00,967 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:06:49,929 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:07:29,250 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:08:17,805 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:08:20,877 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-02-09 14:08:26,679 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-02-09 14:08:26,698 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:10:43,463 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:10:48,666 django.security.SuspiciousOperation ERROR    The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2020-02-09 14:10:48,765 django.request          WARNING  Bad Request: /reports/therapy/7/
+2020-02-09 14:11:00,508 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-02-09 14:11:02,422 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-02-09 14:11:05,738 django.security.SuspiciousOperation ERROR    The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2020-02-09 14:11:05,793 django.request          WARNING  Bad Request: /reports/edit/therapy/7/
+2020-02-09 14:11:07,619 django.security.SuspiciousOperation ERROR    The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2020-02-09 14:11:07,674 django.request          WARNING  Bad Request: /reports/edit/therapy/7/
+2020-02-09 14:11:17,669 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-02-09 14:11:23,401 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-02-09 14:11:23,418 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:14:10,416 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:14:32,831 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:14:34,325 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:14:52,310 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:24:38,026 reports.views           INFO     edit_therapy: Rezeptformular des Patienten mit der ID: 7 zwecks Änderung aufgerufen
+2020-02-09 14:24:39,891 reports.views           INFO     edit_therapy: Rezept mit der ID:7 geändert
+2020-02-09 14:24:39,911 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:24:42,131 reports.views           INFO     edit_therapy_something: Erstbefund anlegen mit ID: 3
+2020-02-09 14:24:48,029 reports.views           INFO     edit_therapy_something: Erstbefund ändern mit ID: 3
+2020-02-09 14:24:48,048 reports.views           INFO     therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-09 14:28:57,585 reports.views           INFO     Try Exception
+2020-02-09 14:28:57,587 reports.views           INFO     Try Exception
+2020-02-09 14:28:57,595 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 14:29:00,386 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 14:29:01,926 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-09 14:29:01,949 reports.views           INFO     Try Exception
+2020-02-09 14:29:01,951 reports.views           INFO     Try Exception
+2020-02-09 14:29:01,959 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 14:29:05,356 reports.views           INFO     therapy: Rezept mit der ID: 6 aufgerufen
+2020-02-09 16:22:46,609 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:22:49,278 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-09 16:22:49,303 reports.views           INFO     Try Exception
+2020-02-09 16:22:49,305 reports.views           INFO     Try Exception
+2020-02-09 16:22:49,313 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 16:24:25,968 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:24:31,397 reports.views           INFO     search_patient: Patient mit dem Suchbegriff: kr gefunden
+2020-02-09 16:24:31,420 reports.views           INFO     Try Exception
+2020-02-09 16:24:31,422 reports.views           INFO     Try Exception
+2020-02-09 16:24:31,430 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 16:25:30,768 reports.views           INFO     Try Exception
+2020-02-09 16:25:30,771 reports.views           INFO     Try Exception
+2020-02-09 16:25:30,782 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 16:25:30,825 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:30,825 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:25:30,827 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:30,902 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:30,904 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:25:30,926 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:48,249 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:25:48,251 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:48,254 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:48,320 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:48,345 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:49,231 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:25:49,233 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:49,238 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:49,305 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:49,356 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:50,607 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:25:50,609 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:50,615 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:50,683 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:50,720 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:58,685 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:25:58,730 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:25:58,731 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:58,733 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:25:58,735 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:25:58,807 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:25:58,814 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:25:58,857 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:26:51,288 django.request          WARNING  Not Found: /
+2020-02-09 16:26:55,605 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:26:55,608 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:27:05,614 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:27:05,650 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:30:05,028 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:30:05,118 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:30:05,122 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:30:05,125 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:30:05,127 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:30:05,231 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:30:05,237 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:30:05,242 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:30:05,275 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:31:00,308 reports.views           INFO     Indexseite wurde geladen
+2020-02-09 16:31:00,355 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:31:00,357 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:31:00,361 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:31:00,364 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:31:00,463 django.request          WARNING  Not Found: /static/reports/style_e2.css
+2020-02-09 16:31:00,465 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:31:00,522 django.request          WARNING  Not Found: /static/reports/js_files/countdown.js
+2020-02-09 16:31:00,527 django.request          WARNING  Not Found: /static/favicon/android-icon-192x192.png
+2020-02-09 16:31:00,528 django.request          WARNING  Not Found: /static/favicon/favicon-32x32.png
+2020-02-09 16:31:00,661 django.request          WARNING  Not Found: /static/reports/logopaedie.css
+2020-02-09 16:31:00,662 django.request          WARNING  Not Found: /static/reports/style_e1.css
+2020-02-09 16:31:00,664 django.request          WARNING  Not Found: /static/reports/images/logopaedie.png
+2020-02-09 16:31:00,731 django.request          WARNING  Not Found: /favicon.ico
+2020-02-09 17:48:43,609 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 18:01:16,269 reports.views           INFO     Benutzer: nkrings
+2020-02-09 18:01:16,289 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 18:02:06,892 reports.views           INFO     Benutzer: 1
+2020-02-09 18:02:06,916 reports.views           INFO     patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 18:11:24,413 reports.views           INFO     Benutzer:          1
+2020-02-09 18:11:24,419 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-02-09 18:12:11,903 reports.views           INFO     Benutzer:  1
+2020-02-09 18:12:11,909 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-02-09 18:12:45,621 reports.views           INFO     Benutzer:  1
+2020-02-09 18:12:45,627 reports.views           INFO     patient: Patient mit der ID: 2 aufgerufen
+2020-02-09 18:27:48,535 reports.views           INFO      1 Benutzer:  1
+2020-02-09 18:27:48,559 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-09 18:32:47,453 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-10 07:41:52,556 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-10 07:41:57,022 reports.views           INFO      1 therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-10 08:12:34,848 reports.views           INFO      1 edit_doctor: 4 Daten werden gespeichert
+2020-02-10 08:14:55,182 reports.views           INFO      1 edit_doctor: 3 Daten werden gespeichert
+2020-02-10 21:02:47,798 reports.views           INFO      1 ausgeloggt
+2020-02-10 21:03:04,911 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-10 21:03:08,059 reports.views           INFO      1 ausgeloggt
+2020-02-10 21:20:09,096 reports.views           INFO      1 eingeloggt
+2020-02-10 21:20:20,736 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-10 21:20:51,433 reports.views           INFO      1 therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-10 21:50:28,675 reports.views           INFO      1 ausgeloggt
+2020-02-12 21:33:07,293 reports.views           INFO      1 eingeloggt
+2020-02-12 21:56:49,209 reports.views           INFO      1 edit_therapist: 1 Daten werden gespeichert
+2020-02-12 21:57:14,982 reports.views           INFO      1 edit_therapist: 2 Daten werden gespeichert
+2020-02-12 22:34:42,363 reports.views           INFO      1 eingeloggt
+2020-02-13 19:58:47,921 reports.views           INFO      1 eingeloggt
+2020-02-13 21:19:46,041 reports.views           INFO      1 eingeloggt
+2020-02-13 21:36:37,262 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-13 22:17:09,312 reports.views           INFO      1 eingeloggt
+2020-02-13 22:21:30,186 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-13 22:21:39,441 reports.views           INFO      1 therapy: Rezept mit der ID: 7 aufgerufen
+2020-02-13 23:32:11,030 reports.views           INFO      ausgeloggt
+2020-02-14 20:14:02,080 reports.views           INFO      1 eingeloggt
+2020-02-14 21:18:44,904 reports.views           INFO      1 eingeloggt
+2020-02-14 21:19:44,031 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 21:20:04,649 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 21:30:13,419 reports.views           INFO      1 patient: Patient mit der ID: 3 aufgerufen
+2020-02-14 21:32:22,579 reports.views           INFO      1 patient: Patient mit der ID: 3 aufgerufen
+2020-02-14 22:01:56,199 reports.views           INFO     active: 
+2020-02-14 22:02:07,201 reports.views           INFO     active: True
+2020-02-14 22:02:07,236 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:02:16,892 reports.views           INFO     active: False
+2020-02-14 22:06:03,111 reports.views           INFO     active: False
+2020-02-14 22:06:03,125 reports.views           INFO      1 patient: Patient mit der ID: 3 aufgerufen
+2020-02-14 22:06:11,742 reports.views           INFO     active: True
+2020-02-14 22:06:11,781 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:06:19,203 reports.views           INFO     active: 
+2020-02-14 22:07:16,682 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:16:46,613 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:16:56,718 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:17:06,809 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:28:04,832 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-14 22:28:09,585 reports.views           INFO      1 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-14 22:56:34,611 reports.views           INFO      1 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-14 23:27:06,684 reports.views           INFO      1 eingeloggt
+2020-02-14 23:29:25,601 reports.views           INFO      1 edit_therapist: 1 Daten werden gespeichert
+2020-02-14 23:30:41,712 reports.views           INFO      1 edit_therapist: 2 Daten werden gespeichert
+2020-02-15 07:15:26,356 reports.views           INFO      1 eingeloggt
+2020-02-15 07:15:27,624 reports.views           INFO      ausgeloggt
+2020-02-15 07:15:35,471 reports.views           INFO      1 eingeloggt
+2020-02-15 07:15:40,748 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:16:11,319 reports.views           INFO      1 add_pa_something: Sonstiges mit id: 1 angelegt
+2020-02-15 07:16:11,360 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:21:43,959 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:21:52,503 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:22:24,854 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:22:55,145 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:23:05,262 reports.views           INFO      1 therapy: Rezept mit der ID: 1 aufgerufen
+2020-02-15 07:23:23,537 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:23:30,894 reports.views           INFO      1 edit_pa_something: Sonstiges ändern mit ID: 1
+2020-02-15 07:23:30,932 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:23:35,040 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 07:55:26,028 reports.views           INFO      ausgeloggt

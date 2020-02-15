@@ -3,7 +3,7 @@
 
 			endTime = (Date.parse(endTime) / 1000);
 
-			var now = new Date();
+ 			var now = new Date();
 			now = (Date.parse(now) / 1000);
 
             var timeLeft = endTime - now;
@@ -30,6 +30,7 @@
 
 $(document).ready(function(){
     var endTime = new Date();
+    var data = new Date();
     $.get("/reports/getSessionTimer", function(data, status){
       endTime = data;
     });
