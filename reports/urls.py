@@ -54,6 +54,8 @@ urlpatterns = [
     path('add/pa_something/', views.add_pa_something, name='add_pa_something'),
     path('edit/pa_something/<id>/', views.edit_pa_something, name='edit_pa_something'),
 
+    path('open_reports/', views.open_reports, name='open_reports'),
+
     path('getSessionTimer/', views.getSessionTimer, name='getSessiontimer'),
 
 ]

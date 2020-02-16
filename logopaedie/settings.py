@@ -157,7 +157,8 @@ LOGIN_REDIRECT_URL = '/reports/'
 
 # Eingefügt nk 21.07.2019
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_EXPIRE_SECONDS = 30*60
+# 30 * 60 = 30 Minuten + 5 Sekunden, damit die Session noch existiert, wenn nach 30 Minuten der Logout erfolgt
+SESSION_EXPIRE_SECONDS = 30*60+5
 #SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
 

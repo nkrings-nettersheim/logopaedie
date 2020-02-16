@@ -28,6 +28,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:add_therapist' %}" >Therapeut anlegen</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'reports:open_reports' %}" >Offene Berichte</a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -98,14 +101,6 @@
            </div>
        </div>
     </form>
-<hr>
-    <div class="container">
-    {% for tp in reports %}
-        <li>
-             <div class="text-success"><a href="">aufrufen: </a>{{ tp.process_treatment }}</div>
-        </li>
-    {% endfor %}
-    </div>
 </content>
 
 <p></p>

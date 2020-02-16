@@ -10,3 +10,4 @@ media/
 reports/tests/__pycache__/
 /static/admin/
 /static/ckeditor/
+/static/admin/

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+        </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<content>
+    <p></p>
+    <div class="container">
+           <div class="form-group row">
+               <div class="col-sm-4">
+                   <h5>Anstehende Therapieberichte:</h5>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-sm-2">Rezeptdatum:</div>
+                <div class="col-sm-2">Patient: </div>
+                <div class="col-sm-2">Th.</div>
+                <div class="col-sm-7"> </div>
+            </div>
+
+            {% for tp in reports %}
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="/reports/therapy/{{ tp.id }}/">{{ tp.recipe_date | date:"d.m.Y"}}</a>
+                </div>
+                <div class="col-sm-2">{{ tp.pa_last_name }}, {{ tp.pa_first_name }} </div>
+                <div class="col-sm-2">Th. ({{ tp.prvc }}/{{ tp.therapy_regulation_amount }}) </div>
+                <div class="col-sm-7"> </div>
+            </div>
+            {% endfor %}
+    </div>
+</content>
+{% endblock %}
+

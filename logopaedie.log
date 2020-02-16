@@ -5739,3 +5739,280 @@ AssertionError
 2020-02-15 07:23:30,932 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
 2020-02-15 07:23:35,040 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
 2020-02-15 07:55:26,028 reports.views           INFO      ausgeloggt
+2020-02-15 13:22:38,726 reports.views           INFO      1 eingeloggt
+2020-02-15 13:23:40,195 reports.views           INFO      ausgeloggt
+2020-02-15 13:23:40,195 reports.views           INFO     logout user: None via ip: 127.0.0.1
+2020-02-15 13:24:14,547 reports.views           INFO      1 eingeloggt
+2020-02-15 13:24:18,139 reports.views           INFO      ausgeloggt
+2020-02-15 13:24:18,140 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:30:01,873 reports.views           INFO      1 eingeloggt
+2020-02-15 13:31:34,220 reports.views           INFO      ausgeloggt
+2020-02-15 13:31:34,220 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:32:21,189 reports.views           INFO      1 eingeloggt
+2020-02-15 13:33:26,322 reports.views           INFO      ausgeloggt
+2020-02-15 13:33:26,322 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:33:48,406 reports.views           INFO      1 eingeloggt
+2020-02-15 13:33:49,656 reports.views           INFO      ausgeloggt
+2020-02-15 13:33:49,657 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:33:56,735 reports.views           INFO      1 eingeloggt
+2020-02-15 13:33:57,974 reports.views           INFO      ausgeloggt
+2020-02-15 13:33:57,974 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:34:44,836 reports.views           INFO      1 eingeloggt
+2020-02-15 13:34:46,083 reports.views           INFO      ausgeloggt
+2020-02-15 13:34:46,083 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:35:35,284 reports.views           INFO      ausgeloggt
+2020-02-15 13:35:35,284 reports.views           INFO     logout user: None via ip: 127.0.0.1
+2020-02-15 13:35:54,546 reports.views           INFO      1 eingeloggt
+2020-02-15 13:36:52,086 reports.views           INFO      ausgeloggt
+2020-02-15 13:36:52,086 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:37:08,825 reports.views           INFO      ausgeloggt
+2020-02-15 13:37:08,826 reports.views           INFO     logout user: None via ip: 127.0.0.1
+2020-02-15 13:37:17,166 reports.views           INFO      1 eingeloggt
+2020-02-15 13:38:17,647 reports.views           INFO      ausgeloggt
+2020-02-15 13:38:17,648 reports.views           INFO     logout user: None via ip: 127.0.0.1
+2020-02-15 13:40:11,050 reports.views           INFO      ausgeloggt
+2020-02-15 13:40:11,051 reports.views           INFO     logout user: None via ip: 127.0.0.1
+2020-02-15 13:40:41,111 reports.views           INFO      1 eingeloggt
+2020-02-15 13:40:52,525 reports.views           INFO      ausgeloggt
+2020-02-15 13:40:52,525 reports.views           INFO     logout user: nkrings via ip: 127.0.0.1
+2020-02-15 13:41:40,797 reports.views           INFO      1 eingeloggt
+2020-02-15 14:11:42,568 reports.views           INFO      1 ausgeloggt
+2020-02-15 17:12:48,101 reports.views           INFO      1 eingeloggt
+2020-02-15 17:30:45,522 reports.views           INFO      1 ausgeloggt
+2020-02-15 17:30:54,990 reports.views           INFO      2 eingeloggt
+2020-02-15 17:53:18,402 reports.views           INFO     Count: 3
+2020-02-15 17:53:18,403 reports.views           INFO     Count: 2
+2020-02-15 17:53:18,404 reports.views           INFO     Count: 0
+2020-02-15 17:53:18,404 reports.views           INFO     Count: 10
+2020-02-15 17:53:18,405 reports.views           INFO     Count: 4
+2020-02-15 18:01:09,110 reports.views           INFO     Count: 3
+2020-02-15 18:01:09,112 reports.views           INFO     Count: 2
+2020-02-15 18:01:09,113 reports.views           INFO     Count: 0
+2020-02-15 18:01:09,114 reports.views           INFO     Count: 10
+2020-02-15 18:01:09,115 reports.views           INFO     Count: 4
+2020-02-15 18:02:53,243 reports.views           INFO     verordnet: 10 ;Therapien: 3
+2020-02-15 18:02:53,244 reports.views           INFO     verordnet: 10 ;Therapien: 2
+2020-02-15 18:02:53,244 reports.views           INFO     verordnet: 3 ;Therapien: 0
+2020-02-15 18:02:53,245 reports.views           INFO     verordnet: 5 ;Therapien: 10
+2020-02-15 18:02:53,246 reports.views           INFO     verordnet: 4 ;Therapien: 4
+2020-02-15 18:07:15,333 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:07:15,334 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:07:15,334 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:07:15,335 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0
+2020-02-15 18:07:15,335 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0
+2020-02-15 18:11:37,174 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:11:37,175 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:11:37,176 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:11:37,177 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0
+2020-02-15 18:11:37,178 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0
+2020-02-15 18:14:39,560 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:14:39,561 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:14:39,562 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:15:12,435 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:15:12,436 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:15:12,436 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:18:05,793 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:18:05,793 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:18:05,794 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:22:46,332 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:22:46,333 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:22:46,334 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:24:00,574 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3
+2020-02-15 18:24:00,575 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2
+2020-02-15 18:24:00,576 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0
+2020-02-15 18:24:00,577 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0
+2020-02-15 18:24:00,578 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0
+2020-02-15 18:26:15,987 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 18:33:28,456 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3report_date_value 
+2020-02-15 18:33:28,457 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2report_date_value 
+2020-02-15 18:33:28,458 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0report_date_value 
+2020-02-15 18:33:28,460 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0report_date_value 2020-01-30
+2020-02-15 18:33:28,461 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0report_date_value 2020-02-01
+2020-02-15 18:34:35,484 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3report_date_value 
+2020-02-15 18:34:35,485 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2report_date_value 
+2020-02-15 18:34:35,486 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0report_date_value 
+2020-02-15 18:34:35,487 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0report_date_value 2020-01-30
+2020-02-15 18:34:35,489 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0report_date_value 2020-02-01
+2020-02-15 18:35:31,795 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-15 18:35:31,795 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2 report_date_value: 
+2020-02-15 18:35:31,796 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0 report_date_value: 
+2020-02-15 18:35:31,798 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-15 18:35:31,799 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-15 18:35:48,372 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 18:35:59,985 reports.views           INFO      2 therapy: Rezept mit der ID: 4 aufgerufen
+2020-02-15 18:36:07,144 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 4
+2020-02-15 18:36:07,165 reports.views           INFO      2 therapy: Rezept mit der ID: 4 aufgerufen
+2020-02-15 18:36:14,444 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-15 18:36:14,445 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2 report_date_value: 
+2020-02-15 18:36:14,446 reports.views           INFO     verordnet: 3 ;Therapien: 0 Quotient: 0.0 report_date_value: 
+2020-02-15 18:36:14,448 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-15 18:36:14,449 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-15 18:36:20,185 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-15 18:36:26,501 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-15 18:36:41,404 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 5
+2020-02-15 18:36:41,420 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-15 18:36:53,500 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 5
+2020-02-15 18:36:53,515 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-15 18:37:02,132 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-15 18:37:02,133 reports.views           INFO     verordnet: 10 ;Therapien: 2 Quotient: 0.2 report_date_value: 
+2020-02-15 18:37:02,135 reports.views           INFO     Try Exception
+2020-02-15 18:37:02,135 reports.views           INFO     verordnet: 3 ;Therapien: 2 Quotient: 0.6666666666666666 report_date_value: 
+2020-02-15 18:37:02,138 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-15 18:37:02,140 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-15 19:07:03,627 reports.views           INFO      2 ausgeloggt
+2020-02-16 07:27:26,260 reports.views           INFO      2 eingeloggt
+2020-02-16 07:27:31,845 reports.views           INFO     verordnet: 3 ;Therapien: 2 Quotient: 0.6666666666666666 report_date_value: 
+2020-02-16 07:27:31,847 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 07:27:31,848 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 07:47:27,664 reports.views           INFO     verordnet: 3 ;Therapien: 2 Quotient: 0.6666666666666666 report_date_value: 
+2020-02-16 07:47:27,666 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 07:47:27,668 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 07:48:17,354 reports.views           INFO     verordnet: 3 ;Therapien: 2 Quotient: 0.6666666666666666 report_date_value: 
+2020-02-16 07:48:17,356 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 07:48:17,357 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 07:50:51,753 reports.views           INFO     verordnet: 3 ;Therapien: 2 Quotient: 0.6666666666666666 report_date_value: 
+2020-02-16 07:50:51,755 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 07:50:51,756 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 07:51:58,006 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:52:13,106 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:52:20,645 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 2
+2020-02-16 07:52:20,664 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:52:27,710 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 2
+2020-02-16 07:52:27,728 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:52:33,086 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 2
+2020-02-16 07:52:33,107 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:52:38,009 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 2
+2020-02-16 07:52:38,027 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:52:44,193 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 2
+2020-02-16 07:52:44,210 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:52:46,903 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:52:58,232 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: 2020-01-01
+2020-02-16 07:52:58,234 reports.views           INFO     verordnet: 3 ;Therapien: 2 Quotient: 0.6666666666666666 report_date_value: 
+2020-02-16 07:52:58,235 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 07:52:58,237 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 07:53:02,886 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:53:08,063 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-16 07:53:14,915 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 5
+2020-02-16 07:53:14,934 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-16 07:53:23,341 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:53:41,875 reports.views           INFO      2 therapy: Rezept mit der ID: 4 aufgerufen
+2020-02-16 07:53:48,825 reports.views           INFO      2 edit_therapy: Rezept mit der ID:4 geändert
+2020-02-16 07:53:48,841 reports.views           INFO      2 therapy: Rezept mit der ID: 4 aufgerufen
+2020-02-16 07:53:52,110 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: 2020-01-01
+2020-02-16 07:53:52,113 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 07:53:52,114 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 07:53:52,116 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 07:54:44,142 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:54:55,329 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:55:07,311 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:55:14,085 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:55:28,025 reports.views           INFO      2 ausgeloggt
+2020-02-16 07:55:43,474 reports.views           INFO      1 eingeloggt
+2020-02-16 07:55:51,770 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:55:56,016 reports.views           INFO      1 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:56:04,341 reports.views           INFO      1 edit_therapy_report: Therapiebericht ändern mit ID: 5
+2020-02-16 07:56:04,368 reports.views           INFO      1 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 07:56:12,504 reports.views           INFO      1 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 07:59:21,755 reports.views           INFO      1 ausgeloggt
+2020-02-16 07:59:31,098 reports.views           INFO      2 eingeloggt
+2020-02-16 08:00:01,120 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:00:01,122 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:00:29,819 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:00:29,821 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:00:29,823 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:00:29,824 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:01:18,774 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:01:18,776 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:01:18,776 reports.views           INFO     verordnet: 2 ;Therapien: 1 Quotient: 0.5 report_date_value: 
+2020-02-16 08:01:18,778 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:01:18,780 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:01:18,781 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:01:48,696 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 08:02:42,324 reports.views           INFO      2 therapy: Rezept mit der ID: 4 aufgerufen
+2020-02-16 08:02:51,588 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 4
+2020-02-16 08:02:51,604 reports.views           INFO      2 therapy: Rezept mit der ID: 4 aufgerufen
+2020-02-16 08:02:57,223 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:02:57,225 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:02:57,227 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:02:57,229 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:02:57,230 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:02:57,232 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:04:08,760 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:04:08,763 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:04:08,764 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:04:08,766 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:04:08,767 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:04:08,768 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:04:35,158 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 08:10:11,944 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:10:56,663 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:11:29,688 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:11:55,110 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:12:46,726 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:12:46,731 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:12:46,734 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:12:46,737 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:12:46,738 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:12:46,740 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:15:32,143 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:15:32,146 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:15:32,150 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:15:32,153 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:15:32,155 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:15:32,157 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:15:42,070 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 08:16:14,597 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:16:14,601 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:16:14,609 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:16:14,613 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:16:14,615 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:16:14,616 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:16:25,141 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:16:25,145 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:16:25,148 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:16:25,152 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:16:25,153 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:16:25,155 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:16:52,847 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:16:52,852 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:16:52,855 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:16:52,858 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:16:52,859 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:16:52,861 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:17:57,901 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:17:57,905 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:17:57,909 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:17:57,912 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:17:57,914 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:17:57,915 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:18:15,245 reports.views           INFO     verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:18:15,249 reports.views           INFO     verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:18:15,252 reports.views           INFO     verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:18:15,256 reports.views           INFO     verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:18:15,257 reports.views           INFO     verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:18:15,259 reports.views           INFO     verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:19:02,007 reports.views           CRITICAL verordnet: 10 ;Therapien: 3 Quotient: 0.3 report_date_value: 
+2020-02-16 08:19:02,012 reports.views           CRITICAL verordnet: 10 ;Therapien: 7 Quotient: 0.7 report_date_value: None
+2020-02-16 08:19:02,015 reports.views           CRITICAL verordnet: 3 ;Therapien: 3 Quotient: 1.0 report_date_value: 
+2020-02-16 08:19:02,019 reports.views           CRITICAL verordnet: 2 ;Therapien: 2 Quotient: 1.0 report_date_value: 
+2020-02-16 08:19:02,020 reports.views           CRITICAL verordnet: 5 ;Therapien: 10 Quotient: 2.0 report_date_value: 2020-01-30
+2020-02-16 08:19:02,022 reports.views           CRITICAL verordnet: 4 ;Therapien: 4 Quotient: 1.0 report_date_value: 2020-02-01
+2020-02-16 08:20:27,684 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-16 08:22:16,187 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-16 08:26:52,157 reports.views           INFO      2 patient: Patient mit der ID: 2 aufgerufen
+2020-02-16 08:26:58,260 reports.views           INFO      2 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-16 08:27:06,275 reports.views           INFO      2 edit_therapy: Rezept mit der ID:3 geändert
+2020-02-16 08:27:06,295 reports.views           INFO      2 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-16 08:27:12,839 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 3
+2020-02-16 08:27:12,857 reports.views           INFO      2 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-16 08:27:17,922 reports.views           INFO      2 add_process_report: Verlaufsprotokoll gespeichert mit ID: 3
+2020-02-16 08:27:17,938 reports.views           INFO      2 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-16 08:34:36,870 reports.views           INFO      2 ausgeloggt
+2020-02-16 11:35:31,304 reports.views           INFO     User ausgeloggt
+2020-02-16 11:36:05,181 reports.views           INFO      1 eingeloggt
+2020-02-16 11:38:19,939 reports.views           INFO      1 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-16 11:38:32,732 reports.views           INFO      1 edit_therapy: Rezept mit der ID:3 geändert
+2020-02-16 11:38:32,750 reports.views           INFO      1 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-16 11:38:40,530 reports.views           INFO      1 ausgeloggt
+2020-02-16 11:38:47,289 reports.views           INFO      2 eingeloggt
+2020-02-16 11:39:10,994 reports.views           INFO      2 ausgeloggt
