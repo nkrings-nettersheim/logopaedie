@@ -49,6 +49,35 @@ def index(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Indexseite wurde geladen')
     form = IndexForm()
+
+    therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
+    if therapist_value:
+        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
+                                              therapy_report_no_yes=True).order_by('recipe_date')
+    else:
+        therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
+    reports_list = []
+    for tp_item in therapy_list:
+        report_date_value = ''
+        process_report_value = Process_report.objects.filter(therapy=tp_item.id)
+        process_report_value_count = process_report_value.count()
+        tp_item.prvc = process_report_value_count
+        quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
+        if quotient > 0.6:
+            therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
+            try:
+                report_date_value = therapy_report_result[0].report_date
+            except:
+                logger.debug("Try Exception")
+
+            if not report_date_value:
+                patient_value = Patient.objects.filter(id=tp_item.patients.id)
+                tp_item.pa_last_name = patient_value[0].pa_last_name
+                tp_item.pa_first_name = patient_value[0].pa_first_name
+                reports_list.append(tp_item)
+
+    form.open_reports_count = len(reports_list)
+
     return render(request, 'reports/index.html', {'form': form})
 
 
@@ -76,9 +105,10 @@ def open_reports(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
-        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id).order_by('recipe_date')
+        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
+                                              therapy_report_no_yes=True).order_by('recipe_date')
     else:
-        therapy_list = Therapy.objects.all().order_by('recipe_date')
+        therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
     reports_list = []
     for tp_item in therapy_list:
         report_date_value = ''

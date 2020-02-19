@@ -36,17 +36,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
-
-    <script>
-        function CheckValue(elementValue, element) {
-            var focusControl = document.forms[0].elements[element];
-            var new_value = elementValue.replace(/,/g, ".");
-            var new_value = new_value.replace(/\//g, ".");
-            focusControl.value = new_value;
-        }
-    </script>
-
-
     {% block extrahead %}{% endblock %}
     <title>Logopädische Praxis Petra Klein</title>
 </head>

@@ -6016,3 +6016,23 @@ AssertionError
 2020-02-16 11:38:40,530 reports.views           INFO      1 ausgeloggt
 2020-02-16 11:38:47,289 reports.views           INFO      2 eingeloggt
 2020-02-16 11:39:10,994 reports.views           INFO      2 ausgeloggt
+2020-02-19 19:52:08,934 reports.views           INFO      2 eingeloggt
+2020-02-19 19:55:33,240 reports.views           INFO      2 therapy: Rezept mit der ID: 2 aufgerufen
+2020-02-19 19:55:39,348 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-19 19:55:48,208 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-19 19:56:01,684 reports.views           INFO      2 edit_therapy: Rezept mit der ID:5 geändert
+2020-02-19 19:56:01,699 reports.views           INFO      2 therapy: Rezept mit der ID: 5 aufgerufen
+2020-02-19 19:57:22,674 reports.views           INFO      2 ausgeloggt
+2020-02-19 19:57:37,602 reports.views           INFO      1 eingeloggt
+2020-02-19 19:57:55,663 reports.views           INFO      1 patient: Patient mit der ID: 2 aufgerufen
+2020-02-19 19:58:05,793 reports.views           INFO      1 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-19 19:58:19,211 reports.views           INFO      1 edit_therapy: Rezept mit der ID:3 geändert
+2020-02-19 19:58:19,227 reports.views           INFO      1 therapy: Rezept mit der ID: 3 aufgerufen
+2020-02-19 20:02:35,542 reports.views           INFO      1 ausgeloggt
+2020-02-19 20:02:47,973 reports.views           INFO      2 eingeloggt
+2020-02-19 21:13:52,716 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-19 21:14:04,736 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-19 21:44:06,537 reports.views           INFO      2 ausgeloggt
+2020-02-19 22:03:12,059 reports.views           INFO      2 eingeloggt
+2020-02-19 22:13:38,470 reports.views           INFO     Anzahl: 2
+2020-02-19 22:17:08,149 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen

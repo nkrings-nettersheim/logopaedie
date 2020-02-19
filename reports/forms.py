@@ -32,7 +32,7 @@ class IndexForm(forms.Form):
         attrs={
             'class': 'form-control',
             'placeholder': 'Geburtsdatum eingeben ...',
-            'onchange': 'CheckValue(this.value, this.name)'
+            'onchange': 'CheckDate(this.value, this.name)'
         }
     ),
         required=False
@@ -245,50 +245,15 @@ class TherapistForm(forms.ModelForm):
 class PatientForm(forms.ModelForm):
 
     def clean_pa_phone(self):
-
-        charvalue = ''
-        charvalue2 = ''
         data = self.cleaned_data['pa_phone']
         if data:
             data = data.replace(' ', '')
-            #    data = data.rsplit("/")
-            #    if len(data[1]) % 2:
-            #        for char in data[1]:
-            #            charvalue = charvalue + char
-            #            charvalue2 = charvalue2 + char
-            #            if len(charvalue2) % 2:
-            #                charvalue = charvalue + " "
-            #    else:
-            #        for char in data[1]:
-            #            charvalue = charvalue + char
-            #            charvalue2 = charvalue2 + char
-            #            if not len(charvalue2) % 2:
-            #                charvalue = charvalue + " "
-            #
-            #    data = data[0] + " / " + charvalue
             return data
 
     def clean_pa_cell_phone(self):
-        charvalue = ''
-        charvalue2 = ''
         data = self.cleaned_data['pa_cell_phone']
         if data:
             data = data.replace(' ', '')
-            #    data = data.rsplit("/")
-            #    if len(data[1]) % 2:
-            #        for char in data[1]:
-            #            charvalue = charvalue + char
-            #            charvalue2 = charvalue2 + char
-            #            if len(charvalue2) % 2:
-            #                charvalue = charvalue + " "
-            #    else:
-            #        for char in data[1]:
-            #            charvalue = charvalue + char
-            #            charvalue2 = charvalue2 + char
-            #            if not len(charvalue2) % 2:
-            #                charvalue = charvalue + " "
-
-            #    data = data[0] + " / " + charvalue
             return data
 
     def clean_pa_cell_phone_add1(self):
@@ -315,7 +280,8 @@ class PatientForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Vornamen eingeben ...'
+                'placeholder': 'Vornamen eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
             }
         )
     )
@@ -325,7 +291,8 @@ class PatientForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'autofocus': 'autofocus',
-                'placeholder': 'Nachnamen eingeben ...'
+                'placeholder': 'Nachnamen eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
             }
         )
     )
@@ -334,7 +301,8 @@ class PatientForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Strasse eingeben ...'
+                'placeholder': 'Strasse eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
             }
         )
     )
@@ -343,7 +311,8 @@ class PatientForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Ort eingeben ...'
+                'placeholder': 'Ort eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
             }
         )
     )
@@ -403,7 +372,7 @@ class PatientForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Geburtsdatum eingeben ...',
-                'onchange': 'CheckValue(this.value, this.name)'
+                'onchange': 'CheckDate(this.value, this.name)'
             }
         )
     )
@@ -498,7 +467,7 @@ class TherapyForm(forms.ModelForm):
                                       attrs={
                                           'class': 'form-control',
                                           'placeholder': 'Rezeptdatum eingeben ...',
-                                          'onchange': 'CheckValue(this.value, this.name)'
+                                          'onchange': 'CheckDate(this.value, this.name)'
                                       }
                                   )
                                   )
@@ -732,7 +701,7 @@ class TherapyReportForm(forms.ModelForm):
                                             'autofocus': 'autofocus',
                                             'class': 'form-control',
                                             'placeholder': 'Start der Therapie ...',
-                                            'onchange': 'CheckValue(this.value, this.name)'
+                                            'onchange': 'CheckDate(this.value, this.name)'
                                         }
                                     )
                                     )
@@ -742,7 +711,7 @@ class TherapyReportForm(forms.ModelForm):
                                       attrs={
                                           'class': 'form-control',
                                           'placeholder': 'Ende der Therapie ...',
-                                          'onchange': 'CheckValue(this.value, this.name)'
+                                          'onchange': 'CheckDate(this.value, this.name)'
                                       }
                                   )
                                   )
@@ -752,7 +721,7 @@ class TherapyReportForm(forms.ModelForm):
                                       attrs={
                                           'autofocus': 'autofocus',
                                           'class': 'form-control',
-                                          'onchange': 'CheckValue(this.value, this.name)'
+                                          'onchange': 'CheckDate(this.value, this.name)'
                                       }
                                   )
                                   )
@@ -781,7 +750,7 @@ class TherapyReportForm(forms.ModelForm):
                                              attrs={
                                                  'class': 'form-control',
                                                  'placeholder': 'Datum festlegen ...',
-                                                 'onchange': 'CheckValue(this.value, this.name)'
+                                                 'onchange': 'CheckDate(this.value, this.name)'
                                              }
                                          )
                                          )
@@ -817,7 +786,7 @@ class InitialAssessmentForm(forms.ModelForm):
                                       'class': 'form-control',
                                       'autofocus': 'autofocus',
                                       'placeholder': 'Datum festlegen ...',
-                                      'onchange': 'CheckValue(this.value, this.name)'
+                                      'onchange': 'CheckDate(this.value, this.name)'
                                   }
                               )
                               )
@@ -935,7 +904,7 @@ class InitialAssessmentForm(forms.ModelForm):
                                        attrs={
                                            'class': 'form-control',
                                            'placeholder': 'Datum festlegen ...',
-                                           'onchange': 'CheckValue(this.value, this.name)'
+                                           'onchange': 'CheckDate(this.value, this.name)'
                                        }
                                    )
                                    )
