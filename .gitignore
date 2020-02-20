@@ -1,13 +1,12 @@
 # Default ignored files
-/workspace.xml
-/db.sqlite3
-/logopaedie.log
-/secrets.json
+workspace.xml
+db.sqlite3
+logopaedie.log
+secrets.json
 logopaedie/__pycache__/
 reports/__pycache__/
 reports/migrations/__pycache__/
 media/
 reports/tests/__pycache__/
-/static/admin/
-/static/ckeditor/
-/static/admin/
+static/admin/
+static/ckeditor/

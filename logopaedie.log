@@ -6036,3 +6036,5 @@ AssertionError
 2020-02-19 22:03:12,059 reports.views           INFO      2 eingeloggt
 2020-02-19 22:13:38,470 reports.views           INFO     Anzahl: 2
 2020-02-19 22:17:08,149 reports.views           INFO      2 patient: Patient mit der ID: 1 aufgerufen
+2020-02-20 20:43:10,286 reports.views           INFO      2 eingeloggt
+2020-02-20 20:43:13,641 reports.views           INFO     Color: blue
