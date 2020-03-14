@@ -276,6 +276,13 @@ class PatientForm(forms.ModelForm):
             data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
             return data
 
+    def clean_pa_date_of_birth(self):
+        birthday = self.cleaned_data['pa_date_of_birth']
+        if birthday > datetime.date.today():
+            raise forms.ValidationError("Das Geburtsdatum darf nicht in der Zukunft liegen.")
+        return birthday
+
+
     pa_first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -370,8 +377,9 @@ class PatientForm(forms.ModelForm):
         required=True,
         widget=forms.DateInput(
             attrs={
+                'pattern': '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\d\d)$',
                 'class': 'form-control',
-                'placeholder': 'Geburtsdatum eingeben ...',
+                'placeholder': 'Geburtsdatum Format: TT.MM.JJJJ',
                 'onchange': 'CheckDate(this.value, this.name)'
             }
         )
@@ -727,17 +735,17 @@ class TherapyReportForm(forms.ModelForm):
                                   )
 
     therapy_current_result = forms.CharField(required=False,
-                                             max_length=800,
+                                             max_length=820,
                                              widget=CKEditorWidget()
                                              )
 
     therapy_emphases = forms.CharField(required=False,
-                                       max_length=800,
+                                       max_length=820,
                                        widget=CKEditorWidget()
                                        )
 
     therapy_forecast = forms.CharField(required=False,
-                                       max_length=800,
+                                       max_length=820,
                                        widget=CKEditorWidget()
                                        )
 
@@ -756,6 +764,7 @@ class TherapyReportForm(forms.ModelForm):
                                          )
 
     therapy_comment = forms.CharField(required=False,
+                                      max_length=85,
                                       widget=forms.TextInput(
                                           attrs={
                                               'class': 'form-control',

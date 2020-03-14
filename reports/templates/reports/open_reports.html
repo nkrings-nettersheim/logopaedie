@@ -34,17 +34,23 @@
                 <div class="col-sm-2">Rezeptdatum:</div>
                 <div class="col-sm-2">Patient: </div>
                 <div class="col-sm-2">Th.</div>
-                <div class="col-sm-7"> </div>
+                {% if request.user.groups.all.0.name == 'Leitung' %}
+                <div class="col-sm-2">Therapeut:</div>
+                {% endif %}
+                <div class="col-sm-5"></div>
             </div>
 
             {% for tp in reports %}
             <div class="row">
                 <div class="col-sm-2">
-                    <a href="/reports/therapy/{{ tp.id }}/">{{ tp.recipe_date | date:"d.m.Y"}}</a>
+                    <a href="/reports/therapy/{{ tp.id }}/">{{ tp.recipe_date | date:"d.m.Y"}} </a>
                 </div>
                 <div class="col-sm-2">{{ tp.pa_last_name }}, {{ tp.pa_first_name }} </div>
                 <div class="col-sm-2">Th. ({{ tp.prvc }}/{{ tp.therapy_regulation_amount }}) </div>
-                <div class="col-sm-7"> </div>
+                {% if request.user.groups.all.0.name == 'Leitung' %}
+                <div class="col-sm-2">{{ tp.therapists }} </div>
+                {% endif %}
+                <div class="col-sm-5"> </div>
             </div>
             {% endfor %}
     </div>

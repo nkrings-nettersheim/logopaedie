@@ -1,4 +1,7 @@
 import os
+#from datetime import date, timezone
+#from django.utils import timezone
+
 from django.db import models
 from ckeditor.fields import RichTextField
 
@@ -11,6 +14,8 @@ class Doctor(models.Model):
     doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
     doctor_city = models.CharField(max_length=50, blank=True, default='')
     doctor_lanr = models.CharField(max_length=9, blank=False, unique=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.doctor_lanr
@@ -21,6 +26,8 @@ class Therapist(models.Model):
     tp_last_name = models.CharField(max_length=50, blank=True, default='')
     tp_initial = models.CharField(max_length=5, blank=True, default='')
     tp_user_logopakt = models.CharField(max_length=20, blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.tp_initial
@@ -46,6 +53,9 @@ class Patient(models.Model):
     pa_allergy = models.CharField(max_length=100, blank=True, default='')
     pa_note = models.CharField(max_length=255, blank=True, default='')
     pa_active_no_yes = models.BooleanField(default=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city
@@ -67,6 +77,8 @@ class Therapy(models.Model):
     therapy_indication_key = models.CharField(max_length=10, default='')
     therapy_icd_cod = models.CharField(max_length=10, default='')
     therapy_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     patients = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
     therapists = models.ForeignKey(Therapist, on_delete=models.CASCADE, default='', null=True)
 
@@ -88,8 +100,10 @@ class Therapy_report(models.Model):
     therapy_indicated = models.BooleanField(default=False)
     therapy_break = models.BooleanField(default=False)
     therapy_break_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
-    therapy_comment = models.CharField(max_length=50, default='')
+    therapy_comment = models.CharField(max_length=255, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.report_date)
@@ -107,6 +121,8 @@ class Process_report(models.Model):
     process_exercises_3 = models.CharField(max_length=255, blank=True, default='')
     process_results_3 = models.CharField(max_length=50, blank=True, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.process_content
@@ -140,6 +156,8 @@ class InitialAssessment(models.Model):
     ia_enhancement = models.BooleanField(default=False, null=True)
     ia_information = models.CharField(max_length=500, blank=True, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.ia_assessment
@@ -155,6 +173,8 @@ class Document(models.Model):
     document = models.FileField(upload_to=dynamik_path, max_length=100)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 def dynamik_path_therapy(instance, filename):
@@ -167,13 +187,24 @@ class Document_therapy(models.Model):
     document = models.FileField(upload_to=dynamik_path_therapy, max_length=100)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Therapy_Something(models.Model):
     something_else = RichTextField()
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Patient_Something(models.Model):
     pa_something_else = RichTextField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Login_Failed(models.Model):
+    ipaddress = models.CharField(max_length=100, blank=True, default='')
+    user_name = models.CharField(max_length=100, blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)

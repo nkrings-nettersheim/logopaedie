@@ -5,7 +5,8 @@ from datetime import datetime
 from html import escape
 
 from dateutil.parser import parse
-from django.contrib.auth import user_logged_in, user_logged_out
+from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
+from django.contrib.auth.models import User
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
@@ -18,6 +19,7 @@ from django.views import generic
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.mail import send_mail
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
@@ -35,7 +37,7 @@ from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, Thera
 from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm
 from .forms import DocumentTherapyForm, PatientSomethingForm
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document
-from .models import Therapy_Something, Document_therapy, Patient_Something
+from .models import Therapy_Something, Document_therapy, Patient_Something, Login_Failed
 
 logger = logging.getLogger(__name__)
 
@@ -44,9 +46,13 @@ logger = logging.getLogger(__name__)
 # Area start and patient search
 ##########################################################################
 
-
+@login_required
 def index(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    #logger.info("Host: " + request.META['REMOTE_ADDR'])
+    test = request.get_host()
+    #logger.info("Host2: " + test)
+    #assert false
     logger.debug('Indexseite wurde geladen')
     form = IndexForm()
 
@@ -100,7 +106,7 @@ class PatientView(generic.ListView):
 ##########################################################################
 # open Reports
 ##########################################################################
-
+@login_required
 def open_reports(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
@@ -142,7 +148,7 @@ def open_reports(request):
 # Area Doctor create and change
 ##########################################################################
 
-
+@login_required
 def add_doctor(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
@@ -158,14 +164,14 @@ def add_doctor(request):
         form = DoctorForm()
     return render(request, 'reports/doctor_form.html', {'form': form})
 
-
+@login_required
 def search_doctor_start(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Suchmaske Arzt geladen')
     form = SearchDoctorForm()
     return render(request, 'reports/doctor_search.html', {'form': form})
 
-
+@login_required
 def search_doctor(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     form = SearchDoctorForm()
@@ -204,7 +210,7 @@ def search_doctor(request):
         logger.debug('search_doctor: Keinen Suchbegriff eingegeben')
         return render(request, 'reports/doctor_search.html')
 
-
+@login_required
 def edit_doctor(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Doctor, id=id)
@@ -217,7 +223,7 @@ def edit_doctor(request, id=None):
     form.id = item.id
     return render(request, 'reports/doctor_form.html', {'form': form})
 
-
+@login_required
 def doctor(request, id=id):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     try:
@@ -232,7 +238,7 @@ def doctor(request, id=id):
 # Area Therapist create and change
 ##########################################################################
 
-
+@login_required
 def add_therapist(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
@@ -248,14 +254,14 @@ def add_therapist(request):
         form = TherapistForm()
     return render(request, 'reports/therapist_form.html', {'form': form})
 
-
+@login_required
 def search_therapist_start(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Suchmaske Therapeut geladen')
     form = SearchTherapistForm()
     return render(request, 'reports/therapist_search.html', {'form': form})
 
-
+@login_required
 def search_therapist(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     form = SearchTherapistForm()
@@ -280,7 +286,7 @@ def search_therapist(request):
         logger.debug('search_therapist: Keinen Suchbegriff eingegeben')
         return render(request, 'reports/therapist_search.html', {'form': form})
 
-
+@login_required
 def edit_therapist(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Therapist, id=id)
@@ -293,7 +299,7 @@ def edit_therapist(request, id=None):
     form.id = item.id
     return render(request, 'reports/therapist_form.html', {'form': form})
 
-
+@login_required
 def therapist(request, id=id):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     try:
@@ -308,7 +314,7 @@ def therapist(request, id=id):
 # Area Patient search, create and change
 ##########################################################################
 
-
+@login_required
 def search_patient(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
 
@@ -453,6 +459,7 @@ def search_patient(request):
     return render(request, 'reports/index.html', {'form': form})
 
 
+@login_required
 def add_patient(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
@@ -469,6 +476,7 @@ def add_patient(request):
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
+@login_required
 def edit_patient(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Patient, id=id)
@@ -482,6 +490,7 @@ def edit_patient(request, id=None):
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
+@login_required
 def patient(request, id=id):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     try:
@@ -526,6 +535,7 @@ def patient(request, id=id):
     except ObjectDoesNotExist:
         logger.debug('patient: Objekt existiert nicht')
         return redirect('/reports/')
+
 
 
 def get_phone_design(data):
@@ -579,7 +589,7 @@ def get_special_phone_design(data):
 ##########################################################################
 # Area Patient Sonstiges create and change
 ##########################################################################
-
+@login_required
 def add_pa_something(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
@@ -597,7 +607,7 @@ def add_pa_something(request):
             initial={'patient': patient_result})
     return render(request, 'reports/pa_something_form.html', {'form': form})
 
-
+@login_required
 def edit_pa_something(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Patient_Something, id=id)
@@ -613,7 +623,7 @@ def edit_pa_something(request, id=None):
 ##########################################################################
 # Area Initial Assessment create and change
 ##########################################################################
-
+@login_required
 def add_ia(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
@@ -631,7 +641,7 @@ def add_ia(request):
             initial={'therapy': therapy_result})
     return render(request, 'reports/ia_form.html', {'form': form})
 
-
+@login_required
 def edit_ia(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(InitialAssessment, id=id)
@@ -647,7 +657,7 @@ def edit_ia(request, id=None):
 ##########################################################################
 # Area Therapy Sonstiges create and change
 ##########################################################################
-
+@login_required
 def add_therapy_something(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
@@ -665,7 +675,7 @@ def add_therapy_something(request):
             initial={'therapy': therapy_result})
     return render(request, 'reports/something_form.html', {'form': form})
 
-
+@login_required
 def edit_therapy_something(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Therapy_Something, id=id)
@@ -1158,8 +1168,12 @@ def getSessionTimer(request):
 
 @receiver(user_logged_in)
 def post_login(sender, user, **kwargs):
-    logger.info('{:>2}'.format(user.id) + ' eingeloggt')
-
+    logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
+    try:
+        Login_Failed.objects.filter(user_name=user).delete()
+        logger.debug("Userdaten von " + format(user) + " in failed_login gelöscht")
+    except:
+        logger.debug("User not found")
 
 @receiver(user_logged_out)
 def post_logout(sender, request, user, **kwargs):
@@ -1168,6 +1182,48 @@ def post_logout(sender, request, user, **kwargs):
     except:
         logger.info('User ausgeloggt')
 
+
+@receiver(user_login_failed)
+def post_login_failed(sender, credentials, request, **kwargs):
+    logger.debug("%s Authentication failure for user %s" % (request.META['REMOTE_ADDR'], credentials['username']))
+    user_local = ''
+    try:
+        user_local = User.objects.get(username=credentials['username'])
+        logger.debug('User bekannt: speichern des Users')
+    except:
+        logger.debug('User unbekannt: speichern des Users')
+
+    if user_local:
+        b = Login_Failed(ipaddress=request.META['REMOTE_ADDR'], user_name=credentials['username'])
+        b.save()
+        failed_count = Login_Failed.objects.filter(user_name=credentials['username'])
+        x = failed_count.count()
+        if x > 5:
+            logger.debug('Fehlversuche: ' + credentials['username'] + ": " + str(x))
+            user_local.request_status = 'A'
+            user_local.is_active = False
+            user_local.save()
+            send_mail(
+                subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
+                message='User: ' + credentials['username'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Passwort eingeloggt und wurde deaktiviert',
+                from_email='logopaedieklein.raspberry@gmail.com',
+                recipient_list=['norbert.krings@gmail.com', ],
+                fail_silently=False,
+            )
+    else:
+        b = Login_Failed(ipaddress=request.META['REMOTE_ADDR'])
+        b.save()
+        failed_count = Login_Failed.objects.filter(ipaddress=request.META['REMOTE_ADDR'], user_name='')
+        x = failed_count.count()
+        if x > 5:
+            logger.debug('Fehlversuche: ' + request.META['REMOTE_ADDR'] + ": " + str(x))
+            send_mail(
+                subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
+                message='IP-Adresse: ' + request.META['REMOTE_ADDR'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Benutzernamen eingeloggt',
+                from_email='logopaedieklein.raspberry@gmail.com',
+                recipient_list=['norbert.krings@gmail.com', ],
+                fail_silently=False,
+            )
 
 
 # **************************************************************************************************

@@ -25,6 +25,11 @@
 <content>
     <p></p>
     <div class="container">
+        <div class="d-none">
+            created_at: {{ therapist.created_at | date:"d.m.Y H:i:s" }}
+            updated_at: {{ therapist.updated_at | date:"d.m.Y H:i:s" }}
+        </div>
+
           <div class="row">
             <div class="col-sm-2">
                 <div class="small inline">Name:</div>

@@ -75,6 +75,11 @@
 <content>
     <p></p>
     <div class="container">
+        <div class="d-none">
+            created_at: {{ therapy.created_at | date:"d.m.Y H:i:s" }}
+            updated_at: {{ therapy.updated_at | date:"d.m.Y H:i:s" }}
+        </div>
+
         <div class="row">
             <div class="col-sm">
                 Patient: <strong>{{ patient.pa_last_name }}, {{ patient.pa_first_name }}</strong>
@@ -172,7 +177,7 @@
                 <a class="nav-link" id="therapiebericht-tab" data-toggle="tab" href="#therapiebericht" role="tab" aria-controls="therapiebericht" aria-selected="false">Therapiebericht</a>
               {% endif %}
           </li>
-        </ul>
+         </ul>
         <div class="tab-content" id="myTabContent">
               {% if request.GET.window == "1" %}
                   <div class="tab-pane fade show active" id="erstbefund" role="tabpanel" aria-labelledby="erstbefund-tab">
@@ -366,5 +371,6 @@
           </div>
         </div>
     </div>
+
 </content>
 {% endblock %}
