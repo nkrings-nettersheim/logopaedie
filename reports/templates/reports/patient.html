@@ -99,7 +99,9 @@
                 {% endif %}
             </div>
             <div class="col-sm">
-
+                {% if patient.pa_email %}
+                <div class="small inline">E-Mail: </div> <strong><a href="mailto:{{ patient.pa_email }}">{{ patient.pa_email }}</a>   </strong>
+                {% endif %}
             </div>
         </div>
         <br>

@@ -47,6 +47,7 @@ class Patient(models.Model):
     pa_cell_phone = models.CharField(max_length=100, blank=True, default='', null=True)
     pa_cell_phone_add1 = models.CharField(max_length=100, blank=True, default='', null=True)
     pa_cell_phone_add2 = models.CharField(max_length=100, blank=True, default='', null=True)
+    pa_email = models.EmailField(max_length=254, blank=True)
     pa_date_of_birth = models.DateField(default='1900-01-01')
     pa_gender = models.CharField(max_length=1, choices=GENDER, default='1')
     pa_attention = models.CharField(max_length=100, blank=True, default='')

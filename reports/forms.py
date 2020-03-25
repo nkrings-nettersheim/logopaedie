@@ -372,6 +372,17 @@ class PatientForm(forms.ModelForm):
         )
     )
 
+    pa_email = forms.EmailField(
+        required=False,
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'E-Mail Adresse erfassen'
+            }
+        )
+    )
+
     #    pa_date_of_birth = forms.DateField(widget=AdminDateWidget())
     pa_date_of_birth = forms.DateField(
         required=True,
@@ -444,6 +455,7 @@ class PatientForm(forms.ModelForm):
                   'pa_cell_phone',
                   'pa_cell_phone_add1',
                   'pa_cell_phone_add2',
+                  'pa_email',
                   'pa_date_of_birth',
                   'pa_gender',
                   'pa_attention',

@@ -115,6 +115,13 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="{{ form.pa_email.id_for_label }}" class="col-sm-2 control-label">E-Mail Adresse:</label>
+            <div class="col-sm-6">
+                {{ form.pa_email }}
+                <div class="text-danger">{{ form.pa_email.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="{{ form.pa_gender.id_for_label }}" class="col-sm-2 control-label">Geschlecht:</label>
             <div class="col-sm-6">
                 {{ form.pa_gender }}
