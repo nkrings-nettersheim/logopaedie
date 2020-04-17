@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'reports.apps.ReportsConfig',
+    'parents.apps.ParentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -164,6 +165,8 @@ SESSION_EXPIRE_SECONDS = 30*60+5
 
 USE_X_FORWARDED_HOST = True
 
+#Eigener Eintrg
+X_FORWARD = True
 
 # Email settings
 EMAIL_HOST = get_secret('EMAIL_HOST')

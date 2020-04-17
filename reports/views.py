@@ -31,7 +31,7 @@ from reportlab.platypus import Table, TableStyle, Paragraph
 
 from weasyprint import HTML, CSS
 
-from logopaedie.settings import BASE_DIR
+from logopaedie.settings import BASE_DIR, X_FORWARD
 
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
 from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm
@@ -49,40 +49,8 @@ logger = logging.getLogger(__name__)
 @login_required
 def index(request):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
-    #logger.info("Host: " + request.META['REMOTE_ADDR'])
-    test = request.get_host()
-    #logger.info("Host2: " + test)
-    #assert false
     logger.debug('Indexseite wurde geladen')
     form = IndexForm()
-
-    therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
-    if therapist_value:
-        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
-                                              therapy_report_no_yes=True).order_by('recipe_date')
-    else:
-        therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
-    reports_list = []
-    for tp_item in therapy_list:
-        report_date_value = ''
-        process_report_value = Process_report.objects.filter(therapy=tp_item.id)
-        process_report_value_count = process_report_value.count()
-        tp_item.prvc = process_report_value_count
-        quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
-        if quotient > 0.6:
-            therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
-            try:
-                report_date_value = therapy_report_result[0].report_date
-            except:
-                logger.debug("Try Exception")
-
-            if not report_date_value:
-                patient_value = Patient.objects.filter(id=tp_item.patients.id)
-                tp_item.pa_last_name = patient_value[0].pa_last_name
-                tp_item.pa_first_name = patient_value[0].pa_first_name
-                reports_list.append(tp_item)
-
-    form.open_reports_count = len(reports_list)
 
     return render(request, 'reports/index.html', {'form': form})
 
@@ -456,7 +424,7 @@ def search_patient(request):
     else:
         logger.debug("search_patient: Kein POST Befehl erhalten")
         return redirect('/reports/')
-    return render(request, 'reports/index.html', {'form': form})
+    return render(request, 'reports/index_parents.html', {'form': form})
 
 
 @login_required
@@ -535,7 +503,6 @@ def patient(request, id=id):
     except ObjectDoesNotExist:
         logger.debug('patient: Objekt existiert nicht')
         return redirect('/reports/')
-
 
 
 def get_phone_design(data):
@@ -1165,6 +1132,41 @@ def getSessionTimer(request):
 
     return render(request, 'getSessionTimer.html', {'form': context})
 
+@login_required
+def getOpenReports(request):
+
+    therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
+    if therapist_value:
+        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
+                                              therapy_report_no_yes=True).order_by('recipe_date')
+    else:
+        therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
+    reports_list = []
+    for tp_item in therapy_list:
+        report_date_value = ''
+        process_report_value = Process_report.objects.filter(therapy=tp_item.id)
+        process_report_value_count = process_report_value.count()
+        tp_item.prvc = process_report_value_count
+        quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
+        if quotient > 0.6:
+            therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
+            try:
+                report_date_value = therapy_report_result[0].report_date
+            except:
+                logger.debug("Try Exception")
+
+            if not report_date_value:
+                patient_value = Patient.objects.filter(id=tp_item.patients.id)
+                tp_item.pa_last_name = patient_value[0].pa_last_name
+                tp_item.pa_first_name = patient_value[0].pa_first_name
+                reports_list.append(tp_item)
+
+    openReports = len(reports_list)
+    context = {'getOpenReports': str(openReports)}
+    logger.info('getOpenReports: ' + "aufgerufen")
+
+    return render(request, 'getOpenReports.html', {'form': context})
+
 
 @receiver(user_logged_in)
 def post_login(sender, user, **kwargs):
@@ -1182,7 +1184,6 @@ def post_logout(sender, request, user, **kwargs):
     except:
         logger.info('User ausgeloggt')
 
-
 @receiver(user_login_failed)
 def post_login_failed(sender, credentials, request, **kwargs):
     logger.debug("%s Authentication failure for user %s" % (request.META['REMOTE_ADDR'], credentials['username']))
@@ -1194,7 +1195,11 @@ def post_login_failed(sender, credentials, request, **kwargs):
         logger.debug('User unbekannt: speichern des Users')
 
     if user_local:
-        b = Login_Failed(ipaddress=request.META['REMOTE_ADDR'], user_name=credentials['username'])
+        if X_FORWARD:
+            b = Login_Failed(ipaddress=request.META['HTTP_X_FORWARDED_FOR'], user_name=credentials['username'])
+        else:
+            b = Login_Failed(ipaddress=request.META['REMOTE_ADDR'], user_name=credentials['username'])
+
         b.save()
         failed_count = Login_Failed.objects.filter(user_name=credentials['username'])
         x = failed_count.count()
@@ -1211,7 +1216,11 @@ def post_login_failed(sender, credentials, request, **kwargs):
                 fail_silently=False,
             )
     else:
-        b = Login_Failed(ipaddress=request.META['REMOTE_ADDR'])
+        if X_FORWARD:
+            b = Login_Failed(ipaddress=request.META['HTTP_X_FORWARDED_FOR'])
+        else:
+            b = Login_Failed(ipaddress=request.META['REMOTE_ADDR'])
+
         b.save()
         failed_count = Login_Failed.objects.filter(ipaddress=request.META['REMOTE_ADDR'], user_name='')
         x = failed_count.count()
@@ -1246,9 +1255,11 @@ logging.config.dictConfig({
             'formatter': 'console'
         },
         'file': {
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'file',
-            'filename': BASE_DIR + '/logopaedie.log'
+            'filename': BASE_DIR + '/logopaedie.log',
+            'maxBytes': 1024*1024*1,
+            'backupCount': 10,
         }
     },
     'loggers': {

@@ -57,6 +57,7 @@ urlpatterns = [
     path('open_reports/', views.open_reports, name='open_reports'),
 
     path('getSessionTimer/', views.getSessionTimer, name='getSessiontimer'),
+    path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
 
 ]
 

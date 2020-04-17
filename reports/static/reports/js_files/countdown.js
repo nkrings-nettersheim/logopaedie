@@ -47,5 +47,12 @@ $(document).ready(function(){
     $.get("/reports/getSessionTimer", function(data, status){
       endTime = data;
     });
+
+    if (document.getElementById('openreports') != null) {
+      $.get("/reports/getOpenReports", function(data, status){
+        $("#openreports").html(data);
+      });
+    }
+
 	myTimer = setInterval(function() { makeTimer(endTime); }, 1000);
 });

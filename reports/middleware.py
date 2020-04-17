@@ -1,4 +1,7 @@
 from django.core.exceptions import PermissionDenied
+
+from logopaedie.settings import X_FORWARD
+
 from .models import Login_Failed
 
 class IPAccessCheck:
@@ -12,6 +15,8 @@ class IPAccessCheck:
         # the view (and later middleware) are called.
         if request.user.is_authenticated:
             # Do something for authenticated users.
+            #x_forwarded = request.META.get('HTTP_HOST')
+            #print("Hallo:" + str(x_forwarded))
             ...
         else:
             ip_check_list = []
