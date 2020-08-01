@@ -15,6 +15,7 @@ import os
 
 from django.core.exceptions import ImproperlyConfigured
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     'parents.apps.ParentsConfig',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -68,7 +70,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'reports.middleware.IPAccessCheck',
+    #'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
 
 ROOT_URLCONF = 'logopaedie.urls'
 
@@ -157,16 +161,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/reports/'
 
-# Eingefügt nk 21.07.2019
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-# 30 * 60 = 30 Minuten + 5 Sekunden, damit die Session noch existiert, wenn nach 30 Minuten der Logout erfolgt
-SESSION_EXPIRE_SECONDS = 30*60+5
+#SESSION_EXPIRE_SECONDS = 900  # 900 - >15 minutes = 15 * 60
 #SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#SESSION_SAVE_EVERY_REQUEST = True
+
+# 30 * 60 = 30 Minuten + 5 Sekunden, damit die Session noch existiert, wenn nach 30 Minuten der Logout erfolgt
+SESSION_EXPIRE_SECONDS = 0.2*60+5
+
+#SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+#SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60 # group by minute
+
+# Eingefügt nk 21.07.2019
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+#SESSION_TIMEOUT_REDIRECT = 'songarchiv/'
 
 USE_X_FORWARDED_HOST = True
 
 #Eigener Eintrg
-X_FORWARD = True
+X_FORWARD = False
 
 # Email settings
 EMAIL_HOST = get_secret('EMAIL_HOST')

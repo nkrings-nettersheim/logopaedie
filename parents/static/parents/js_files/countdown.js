@@ -1,10 +1,8 @@
-
 function ucFirst(string, element) {
     var focusControl = document.forms[0].elements[element];
     string = string.substring(0, 1).toUpperCase() + string.substring(1);
     focusControl.value = string
 }
-
 
 function CheckDate(elementValue, element) {
     var focusControl = document.forms[0].elements[element];
@@ -14,19 +12,19 @@ function CheckDate(elementValue, element) {
 }
 
 
-function logopakt_makeTimer(logopakt_endTime) {
+function makeTimer(endTime) {
 
-    logopakt_endTime = (Date.parse(logopakt_endTime) / 1000);
+    endTime = (Date.parse(endTime) / 1000);
 
-    var logopakt_now = new Date();
-    logopakt_now = (Date.parse(logopakt_now) / 1000);
+    var now = new Date();
+    now = (Date.parse(now) / 1000);
 
-    var logopakt_timeLeft = logopakt_endTime - logopakt_now - 5;
+    var timeLeft = endTime - now - 5;
 
-    var days = Math.floor(logopakt_timeLeft / 86400);
-    var hours = Math.floor((logopakt_timeLeft - (days * 86400)) / 3600);
-    var minutes = Math.floor((logopakt_timeLeft - (days * 86400) - (hours * 3600 )) / 60);
-    var seconds = Math.floor((logopakt_timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+    var days = Math.floor(timeLeft / 86400);
+    var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+    var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+    var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
 
     //if (days < "10") { days = "0" + days; }
     //if (hours < "10") { hours = "0" + hours; }
@@ -36,17 +34,25 @@ function logopakt_makeTimer(logopakt_endTime) {
     $("#minutes").html(minutes);
     $("#seconds").html(seconds);
 
-    if (logopakt_timeLeft < 0) {
-        clearInterval(logopakt_myTimer);
+    if (timeLeft < 0) {
+        clearInterval(myTimer);
         window.location = "/accounts/logout/";
     }
 
 }
 
 $(document).ready(function(){
-    var logopakt_endTime = new Date();
+    var endTime = new Date();
+    var data = new Date();
     $.get("/reports/getSessionTimer", function(data, status){
-      logopakt_endTime = data;
+      endTime = data;
     });
-	logopakt_myTimer = setInterval(function() { logopakt_makeTimer(logopakt_endTime); }, 1000);
+
+    if (document.getElementById('openreports') != null) {
+      $.get("/reports/getOpenReports", function(data, status){
+        $("#openreports").html(data);
+      });
+    }
+
+	myTimer = setInterval(function() { makeTimer(endTime); }, 1000);
 });

@@ -1,0 +1,9 @@
+body {
+    grid-template-columns: 175px 3fr 1fr;
+}
+
+content {
+    grid-column: 2 / 4;
+    grid-row:    2 / 4;                 
+}
+

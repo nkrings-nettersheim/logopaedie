@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-
+from django.conf import settings
 from logopaedie.settings import X_FORWARD
 
 from .models import Login_Failed
@@ -14,20 +14,21 @@ class IPAccessCheck:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
         if request.user.is_authenticated:
-            # Do something for authenticated users.
-            #x_forwarded = request.META.get('HTTP_HOST')
-            #print("Hallo:" + str(x_forwarded))
-            ...
+            request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
         else:
             ip_check_list = []
-            ip = request.META.get('REMOTE_ADDR')  # Get client IP address
+            if X_FORWARD:
+                ip_address = request.META.get('HTTP_X_FORWARDED_FOR')  # Get client IP address
+            else:
+                ip_address = request.META.get('REMOTE_ADDR')  # Get client IP address
+
             ip_list = Login_Failed.objects.values_list('ipaddress', flat=True).distinct()
             for ip in ip_list:
                 ip_count = Login_Failed.objects.filter(ipaddress=ip).count()
                 if ip_count > 5:
                     ip_check_list.append(ip)
 
-            if ip in ip_check_list:
+            if ip_address in ip_check_list:
                 raise PermissionDenied()
 
         response = self.get_response(request)

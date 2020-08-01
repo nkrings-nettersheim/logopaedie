@@ -371,3 +371,10 @@ body {
     width: 4cm;
 }
 
+#footer {
+    position: absolute;
+    left: 2.8cm;
+    top: 28.7cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
