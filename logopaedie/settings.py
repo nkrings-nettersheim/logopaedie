@@ -226,3 +226,10 @@ CKEDITOR_CONFIGS = {'default':
                     }
 
 ###################################
+
+# This must be the last part of the settings file
+
+try:
+    from .local_settings import *
+except ImportError:
+    print('There is no local settings, you must be on production')
