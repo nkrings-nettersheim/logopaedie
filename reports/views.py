@@ -471,6 +471,7 @@ def patient(request, id=id):
         patient_result.pa_cell_phone = get_phone_design(patient_result.pa_cell_phone)
         patient_result.pa_cell_phone_add1 = get_special_phone_design(patient_result.pa_cell_phone_add1)
         patient_result.pa_cell_phone_add2 = get_special_phone_design(patient_result.pa_cell_phone_add2)
+        patient_result.pa_cell_phone_sms = get_phone_design(patient_result.pa_cell_phone_sms)
 
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
         therapy_result_count = therapy_result.count()
@@ -667,14 +668,17 @@ def add_therapy(request):
     if request.method == "POST":
         form = TherapyForm(request.POST)
         patient_result = Patient.objects.get(id=request.POST.get('patients'))
+       #assert False
         if form.is_valid():
             therapy_item = form.save(commit=False)
             therapy_item.save()
             logger.info('{:>2}'.format(request.user.id) + ' add_therapy: Rezept für Patient mit ID: ' + str(
                 patient_result.id) + ' angelegt')
             return redirect('/reports/patient/' + str(patient_result.id) + '/')
+        else:
+            logger.info('Dates not valid')
     else:
-        logger.debug('add_therapy: Formular aufgerufen um eine Rezept anzulegen')
+        logger.info('add_therapy: Formular aufgerufen um eine Rezept anzulegen')
         form = TherapyForm(initial={'patients': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': patient_result})
@@ -702,6 +706,7 @@ def edit_therapy(request, id=None):
             'therapy_homevisit_no_yes': item.therapy_homevisit_no_yes,
             'therapy_indication_key': item.therapy_indication_key,
             'therapy_icd_cod': item.therapy_icd_cod,
+            'therapy_icd_cod_2': item.therapy_icd_cod_2,
             'therapy_doctor': doctor_value,
             'patients': item.patients,
             'therapists': item.therapists}

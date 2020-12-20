@@ -53,15 +53,17 @@
 <div id="geburtsdatum2">{{ result.pa_date_of_birth | date:"d.m.Y"}}</div>
 <div id="rezeptdatum1">Rezeptdatum:</div>
 <div id="rezeptdatum2">{{ result.recipe_date | date:"d.m.Y" }}</div>
+<div id="therapist_1">Th.:</div>
+<div id="therapist_2">{{ therapy.therapists }}</div>
 <div id="behandlungen1">{{ result.process_count }}</div>
 <div id="behandlungen2">Behandlungen vom:</div>
 <div id="behandlung_vom">{{ result.therapy_start | date:"d.m.Y" }}</div>
 <div id="behandlung_bis1">bis:</div>
 <div id="behandlung_bis2">{{ result.therapy_end | date:"d.m.Y" }}</div>
-<div id="indikation1">Indikationsschlüssel:</div>
+<div id="indikation1">Diagnosegruppe:</div>
 <div id="indikation2">{{ therapy.therapy_indication_key }}</div>
-<div id="icd1">ICD-Cod:</div>
-<div id="icd2">{{ therapy.therapy_icd_cod }}</div>
+<div id="icd1">ICD-Cods:</div>
+<div id="icd2">{{ therapy.therapy_icd_cod }},{{ therapy.therapy_icd_cod_2 }} </div>
 
 <div id="therapy_current_result_header">Aktueller Stand der Therapie:</div>
 <div id="therapy_current_result">{{ result.therapy_current_result | safe }}</div>

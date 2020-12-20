@@ -67,31 +67,33 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="{{ form.therapy_homevisit_no_yes.id_for_label }}" class="col-sm-2 control-label">Hausbesuch: </label>
+                <label for="{{ form.therapy_icd_cod.id_for_label }}" class="col-sm-2 control-label">1. ICD-CoD: </label>
                 <div class="col-sm-6">
-                    {{ form.therapy_homevisit_no_yes }}
-                    <div class="text-danger">{{ form.therapy_homevisit_no_yes.errors }}</div>
+                    {{ form.therapy_icd_cod }}
+                    <div class="text-danger">{{ form.therapy_icd_cod.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="{{ form.therapy_report_no_yes.id_for_label }}" class="col-sm-2 control-label">Therapiebericht: </label>
+                <label for="{{ form.therapy_icd_cod_2.id_for_label }}" class="col-sm-2 control-label">2. ICD-CoD: </label>
                 <div class="col-sm-6">
-                    {{ form.therapy_report_no_yes }}
-                    <div class="text-danger">{{ form.therapy_report_no_yes.errors }}</div>
+                    {{ form.therapy_icd_cod_2 }}
+                    <div class="text-danger">{{ form.therapy_icd_cod_2.errors }}</div>
                 </div>
             </div>
+            <!--
             <div class="form-group row">
-                <label for="{{ form.therapy_rid_of.id_for_label }}" class="col-sm-2 control-label">Eigenanteil: </label>
+                <label for="{{ form.therapy_icd_cod_3.id_for_label }}" class="col-sm-2 control-label">3. ICD-CoD: </label>
                 <div class="col-sm-6">
-                    {{ form.therapy_rid_of }}
-                    <div class="text-danger">{{ form.therapy_rid_of.errors }}</div>
+                    {{ form.therapy_icd_cod_3 }}
+                    <div class="text-danger">{{ form.therapy_icd_cod_3.errors }}</div>
                 </div>
             </div>
+            -->
             <div class="form-group row">
-                <label for="{{ form.therapy_duration.id_for_label }}" class="col-sm-2 control-label">Therapie Dauer: </label>
+                <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe: </label>
                 <div class="col-sm-6">
-                    {{ form.therapy_duration }}
-                    <div class="text-danger">{{ form.therapy_duration.errors }}</div>
+                    {{ form.therapy_indication_key }}
+                    <div class="text-danger">{{ form.therapy_indication_key.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
@@ -102,24 +104,38 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Therapiefrequenze: </label>
+                <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Therapiefrequenz: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_frequence }}
                     <div class="text-danger">{{ form.therapy_frequence.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Indikationsschlüssel: </label>
+                <label for="{{ form.therapy_duration.id_for_label }}" class="col-sm-2 control-label">Therapie Dauer: </label>
                 <div class="col-sm-6">
-                    {{ form.therapy_indication_key }}
-                    <div class="text-danger">{{ form.therapy_indication_key.errors }}</div>
+                    {{ form.therapy_duration }}
+                    <div class="text-danger">{{ form.therapy_duration.errors }}</div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="{{ form.therapy_icd_cod.id_for_label }}" class="col-sm-2 control-label">ICD-CoD: </label>
+                <label for="{{ form.therapy_report_no_yes.id_for_label }}" class="col-sm-2 control-label">Therapiebericht: </label>
                 <div class="col-sm-6">
-                    {{ form.therapy_icd_cod }}
-                    <div class="text-danger">{{ form.therapy_icd_cod.errors }}</div>
+                    {{ form.therapy_report_no_yes }}
+                    <div class="text-danger">{{ form.therapy_report_no_yes.errors }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.therapy_homevisit_no_yes.id_for_label }}" class="col-sm-2 control-label">Hausbesuch: </label>
+                <div class="col-sm-6">
+                    {{ form.therapy_homevisit_no_yes }}
+                    <div class="text-danger">{{ form.therapy_homevisit_no_yes.errors }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.therapy_rid_of.id_for_label }}" class="col-sm-2 control-label">Eigenanteil: </label>
+                <div class="col-sm-6">
+                    {{ form.therapy_rid_of }}
+                    <div class="text-danger">{{ form.therapy_rid_of.errors }}</div>
                 </div>
             </div>
          <input type="hidden" id="id_patients" name="patients" value="{{ form.patients.value }}">

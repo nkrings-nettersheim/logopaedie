@@ -19,29 +19,14 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# To get the secret information from a special file
-# https://stackoverflow.com/questions/42077532/django-security-and-settings
-
-with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)
-
-
-def get_secret(setting, secrets=secrets):
-    """Get secret setting or fail with ImproperlyConfigured"""
-    try:
-        return secrets[setting]
-    except KeyError:
-        raise ImproperlyConfigured("Set the {} setting".format(setting))
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_secret('SECRET_KEY')
+SECRET_KEY = '4kq1sj_c6j!w8s9^-d+&te4#9l$v@1_hx4(p$r2logopaedie-^idy1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -96,27 +81,20 @@ WSGI_APPLICATION = 'logopaedie.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-if get_secret('DB_ENVIRONMENT') == 'prod':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': get_secret('DB_NAME'),
-            'USER': get_secret('DB_USER'),
-            'PASSWORD': get_secret('DB_PASSWORD'),
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'see local_settings',
+        'USER': 'see local_settings',
+        'PASSWORD': 'see local_settings',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -183,12 +161,12 @@ USE_X_FORWARDED_HOST = True
 X_FORWARD = False
 
 # Email settings
-EMAIL_HOST = get_secret('EMAIL_HOST')
-EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = get_secret('EMAIL_PORT')
-EMAIL_USE_TLS = get_secret('EMAIL_USE_TLS')
-#DEFAULT_FROM_EMAIL = get_secret('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = 'look at local_settings'
+EMAIL_HOST_USER = 'look at local_settings'
+EMAIL_HOST_PASSWORD = 'look at local_settings'
+EMAIL_PORT = 'look at local_settings'
+EMAIL_USE_TLS = 'look at local_settings'
+#DEFAULT_FROM_EMAIL = ''
 
 ####################################
 ##  CKEDITOR CONFIGURATION ##

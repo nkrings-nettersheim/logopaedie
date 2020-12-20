@@ -82,7 +82,11 @@
                 {% endif %}
             </div>
             <div class="col-sm">
-
+                {% if patient.pa_cell_phone_sms %}
+                <div class="small inline">SMS-Versand: </div> <strong>  {{ patient.pa_cell_phone_sms }} </strong>
+                {% else %}
+                <div class="small inline">&nbsp;</div>
+                {% endif %}
             </div>
         </div>
         <div class="row">

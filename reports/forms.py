@@ -372,6 +372,18 @@ class PatientForm(forms.ModelForm):
         )
     )
 
+    pa_cell_phone_sms = forms.CharField(
+        required=False,
+        max_length=35,
+        widget=forms.TextInput(
+            attrs={
+                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'class': 'form-control',
+                'placeholder': 'Format: 0171/12233445'
+            }
+        )
+    )
+
     pa_email = forms.EmailField(
         required=False,
         max_length=254,
@@ -455,6 +467,7 @@ class PatientForm(forms.ModelForm):
                   'pa_cell_phone',
                   'pa_cell_phone_add1',
                   'pa_cell_phone_add2',
+                  'pa_cell_phone_sms',
                   'pa_email',
                   'pa_date_of_birth',
                   'pa_gender',
@@ -570,6 +583,28 @@ class TherapyForm(forms.ModelForm):
                                       )
                                       )
 
+    therapy_icd_cod_2 = forms.CharField(required=True,
+                                        max_length=10,
+                                        error_messages={'blank': 'Bitte mind. ein - eingeben'},
+                                        widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': '2. ICD-CoD eingeben ...',
+                                              'style': 'text-transform:uppercase;'
+                                          }
+                                      )
+                                      )
+
+    therapy_icd_cod_3 = forms.CharField(required=False,
+                                      max_length=10,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control',
+                                              'placeholder': '3. ICD-CoD eingeben ...',
+                                              'style': 'text-transform:uppercase;'
+                                          }
+                                      )
+                                      )
     # therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.order_by('doctor_lanr'))
 
     therapy_doctor = forms.CharField(required=True, max_length=9, min_length=9,
@@ -596,6 +631,8 @@ class TherapyForm(forms.ModelForm):
                   'therapy_homevisit_no_yes',
                   'therapy_indication_key',
                   'therapy_icd_cod',
+                  'therapy_icd_cod_2',
+                  'therapy_icd_cod_3',
                   'therapy_doctor',
                   'patients',
                   'therapists']
