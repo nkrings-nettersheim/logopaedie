@@ -70,7 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'reports.middleware.IPAccessCheck',
-    #'django_session_timeout.middleware.SessionTimeoutMiddleware',
+#    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
 
 
@@ -167,7 +167,7 @@ LOGIN_REDIRECT_URL = '/reports/'
 #SESSION_SAVE_EVERY_REQUEST = True
 
 # 30 * 60 = 30 Minuten + 5 Sekunden, damit die Session noch existiert, wenn nach 30 Minuten der Logout erfolgt
-SESSION_EXPIRE_SECONDS = 0.2*60+5
+SESSION_EXPIRE_SECONDS = 30*60+5
 
 #SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 #SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60 # group by minute

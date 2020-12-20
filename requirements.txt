@@ -3,7 +3,7 @@ pytz==2019.3
 sqlparse==0.3.0
 reportlab==3.5.32
 python-dateutil==2.8.1
-mysqlclient==1.4.6
+#mysqlclient==1.4.6
 django-js-asset==1.2.2
 django-ckeditor==5.8.0
 django-weasyprint==0.5.5

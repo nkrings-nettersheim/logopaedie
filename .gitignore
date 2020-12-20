@@ -10,14 +10,13 @@ media/
 reports/tests/__pycache__/
 static/admin/
 static/ckeditor/
-
+logopaedie/local_settings.py
 
 # Django #
 *.log
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
 media
 
 # Backup files #
@@ -128,3 +127,4 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
