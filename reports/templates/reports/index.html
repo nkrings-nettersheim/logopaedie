@@ -34,7 +34,17 @@
         <a class="nav-link" href="{% url 'reports:add_therapist' %}" >Therapeut anlegen</a>
       </li>
     {% endif %}
+    {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
+        <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >Diagnosegruppe suchen</a>
+      </li>
+    {% endif %}
+    {% if request.user.groups.all.0.name == 'Leitung' %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >Diagnosegruppe anlegen</a>
+      </li>
+    {% endif %}
+    <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:open_reports' %}" >Offene Berichte: <div id="openreports" class="nav-link inline"></div></a>
       </li>
     </ul>

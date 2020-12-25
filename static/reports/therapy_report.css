@@ -140,14 +140,14 @@ body {
 
 #geburtsdatum1 {
     position: absolute;
-    left: 13.3cm;
+    left: 11.3cm;
     top: 10.3cm;
     font-weight: bold;
 }
 
 #geburtsdatum2 {
     position: absolute;
-    left: 15.0cm;
+    left: 13.0cm;
     top: 10.3cm;
 }
 
@@ -166,14 +166,14 @@ body {
 
 #therapist_1 {
     position: absolute;
-    left: 14.1cm;
+    left: 12.1cm;
     top: 10.8cm;
     font-weight: bold;
 }
 
 #therapist_2 {
     position: absolute;
-    left: 15.0cm;
+    left: 13.0cm;
     top: 10.8cm;
 }
 
@@ -199,14 +199,14 @@ body {
 
 #behandlung_bis1 {
     position: absolute;
-    left: 14.1cm;
+    left: 12.1cm;
     top: 11.3cm;
     font-weight: bold;
 }
 
 #behandlung_bis2 {
   position: absolute;
-  left: 15.0cm;
+  left: 13.0cm;
   top: 11.3cm;
 }
 
@@ -223,16 +223,28 @@ body {
   top: 11.8cm;
 }
 
+#diagnostic_group_key {
+  position: absolute;
+  left: 5.7cm;
+  top: 11.8cm;
+}
+
+#diagnostic_group_description {
+  position: absolute;
+  left: 6.6cm;
+  top: 11.8cm;
+}
+
 #icd1 {
     position: absolute;
-    left: 13.15cm;
+    left: 16.15cm;
     top: 11.8cm;
     font-weight: bold;
 }
 
 #icd2 {
     position: absolute;
-    left: 15.0cm;
+    left: 18.0cm;
     top: 11.8cm;
 }
 

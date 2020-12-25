@@ -97,6 +97,13 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="{{ form.diagnostic_group.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe neu: </label>
+                <div class="col-sm-6">
+                    {{ form.diagnostic_group }}
+                    <div class="text-danger">{{ form.diagnostic_group.errors }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="{{ form.therapy_regulation_amount.id_for_label }}" class="col-sm-2 control-label">Verordnungsmenge: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_regulation_amount }}

@@ -35,9 +35,9 @@ from logopaedie.settings import BASE_DIR, X_FORWARD
 
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
 from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm
-from .forms import DocumentTherapyForm, PatientSomethingForm
+from .forms import DocumentTherapyForm, PatientSomethingForm, Diagnostic_groupForm, SearchDiagnostic_groupForm
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document
-from .models import Therapy_Something, Document_therapy, Patient_Something, Login_Failed
+from .models import Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group
 
 logger = logging.getLogger(__name__)
 
@@ -222,7 +222,7 @@ def add_therapist(request):
     else:
         logger.debug('add_therapist: Formular zur Bearbeitung/Erfassung der Therapistdaten')
         form = TherapistForm()
-    return render(request, 'reports/therapist_form.html', {'form': form})
+    return render(request, 'reports/diagnostic_group_form.html', {'form': form})
 
 @login_required
 def search_therapist_start(request):
@@ -267,7 +267,7 @@ def edit_therapist(request, id=None):
         return redirect('/reports/therapist/' + str(item.id) + '/')
     logger.debug('edit_therapist: Bearbeitungsformular aufgerufen ID: ' + id)
     form.id = item.id
-    return render(request, 'reports/therapist_form.html', {'form': form})
+    return render(request, 'reports/diagnostic_group_form.html', {'form': form})
 
 @login_required
 def therapist(request, id=id):
@@ -278,6 +278,77 @@ def therapist(request, id=id):
         return render(request, 'reports/therapist.html', {'therapist': therapist_result})
     except ObjectDoesNotExist:
         return redirect('/reports/')
+
+##########################################################################
+# Area Diagnostic_group create and change
+##########################################################################
+
+@login_required
+def add_diagnostic_group(request):
+    if request.method == "POST":
+        form = Diagnostic_groupForm(request.POST)
+        if form.is_valid():
+            diagnostic_group_item = form.save(commit=False)
+            diagnostic_group_item.save()
+            logger.info('{:>2}'.format(request.user.id) + ' add_diagnostic_group: Diagnosticgruppe mit Namen: ' + str(
+                diagnostic_group_item.diagnostic_key) + ' angelegt')
+            return redirect('/reports/diagnostic_group/' + str(diagnostic_group_item.id) + '/')
+    else:
+        logger.debug('add_diagnostic_group: Formular zur Bearbeitung/Erfassung der Diagnosedaten')
+        form = Diagnostic_groupForm()
+    return render(request, 'reports/diagnostic_group_form.html', {'form': form})
+
+@login_required
+def search_diagnostic_group_start(request):
+    logger.debug('Suchmaske Diagnosegruppe geladen')
+    form = SearchDiagnostic_groupForm()
+    return render(request, 'reports/diagnostic_group_search.html', {'form': form})
+
+@login_required
+def search_diagnostic_group(request):
+    form = SearchDiagnostic_groupForm()
+    if request.method == 'POST':
+        diagnostic_key = request.POST['diagnostic_key']
+        if diagnostic_key != "":
+            diagnostic_group_list = Diagnostic_group.objects.filter(diagnostic_key__istartswith=diagnostic_key)
+
+            if len(diagnostic_group_list) > 1:
+                logger.debug('search_diagnostic_group: mehr als eine Diagnostic gefunden mit dem Suchbegriff: ' + diagnostic_key)
+                return render(request, 'reports/diagnostic_groups.html', {'diagnostic_group_list': diagnostic_group_list})
+            elif len(diagnostic_group_list) == 1:
+                logger.debug('search_diagnostic_group: Diagnosticgruppe gefunden mit dem Suchbegriff: ' + diagnostic_key)
+                return redirect('/reports/diagnostic_group/' + str(diagnostic_group_list[0].id) + '/')
+            else:
+                logger.debug('search_diagnostic_group: Keine Diagnosticgruppe gefunden mit dem Suchbegriff: ' + diagnostic_key)
+                return render(request, 'reports/diagnostic_group_search.html', {'form': form})
+        else:
+            logger.debug('search_diagnostic_group: Keinen Suchbegriff eingegeben:')
+            return render(request, 'reports/diagnostic_group_search.html', {'form': form})
+    else:
+        logger.debug('search_diagnostic_group: Keinen Suchbegriff eingegeben')
+        return render(request, 'reports/diagnostic_group_search.html')
+
+@login_required
+def edit_diagnostic_group(request, id=None):
+    item = get_object_or_404(Diagnostic_group, id=id)
+    form = Diagnostic_groupForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        logger.info('{:>2}'.format(request.user.id) + ' edit_diagnostic_group: ' + str(item.id) + ' Daten werden gespeichert')
+        return redirect('/reports/diagnostic_group/' + str(item.id) + '/')
+    logger.debug('edit_diagnostic_group: Bearbeitungsformular aufgerufen ID: ' + id)
+    form.id = item.id
+    return render(request, 'reports/diagnostic_group_form.html', {'form': form})
+
+@login_required
+def diagnostic_group(request, id=id):
+    try:
+        diagnostic_group_result = Diagnostic_group.objects.get(id=id)
+        logger.debug('diagnostic_group: Diagnosegruppe mit der ID: ' + id + ' aufgerufen')
+        return render(request, 'reports/diagnostic_group.html', {'diagnostic_group': diagnostic_group_result})
+    except ObjectDoesNotExist:
+        return redirect('/reports/')
+
 
 
 ##########################################################################
@@ -686,15 +757,13 @@ def add_therapy(request):
 
 @login_required
 def edit_therapy(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Therapy, id=id)
     form = TherapyForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
         logger.info('{:>2}'.format(request.user.id) + ' edit_therapy: Rezept mit der ID:' + str(item.id) + ' geändert')
         return redirect('/reports/therapy/' + str(item.id) + '/')
-    logger.debug(
-        'edit_therapy: Rezeptformular des Patienten mit der ID: ' + str(item.id) + ' zwecks Änderung aufgerufen')
+    logger.debug('edit_therapy: Rezeptformular des Patienten mit der ID: ' + str(item.id) + ' zwecks Änderung aufgerufen')
     doctor_value = Doctor.objects.get(id=item.therapy_doctor.id)
     data = {'id': item.id,
             'recipe_date': item.recipe_date,
@@ -709,14 +778,15 @@ def edit_therapy(request, id=None):
             'therapy_icd_cod_2': item.therapy_icd_cod_2,
             'therapy_doctor': doctor_value,
             'patients': item.patients,
-            'therapists': item.therapists}
+            'therapists': item.therapists,
+            'diagnostic_group': item.diagnostic_group}
+
     form = TherapyForm(data)
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': item.patients})
 
 
 @login_required
 def therapy(request, id=id):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     therapy_result = Therapy.objects.get(id=id)
     patient_value = Patient.objects.get(id=str((therapy_result.patients_id)))
     process_report_value = Process_report.objects.filter(therapy_id=id).order_by('-process_treatment')
@@ -966,7 +1036,6 @@ def therapy_report(request, id=id):
 
 @login_required
 def show_therapy_report(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     id = request.GET.get('id')
     logger.info('{:>2}'.format(request.user.id) + ' show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
     therapy_result = Therapy.objects.get(id=request.GET.get('id'))
@@ -980,7 +1049,8 @@ def show_therapy_report(request):
     result.static_root = settings.STATIC_ROOT
 
     filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
-
+    #print(therapy_result.diagnostic_group.diagnostic_key)
+    #assert False
     html_string = render_to_string('pdf_templates/therapy_report.html', {'therapy': therapy_result,
                                                                          'result': result,
                                                                          'doctor': doctor_result
@@ -1173,7 +1243,6 @@ def getOpenReports(request):
     logger.info('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
 
     return render(request, 'getOpenReports.html', {'form': context})
-
 
 @receiver(user_logged_in)
 def post_login(sender, user, **kwargs):

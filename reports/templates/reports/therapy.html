@@ -21,9 +21,9 @@
       </li>
       <li class="nav-item">
         {% if ia.therapy_id %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Befund</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Erst-Diag.</a>
         {% else %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Befund</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Erst-Diag.</a>
         {% endif %}
       </li>
       <li class="nav-item">
@@ -103,7 +103,11 @@
                 {% endif %}
             </div>
             <div class="col-sm">
-                Diagnosegruppe: <strong>{{ therapy.therapy_indication_key }}</strong>
+                {% if therapy.diagnostic_group %}
+                    Diagnosegruppe: <strong> {{ therapy.diagnostic_group}}</strong>
+                {% else %}
+                    Diagnosegruppe: <strong>{{ therapy.therapy_indication_key }}</strong>
+                {% endif %}
             </div>
             <div class="col-sm">
                 Therapiebeginn: <strong>{{ therapy_report.therapy_start|date:"d.m.Y" }}</strong>
@@ -149,16 +153,16 @@
          <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
               {% if request.GET.window == "1" %}
-                <a class="nav-link active" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Erstbefund</a>
+                <a class="nav-link active" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Erst-Diagnostik</a>
               {% else %}
-                <a class="nav-link" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Erstbefund</a>
+                <a class="nav-link" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Erst-Diagnostik</a>
               {% endif %}
           </li>
           <li class="nav-item">
               {% if request.GET.window == "2" %}
-                <a class="nav-link active" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
+                <a class="nav-link active" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Bedarfs-Diagnostik</a>
               {% else %}
-                <a class="nav-link" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
+                <a class="nav-link" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Bedarfs-Diagnostik</a>
               {% endif %}
           </li>
           <li class="nav-item">
@@ -189,7 +193,7 @@
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-secondary">
-                  <div class="col-sm-2 text-white">Erstbefund {% if ia.therapy_id %}<a class="text-white" href="{% url 'reports:edit_ia' ia.id %}">(ändern)</a>{% endif %}</div>
+                  <div class="col-sm-2 text-white">Erst-Diagnose {% if ia.therapy_id %}<a class="text-white" href="{% url 'reports:edit_ia' ia.id %}">(ändern)</a>{% endif %}</div>
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-white ">
@@ -280,7 +284,7 @@
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-secondary">
-                  <div class="col-sm-2 text-white">Sonstiges {% if ts.therapy_id %}<a class="text-white" href="{% url 'reports:edit_something' ts.id %}">(ändern)</a>{% endif %}</div>
+                  <div class="col-sm-2 text-white">Bedarfs-Diagnose {% if ts.therapy_id %}<a class="text-white" href="{% url 'reports:edit_something' ts.id %}">(ändern)</a>{% endif %}</div>
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-white ">

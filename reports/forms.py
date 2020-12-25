@@ -5,7 +5,7 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
-from .models import Document, Document_therapy, Therapy_Something, Patient_Something
+from .models import Document, Document_therapy, Therapy_Something, Patient_Something, Diagnostic_group
 
 
 class IndexForm(forms.Form):
@@ -104,6 +104,18 @@ class SearchDoctorForm(forms.Form):
                                }
                            )
                            )
+
+
+class SearchDiagnostic_groupForm(forms.Form):
+    diagnostic_key = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'autofocus': 'autofocus',
+            'placeholder': 'Kürzel eingeben ...'
+        }
+    ),
+        required=False
+    )
 
 
 class DoctorForm(forms.ModelForm):
@@ -242,6 +254,39 @@ class TherapistForm(forms.ModelForm):
                   ]
 
 
+class Diagnostic_groupForm(forms.ModelForm):
+    diagnostic_key = forms.CharField(required=True,
+                                     max_length=10,
+                                     widget=forms.TextInput(
+                                         attrs={
+                                             'class': 'form-control',
+                                             'placeholder': 'Kürzel eingeben ...'
+                                         }
+                                     ))
+
+    diagnostic_description = forms.CharField(required=True,
+                                             max_length=250,
+                                             widget=forms.TextInput(
+                                                 attrs={
+                                                     'class': 'form-control',
+                                                     'placeholder': 'Diagnosegruppe eingeben ...'
+                                                 }
+                                             ))
+
+    diagnostic_max_therapy = forms.IntegerField(required=True,
+                                                widget=forms.NumberInput(
+                                                )
+                                                )
+
+    class Meta:
+        model = Diagnostic_group
+        fields = [
+            'diagnostic_key',
+            'diagnostic_description',
+            'diagnostic_max_therapy'
+        ]
+
+
 class PatientForm(forms.ModelForm):
 
     def clean_pa_phone(self):
@@ -281,7 +326,6 @@ class PatientForm(forms.ModelForm):
         if birthday > datetime.date.today():
             raise forms.ValidationError("Das Geburtsdatum darf nicht in der Zukunft liegen.")
         return birthday
-
 
     pa_first_name = forms.CharField(
         widget=forms.TextInput(
@@ -570,7 +614,8 @@ class TherapyForm(forms.ModelForm):
         attrs={
             'class': 'form-control'
         }
-    ), validators=[check_indication, ])
+    ))
+
 
     therapy_icd_cod = forms.CharField(required=True,
                                       max_length=10,
@@ -587,24 +632,24 @@ class TherapyForm(forms.ModelForm):
                                         max_length=10,
                                         error_messages={'blank': 'Bitte mind. ein - eingeben'},
                                         widget=forms.TextInput(
-                                          attrs={
-                                              'class': 'form-control',
-                                              'placeholder': '2. ICD-CoD eingeben ...',
-                                              'style': 'text-transform:uppercase;'
-                                          }
-                                      )
-                                      )
+                                            attrs={
+                                                'class': 'form-control',
+                                                'placeholder': '2. ICD-CoD eingeben ...',
+                                                'style': 'text-transform:uppercase;'
+                                            }
+                                        )
+                                        )
 
     therapy_icd_cod_3 = forms.CharField(required=False,
-                                      max_length=10,
-                                      widget=forms.TextInput(
-                                          attrs={
-                                              'class': 'form-control',
-                                              'placeholder': '3. ICD-CoD eingeben ...',
-                                              'style': 'text-transform:uppercase;'
-                                          }
-                                      )
-                                      )
+                                        max_length=10,
+                                        widget=forms.TextInput(
+                                            attrs={
+                                                'class': 'form-control',
+                                                'placeholder': '3. ICD-CoD eingeben ...',
+                                                'style': 'text-transform:uppercase;'
+                                            }
+                                        )
+                                        )
     # therapy_doctor = forms.ModelChoiceField(queryset=Doctor.objects.order_by('doctor_lanr'))
 
     therapy_doctor = forms.CharField(required=True, max_length=9, min_length=9,
@@ -618,6 +663,8 @@ class TherapyForm(forms.ModelForm):
     patients = forms.ModelChoiceField(queryset=Patient.objects.all())
 
     therapists = forms.ModelChoiceField(queryset=Therapist.objects.all())
+
+    diagnostic_group = forms.ModelChoiceField(queryset=Diagnostic_group.objects.all())
 
     class Meta:
         model = Therapy
@@ -635,7 +682,8 @@ class TherapyForm(forms.ModelForm):
                   'therapy_icd_cod_3',
                   'therapy_doctor',
                   'patients',
-                  'therapists']
+                  'therapists',
+                  'diagnostic_group']
 
 
 class ProcessReportForm(forms.ModelForm):
@@ -877,13 +925,13 @@ class InitialAssessmentForm(forms.ModelForm):
                                 )
 
     ia_dysphagie = forms.CharField(required=False,
-                                max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        'class': 'form-control'
-                                    }
-                                )
-                                )
+                                   max_length=100,
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           'class': 'form-control'
+                                       }
+                                   )
+                                   )
 
     ia_semantik = forms.CharField(required=False,
                                   max_length=100,

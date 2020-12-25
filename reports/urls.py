@@ -37,6 +37,13 @@ urlpatterns = [
     path('edit/therapist/<id>/', views.edit_therapist, name='edit_therapist'),
     path('add/therapist/', views.add_therapist, name='add_therapist'),
     path('therapist/<id>/', views.therapist, name='therapist'),
+
+    path('search/diagnostic_group/start', views.search_diagnostic_group_start, name='search_diagnostic_group_start'),
+    path('search/diagnostic_group/', views.search_diagnostic_group, name='search_diagnostic_group'),
+    path('edit/diagnostic_group/<id>/', views.edit_diagnostic_group, name='edit_diagnostic_group'),
+    path('add/diagnostic_group/', views.add_diagnostic_group, name='add_diagnostic_group'),
+    path('diagnostic_group/<id>/', views.diagnostic_group, name='diagnostic_group'),
+
     path('add/ia/', views.add_ia, name='add_ia'),
     path('edit/ia/<id>/', views.edit_ia, name='edit_ia'),
 

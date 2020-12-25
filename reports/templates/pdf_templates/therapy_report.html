@@ -61,7 +61,13 @@
 <div id="behandlung_bis1">bis:</div>
 <div id="behandlung_bis2">{{ result.therapy_end | date:"d.m.Y" }}</div>
 <div id="indikation1">Diagnosegruppe:</div>
-<div id="indikation2">{{ therapy.therapy_indication_key }}</div>
+{% if therapy.diagnostic_group.diagnostic_key != '' %}
+    <div id="diagnostic_group_key">{{ therapy.diagnostic_group.diagnostic_key }}</div>
+    <div id="diagnostic_group_description">{{ therapy.diagnostic_group.diagnostic_description }}</div>
+{% else %}
+    <div id="indikation2">{{ therapy.therapy_indication_key }}</div>
+{% endif %}
+
 <div id="icd1">ICD-Cods:</div>
 <div id="icd2">{{ therapy.therapy_icd_cod }},{{ therapy.therapy_icd_cod_2 }} </div>
 
