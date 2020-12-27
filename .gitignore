@@ -11,6 +11,7 @@ reports/tests/__pycache__/
 static/admin/
 static/ckeditor/
 logopaedie/local_settings.py
+static/parents/
 
 # Django #
 *.log
