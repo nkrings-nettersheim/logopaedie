@@ -1042,6 +1042,8 @@ class InitialAssessmentForm(forms.ModelForm):
                                      )
                                      )
 
+    ia_first_diagnostic = forms.CharField(required=False, widget=CKEditorWidget(config_name='something'))
+
     class Meta:
         model = InitialAssessment
         fields = [
@@ -1062,6 +1064,7 @@ class InitialAssessmentForm(forms.ModelForm):
             'ia_test_result',
             'ia_enhancement',
             'ia_information',
+            'ia_first_diagnostic',
             'therapy'
         ]
 

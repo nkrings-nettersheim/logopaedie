@@ -169,6 +169,7 @@ class InitialAssessment(models.Model):
     ia_test_result = models.CharField(max_length=1, choices=RESULT, default='1')
     ia_enhancement = models.BooleanField(default=False, null=True)
     ia_information = models.CharField(max_length=500, blank=True, default='')
+    ia_first_diagnostic = RichTextField(blank=True, null=True)
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)

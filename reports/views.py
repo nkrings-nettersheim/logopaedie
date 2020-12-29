@@ -222,7 +222,7 @@ def add_therapist(request):
     else:
         logger.debug('add_therapist: Formular zur Bearbeitung/Erfassung der Therapistdaten')
         form = TherapistForm()
-    return render(request, 'reports/diagnostic_group_form.html', {'form': form})
+    return render(request, 'reports/therapist_form.html', {'form': form})
 
 @login_required
 def search_therapist_start(request):
@@ -666,7 +666,6 @@ def edit_pa_something(request, id=None):
 ##########################################################################
 @login_required
 def add_ia(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = InitialAssessmentForm(request.POST)
         if form.is_valid():
@@ -684,7 +683,6 @@ def add_ia(request):
 
 @login_required
 def edit_ia(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(InitialAssessment, id=id)
     form = InitialAssessmentForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -700,7 +698,6 @@ def edit_ia(request, id=None):
 ##########################################################################
 @login_required
 def add_therapy_something(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = TherapySomethingForm(request.POST)
         if form.is_valid():
