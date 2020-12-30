@@ -95,6 +95,8 @@ class Therapy(models.Model):
     patients = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
     therapists = models.ForeignKey(Therapist, on_delete=models.PROTECT, default='', null=True)
     diagnostic_group = models.ForeignKey(Diagnostic_group, on_delete=models.PROTECT, default='1', null=True)
+    first_diagnostic_no_yes = models.BooleanField(default=False, null=True)
+    need_diagnostic_no_yes = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return str(self.recipe_date)

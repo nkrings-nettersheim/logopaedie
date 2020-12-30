@@ -146,7 +146,15 @@
 
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm">
+                Erst-Diagnose: <strong>{% if therapy.first_diagnostic_no_yes %}<div class="text-danger inline">ja</div> {% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
+            </div>
+            <div class="col-sm inline">Bedarfs-Diagnose: <strong>{% if therapy.need_diagnostic_no_yes %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong></div>
+            <div class="col-sm">
 
+            </div>
+        </div>
     </div>
     <br>
     <div class="col">

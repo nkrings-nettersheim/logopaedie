@@ -588,6 +588,14 @@ class TherapyForm(forms.ModelForm):
                                                       error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
                                                       widget=forms.NullBooleanSelect)
 
+    first_diagnostic_no_yes = forms.NullBooleanField(required=True,
+                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                      widget=forms.NullBooleanSelect)
+
+    need_diagnostic_no_yes = forms.NullBooleanField(required=True,
+                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                      widget=forms.NullBooleanSelect)
+
     INDICATION = (
         ('n/a', 'auswählen'),
         ('ST1', 'ST1'),
@@ -683,7 +691,9 @@ class TherapyForm(forms.ModelForm):
                   'therapy_doctor',
                   'patients',
                   'therapists',
-                  'diagnostic_group']
+                  'diagnostic_group',
+                  'first_diagnostic_no_yes',
+                  'need_diagnostic_no_yes']
 
 
 class ProcessReportForm(forms.ModelForm):

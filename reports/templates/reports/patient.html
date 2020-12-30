@@ -144,7 +144,7 @@
         <hr>
         <div class="row">
             <div class="col-sm">
-                Es wurden bislang <strong>{{ therapy_count }}</strong> Rezepte ausgestellt und <strong>{{ process_count }}</strong> Gesamtbehandlungen durchgeführt:
+                Es wurden seit dem 01.01.2021 <strong>{{ therapy_count }}</strong> Rezepte ausgestellt und <strong>{{ process_count }}</strong> Gesamtbehandlungen durchgeführt:
             </div>
 
         </div>
@@ -191,7 +191,11 @@
                         <div class="small inline">Th.:</div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="inline"> <strong>({{ item.single }}/{{ item.therapy_regulation_amount }})</strong></div>
+                        <div class="inline">
+                            <strong>
+                                ({{ item.single }}/{{ item.therapy_regulation_amount }})&nbsp;{% if item.first_diagnostic_no_yes %}<div class="text-danger inline">ED</div>{% endif %}{% if item.need_diagnostic_no_yes %}<div class="text-danger inline">BD</div>{% endif %}
+                            </strong>
+                        </div>
                     </div>
                 </div>
             </div>

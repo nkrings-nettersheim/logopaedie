@@ -545,7 +545,7 @@ def patient(request, id=id):
         patient_result.pa_cell_phone_sms = get_phone_design(patient_result.pa_cell_phone_sms)
 
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
-        therapy_result_count = therapy_result.count()
+        therapy_result_count = Therapy.objects.filter(patients_id=patient_helper, recipe_date__gte='2021-01-01').count()
         process_result_count = 0
 
         if Patient_Something.objects.filter(patient_id=id).exists():
@@ -555,8 +555,10 @@ def patient(request, id=id):
 
         i = 0
         for therapy_result_item in therapy_result:
-            process_result_count = Process_report.objects.filter(
-                therapy_id=therapy_result_item.id).count() + process_result_count
+            print(datetime.fromisoformat(str(therapy_result_item.recipe_date)))
+            if datetime.fromisoformat(str(therapy_result_item.recipe_date)) >= datetime.fromisoformat('2021-01-01'):
+                process_result_count = Process_report.objects.filter(
+                    therapy_id=therapy_result_item.id).count() + process_result_count
             therapy_result[i].single = Process_report.objects.filter(therapy_id=therapy_result_item.id).count()
             therapy_report_result = Therapy_report.objects.filter(therapy_id=therapy_result_item.id)
             try:
@@ -776,6 +778,8 @@ def edit_therapy(request, id=None):
             'therapy_doctor': doctor_value,
             'patients': item.patients,
             'therapists': item.therapists,
+            'first_diagnostic_no_yes': item.first_diagnostic_no_yes,
+            'need_diagnostic_no_yes': item.need_diagnostic_no_yes,
             'diagnostic_group': item.diagnostic_group}
 
     form = TherapyForm(data)

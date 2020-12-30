@@ -14,8 +14,8 @@
 <div id="kopfbalken"></div>
 <div id="seitenbalken"></div>
 <div id="kopf">seit 1987</div>
-<div id="kopf1">Petra Klein</div>
-<div id="kopf2">Staatlich geprüfte Logopädin</div>
+<div id="kopf1">Logopädische Praxis P. Klein</div>
+<div id="kopf2">Petra Schumacher (vorm. Petra Klein); staatl. gepr. Logopädin</div>
 <div id="kopf3">Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen,<br>Mutismus, Autismus, Demenz, Hörstörungen</div>
 <div id="adresse">
     Rathausstrasse 8<br>
@@ -40,8 +40,8 @@
 <div id="adresse_arzt">
     {{ doctor.doctor_name1 | truncatechars:50}}<br>
     {{ doctor.doctor_name2 | truncatechars:50}}<br>
-    {{ doctor.doctor_name3 | truncatechars:50}}<br><br>
-    {{ doctor.doctor_street }}<br>
+    {{ doctor.doctor_name3 | truncatechars:50}}<br>
+    {{ doctor.doctor_street }}<br><br>
     {{ doctor.doctor_zip_code }} {{ doctor.doctor_city }}
 </div>
 <div id="datum">Euskirchen den: {{ result.report_date | date:"d.m.Y" }}</div>
@@ -68,7 +68,7 @@
     <div id="indikation2">{{ therapy.therapy_indication_key }}</div>
 {% endif %}
 
-<div id="icd1">ICD-Cods:</div>
+<div id="icd1">ICD-Code:</div>
 <div id="icd2">{{ therapy.therapy_icd_cod }},{{ therapy.therapy_icd_cod_2 }} </div>
 
 <div id="therapy_current_result_header">Aktueller Stand der Therapie:</div>
@@ -92,7 +92,7 @@
 <div id="bemerkung2">{{ result.therapy_comment }}</div>
 <div id="fragen">Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!</div>
 <div id="gruss">Mit freundlichen Grüßen</div>
-<img id="unterschrift" src="file:////{{ result.static_root}}/images/unterschrift.jpeg">
+<img id="unterschrift" src="file:////{{ result.static_root}}/images/unterschrift_ps.jpg">
 <div id="dank">Vielen Dank für die Kooperation</div>
 <div id="footer">Zur Beachtung!!  Dieses Schreiben enthält schutzbedürftige personenbezogene Daten,
     für deren Weitergabe an Dritte die <br>Beschränkungen des §203 StGB gelten.

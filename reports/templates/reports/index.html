@@ -36,12 +36,12 @@
     {% endif %}
     {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >Diagnosegruppe suchen</a>
+        <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >DG su.</a>
       </li>
     {% endif %}
     {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >Diagnosegruppe anlegen</a>
+        <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
       </li>
     {% endif %}
     <li class="nav-item">
