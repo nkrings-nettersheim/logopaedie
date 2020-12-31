@@ -46,7 +46,7 @@
 </div>
 <div id="datum">Euskirchen den: {{ result.report_date | date:"d.m.Y" }}</div>
 
-<div id="betreff">Mitteilung des Therapeuten an den verordnenden Arzt:</div>
+<div id="betreff">Logopädischer Bericht an den verordnenden Arzt:</div>
 <div id="patient1">Name des Patienten:</div>
 <div id="patient2">{{ result.pa_last_name}}, {{ result.pa_first_name}}</div>
 <div id="geburtsdatum1">geb. am:</div>
@@ -69,7 +69,8 @@
 {% endif %}
 
 <div id="icd1">ICD-Code:</div>
-<div id="icd2">{{ therapy.therapy_icd_cod }},{{ therapy.therapy_icd_cod_2 }} </div>
+<div id="icd2">{{ therapy.therapy_icd_cod }}{% if therapy.therapy_icd_cod_2 == "-" %}{% else %}, {{ therapy.therapy_icd_cod_2 }}{% endif %}
+</div>
 
 <div id="therapy_current_result_header">Aktueller Stand der Therapie:</div>
 <div id="therapy_current_result">{{ result.therapy_current_result | safe }}</div>

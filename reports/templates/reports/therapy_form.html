@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="{{ form.therapy_icd_cod_2.id_for_label }}" class="col-sm-2 control-label">2. ICD-CoD: </label>
+                <label for="{{ form.therapy_icd_cod_2.id_for_label }}" class="col-sm-2 control-label">2. ICD-CoD: <br>(- wenn kein Eintrag)</label>
                 <div class="col-sm-6">
                     {{ form.therapy_icd_cod_2 }}
                     <div class="text-danger">{{ form.therapy_icd_cod_2.errors }}</div>
@@ -89,6 +89,7 @@
                 </div>
             </div>
             -->
+            <!--
             <div class="form-group row">
                 <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe: </label>
                 <div class="col-sm-6">
@@ -96,8 +97,9 @@
                     <div class="text-danger">{{ form.therapy_indication_key.errors }}</div>
                 </div>
             </div>
+            -->
             <div class="form-group row">
-                <label for="{{ form.diagnostic_group.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe neu: </label>
+                <label for="{{ form.diagnostic_group.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe: </label>
                 <div class="col-sm-6">
                     {{ form.diagnostic_group }}
                     <div class="text-danger">{{ form.diagnostic_group.errors }}</div>

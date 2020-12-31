@@ -118,7 +118,7 @@
                 Therapiedauer: <strong>{{ therapy.therapy_duration }}</strong>
             </div>
             <div class="col-sm">
-                ICD-CoD: <strong>{{ therapy.therapy_icd_cod }},{{ therapy.therapy_icd_cod_2 }} </strong>
+                ICD-CoD: <strong>{{ therapy.therapy_icd_cod }}{% if therapy.therapy_icd_cod_2 == "-" %}{% else %}, {{ therapy.therapy_icd_cod_2 }}{% endif %} </strong>
             </div>
             <div class="col-sm">
                 Therapieende: <strong>{{ therapy_report.therapy_end|date:"d.m.Y" }}</strong>

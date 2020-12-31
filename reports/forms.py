@@ -618,7 +618,7 @@ class TherapyForm(forms.ModelForm):
         ('OFZ', 'OFZ'),
     )
 
-    therapy_indication_key = forms.ChoiceField(choices=INDICATION, label="", initial=1, widget=forms.Select(
+    therapy_indication_key = forms.ChoiceField(required=False, choices=INDICATION, label="", initial=1, widget=forms.Select(
         attrs={
             'class': 'form-control'
         }
