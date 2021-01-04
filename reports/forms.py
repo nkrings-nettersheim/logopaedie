@@ -589,12 +589,12 @@ class TherapyForm(forms.ModelForm):
                                                       widget=forms.NullBooleanSelect)
 
     first_diagnostic_no_yes = forms.NullBooleanField(required=True,
-                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                      widget=forms.NullBooleanSelect)
+                                                     error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                     widget=forms.NullBooleanSelect)
 
     need_diagnostic_no_yes = forms.NullBooleanField(required=True,
-                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                      widget=forms.NullBooleanSelect)
+                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                    widget=forms.NullBooleanSelect)
 
     INDICATION = (
         ('n/a', 'auswählen'),
@@ -618,12 +618,12 @@ class TherapyForm(forms.ModelForm):
         ('OFZ', 'OFZ'),
     )
 
-    therapy_indication_key = forms.ChoiceField(required=False, choices=INDICATION, label="", initial=1, widget=forms.Select(
-        attrs={
-            'class': 'form-control'
-        }
-    ))
-
+    therapy_indication_key = forms.ChoiceField(required=False, choices=INDICATION, label="", initial=1,
+                                               widget=forms.Select(
+                                                   attrs={
+                                                       'class': 'form-control'
+                                                   }
+                                               ))
 
     therapy_icd_cod = forms.CharField(required=True,
                                       max_length=10,
@@ -880,6 +880,49 @@ class TherapyReportForm(forms.ModelForm):
                                       )
                                       )
 
+    therapy_individual = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_individual_min = forms.IntegerField(required=False,
+                                                widget=forms.NumberInput(
+                                                )
+                                                )
+
+    therapy_group = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_group_min = forms.IntegerField(required=False,
+                                           widget=forms.NumberInput(
+                                           )
+                                           )
+
+    therapy_finish = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_re_introduction = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_re_introduction_weeks = forms.IntegerField(required=False,
+                                           widget=forms.NumberInput(
+                                           )
+                                           )
+
+    therapy_frequence = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_frequence_count_per_week = forms.IntegerField(required=False,
+                                           widget=forms.NumberInput(
+                                           )
+                                           )
+
+    therapy_another = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_another_text = forms.CharField(required=False,
+                                      max_length=20,
+                                      widget=forms.TextInput(
+                                          attrs={
+                                              'class': 'form-control'
+                                          }
+                                      )
+                                      )
+
+    therapy_home_visit = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
     class Meta:
         model = Therapy_report
         fields = ['therapy_start',
@@ -892,7 +935,19 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_break',
                   'therapy_break_date',
                   'therapy_comment',
-                  'therapy']
+                  'therapy',
+                  'therapy_individual',
+                  'therapy_individual_min',
+                  'therapy_group',
+                  'therapy_group_min',
+                  'therapy_finish',
+                  'therapy_re_introduction',
+                  'therapy_re_introduction_weeks',
+                  'therapy_frequence',
+                  'therapy_frequence_count_per_week',
+                  'therapy_another',
+                  'therapy_another_text',
+                  'therapy_home_visit']
 
 
 class InitialAssessmentForm(forms.ModelForm):

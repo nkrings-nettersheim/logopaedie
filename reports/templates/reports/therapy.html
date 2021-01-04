@@ -371,14 +371,55 @@
                   <div class="col-sm-7">{{ therapy_report.therapy_forecast | safe }}</div>
               </div>
               <div class="row bg-white">
-                  <div class="col-sm-2">Behandlung weiter indiziert:</div>
+                  <div class="col-sm-2">Fortführung der Therapie:</div>
                   <div class="col-sm-10"><strong>{% if therapy_report.therapy_indicated %} X {% endif %}</strong></div>
               </div>
               <div class="row bg-light">
-                  <div class="col-sm-2">Pause:</div>
-                  <div class="col-sm-2"><strong>{% if therapy_report.therapy_break %} X {% endif %}</strong></div>
-                  <div class="col-sm-2">Fortsetzung ab:</div>
+                  <div class="col-sm-2">Therapiepause:</div>
+                  <div class="col-sm-10"><strong>{% if therapy_report.therapy_break %} X {% endif %}</strong></div>
+              </div>
+              <div class="row bg-white">
+                  <div class="col-sm-2">Beendigung der Therapie:</div>
+                  <div class="col-sm-10"><strong>{% if therapy_report.therapy_finish %} X {% endif %}</strong></div>
+              </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">Einzeltherapie:</div>
+                  <div class="col-sm-1"><strong>{% if therapy_report.therapy_individual %} X {% endif %}</strong></div>
+                  <div class="col-sm-1">Minuten:</div>
+                  <div class="col-sm-1"><strong>{{ therapy_report.therapy_individual_min }}</strong></div>
+              </div>
+              <div class="row bg-white">
+                  <div class="col-sm-2">Gruppentherapie:</div>
+                  <div class="col-sm-1"><strong>{% if therapy_report.therapy_group %} X {% endif %}</strong></div>
+                  <div class="col-sm-1">Minuten:</div>
+                  <div class="col-sm-1"><strong>{{ therapy_report.therapy_group_min }}</strong></div>
+                  <div class="col-sm-6">&nbsp;</div>
+              </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">Wiedervorstellung:</div>
+                  <div class="col-sm-1"><strong>{% if therapy_report.therapy_re_introduction %} X {% endif %}</strong></div>
+                  <div class="col-sm-1">in </div>
+                  <div class="col-sm-1"><strong>{{ therapy_report.therapy_re_introduction_weeks }}</strong> Wochen</div>
+              </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">Frequenz:</div>
+                  <div class="col-sm-1"><strong>{% if therapy_report.therapy_frequence %} X {% endif %}</strong></div>
+                  <div class="col-sm-1">Anzahl/Woche: </div>
+                  <div class="col-sm-1"><strong>{{ therapy_report.therapy_frequence_count_per_week }}</strong></div>
+              </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">Wiedervorstellung ab:</div>
                   <div class="col-sm-2"><strong>{{ therapy_report.therapy_break_date|date:"d.m.Y" }}</strong></div>
+              </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">andere Therapie:</div>
+                  <div class="col-sm-1"><strong>{% if therapy_report.therapy_another %} X {% endif %}</strong></div>
+                  <div class="col-sm-3"><strong>{{ therapy_report.therapy_another_text }}</strong></div>
+                  <div class="col-sm-1"></div>
+              </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">Hausbesuch:</div>
+                  <div class="col-sm-2"><strong>{% if therapy_report.therapy_home_visit %} X {% endif %}</strong></div>
               </div>
               <div class="row bg-light">
                   <div class="col-sm-2">Bemerkung:</div>

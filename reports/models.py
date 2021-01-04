@@ -120,6 +120,18 @@ class Therapy_report(models.Model):
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
+    therapy_individual = models.BooleanField(default=False)
+    therapy_individual_min = models.IntegerField(default=0)
+    therapy_group = models.BooleanField(default=False)
+    therapy_group_min = models.IntegerField(default=0)
+    therapy_finish = models.BooleanField(default=False)
+    therapy_re_introduction = models.BooleanField(default=False)
+    therapy_re_introduction_weeks = models.IntegerField(default=0)
+    therapy_frequence = models.BooleanField(default=False)
+    therapy_frequence_count_per_week = models.IntegerField(default=0)
+    therapy_another = models.BooleanField(default=False)
+    therapy_another_text = models.CharField(max_length=25, default='')
+    therapy_home_visit = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.report_date)

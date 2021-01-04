@@ -81,14 +81,52 @@
 <div id="therapy_forecast_header">Prognostische Einschätzung mit Angabe der Restsymptomatik:</div>
 <div id="therapy_forecast">{{ result.therapy_forecast | safe }}</div>
 
-<div id="behandlung1">Behandlung weiter indiziert:</div>
+<div id="empfehlung">Empfehlungen:</div>
+<div id="behandlung1">Fortführung der Therapie</div>
 <div id="behandlung2"></div>
 <div id="behandlung3">{% if result.therapy_indicated %} X {% endif %}</div>
-<div id="pause1">Pause:</div>
+
+<div id="individual1">Einzeltherapie </div>
+<div id="individual2"></div>
+<div id="individual3">{% if result.therapy_individual %} X {% endif %}</div>
+<div id="individual4">Minuten: {{ result.therapy_individual_min }} </div>
+
+<div id="group1">Gruppentherapie </div>
+<div id="group2"></div>
+<div id="group3">{% if result.therapy_group %} X {% endif %}</div>
+<div id="group4">Minuten: {{ result.therapy_group_min }} </div>
+
+
+<div id="pause1">Therapiepause</div>
 <div id="pause2"></div>
 <div id="pause3">{% if result.therapy_break %} X {% endif %}</div>
-<div id="fortsetzung1">Fortsetzung ab:</div>
+
+<div id="ende1">Beendigung der Therapie</div>
+<div id="ende2"></div>
+<div id="ende3">{% if result.therapy_finish %} X {% endif %}</div>
+
+<div id="frequence1">Frequenz</div>
+<div id="frequence2"></div>
+<div id="frequence3">{% if result.therapy_frequence %} X {% endif %}</div>
+<div id="frequence4">Anzahl/Woche: {{ result.therapy_frequence_count_per_week }} </div>
+
+<div id="wiedervorstellung1">Wiedervorstellung in </div>
+<div id="wiedervorstellung2"></div>
+<div id="wiedervorstellung3">{% if result.therapy_re_introduction %} X {% endif %}</div>
+<div id="wiedervorstellung4">{{ result.therapy_re_introduction_weeks }} Wochen</div>
+
+<div id="fortsetzung1">Wiedervorstellung ab:</div>
 <div id="fortsetzung2">{{ result.therapy_break_date|date:"d.m.Y" }}</div>
+
+<div id="another1">andere Therapie: </div>
+<div id="another2"></div>
+<div id="another3">{% if result.therapy_another %} X {% endif %}</div>
+<div id="another4">{{ result.therapy_another_text }} </div>
+
+<div id="home_visit1">Hausbesuch </div>
+<div id="home_visit2"></div>
+<div id="home_visit3">{% if result.therapy_home_visit %} X {% endif %}</div>
+
 <div id="bemerkung1">Bemerkung:</div>
 <div id="bemerkung2">{{ result.therapy_comment }}</div>
 <div id="fragen">Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!</div>

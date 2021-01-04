@@ -252,7 +252,7 @@ body {
 #therapy_current_result_header {
     position: absolute;
     left: 1.8cm;
-    top: 12.8cm;
+    top: 12.6cm;
     text-decoration: underline ;
     font-size: 12pt;
     font-weight: bold;
@@ -261,14 +261,14 @@ body {
 #therapy_current_result {
     position: absolute;
     left: 1.8cm;
-    top: 12.9cm;
+    top: 12.7cm;
     width: 18cm;
 }
 
 #therapy_emphases_header {
     position: absolute;
     left: 1.8cm;
-    top: 16.0cm;
+    top: 15.6cm;
     text-decoration: underline ;
     font-size: 12pt;
     font-weight: bold;
@@ -277,14 +277,14 @@ body {
 #therapy_emphases {
     position: absolute;
     left: 1.8cm;
-    top: 16.1cm;
+    top: 15.7cm;
     width: 18cm;
 }
 
 #therapy_forecast_header {
     position: absolute;
     left: 1.8cm;
-    top: 19.4cm;
+    top: 18.6cm;
     text-decoration: underline ;
     font-size: 12pt;
     font-weight: bold;
@@ -293,106 +293,317 @@ body {
 #therapy_forecast {
     position: absolute;
     left: 1.8cm;
-    top: 19.5cm;
+    top: 18.7cm;
     width: 18cm;
 }
 
-#behandlung1 {
+#empfehlung {
     position: absolute;
     left: 1.8cm;
-    top: 22.8cm;
+    top: 21.7cm;
+    text-decoration: underline ;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+
+
+#behandlung1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 22.3cm;
     font-weight: bold;
 }
 
 #behandlung2 {
     position: absolute;
-    left: 8.12cm;
-    top: 22.65cm;
+    left: 1.8cm;
+    top: 22.2cm;
     background: #FFF;
     border: 2px solid #000000;
-    height: 0.5cm;
-    width: 0.5cm;
+    height: 0.4cm;
+    width: 0.4cm;
 }
 
 #behandlung3 {
     position: absolute;
-    left: 8.3cm;
-    top: 22.8cm;
+    left: 1.95cm;
+    top: 22.3cm;
 }
 
-#fortsetzung1 {
+
+#individual1 {
     position: absolute;
-    left: 10.2cm;
-    top: 23.5cm;
+    left: 13.5cm;
+    top: 22.3cm;
     font-weight: bold;
 }
-
-#fortsetzung2 {
+#individual2 {
     position: absolute;
-    left: 13.0cm;
-    top: 23.5cm;
+    left: 12.8cm;
+    top: 22.2cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
 }
+#individual3 {
+    position: absolute;
+    left: 12.95cm;
+    top: 22.3cm;
+}
+#individual4 {
+    position: absolute;
+    left: 16.5cm;
+    top: 22.3cm;
+}
+
 
 #pause1 {
     position: absolute;
-    left: 1.8cm;
-    top: 23.5cm;
+    left: 2.5cm;
+    top: 22.9cm;
     font-weight: bold;
 }
 
 #pause2 {
     position: absolute;
-    left: 8.12cm;
-    top: 23.32cm;
+    left: 1.8cm;
+    top: 22.8cm;
     background: #FFF;
     border: 2px solid #000000;
-    height: 0.5cm;
-    width: 0.5cm;
+    height: 0.4cm;
+    width: 0.4cm;
 }
 
 #pause3 {
     position: absolute;
-    left: 8.3cm;
+    left: 1.95cm;
+    top: 22.9cm;
+}
+
+
+#group1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 22.9cm;
+    font-weight: bold;
+}
+#group2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 22.8cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+#group3 {
+    position: absolute;
+    left: 12.95cm;
+    top: 22.9cm;
+}
+#group4 {
+    position: absolute;
+    left: 16.5cm;
+    top: 22.9cm;
+}
+
+#ende1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 23.5cm;
+    font-weight: bold;
+}
+
+#ende2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 23.4cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#ende3 {
+    position: absolute;
+    left: 1.95cm;
     top: 23.5cm;
 }
+
+
+#frequence1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 23.5cm;
+    font-weight: bold;
+}
+#frequence2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 23.4cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+#frequence3 {
+    position: absolute;
+    left: 12.95cm;
+    top: 23.5cm;
+}
+#frequence4 {
+    position: absolute;
+    left: 15.5cm;
+    top: 23.5cm;
+}
+
+
+#wiedervorstellung1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 24.1cm;
+    font-weight: bold;
+}
+
+#wiedervorstellung2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 24.0cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#wiedervorstellung3 {
+    position: absolute;
+    left: 1.95cm;
+    top: 24.1cm;
+}
+
+#wiedervorstellung4 {
+    position: absolute;
+    left: 6.05cm;
+    top: 24.1cm;
+}
+
+
+#fortsetzung1 {
+    position: absolute;
+    left: 12.8cm;
+    top: 24.1cm;
+    font-weight: bold;
+}
+
+#fortsetzung2 {
+    position: absolute;
+    left: 16.5cm;
+    top: 24.1cm;
+}
+
+
+#another1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 24.7cm;
+    font-weight: bold;
+}
+
+#another2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 24.6cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#another3 {
+    position: absolute;
+    left: 1.95cm;
+    top: 24.7cm;
+}
+
+#another4 {
+    position: absolute;
+    left: 5.5cm;
+    top: 24.7cm;
+}
+
+
+#home_visit1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 24.7cm;
+    font-weight: bold;
+}
+
+#home_visit2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 24.6cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#home_visit3 {
+    position: absolute;
+    left: 12.95cm;
+    top: 24.7cm;
+}
+
+
+
+
+
+
+
+
+
+
 
 #bemerkung1 {
     position: absolute;
     left: 1.8cm;
-    top: 24.3cm;
+    top: 25.4cm;
     font-weight: bold;
 }
 
 #bemerkung2 {
     position: absolute;
     left: 4.6cm;
-    top: 24.3cm;
+    top: 25.4cm;
 }
 
 #fragen {
     position: absolute;
     left: 1.8cm;
-    top: 25.2cm;
+    top: 26.2cm;
     font-weight: bold;
 }
 
 #gruss {
     position: absolute;
     left: 1.8cm;
-    top: 25.8cm;
+    top: 26.8cm;
 }
 
 #dank {
     position: absolute;
     left: 11.0cm;
-    top: 26.8cm;
+    top: 27.8cm;
     font-weight: bold;
 }
 
 #unterschrift {
     position: absolute;
     left: 1.8cm;
-    top: 26.3cm;
+    top: 27.3cm;
     width: 4cm;
 }
 
