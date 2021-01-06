@@ -409,6 +409,24 @@ body {
     top: 22.9cm;
 }
 
+#doppel1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 23.5cm;
+    font-weight: bold;
+}
+#doppel2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 23.4cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+
+
 #ende1 {
     position: absolute;
     left: 2.5cm;
@@ -436,13 +454,13 @@ body {
 #frequence1 {
     position: absolute;
     left: 13.5cm;
-    top: 23.5cm;
+    top: 24.1cm;
     font-weight: bold;
 }
 #frequence2 {
     position: absolute;
     left: 12.8cm;
-    top: 23.4cm;
+    top: 24.0cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -451,12 +469,12 @@ body {
 #frequence3 {
     position: absolute;
     left: 12.95cm;
-    top: 23.5cm;
+    top: 24.1cm;
 }
 #frequence4 {
     position: absolute;
     left: 15.5cm;
-    top: 23.5cm;
+    top: 24.1cm;
 }
 
 
@@ -489,7 +507,7 @@ body {
     top: 24.1cm;
 }
 
-
+/*
 #fortsetzung1 {
     position: absolute;
     left: 12.8cm;
@@ -502,7 +520,7 @@ body {
     left: 16.5cm;
     top: 24.1cm;
 }
-
+*/
 
 #another1 {
     position: absolute;

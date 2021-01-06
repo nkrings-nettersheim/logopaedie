@@ -810,6 +810,13 @@ class TherapyReportForm(forms.ModelForm):
     now = datetime.datetime.now()
     placeholder = now.strftime('%d.%m.%Y')
 
+    DURATION = (
+        ('-', '-'),
+        ('30', '30'),
+        ('45', '45'),
+        ('60', '60'),
+    )
+
     therapy_start = forms.DateField(required=False,
                                     widget=forms.DateInput(
                                         attrs={
@@ -882,44 +889,50 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_individual = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_individual_min = forms.IntegerField(required=False,
-                                                widget=forms.NumberInput(
-                                                )
-                                                )
+    therapy_individual_min = forms.ChoiceField(choices=DURATION, label="", initial='-', widget=forms.Select(
+        attrs={
+            'class': 'form-control'
+        }
+    ))
 
     therapy_group = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_group_min = forms.IntegerField(required=False,
-                                           widget=forms.NumberInput(
-                                           )
-                                           )
+    therapy_group_min = forms.ChoiceField(choices=DURATION, label="", initial='-', widget=forms.Select(
+        attrs={
+            'class': 'form-control'
+        }
+    ))
 
     therapy_finish = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_re_introduction = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+    # therapy_re_introduction = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_re_introduction_weeks = forms.IntegerField(required=False,
-                                           widget=forms.NumberInput(
-                                           )
-                                           )
+    # therapy_re_introduction_weeks = forms.IntegerField(required=False,
+    #                                                   widget=forms.NumberInput(
+    #                                                   )
+    #                                                   )
 
     therapy_frequence = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_frequence_count_per_week = forms.IntegerField(required=False,
-                                           widget=forms.NumberInput(
-                                           )
-                                           )
+    therapy_frequence_count_per_week = forms.CharField(required=False,
+                                                       max_length=10,
+                                                       widget=forms.TextInput(
+                                                           attrs={
+                                                               'class': 'form-control'
+                                                           }
+                                                       )
+                                                       )
 
     therapy_another = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
     therapy_another_text = forms.CharField(required=False,
-                                      max_length=20,
-                                      widget=forms.TextInput(
-                                          attrs={
-                                              'class': 'form-control'
-                                          }
-                                      )
-                                      )
+                                           max_length=20,
+                                           widget=forms.TextInput(
+                                               attrs={
+                                                   'class': 'form-control'
+                                               }
+                                           )
+                                           )
 
     therapy_home_visit = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
@@ -941,8 +954,8 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_group',
                   'therapy_group_min',
                   'therapy_finish',
-                  'therapy_re_introduction',
-                  'therapy_re_introduction_weeks',
+                  #'therapy_re_introduction',
+                  #'therapy_re_introduction_weeks',
                   'therapy_frequence',
                   'therapy_frequence_count_per_week',
                   'therapy_another',

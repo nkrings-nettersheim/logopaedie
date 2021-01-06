@@ -2,6 +2,7 @@ import io
 import os
 import logging
 from datetime import datetime
+from dateutil import rrule
 from html import escape
 
 from dateutil.parser import parse
@@ -13,6 +14,7 @@ from django.dispatch import receiver
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import DeleteView
 from django.conf import settings
 from django.views import generic
@@ -1048,6 +1050,8 @@ def show_therapy_report(request):
     result.recipe_date = Therapy.objects.get(id=id).recipe_date
     result.process_count = Process_report.objects.filter(therapy=id).count()
     result.static_root = settings.STATIC_ROOT
+    if result.therapy_break_date:
+        result.therapy_re_introduction_weeks = rrule.rrule(rrule.WEEKLY, dtstart=result.report_date, until=result.therapy_break_date).count()
 
     filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
     #print(therapy_result.diagnostic_group.diagnostic_key)
