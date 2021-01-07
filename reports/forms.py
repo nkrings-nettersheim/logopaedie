@@ -539,6 +539,12 @@ class TherapyForm(forms.ModelForm):
                 raise forms.ValidationError("Arzt wurde nicht gefunden. Ggf. als neuen Arzt erfassen.")
         return data
 
+    def clean_therapy_icd_cod_2(self):
+        data = self.cleaned_data['therapy_icd_cod_2'].upper()
+        data = data.replace(",", ".")
+        return data
+
+
     recipe_date = forms.DateField(required=True,
                                   widget=forms.DateInput(
                                       attrs={
@@ -593,6 +599,10 @@ class TherapyForm(forms.ModelForm):
                                                      widget=forms.NullBooleanSelect)
 
     need_diagnostic_no_yes = forms.NullBooleanField(required=True,
+                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                    widget=forms.NullBooleanSelect)
+
+    continue_diagnostic_no_yes = forms.NullBooleanField(required=True,
                                                     error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
                                                     widget=forms.NullBooleanSelect)
 
@@ -693,7 +703,9 @@ class TherapyForm(forms.ModelForm):
                   'therapists',
                   'diagnostic_group',
                   'first_diagnostic_no_yes',
-                  'need_diagnostic_no_yes']
+                  'need_diagnostic_no_yes',
+                  'continue_diagnostic_no_yes'
+                  ]
 
 
 class ProcessReportForm(forms.ModelForm):
@@ -867,15 +879,15 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_break = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_break_date = forms.DateField(required=False,
-                                         widget=forms.DateInput(
-                                             attrs={
-                                                 'class': 'form-control',
-                                                 'placeholder': 'Datum festlegen ...',
-                                                 'onchange': 'CheckDate(this.value, this.name)'
-                                             }
-                                         )
-                                         )
+    #therapy_break_date = forms.DateField(required=False,
+    #                                     widget=forms.DateInput(
+    #                                         attrs={
+    #                                             'class': 'form-control',
+    #                                             'placeholder': 'Datum festlegen ...',
+    #                                             'onchange': 'CheckDate(this.value, this.name)'
+    #                                         }
+    #                                     )
+    #                                     )
 
     therapy_comment = forms.CharField(required=False,
                                       max_length=85,
@@ -905,12 +917,12 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_finish = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    # therapy_re_introduction = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+    therapy_re_introduction = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    # therapy_re_introduction_weeks = forms.IntegerField(required=False,
-    #                                                   widget=forms.NumberInput(
-    #                                                   )
-    #                                                   )
+    therapy_re_introduction_weeks = forms.IntegerField(required=False,
+                                                       widget=forms.NumberInput(
+                                                       )
+                                                       )
 
     therapy_frequence = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
@@ -946,7 +958,7 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_forecast',
                   'therapy_indicated',
                   'therapy_break',
-                  'therapy_break_date',
+                  #'therapy_break_date',
                   'therapy_comment',
                   'therapy',
                   'therapy_individual',
@@ -954,8 +966,8 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_group',
                   'therapy_group_min',
                   'therapy_finish',
-                  #'therapy_re_introduction',
-                  #'therapy_re_introduction_weeks',
+                  'therapy_re_introduction',
+                  'therapy_re_introduction_weeks',
                   'therapy_frequence',
                   'therapy_frequence_count_per_week',
                   'therapy_another',
@@ -964,11 +976,26 @@ class TherapyReportForm(forms.ModelForm):
 
 
 class InitialAssessmentForm(forms.ModelForm):
+
+    DIAGNOSTIC_LEVEL = (
+        ('ED', 'Erst-Diagnostik'),
+        ('BD', 'Bedarfs-Diagnostik'),
+        ('WD', 'Weiterführende-Diagnostik')
+    )
+
+    ia_diagnostic_level = forms.ChoiceField(choices=DIAGNOSTIC_LEVEL,
+                                            initial='ED',
+                                            widget=forms.Select(
+                                                attrs={
+                                                    'class': 'form-control',
+                                                    'autofocus': 'autofocus'
+                                                }
+                                            ))
+
     ia_date = forms.DateField(required=False,
                               widget=forms.DateInput(
                                   attrs={
                                       'class': 'form-control',
-                                      'autofocus': 'autofocus',
                                       'placeholder': 'Datum festlegen ...',
                                       'onchange': 'CheckDate(this.value, this.name)'
                                   }
@@ -1122,6 +1149,7 @@ class InitialAssessmentForm(forms.ModelForm):
 
     ia_first_diagnostic = forms.CharField(required=False, widget=CKEditorWidget(config_name='something'))
 
+
     class Meta:
         model = InitialAssessment
         fields = [
@@ -1143,6 +1171,7 @@ class InitialAssessmentForm(forms.ModelForm):
             'ia_enhancement',
             'ia_information',
             'ia_first_diagnostic',
+            'ia_diagnostic_level',
             'therapy'
         ]
 

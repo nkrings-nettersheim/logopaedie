@@ -97,6 +97,7 @@ class Therapy(models.Model):
     diagnostic_group = models.ForeignKey(Diagnostic_group, on_delete=models.PROTECT, default='1', null=True)
     first_diagnostic_no_yes = models.BooleanField(default=False, null=True)
     need_diagnostic_no_yes = models.BooleanField(default=False, null=True)
+    continue_diagnostic_no_yes = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return str(self.recipe_date)
@@ -115,7 +116,7 @@ class Therapy_report(models.Model):
     therapy_forecast = RichTextField()
     therapy_indicated = models.BooleanField(default=False)
     therapy_break = models.BooleanField(default=False)
-    therapy_break_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
+    #therapy_break_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     therapy_comment = models.CharField(max_length=255, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
@@ -125,8 +126,8 @@ class Therapy_report(models.Model):
     therapy_group = models.BooleanField(default=False)
     therapy_group_min = models.CharField(max_length=10,default='')
     therapy_finish = models.BooleanField(default=False)
-    #therapy_re_introduction = models.BooleanField(default=False)
-    #therapy_re_introduction_weeks = models.IntegerField(default=0)
+    therapy_re_introduction = models.BooleanField(default=False)
+    therapy_re_introduction_weeks = models.IntegerField(default=0)
     therapy_frequence = models.BooleanField(default=False)
     therapy_frequence_count_per_week = models.CharField(max_length=10,default='')
     therapy_another = models.BooleanField(default=False)
@@ -166,6 +167,12 @@ class InitialAssessment(models.Model):
         ('6', 'nicht auswertbar')
     )
 
+    DIAGNOSTIC_LEVEL = (
+        ('ED', 'Erst-Diagnostik'),
+        ('BD', 'Bedarfs-Diagnostik'),
+        ('WD', 'Weiterführende-Diagnostik')
+    )
+
     ia_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     ia_assessment = models.CharField(max_length=100, blank=True, default='')
     ia_artikulation = models.CharField(max_length=100, blank=True, default='')
@@ -187,6 +194,7 @@ class InitialAssessment(models.Model):
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
+    ia_diagnostic_level = models.CharField(max_length=2, choices=DIAGNOSTIC_LEVEL, default='ED')
 
     def __str__(self):
         return self.ia_assessment
@@ -232,6 +240,7 @@ class Patient_Something(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
+
 
 class Login_Failed(models.Model):
     ipaddress = models.CharField(max_length=100, blank=True, default='')

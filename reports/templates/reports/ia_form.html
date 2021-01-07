@@ -41,6 +41,13 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="{{ form.ia_diagnostic_level.id_for_label }}" class="col-sm-2 control-label">Diagnostik Art: </label>
+            <div class="col-sm-6">
+                {{ form.ia_diagnostic_level }}
+                <div class="text-danger">{{ form.ia_diagnostic_level.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="{{ form.ia_date.id_for_label }}" class="col-sm-2 control-label">Datum: </label>
             <div class="col-sm-6">
                 {{ form.ia_date }}

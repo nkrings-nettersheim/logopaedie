@@ -1050,8 +1050,8 @@ def show_therapy_report(request):
     result.recipe_date = Therapy.objects.get(id=id).recipe_date
     result.process_count = Process_report.objects.filter(therapy=id).count()
     result.static_root = settings.STATIC_ROOT
-    if result.therapy_break_date:
-        result.therapy_re_introduction_weeks = rrule.rrule(rrule.WEEKLY, dtstart=result.report_date, until=result.therapy_break_date).count()
+    #if result.therapy_break_date:
+    #    result.therapy_re_introduction_weeks = rrule.rrule(rrule.WEEKLY, dtstart=result.report_date, until=result.therapy_break_date).count()
 
     filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
     #print(therapy_result.diagnostic_group.diagnostic_key)

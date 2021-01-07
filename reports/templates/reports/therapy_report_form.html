@@ -90,6 +90,7 @@
                 {{ form.therapy_forecast.errors }}
             </div>
         </div>
+
         <div class="form-group row">
             <label for="{{ form.therapy_indicated.id_for_label }}" class="col-sm-2 control-label">Fortführung: </label>
             <div class="col-sm-6">
@@ -97,6 +98,7 @@
                 {{ form.therapy_indicated.errors }}
             </div>
         </div>
+
         <div class="form-group row">
             <label for="{{ form.therapy_break.id_for_label }}" class="col-sm-2 control-label">Pause: </label>
             <div class="col-sm-6">
@@ -113,59 +115,51 @@
         </div>
         <div class="form-group row">
             <label for="{{ form.therapy_individual.id_for_label }}" class="col-sm-2 control-label">Einzeltherapie: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_individual }}
                 {{ form.therapy_individual.errors }}
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="{{ form.therapy_individual_min.id_for_label }}" class="col-sm-2 control-label">Einzel Minuten: </label>
-            <div class="col-sm-6">
+            <label for="{{ form.therapy_individual_min.id_for_label }}" class="col-sm-2 control-label">Minuten: </label>
+            <div class="col-sm-1">
                 {{ form.therapy_individual_min }}
                 {{ form.therapy_individual_min.errors }}
             </div>
         </div>
+
         <div class="form-group row">
             <label for="{{ form.therapy_group.id_for_label }}" class="col-sm-2 control-label">Gruppentherapie: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_group }}
                 {{ form.therapy_group.errors }}
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="{{ form.therapy_group_min.id_for_label }}" class="col-sm-2 control-label">Gruppe Minuten: </label>
-            <div class="col-sm-6">
+            <label for="{{ form.therapy_group_min.id_for_label }}" class="col-sm-2 control-label">Minuten: </label>
+            <div class="col-sm-1">
                 {{ form.therapy_group_min }}
                 {{ form.therapy_group_min.errors }}
             </div>
         </div>
-        <!--
+
         <div class="form-group row">
             <label for="{{ form.therapy_re_introduction.id_for_label }}" class="col-sm-2 control-label">Wiedervorstellung: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_re_introduction }}
                 {{ form.therapy_re_introduction.errors }}
             </div>
-        </div>
-        <div class="form-group row">
             <label for="{{ form.therapy_re_introduction_weeks.id_for_label }}" class="col-sm-2 control-label">in 'n' Wochen: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_re_introduction_weeks }}
                 {{ form.therapy_re_introduction_weeks.errors }}
             </div>
         </div>
-        -->
 
         <div class="form-group row">
             <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Frequenz: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_frequence }}
                 {{ form.therapy_frequence.errors }}
             </div>
-        </div>
-        <div class="form-group row">
             <label for="{{ form.therapy_frequence_count_per_week.id_for_label }}" class="col-sm-2 control-label">Anzahl/Woche: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_frequence_count_per_week }}
                 {{ form.therapy_frequence_count_per_week.errors }}
             </div>
@@ -173,14 +167,12 @@
 
         <div class="form-group row">
             <label for="{{ form.therapy_another.id_for_label }}" class="col-sm-2 control-label">andere Therapie: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-1">
                 {{ form.therapy_another }}
                 {{ form.therapy_another.errors }}
             </div>
-        </div>
-        <div class="form-group row">
             <label for="{{ form.therapy_another_text.id_for_label }}" class="col-sm-2 control-label">welche andere?: </label>
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 {{ form.therapy_another_text }}
                 {{ form.therapy_another_text.errors }}
             </div>
@@ -193,7 +185,7 @@
                 {{ form.therapy_home_visit.errors }}
             </div>
         </div>
-
+        <!--
         <div class="form-group row">
             <label for="{{ form.therapy_break_date.id_for_label }}" class="col-sm-2 control-label">Wiederaufnahme: </label>
             <div class="col-sm-6">
@@ -201,6 +193,7 @@
                 {{ form.therapy_break_date.errors }}
             </div>
         </div>
+        -->
         <div class="form-group row">
             <label for="{{ form.therapy_comment.id_for_label }}" class="col-sm-2 control-label">Bemerkung: </label>
             <div class="col-sm-6">

@@ -327,6 +327,7 @@ body {
 
 #behandlung3 {
     position: absolute;
+    color: red;
     left: 1.95cm;
     top: 22.3cm;
 }
@@ -349,11 +350,13 @@ body {
 }
 #individual3 {
     position: absolute;
+    color: red;
     left: 12.95cm;
     top: 22.3cm;
 }
 #individual4 {
     position: absolute;
+    color: red;
     left: 16.5cm;
     top: 22.3cm;
 }
@@ -378,6 +381,7 @@ body {
 
 #pause3 {
     position: absolute;
+    color: red;
     left: 1.95cm;
     top: 22.9cm;
 }
@@ -400,11 +404,13 @@ body {
 }
 #group3 {
     position: absolute;
+    color: red;
     left: 12.95cm;
     top: 22.9cm;
 }
 #group4 {
     position: absolute;
+    color: red;
     left: 16.5cm;
     top: 22.9cm;
 }
@@ -446,6 +452,7 @@ body {
 
 #ende3 {
     position: absolute;
+    color: red;
     left: 1.95cm;
     top: 23.5cm;
 }
@@ -468,11 +475,13 @@ body {
 }
 #frequence3 {
     position: absolute;
+    color: red;
     left: 12.95cm;
     top: 24.1cm;
 }
 #frequence4 {
     position: absolute;
+    color: red;
     left: 15.5cm;
     top: 24.1cm;
 }
@@ -497,12 +506,14 @@ body {
 
 #wiedervorstellung3 {
     position: absolute;
+    color: red;
     left: 1.95cm;
     top: 24.1cm;
 }
 
 #wiedervorstellung4 {
     position: absolute;
+    color: red;
     left: 6.05cm;
     top: 24.1cm;
 }
@@ -541,12 +552,14 @@ body {
 
 #another3 {
     position: absolute;
+    color: red;
     left: 1.95cm;
     top: 24.7cm;
 }
 
 #another4 {
     position: absolute;
+    color: red;
     left: 5.5cm;
     top: 24.7cm;
 }
@@ -571,19 +584,10 @@ body {
 
 #home_visit3 {
     position: absolute;
+    color: red;
     left: 12.95cm;
     top: 24.7cm;
 }
-
-
-
-
-
-
-
-
-
-
 
 #bemerkung1 {
     position: absolute;
@@ -594,6 +598,7 @@ body {
 
 #bemerkung2 {
     position: absolute;
+    color: red;
     left: 4.6cm;
     top: 25.4cm;
 }

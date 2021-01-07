@@ -21,16 +21,16 @@
       </li>
       <li class="nav-item">
         {% if ia.therapy_id %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Erst-Diag.</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Diagnose</a>
         {% else %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Erst-Diag.</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Diagnose.</a>
         {% endif %}
       </li>
       <li class="nav-item">
         {% if ts.therapy_id %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_something' ts.id%}" role="button">Bedarfs-Diag.</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_something' ts.id%}" role="button">Sonstiges</a>
         {% else %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_something' %}?id={{ therapy.id }}" role="button">Bedarfs-Diag.</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_something' %}?id={{ therapy.id }}" role="button">Sonstiges</a>
         {% endif %}
       </li>
       <li class="nav-item">
@@ -151,9 +151,7 @@
                 Erst-Diagnose: <strong>{% if therapy.first_diagnostic_no_yes %}<div class="text-danger inline">ja</div> {% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
             </div>
             <div class="col-sm inline">Bedarfs-Diagnose: <strong>{% if therapy.need_diagnostic_no_yes %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong></div>
-            <div class="col-sm">
-
-            </div>
+            <div class="col-sm inline">Weiterführende-Diagnose: <strong>{% if therapy.continue_diagnostic_no_yes %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong></div>
         </div>
     </div>
     <br>
@@ -161,16 +159,16 @@
          <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
               {% if request.GET.window == "1" %}
-                <a class="nav-link active" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Erst-Diagnostik</a>
+                <a class="nav-link active" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Diagnose</a>
               {% else %}
-                <a class="nav-link" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Erst-Diagnostik</a>
+                <a class="nav-link" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Diagnose</a>
               {% endif %}
           </li>
           <li class="nav-item">
               {% if request.GET.window == "2" %}
-                <a class="nav-link active" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Bedarfs-Diagnostik</a>
+                <a class="nav-link active" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
               {% else %}
-                <a class="nav-link" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Bedarfs-Diagnostik</a>
+                <a class="nav-link" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
               {% endif %}
           </li>
           <li class="nav-item">
@@ -201,8 +199,22 @@
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-secondary">
-                  <div class="col-sm-2 text-white">Erst-Diagnose {% if ia.therapy_id %}<a class="text-white" href="{% url 'reports:edit_ia' ia.id %}">(ändern)</a>{% endif %}</div>
+                  <div class="col-sm-2 text-white">Diagnose {% if ia.therapy_id %}<a class="text-white" href="{% url 'reports:edit_ia' ia.id %}">(ändern)</a>{% endif %}</div>
                   <div class="col-sm-10"></div>
+              </div>
+              <div class="row bg-white ">
+                  <div class="col-sm-2">Diagnostik-Art:</div>
+                  <div class="col-sm-10">
+                      <strong>
+                          {% if ia.ia_diagnostic_level == 'ED' %}
+                            Erst-Diagnostik
+                          {% elif ia.ia_diagnostic_level == 'BD' %}
+                            Bedarfs-Diagnostik
+                          {% elif ia.ia_diagnostic_level == 'WD'%}
+                            Weiterführende-Diagnostik
+                          {% endif %}
+                    </strong>
+                  </div>
               </div>
               <div class="row bg-white ">
                   <div class="col-sm-2">Befunddatum:</div>
@@ -296,7 +308,7 @@
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-secondary">
-                  <div class="col-sm-2 text-white">Bedarfs-Diagnose {% if ts.therapy_id %}<a class="text-white" href="{% url 'reports:edit_something' ts.id %}">(ändern)</a>{% endif %}</div>
+                  <div class="col-sm-2 text-white">Sonstiges {% if ts.therapy_id %}<a class="text-white" href="{% url 'reports:edit_something' ts.id %}">(ändern)</a>{% endif %}</div>
                   <div class="col-sm-10"></div>
               </div>
               <div class="row bg-white ">
@@ -395,24 +407,26 @@
                   <div class="col-sm-1"><strong>{{ therapy_report.therapy_group_min }}</strong></div>
                   <div class="col-sm-6">&nbsp;</div>
               </div>
-              <!--
+
               <div class="row bg-light">
                   <div class="col-sm-2">Wiedervorstellung:</div>
                   <div class="col-sm-1"><strong>{% if therapy_report.therapy_re_introduction %} X {% endif %}</strong></div>
                   <div class="col-sm-1">in </div>
                   <div class="col-sm-1"><strong>{{ therapy_report.therapy_re_introduction_weeks }}</strong> Wochen</div>
               </div>
-              -->
+
               <div class="row bg-light">
                   <div class="col-sm-2">Frequenz:</div>
                   <div class="col-sm-1"><strong>{% if therapy_report.therapy_frequence %} X {% endif %}</strong></div>
                   <div class="col-sm-1">Anzahl/Woche: </div>
                   <div class="col-sm-1"><strong>{{ therapy_report.therapy_frequence_count_per_week }}</strong></div>
               </div>
+              <!--
               <div class="row bg-light">
                   <div class="col-sm-2">Wiedervorstellung ab:</div>
                   <div class="col-sm-2"><strong>{{ therapy_report.therapy_break_date|date:"d.m.Y" }}</strong></div>
               </div>
+              -->
               <div class="row bg-light">
                   <div class="col-sm-2">andere Therapie:</div>
                   <div class="col-sm-1"><strong>{% if therapy_report.therapy_another %} X {% endif %}</strong></div>
