@@ -86,15 +86,23 @@
 <div id="behandlung2"></div>
 <div id="behandlung3">{% if result.therapy_indicated %} X {% endif %}</div>
 
-<div id="individual1">Einzeltherapie </div>
+<div id="individual1">Einzeltherapie</div>
 <div id="individual2"></div>
 <div id="individual3">{% if result.therapy_individual %} X {% endif %}</div>
-<div id="individual4">Minuten: {{ result.therapy_individual_min }} </div>
+<div id="individual4">
+    {% if result.therapy_individual_min != "-" %}
+     {{ result.therapy_individual_min }}
+    {% endif %}
+</div>
 
-<div id="group1">Gruppentherapie </div>
+<div id="group1">Gruppentherapie</div>
 <div id="group2"></div>
 <div id="group3">{% if result.therapy_group %} X {% endif %}</div>
-<div id="group4">Minuten: {{ result.therapy_group_min }} </div>
+<div id="group4">
+    {% if result.therapy_group_min != "-" %}
+    Minuten: {{ result.therapy_group_min }}
+    {% endif %}
+</div>
 
 <div id="doppel1">Doppelbehandlung</div>
 <div id="doppel2"></div>
@@ -107,16 +115,24 @@
 <div id="ende2"></div>
 <div id="ende3">{% if result.therapy_finish %} X {% endif %}</div>
 
-<div id="frequence1">Frequenz</div>
+<div id="frequence1">Frequenz&nbsp;&nbsp;&nbsp; Anzahl/Woche:</div>
 <div id="frequence2"></div>
 <div id="frequence3">{% if result.therapy_frequence %} X {% endif %}</div>
-<div id="frequence4">Anzahl/Woche: {{ result.therapy_frequence_count_per_week }} </div>
+<div id="frequence4">
+    {% if result.therapy_frequence_count_per_week %}
+    Anzahl/Woche: {{ result.therapy_frequence_count_per_week }}
+    {% endif %}
+</div>
 
 <div id="wiedervorstellung1">Wiedervorstellung in </div>
 <div id="wiedervorstellung2"></div>
 
 <div id="wiedervorstellung3">{% if result.therapy_re_introduction %} X {% endif %}</div>
-<div id="wiedervorstellung4">{{ result.therapy_re_introduction_weeks }} Wochen</div>
+<div id="wiedervorstellung4">
+    {% if result.therapy_re_introduction_weeks != 0 %}
+    {{ result.therapy_re_introduction_weeks }} Wochen
+    {% endif %}
+</div>
 <!--
 <div id="fortsetzung1">Wiedervorstellung ab:</div>
 <div id="fortsetzung2">{{ result.therapy_break_date|date:"d.m.Y" }}</div>
