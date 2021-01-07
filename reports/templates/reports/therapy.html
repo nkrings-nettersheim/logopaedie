@@ -23,7 +23,7 @@
         {% if ia.therapy_id %}
           <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Diagnose</a>
         {% else %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Diagnose.</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Diagnose</a>
         {% endif %}
       </li>
       <li class="nav-item">
