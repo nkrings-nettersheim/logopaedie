@@ -539,6 +539,11 @@ class TherapyForm(forms.ModelForm):
                 raise forms.ValidationError("Arzt wurde nicht gefunden. Ggf. als neuen Arzt erfassen.")
         return data
 
+    def clean_therapy_icd_cod(self):
+        data = self.cleaned_data['therapy_icd_cod'].upper()
+        data = data.replace(",", ".")
+        return data
+
     def clean_therapy_icd_cod_2(self):
         data = self.cleaned_data['therapy_icd_cod_2'].upper()
         data = data.replace(",", ".")

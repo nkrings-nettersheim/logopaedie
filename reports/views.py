@@ -782,6 +782,7 @@ def edit_therapy(request, id=None):
             'therapists': item.therapists,
             'first_diagnostic_no_yes': item.first_diagnostic_no_yes,
             'need_diagnostic_no_yes': item.need_diagnostic_no_yes,
+            'continue_diagnostic_no_yes': item.continue_diagnostic_no_yes,
             'diagnostic_group': item.diagnostic_group}
 
     form = TherapyForm(data)

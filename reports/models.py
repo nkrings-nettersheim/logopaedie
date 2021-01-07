@@ -104,6 +104,7 @@ class Therapy(models.Model):
 
     def save(self, force_insert=False, force_update=False):
         self.therapy_icd_cod = self.therapy_icd_cod.upper()
+        self.therapy_icd_cod_2 = self.therapy_icd_cod_2.upper()
         super(Therapy, self).save(force_insert, force_update)
 
 
