@@ -2,9 +2,9 @@ import io
 import os
 import logging
 from datetime import datetime
-from dateutil import rrule
+#from dateutil import rrule
 from html import escape
-
+import datetime
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
 from django.contrib.auth.models import User
@@ -557,8 +557,10 @@ def patient(request, id=id):
 
         i = 0
         for therapy_result_item in therapy_result:
-            print(datetime.fromisoformat(str(therapy_result_item.recipe_date)))
-            if datetime.fromisoformat(str(therapy_result_item.recipe_date)) >= datetime.fromisoformat('2021-01-01'):
+            x = therapy_result_item.recipe_date
+            d1 = datetime.datetime(x.year, x.month, x.day)
+            d2 = datetime.datetime(2021, 1, 1)
+            if d1 >= d2:
                 process_result_count = Process_report.objects.filter(
                     therapy_id=therapy_result_item.id).count() + process_result_count
             therapy_result[i].single = Process_report.objects.filter(therapy_id=therapy_result_item.id).count()
