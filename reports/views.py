@@ -269,7 +269,7 @@ def edit_therapist(request, id=None):
         return redirect('/reports/therapist/' + str(item.id) + '/')
     logger.debug('edit_therapist: Bearbeitungsformular aufgerufen ID: ' + id)
     form.id = item.id
-    return render(request, 'reports/diagnostic_group_form.html', {'form': form})
+    return render(request, 'reports/therapist_form.html', {'form': form})
 
 @login_required
 def therapist(request, id=id):
