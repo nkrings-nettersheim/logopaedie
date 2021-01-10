@@ -1,10 +1,11 @@
 import io
 import os
 import logging
-from datetime import datetime
+import datetime
+#from datetime import datetime
 #from dateutil import rrule
 from html import escape
-import datetime
+
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
 from django.contrib.auth.models import User
@@ -930,7 +931,7 @@ def show_process_report(request):
     if therapy_end_value != '' and therapy_start_value is not None:
         p.drawString(18.3 * cm, 26.5 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
     p.setFont('Helvetica', 8)
-    p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.now().strftime("%d.%m.%Y %H:%M")))
+    p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M")))
 
     # initiate data list
     data = []

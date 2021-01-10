@@ -260,6 +260,7 @@ body {
 
 #therapy_current_result {
     position: absolute;
+    font-size: 10pt;
     left: 1.8cm;
     top: 12.7cm;
     width: 18cm;
@@ -276,6 +277,7 @@ body {
 
 #therapy_emphases {
     position: absolute;
+    font-size: 10pt;
     left: 1.8cm;
     top: 15.7cm;
     width: 18cm;
@@ -292,6 +294,7 @@ body {
 
 #therapy_forecast {
     position: absolute;
+    font-size: 10pt;
     left: 1.8cm;
     top: 18.7cm;
     width: 18cm;

@@ -925,6 +925,7 @@ class TherapyReportForm(forms.ModelForm):
     therapy_re_introduction = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
     therapy_re_introduction_weeks = forms.IntegerField(required=False,
+                                                       initial=0,
                                                        widget=forms.NumberInput(
                                                        )
                                                        )
