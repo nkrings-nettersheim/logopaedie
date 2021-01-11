@@ -925,10 +925,10 @@ def show_process_report(request):
     p.setFont('Helvetica', 10)
     p.drawString(1.5 * cm, 26.5 * cm, "Bericht: ")
     p.drawString(13 * cm, 26.5 * cm, "Behandlung von: ")
-    # assert False
+
     if therapy_start_value != '' and therapy_start_value is not None:
         p.drawString(15.8 * cm, 26.5 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
-    if therapy_end_value != '' and therapy_start_value is not None:
+    if therapy_end_value != '' and therapy_end_value is not None:
         p.drawString(18.3 * cm, 26.5 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
     p.setFont('Helvetica', 8)
     p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M")))
