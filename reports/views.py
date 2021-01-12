@@ -53,6 +53,7 @@ logger = logging.getLogger(__name__)
 def index(request):
     #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Indexseite wurde geladen')
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     form = IndexForm()
     #print(request.session.get_expiry_date())
     #print(request.session._session_key)
@@ -361,6 +362,7 @@ def diagnostic_group(request, id=id):
 @login_required
 def search_patient(request):
     #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
 
     # logger.info("User: " + str(request.user))
     if request.method == 'POST':
@@ -506,6 +508,7 @@ def search_patient(request):
 @login_required
 def add_patient(request):
     #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
@@ -523,6 +526,7 @@ def add_patient(request):
 @login_required
 def edit_patient(request, id=None):
     #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Patient, id=id)
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -537,6 +541,7 @@ def edit_patient(request, id=None):
 @login_required
 def patient(request, id=id):
     #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     try:
         patient_result = Patient.objects.get(id=id)
         patient_helper = patient_result.id
@@ -740,6 +745,7 @@ def edit_therapy_something(request, id=None):
 @login_required
 def add_therapy(request):
     #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = TherapyForm(request.POST)
         patient_result = Patient.objects.get(id=request.POST.get('patients'))
@@ -761,6 +767,7 @@ def add_therapy(request):
 
 @login_required
 def edit_therapy(request, id=None):
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Therapy, id=id)
     form = TherapyForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -794,6 +801,7 @@ def edit_therapy(request, id=None):
 
 @login_required
 def therapy(request, id=id):
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapy_result = Therapy.objects.get(id=id)
     patient_value = Patient.objects.get(id=str((therapy_result.patients_id)))
     process_report_value = Process_report.objects.filter(therapy_id=id).order_by('-process_treatment')
@@ -1220,7 +1228,7 @@ def getSessionTimer(request):
 
 @login_required
 def getOpenReports(request):
-
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
         therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
@@ -1254,7 +1262,8 @@ def getOpenReports(request):
     return render(request, 'getOpenReports.html', {'form': context})
 
 @receiver(user_logged_in)
-def post_login(sender, user, **kwargs):
+def post_login(sender, request, user, **kwargs):
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
     try:
         Login_Failed.objects.filter(user_name=user).delete()
@@ -1264,6 +1273,8 @@ def post_login(sender, user, **kwargs):
 
 @receiver(user_logged_out)
 def post_logout(sender, request, user, **kwargs):
+    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}; Logout")
+
     try:
         logger.info('{:>2}'.format(user.id) + ' ausgeloggt')
     except:
