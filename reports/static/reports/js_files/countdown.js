@@ -17,11 +17,14 @@ function CheckDate(elementValue, element) {
 function logopakt_makeTimer(logopakt_endTime) {
 
     logopakt_endTime = (Date.parse(logopakt_endTime) / 1000);
+    //console.log('logopakt_endTime: ' + logopakt_endTime)
 
     var logopakt_now = new Date();
     logopakt_now = (Date.parse(logopakt_now) / 1000);
+    //console.log('logopakt_now: ' + logopakt_now)
 
     var logopakt_timeLeft = logopakt_endTime - logopakt_now - 5;
+    //console.log('logopakt_timeLeft: ' + logopakt_timeLeft)
 
     var days = Math.floor(logopakt_timeLeft / 86400);
     var hours = Math.floor((logopakt_timeLeft - (days * 86400)) / 3600);
@@ -45,8 +48,31 @@ function logopakt_makeTimer(logopakt_endTime) {
 
 $(document).ready(function(){
     var logopakt_endTime = new Date();
+    //console.log('logopakt_endTime0: ' + logopakt_endTime)
+
     $.get("/reports/getSessionTimer", function(data, status){
+      //console.log('getSessionTimer ' +  data)
       logopakt_endTime = data;
+      console.log('logopakt_endTime1: ' +  logopakt_endTime)
     });
-	logopakt_myTimer = setInterval(function() { logopakt_makeTimer(logopakt_endTime); }, 1000);
+
+    if (document.getElementById('openreports') != null) {
+      //console.log('getOpenReports')
+      $.get("/reports/getOpenReports", function(data, status){
+                  $("#openreports").html(data);
+             });
+    }
+
+	logopakt_myTimer = setInterval(function() {
+	       //console.log('Aktuelle Zeit    : ' + new Date())
+	       //console.log('logopakt_endTime2: ' + logopakt_endTime)
+	       if (logopakt_endTime <= new Date()) {
+	          var t = new Date();
+	          t.setSeconds(t.getSeconds() + 1800);
+	          logopakt_endTime = t;
+	       }
+	       logopakt_makeTimer(logopakt_endTime);
+	       }, 1000
+       );
+
 });
