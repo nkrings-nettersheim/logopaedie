@@ -26,12 +26,14 @@
           <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Diagnose</a>
         {% endif %}
       </li>
+<!--
       <li class="nav-item">
         {% if ts.therapy_id %}
             <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_something' ts.id%}" role="button">Sonstiges</a>
         {% else %}
             <a class="btn btn-primary btn-sm" href="{% url 'reports:add_something' %}?id={{ therapy.id }}" role="button">Sonstiges</a>
         {% endif %}
+-->
       </li>
       <li class="nav-item">
           <a class="btn btn-primary btn-sm" href="{% url 'reports:document_therapy' %}?id={{ therapy.id }}" role="button">Dokumente</a>
@@ -164,6 +166,7 @@
                 <a class="nav-link" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Diagnose</a>
               {% endif %}
           </li>
+<!--
           <li class="nav-item">
               {% if request.GET.window == "2" %}
                 <a class="nav-link active" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
@@ -171,6 +174,7 @@
                 <a class="nav-link" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
               {% endif %}
           </li>
+-->
           <li class="nav-item">
               {% if request.GET.window == "3" %}
                 <a class="nav-link active" id="verlauf-tab" data-toggle="tab" href="#verlauf" role="tab" aria-controls="verlauf" aria-selected="false">Verlauf</a>
@@ -365,6 +369,10 @@
               <div class="row bg-secondary">
                   <div class="col-sm-2 text-white">Therapiebericht {% if therapy_report.therapy_id %}<a class="text-white" href="{% url 'reports:edit_therapy_report' therapy_report.id%}">(ändern)</a>{% endif %}</div>
                   <div class="col-sm-10"></div>
+              </div>
+              <div class="row bg-white ">
+                  <div class="col-sm-2">kein Bericht erforderlich:</div>
+                  <div class="col-sm-10"><strong>{% if therapy_report.therapy_necessary %} X {% endif %}</strong></div>
               </div>
               <div class="row bg-white ">
                   <div class="col-sm-2">Berichtsdatum:</div>

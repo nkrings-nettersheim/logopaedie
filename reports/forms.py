@@ -327,6 +327,28 @@ class PatientForm(forms.ModelForm):
             raise forms.ValidationError("Das Geburtsdatum darf nicht in der Zukunft liegen.")
         return birthday
 
+
+    def clean(self):
+        cleaned_data = super(PatientForm, self).clean()
+        cell_phone_sms = cleaned_data['pa_cell_phone_sms']
+        sms_yes_no = cleaned_data['pa_sms_no_yes']
+        email = cleaned_data['pa_email']
+        email_no_yes = cleaned_data['pa_email_no_yes']
+        invoice_mail = cleaned_data['pa_invoice_mail']
+
+
+        if cell_phone_sms == '' and sms_yes_no == False:
+           self.add_error('pa_cell_phone_sms', forms.ValidationError("Bitte SMS Nummer erfassen."))
+
+        if email == '' and email_no_yes == False:
+           self.add_error('pa_email', forms.ValidationError("Bitte E-Mail erfassen."))
+
+        if email == '' and invoice_mail == True:
+           self.add_error('pa_invoice_mail', forms.ValidationError("Rechnung per E-Mail ohne E-Mail Adresse geht nicht ;-)"))
+
+        return self.cleaned_data
+
+
     pa_first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -501,6 +523,18 @@ class PatientForm(forms.ModelForm):
     pa_active_no_yes = forms.NullBooleanField(required=False, initial=True,
                                               widget=forms.CheckboxInput)
 
+    pa_invoice_mail = forms.NullBooleanField(required=True,
+                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
+                                                      widget=forms.NullBooleanSelect)
+
+
+    pa_sms_no_yes = forms.NullBooleanField(required=False, initial=False,
+                                              widget=forms.CheckboxInput)
+
+    pa_email_no_yes = forms.NullBooleanField(required=False, initial=False,
+                                              widget=forms.CheckboxInput)
+
+
     class Meta:
         model = Patient
         fields = ['pa_first_name',
@@ -518,7 +552,10 @@ class PatientForm(forms.ModelForm):
                   'pa_attention',
                   'pa_allergy',
                   'pa_note',
-                  'pa_active_no_yes'
+                  'pa_active_no_yes',
+                  'pa_invoice_mail',
+                  'pa_sms_no_yes',
+                  'pa_email_no_yes'
                   ]
 
 
@@ -954,6 +991,8 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_home_visit = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
+    therapy_necessary = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
     class Meta:
         model = Therapy_report
         fields = ['therapy_start',
@@ -978,7 +1017,8 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_frequence_count_per_week',
                   'therapy_another',
                   'therapy_another_text',
-                  'therapy_home_visit']
+                  'therapy_home_visit',
+                  'therapy_necessary']
 
 
 class InitialAssessmentForm(forms.ModelForm):
