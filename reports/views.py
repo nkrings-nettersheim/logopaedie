@@ -1258,7 +1258,7 @@ def getSessionTimer(request):
     sessionTimer = request.session.get_expiry_date()
     sessionTimer = sessionTimer.isoformat()
     context = {'getSessionTimer': str(sessionTimer)}
-    logger.debug("getSessionTimer: " + str(sessionTimer))
+    logger.info('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
 
     return render(request, 'getSessionTimer.html', {'form': context})
 
@@ -1309,7 +1309,7 @@ def post_login(sender, request, user, **kwargs):
 
 @receiver(user_logged_out)
 def post_logout(sender, request, user, **kwargs):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}; Logout")
+    logger.info(f"Post_logout: User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}; Logout")
 
     try:
         logger.info('{:>2}'.format(user.id) + ' ausgeloggt')
