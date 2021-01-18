@@ -1,0 +1,174 @@
+/* @charset "UTF-8"; */
+/* @import url("https://fonts.googleapis.com/css?family=Pacifico|Source+Sans+Pro:400,700"); */
+
+@page {
+    size: A4 portrait;
+    margin-top: 0cm;
+    margin-left: 0cm;
+    margin-right: 0cm;
+    margin-bottom: 0cm;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 10pt;
+}
+
+
+
+#header {
+    position: absolute;
+    left: 7cm;
+    top: 1.0cm;
+    font-family: "Times New Roman";
+    font-size: 16pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#recipe {
+    position: absolute;
+    left: 1.2cm;
+    top: 2.0cm;
+    font-family: "Times New Roman";
+    font-size: 10pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#report {
+    position: absolute;
+    left: 1.2cm;
+    top: 2.4cm;
+    font-family: "Times New Roman";
+    font-size: 10pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#patient {
+    position: absolute;
+    left: 12.5cm;
+    top: 2.0cm;
+    font-family: "Times New Roman";
+    font-size: 10pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#treatment {
+    position: absolute;
+    left: 12.5cm;
+    top: 2.4cm;
+    font-family: "Times New Roman";
+    font-size: 10pt;
+    font-weight: bold;
+    color: #777777;
+}
+#line1 {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.5cm;
+    width : 90%;
+    text-align: center;
+    margin: 0 0 0 0;
+    border-bottom : 1px solid #888888;
+}
+
+#tbl_header1 {
+    position: absolute;
+    left: 1.2cm;
+    top: 3.2cm;
+    font-size: 10pt;
+    color: #AAAAAA;
+}
+
+#tbl_header2 {
+    position: absolute;
+    left: 2.4cm;
+    top: 3.2cm;
+    font-size: 10pt;
+    color: #AAAAAA;
+}
+
+#tbl_header3 {
+    position: absolute;
+    left: 15.4cm;
+    top: 3.2cm;
+    font-size: 10pt;
+    color: #AAAAAA;
+}
+
+#tbl_header4 {
+    position: absolute;
+    left: 18.5cm;
+    top: 3.2cm;
+    font-size: 10pt;
+    color: #AAAAAA;
+}
+
+.table_content {
+    position: relative;
+    width: 90%;
+    top: 4.0cm;
+    left: 1.0cm;
+}
+
+.td1 {
+    width: 1.0cm;
+    vertical-align: top;
+}
+
+.td2 {
+    width: 13.0cm;
+    vertical-align: top;
+}
+
+.td3 {
+    width: 3.0cm;
+    vertical-align: top;
+}
+.td4 {
+    width: 3.0cm;
+    vertical-align: top;
+}
+
+#tbl_content1 {
+    position: relative;
+    left: 1.2cm;
+
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+#tbl_content2 {
+    position: relative;
+    left: 2.3cm;
+    width: 10cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+#tbl_content3 {
+    position: static;
+    left: 14.0cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+#tbl_content4 {
+    position: relative;
+    left: 18.0cm;
+    top: 4.0cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+
+#print_date {
+    position: absolute;
+    left: 1.2cm;
+    top: 29.0cm;
+    font-size: 8pt;
+    font-weight: bold;
+}

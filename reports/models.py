@@ -66,7 +66,9 @@ class Patient(models.Model):
     pa_active_no_yes = models.BooleanField(default=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
-
+    pa_invoice_mail = models.BooleanField(default=False, null=True)
+    pa_sms_no_yes = models.BooleanField(default=False, null=True)
+    pa_email_no_yes = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city
@@ -134,6 +136,7 @@ class Therapy_report(models.Model):
     therapy_another = models.BooleanField(default=False)
     therapy_another_text = models.CharField(max_length=25, default='')
     therapy_home_visit = models.BooleanField(default=False)
+    therapy_necessary = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.report_date)

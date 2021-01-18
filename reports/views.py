@@ -361,10 +361,8 @@ def diagnostic_group(request, id=id):
 
 @login_required
 def search_patient(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
 
-    # logger.info("User: " + str(request.user))
     if request.method == 'POST':
         form = IndexForm(request.POST)
         if form.is_valid():
@@ -507,7 +505,6 @@ def search_patient(request):
 
 @login_required
 def add_patient(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = PatientForm(request.POST)
@@ -525,7 +522,6 @@ def add_patient(request):
 
 @login_required
 def edit_patient(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Patient, id=id)
     form = PatientForm(request.POST or None, instance=item)
@@ -540,7 +536,6 @@ def edit_patient(request, id=None):
 
 @login_required
 def patient(request, id=id):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     try:
         patient_result = Patient.objects.get(id=id)
@@ -576,6 +571,7 @@ def patient(request, id=id):
                 therapy_result[i].therapy_end = therapy_report_result[0].therapy_end
                 therapy_result[i].report_date = therapy_report_result[0].report_date
                 therapy_result[i].report_id = therapy_report_result[0].id
+                therapy_result[i].necessary = therapy_report_result[0].therapy_necessary
             except:
                 logger.debug("Try Exception")
             i = i + 1
@@ -976,6 +972,7 @@ def show_process_report(request):
             cresult = Paragraph((escape(item[9])), styleNC)
             data.append([ctreatment, ccontent, cexercises, cresult])
 
+
     # create table
     table = Table(data, colWidths=[1.5 * cm, 10 * cm, 5.5 * cm,
                                    1.7 * cm])
@@ -989,7 +986,7 @@ def show_process_report(request):
     table.drawOn(p, *coord(1.5, 3.5, height - h, cm))
 
     # Close the PDF object cleanly, and we're done.
-    p.showPage()
+    #p.showPage()
     p.save()
 
     # FileResponse sets the Content-Disposition header so that browsers
@@ -999,7 +996,49 @@ def show_process_report(request):
     file_name = pa_last_name + "_" + pa_first_name + "_" + str(therapy_value.recipe_date) + ".pdf"
     return FileResponse(buffer, as_attachment=True, filename=file_name)
 
+@login_required
+def show_process_report2(request):
+    therapy_start_value = ''
+    therapy_end_value = ''
+    id = request.GET.get('id')
+    logger.info('{:>2}'.format(request.user.id) + ' show_process_report2: Verlaufsreport mit ID: ' + id + ' gedruckt')
+    therapy_value = Therapy.objects.get(id=id)
+    therapy_value.pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
+    therapy_value.pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
+    therapy_value.print_date = datetime.datetime.now()
+    if Therapy_report.objects.filter(therapy=id):
+        therapy_report_value = Therapy_report.objects.get(therapy=id)
+        therapy_value.therapy_start_value = therapy_report_value.therapy_start
+        therapy_value.therapy_end_value = therapy_report_value.therapy_end
 
+    #process_report_value = Process_report.objects.values_list('process_treatment',
+    #                                                          'process_content',
+    #                                                          'process_exercises',
+    #                                                          'process_results',
+    #                                                          'process_content_2',
+    #                                                          'process_exercises_2',
+    #                                                          'process_results_2',
+    #                                                          'process_content_3',
+    #                                                          'process_exercises_3',
+    #                                                          'process_results_3'
+    #                                                          ).filter(therapy=id)
+
+    process_report_value = Process_report.objects.filter(therapy=id)
+
+    process_report_value.static_root = settings.STATIC_ROOT
+
+    filename = "Verlauf_" + therapy_value.pa_last_name + "_" + therapy_value.pa_first_name + "_" + str(therapy_value.recipe_date) + ".pdf"
+
+    html_string = render_to_string('pdf_templates/process_report.html', {'therapy': therapy_value,
+                                                                         'process': process_report_value
+                                                                         })
+
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + '/reports/process_report.css')])
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=' + filename
+
+    return response
 ##########################################################################
 # Area Therapyreport (in German: Therapiebericht)
 ##########################################################################
@@ -1062,12 +1101,9 @@ def show_therapy_report(request):
     result.recipe_date = Therapy.objects.get(id=id).recipe_date
     result.process_count = Process_report.objects.filter(therapy=id).count()
     result.static_root = settings.STATIC_ROOT
-    #if result.therapy_break_date:
-    #    result.therapy_re_introduction_weeks = rrule.rrule(rrule.WEEKLY, dtstart=result.report_date, until=result.therapy_break_date).count()
 
     filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
-    #print(therapy_result.diagnostic_group.diagnostic_key)
-    #assert False
+
     html_string = render_to_string('pdf_templates/therapy_report.html', {'therapy': therapy_result,
                                                                          'result': result,
                                                                          'doctor': doctor_result

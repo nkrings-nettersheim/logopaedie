@@ -40,6 +40,13 @@
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>
         </div>
+        <div class="form-group row">
+            <label for="{{ form.therapy_necessary.id_for_label }}" class="col-sm-2 control-label">kein Bericht erforderlich: </label>
+            <div class="col-sm-9">
+                {{ form.therapy_necessary }}
+                {{ form.therapy_necessary.errors }}
+            </div>
+        </div>
         {% if request.user.groups.all.0.name == 'Leitung' %}
         <div class="form-group row">
             <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Versanddatum: </label>
