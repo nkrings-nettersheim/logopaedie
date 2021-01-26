@@ -378,6 +378,10 @@
                   <div class="col-sm-2">Berichtsdatum:</div>
                   <div class="col-sm-10"><strong>{{ therapy_report.report_date }}</strong></div>
               </div>
+              <div class="row bg-white ">
+                  <div class="col-sm-2">Wiedervorstellung (intern):</div>
+                  <div class="col-sm-10"><strong>{% if therapy_report.therapy_break_internal %} X {% endif %}</strong></div>
+              </div>
               <div class="row bg-light">
                   <div class="col-sm-2">Aktueller Stand:</div>
                   <div class="col-sm-7">{{ therapy_report.therapy_current_result | safe }}</div>

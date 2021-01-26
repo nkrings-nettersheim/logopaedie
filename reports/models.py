@@ -119,6 +119,7 @@ class Therapy_report(models.Model):
     therapy_forecast = RichTextField()
     therapy_indicated = models.BooleanField(default=False)
     therapy_break = models.BooleanField(default=False)
+    therapy_break_internal = models.BooleanField(default=False)
     therapy_break_date = models.DateField(blank=True, default='1900-01-01', null=True, auto_now=False, auto_now_add=False)
     therapy_comment = models.CharField(max_length=255, default='')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE)

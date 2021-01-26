@@ -26,12 +26,12 @@
     {% endif %}
     {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:search_therapist_start' %}" >Therapeut suchen</a>
+        <a class="nav-link" href="{% url 'reports:search_therapist_start' %}" >TP suchen</a>
       </li>
     {% endif %}
     {% if request.user.groups.all.0.name == 'Leitung' %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:add_therapist' %}" >Therapeut anlegen</a>
+        <a class="nav-link" href="{% url 'reports:add_therapist' %}" >TP anlegen</a>
       </li>
     {% endif %}
     {% if request.user.groups.all.0.name == 'Leitung' %}
@@ -44,8 +44,11 @@
         <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
       </li>
     {% endif %}
-    <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:open_reports' %}" >Offene Berichte: <div id="openreports" class="nav-link inline"></div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'reports:therapy_breaks' %}" >Wiedervorst.: <div id="therapy_break" class="nav-link inline"></div></a>
       </li>
     </ul>
   </div>

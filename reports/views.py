@@ -21,7 +21,7 @@ from django.conf import settings
 from django.views import generic
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, F
 from django.core.mail import send_mail
 
 from reportlab.lib import colors
@@ -82,7 +82,6 @@ class PatientView(generic.ListView):
 ##########################################################################
 @login_required
 def open_reports(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
         therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
@@ -113,9 +112,42 @@ def open_reports(request):
                     ' Quotient: ' + str(quotient) +
                     ' report_date_value: ' + str(report_date_value))
 
-    #assert False
     logger.debug('Open_Reports wurde geladen')
     return render(request, 'reports/open_reports.html', {'reports': reports_list})
+
+
+##########################################################################
+# therapy_breaks_internal
+##########################################################################
+@login_required
+def therapy_breaks(request):
+#    therapy_reports = Therapy_report.objects.select_related('therapy__patients').select_related('therapy__therapists').filter(therapy_break=True)
+    if request.user.groups.filter(name='Leitung').exists():
+        therapy_reports = Therapy_report.objects. \
+            select_related('therapy__patients'). \
+            select_related('therapy__therapists'). \
+            filter(therapy_break_internal=True,
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                   therapy__patients__pa_active_no_yes=True).order_by('therapy_end')
+    else:
+        therapy_reports = Therapy_report.objects. \
+            select_related('therapy__patients'). \
+            select_related('therapy__therapists'). \
+            filter(therapy_break_internal=True,
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                   therapy__therapists__tp_user_logopakt=str(request.user),
+                   therapy__patients__pa_active_no_yes=True).order_by('therapy_end')
+
+    logger.debug('Open_Reports wurde geladen')
+    return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports})
+
+def update_report(request, id=None):
+    report = get_object_or_404(Therapy_report, id=id)
+    if report:
+        report.therapy_break_internal = False
+        report.save(update_fields=['therapy_break_internal'])
+        return redirect('/reports/therapy_breaks/')
+    return redirect('/reports/therapy_breaks/')
 
 
 ##########################################################################
@@ -1262,8 +1294,11 @@ def getSessionTimer(request):
 
     return render(request, 'getSessionTimer.html', {'form': context})
 
+class openContext:
+    pass
+
 @login_required
-def getOpenReports(request):
+def getOpenReports(request, context=None):
     logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
@@ -1291,11 +1326,31 @@ def getOpenReports(request):
                 tp_item.pa_first_name = patient_value[0].pa_first_name
                 reports_list.append(tp_item)
 
+    #Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
+
+    if request.user.groups.filter(name='Leitung').exists():
+        therapybreak_count = Therapy_report.objects.\
+            select_related('therapy__patients').\
+            filter(therapy_break_internal=True,
+                    therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                    therapy__patients__pa_active_no_yes=True).count()
+    else:
+        therapybreak_count = Therapy_report.objects.\
+            select_related('therapy__patients').\
+            filter(therapy_break_internal=True,
+                    therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                    therapy__therapists__tp_user_logopakt=str(request.user),
+                    therapy__patients__pa_active_no_yes=True).count()
+
+
     openReports = len(reports_list)
-    context = {'getOpenReports': str(openReports)}
+
+    #context = {'getOpenReports': str(openReports)}
+    openContext.getOpenReports = str(openReports)
+    openContext.therapybreak_count = str(therapybreak_count)
     logger.info('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
 
-    return render(request, 'getOpenReports.html', {'form': context})
+    return render(request, 'getOpenReports.html', {'form': openContext})
 
 @receiver(user_logged_in)
 def post_login(sender, request, user, **kwargs):

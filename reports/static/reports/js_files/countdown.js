@@ -41,7 +41,7 @@ function logopakt_makeTimer(logopakt_endTime) {
 
     if (logopakt_timeLeft < 0) {
         clearInterval(logopakt_myTimer);
-        window.location = "/accounts/logout/";
+        //window.location = "/accounts/logout/";
     }
 
 }
@@ -59,7 +59,9 @@ $(document).ready(function(){
     if (document.getElementById('openreports') != null) {
       //console.log('getOpenReports')
       $.get("/reports/getOpenReports", function(data, status){
-                  $("#openreports").html(data);
+                  result = data.split('|')
+                  $("#openreports").html(result[0]);
+                  $("#therapy_break").html(result[1]);
              });
     }
 
