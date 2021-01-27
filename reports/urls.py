@@ -63,6 +63,9 @@ urlpatterns = [
 
     path('open_reports/', views.open_reports, name='open_reports'),
 
+    path('therapy_breaks/', views.therapy_breaks, name='therapy_breaks'),
+    path('update_report/<id>', views.update_report, name='update_report'),
+
     path('getSessionTimer/', views.getSessionTimer, name='getSessiontimer'),
     path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
 

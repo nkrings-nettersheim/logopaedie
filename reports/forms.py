@@ -919,7 +919,16 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_indicated = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
+    #therapy_break = forms.NullBooleanField(required=False,
+    #                                       widget=forms.CheckboxInput(
+    #                                               attrs={
+    #                                                   'onchange': "change_necessary_button();"
+    #                                               }
+    #                                           )
+    #                                       )
     therapy_break = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    therapy_break_internal = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
     #therapy_break_date = forms.DateField(required=False,
     #                                     widget=forms.DateInput(
@@ -991,7 +1000,8 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_home_visit = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    therapy_necessary = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+    therapy_necessary = forms.NullBooleanField(required=False,  widget=forms.CheckboxInput)
+
 
     class Meta:
         model = Therapy_report
@@ -1003,6 +1013,7 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_forecast',
                   'therapy_indicated',
                   'therapy_break',
+                  'therapy_break_internal',
                   #'therapy_break_date',
                   'therapy_comment',
                   'therapy',

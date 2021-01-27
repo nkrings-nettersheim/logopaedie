@@ -3,6 +3,34 @@
 {% block extrahead %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <script>
+    window.onload = function () {
+        var x = document.getElementById("id_therapy_break");
+        if (x.checked == 1){
+          document.getElementById("help_check_necessary").checked = true;
+        } else {
+          document.getElementById("help_check_necessary").checked = false;
+        }
+    }
+
+    function change_necessary_top() {
+          if (document.getElementById('help_check_necessary').checked)
+          {
+              document.getElementById('id_therapy_break').checked = true;
+          } else {
+              document.getElementById('id_therapy_break').checked = false;
+          }
+        }
+
+    function change_necessary_button() {
+          if (document.getElementById('id_therapy_break').checked)
+          {
+              document.getElementById('help_check_necessary').checked = true;
+          } else {
+              document.getElementById('help_check_necessary').checked = false;
+          }
+        }
+    </script>
 {% endblock %}
 
 {% block nav %}
@@ -42,9 +70,14 @@
         </div>
         <div class="form-group row">
             <label for="{{ form.therapy_necessary.id_for_label }}" class="col-sm-2 control-label">kein Bericht erforderlich: </label>
-            <div class="col-sm-9">
+            <div class="col-sm-2">
                 {{ form.therapy_necessary }}
                 {{ form.therapy_necessary.errors }}
+            </div>
+            <label for="{{ form.therapy_break_internal.id_for_label }}" class="col-sm-2 control-label">Wiedervorstellung (intern): </label>
+            <div class="col-sm-6">
+                {{ form.therapy_break_internal }}
+                {{ form.therapy_break_internal.errors }}
             </div>
         </div>
         {% if request.user.groups.all.0.name == 'Leitung' %}

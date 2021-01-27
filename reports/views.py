@@ -21,7 +21,7 @@ from django.conf import settings
 from django.views import generic
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, F
 from django.core.mail import send_mail
 
 from reportlab.lib import colors
@@ -51,18 +51,13 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def index(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Indexseite wurde geladen')
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     form = IndexForm()
-    #print(request.session.get_expiry_date())
-    #print(request.session._session_key)
-
     return render(request, 'reports/index.html', {'form': form})
 
 
 def impressum(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Impressumseite aufgerufen')
     return render(request, 'reports/impressum.html')
 
@@ -82,7 +77,6 @@ class PatientView(generic.ListView):
 ##########################################################################
 @login_required
 def open_reports(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
         therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
@@ -113,9 +107,49 @@ def open_reports(request):
                     ' Quotient: ' + str(quotient) +
                     ' report_date_value: ' + str(report_date_value))
 
-    #assert False
     logger.debug('Open_Reports wurde geladen')
     return render(request, 'reports/open_reports.html', {'reports': reports_list})
+
+
+##########################################################################
+# therapy_breaks_internal
+##########################################################################
+@login_required
+def therapy_breaks(request):
+    if request.user.groups.filter(name='Leitung').exists():
+        therapy_reports = Therapy_report.objects. \
+            select_related('therapy__patients'). \
+            select_related('therapy__therapists'). \
+            filter(therapy_break_internal=True,
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-22),
+                   therapy__patients__pa_active_no_yes=True).order_by('therapy_end')
+    else:
+        therapy_reports = Therapy_report.objects. \
+            select_related('therapy__patients'). \
+            select_related('therapy__therapists'). \
+            filter(therapy_break_internal=True,
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-22),
+                   therapy__therapists__tp_user_logopakt=str(request.user),
+                   therapy__patients__pa_active_no_yes=True).order_by('therapy_end')
+
+    time_green = datetime.datetime.now() + datetime.timedelta(days=-22)
+    time_orange = datetime.datetime.now() + datetime.timedelta(days=-52)
+    time_red = datetime.datetime.now() + datetime.timedelta(days=-92)
+    print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
+    logger.debug('Open_Reports wurde geladen')
+    return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
+                                                           'time_green': time_green,
+                                                           'time_orange': time_orange,
+                                                           'time_red': time_red
+                                                           })
+
+def update_report(request, id=None):
+    report = get_object_or_404(Therapy_report, id=id)
+    if report:
+        report.therapy_break_internal = False
+        report.save(update_fields=['therapy_break_internal'])
+        return redirect('/reports/therapy_breaks/')
+    return redirect('/reports/therapy_breaks/')
 
 
 ##########################################################################
@@ -124,7 +158,6 @@ def open_reports(request):
 
 @login_required
 def add_doctor(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = DoctorForm(request.POST)
         if form.is_valid():
@@ -140,14 +173,12 @@ def add_doctor(request):
 
 @login_required
 def search_doctor_start(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Suchmaske Arzt geladen')
     form = SearchDoctorForm()
     return render(request, 'reports/doctor_search.html', {'form': form})
 
 @login_required
 def search_doctor(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     form = SearchDoctorForm()
     if request.method == 'POST':
         name1 = request.POST['name1']
@@ -156,10 +187,6 @@ def search_doctor(request):
             doctors_list = Doctor.objects.filter(Q(doctor_name1__icontains=name1) |
                                                  Q(doctor_name2__icontains=name1) |
                                                  Q(doctor_name3__icontains=name1))
-            # doctors_list_name2 = Doctor.objects.filter(doctor_name2__icontains=name1)
-            # doctors_list.extend(doctors_list_name2)
-            # if len(doctors_list) == 0:
-            #    doctors_list = Doctor.objects.filter(doctor_name2__icontains=name1)
             if len(doctors_list) > 1:
                 logger.debug('search_doctor: mehr als einen Arzt gefunden mit dem Suchbegriff: ' + name1)
                 return render(request, 'reports/doctors.html', {'doctors_list': doctors_list})
@@ -186,7 +213,6 @@ def search_doctor(request):
 
 @login_required
 def edit_doctor(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Doctor, id=id)
     form = DoctorForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -199,7 +225,6 @@ def edit_doctor(request, id=None):
 
 @login_required
 def doctor(request, id=id):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     try:
         doctor_result = Doctor.objects.get(id=id)
         logger.debug('doctor: Arzt mit der ID: ' + id + ' aufgerufen')
@@ -214,7 +239,6 @@ def doctor(request, id=id):
 
 @login_required
 def add_therapist(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = TherapistForm(request.POST)
         if form.is_valid():
@@ -230,14 +254,12 @@ def add_therapist(request):
 
 @login_required
 def search_therapist_start(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     logger.debug('Suchmaske Therapeut geladen')
     form = SearchTherapistForm()
     return render(request, 'reports/therapist_search.html', {'form': form})
 
 @login_required
 def search_therapist(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     form = SearchTherapistForm()
     if request.method == 'POST':
         kuerzel = request.POST['tp_initial']
@@ -262,7 +284,6 @@ def search_therapist(request):
 
 @login_required
 def edit_therapist(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Therapist, id=id)
     form = TherapistForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -275,7 +296,6 @@ def edit_therapist(request, id=None):
 
 @login_required
 def therapist(request, id=id):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     try:
         therapist_result = Therapist.objects.get(id=id)
         logger.debug('therapist: Therapeut mit der ID: ' + id + ' aufgerufen')
@@ -361,7 +381,7 @@ def diagnostic_group(request, id=id):
 
 @login_required
 def search_patient(request):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
 
     if request.method == 'POST':
         form = IndexForm(request.POST)
@@ -505,7 +525,7 @@ def search_patient(request):
 
 @login_required
 def add_patient(request):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
@@ -522,7 +542,7 @@ def add_patient(request):
 
 @login_required
 def edit_patient(request, id=None):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Patient, id=id)
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -536,7 +556,7 @@ def edit_patient(request, id=None):
 
 @login_required
 def patient(request, id=id):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     try:
         patient_result = Patient.objects.get(id=id)
         patient_helper = patient_result.id
@@ -640,7 +660,6 @@ def get_special_phone_design(data):
 ##########################################################################
 @login_required
 def add_pa_something(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = PatientSomethingForm(request.POST)
         if form.is_valid():
@@ -658,7 +677,6 @@ def add_pa_something(request):
 
 @login_required
 def edit_pa_something(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Patient_Something, id=id)
     form = PatientSomethingForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -723,7 +741,6 @@ def add_therapy_something(request):
 
 @login_required
 def edit_therapy_something(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Therapy_Something, id=id)
     form = TherapySomethingForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -740,12 +757,10 @@ def edit_therapy_something(request, id=None):
 
 @login_required
 def add_therapy(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = TherapyForm(request.POST)
         patient_result = Patient.objects.get(id=request.POST.get('patients'))
-       #assert False
         if form.is_valid():
             therapy_item = form.save(commit=False)
             therapy_item.save()
@@ -763,7 +778,7 @@ def add_therapy(request):
 
 @login_required
 def edit_therapy(request, id=None):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Therapy, id=id)
     form = TherapyForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -797,7 +812,7 @@ def edit_therapy(request, id=None):
 
 @login_required
 def therapy(request, id=id):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapy_result = Therapy.objects.get(id=id)
     patient_value = Patient.objects.get(id=str((therapy_result.patients_id)))
     process_report_value = Process_report.objects.filter(therapy_id=id).order_by('-process_treatment')
@@ -829,7 +844,6 @@ def therapy(request, id=id):
 
 @login_required
 def add_process_report(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = ProcessReportForm(request.POST)
         if form.is_valid():
@@ -850,7 +864,6 @@ def add_process_report(request):
 
 @login_required
 def edit_process_report(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Process_report, id=id)
     form = ProcessReportForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -864,7 +877,6 @@ def edit_process_report(request, id=None):
 
 @login_required
 def process_report(request, id=id):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     process_report = Process_report.objects.get(id=id)
     logger.debug('process_report: Verlaufsprotokoll mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/process_report.html', {'process_report': process_report})
@@ -872,7 +884,6 @@ def process_report(request, id=id):
 
 @login_required
 def show_process_report(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     width, height = A4
     styles = getSampleStyleSheet()
     styleN = styles["BodyText"]
@@ -912,8 +923,6 @@ def show_process_report(request):
                                                               'process_exercises_3',
                                                               'process_results_3'
                                                               ).filter(therapy=id)
-    # assert False
-    # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
 
     # Create the PDF object, using the buffer as its "file."
@@ -1045,7 +1054,6 @@ def show_process_report2(request):
 
 @login_required
 def add_therapy_report(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == "POST":
         form = TherapyReportForm(request.POST)
         if form.is_valid():
@@ -1069,7 +1077,6 @@ def add_therapy_report(request):
 
 @login_required
 def edit_therapy_report(request, id=None):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Therapy_report, id=id)
     form = TherapyReportForm(request.POST or None, instance=item)
     if form.is_valid():
@@ -1082,7 +1089,6 @@ def edit_therapy_report(request, id=None):
 
 @login_required
 def therapy_report(request, id=id):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     therapy_report = Therapy_report.objects.get(id=id)
     logger.info('{:>2}'.format(request.user.id) + ' therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
@@ -1123,7 +1129,6 @@ def show_therapy_report(request):
 
 @login_required
 def upload_document(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == 'POST':
         item_form = DocumentForm(request.POST, request.FILES)
         patient_result = Patient.objects.get(id=request.POST.get('patient'))
@@ -1148,7 +1153,6 @@ IMAGE_FILE_TYPES = ['pdf']
 
 @login_required
 def download_document(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == 'GET':
         file_id = request.GET.get('id')
         logger.debug('download_document: Dokument mit file_id: ' + file_id + ' downloaded')
@@ -1169,7 +1173,6 @@ class del_document(DeleteView):
     success_url = reverse_lazy('reports:document')
 
     def post(self, request, *args, **kwargs):
-        #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
         patient_id = request.POST.get('patient_id')
         file_id = kwargs['pk']
         file_info = Document.objects.get(id=file_id)
@@ -1191,7 +1194,6 @@ class del_document(DeleteView):
 
 @login_required
 def upload_document_therapy(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == 'POST':
         item_form = DocumentTherapyForm(request.POST, request.FILES)
         therapy_result = Therapy.objects.get(id=request.POST.get('therapy'))
@@ -1216,7 +1218,6 @@ IMAGE_FILE_TYPES = ['pdf']
 
 @login_required
 def download_document_therapy(request):
-    #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     if request.method == 'GET':
         file_id = request.GET.get('id')
         file_info = Document_therapy.objects.get(id=file_id)
@@ -1235,7 +1236,6 @@ class del_document_therapy(DeleteView):
     success_url = reverse_lazy('reports:document_therapy')
 
     def post(self, request, *args, **kwargs):
-        #request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
         therapy_id = request.POST.get('therapy_id')
         file_id = kwargs['pk']
         file_info = Document_therapy.objects.get(id=file_id)
@@ -1262,9 +1262,12 @@ def getSessionTimer(request):
 
     return render(request, 'getSessionTimer.html', {'form': context})
 
+class openContext:
+    pass
+
 @login_required
-def getOpenReports(request):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+def getOpenReports(request, context=None):
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
         therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
@@ -1291,15 +1294,34 @@ def getOpenReports(request):
                 tp_item.pa_first_name = patient_value[0].pa_first_name
                 reports_list.append(tp_item)
 
+    #Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
+    if request.user.groups.filter(name='Leitung').exists():
+        therapybreak_count = Therapy_report.objects.\
+            select_related('therapy__patients').\
+            filter(therapy_break_internal=True,
+                    therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                    therapy__patients__pa_active_no_yes=True).count()
+    else:
+        therapybreak_count = Therapy_report.objects.\
+            select_related('therapy__patients').\
+            filter(therapy_break_internal=True,
+                    therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                    therapy__therapists__tp_user_logopakt=str(request.user),
+                    therapy__patients__pa_active_no_yes=True).count()
+
+
     openReports = len(reports_list)
-    context = {'getOpenReports': str(openReports)}
+
+    #context = {'getOpenReports': str(openReports)}
+    openContext.getOpenReports = str(openReports)
+    openContext.therapybreak_count = str(therapybreak_count)
     logger.info('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
 
-    return render(request, 'getOpenReports.html', {'form': context})
+    return render(request, 'getOpenReports.html', {'form': openContext})
 
 @receiver(user_logged_in)
 def post_login(sender, request, user, **kwargs):
-    logger.info(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
     try:
         Login_Failed.objects.filter(user_name=user).delete()

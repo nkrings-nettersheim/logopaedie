@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'reports.apps.ReportsConfig',
     'parents.apps.ParentsConfig',
+    'debug_toolbar',
 ]
 
 
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'reports.middleware.IPAccessCheck',
-#    'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 
