@@ -3,6 +3,11 @@
 {% block extrahead %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <style>
+        .btn-sm {
+            padding: 0 10%;
+        }
+    </style>
 {% endblock %}
 
 {% block nav %}
@@ -46,12 +51,20 @@
                 <div class="col-sm-2">
                     <a href="/reports/patient/{{ item.therapy.patients.id }}/">{{ item.therapy.patients.pa_last_name }}, {{ item.therapy.patients.pa_first_name }} </a>
                 </div>
-                <div class="col-sm-2">
                 {% now "Y-m-d" as todays_date %}
-                {% if item.therapy_end|date:"Y-m-d" <= todays_date %}
-                    <strong>{{ item.therapy_end | date:"d. F Y"}} </strong>
-                {% endif %}
+                {% if item.therapy_end|date:"Y-m-d" <= time_red|date:"Y-m-d" %}
+                <div class="col-sm-2 text-danger">
+                    <strong> {{ item.therapy_end |date:"d. F Y"}} </strong>
                 </div>
+                {% elif item.therapy_end|date:"Y-m-d" <= time_orange|date:"Y-m-d" %}
+                <div class="col-sm-2 text-warning">
+                    <strong> {{ item.therapy_end |date:"d. F Y"}} </strong>
+                </div>
+                {% elif item.therapy_end|date:"Y-m-d" <= time_green|date:"Y-m-d" %}
+                <div class="col-sm-2 text-success">
+                    <strong> {{ item.therapy_end |date:"d. F Y"}} </strong>
+                </div>
+                {% endif %}
                 <div class="col-sm-2">
                     {% if request.user.groups.all.0.name == 'Leitung' %}
                         {{ item.therapy.therapists.tp_initial}}
