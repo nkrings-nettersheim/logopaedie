@@ -53,7 +53,7 @@
                 </div>
                 {% now "Y-m-d" as todays_date %}
                 {% if item.therapy_end|date:"Y-m-d" <= time_red|date:"Y-m-d" %}
-                <div class="col-sm-2 text-danger">
+                <div class="col-sm-2 text-success">
                     <strong> {{ item.therapy_end |date:"d. F Y"}} </strong>
                 </div>
                 {% elif item.therapy_end|date:"Y-m-d" <= time_orange|date:"Y-m-d" %}
@@ -61,7 +61,7 @@
                     <strong> {{ item.therapy_end |date:"d. F Y"}} </strong>
                 </div>
                 {% elif item.therapy_end|date:"Y-m-d" <= time_green|date:"Y-m-d" %}
-                <div class="col-sm-2 text-success">
+                <div class="col-sm-2 text-danger">
                     <strong> {{ item.therapy_end |date:"d. F Y"}} </strong>
                 </div>
                 {% endif %}
