@@ -3,6 +3,20 @@
 {% block extrahead %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+    function copySMS() {
+      var copyText = document.getElementById("sms_number").innerText;
+      console.log(copyText)
+      var input_temp = document.createElement("input");
+      input_temp.value = copyText;
+      document.body.appendChild(input_temp);
+      input_temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(input_temp);
+    }
+    </script>
+
 {% endblock %}
 
 {% block nav %}
@@ -83,7 +97,11 @@
             </div>
             <div class="col-sm">
                 {% if patient.pa_cell_phone_sms %}
-                <div class="small inline">SMS-Versand: </div> <strong>  {{ patient.pa_cell_phone_sms }} </strong>
+                <div class="small inline">SMS-Versand: </div>
+                <strong>
+                    <div id="sms_number" class="inline"> {{ patient.pa_cell_phone_sms }} </div>
+                </strong>
+                <button type="button" class="btn-xs btn-primary" onclick="copySMS()"><i class="fa fa-files-o"></i></button>
                 {% else %}
                 <div class="small inline">&nbsp;</div>
                 {% endif %}

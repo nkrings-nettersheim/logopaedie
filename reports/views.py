@@ -565,7 +565,8 @@ def patient(request, id=id):
         patient_result.pa_cell_phone = get_phone_design(patient_result.pa_cell_phone)
         patient_result.pa_cell_phone_add1 = get_special_phone_design(patient_result.pa_cell_phone_add1)
         patient_result.pa_cell_phone_add2 = get_special_phone_design(patient_result.pa_cell_phone_add2)
-        patient_result.pa_cell_phone_sms = get_phone_design(patient_result.pa_cell_phone_sms)
+        patient_result.pa_cell_phone_sms = "#" + patient_result.pa_cell_phone_sms.replace('/', '')
+
 
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
         therapy_result_count = Therapy.objects.filter(patients_id=patient_helper, recipe_date__gte='2021-01-01').count()
