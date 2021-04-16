@@ -878,6 +878,17 @@ def edit_process_report(request, id=None):
 
 
 @login_required
+def delete_process_report(request, id=None):
+    item = get_object_or_404(Process_report, id=id)
+    therapy_id = item.therapy_id
+    if item:
+        item.delete()
+        return redirect('/reports/therapy/' + str(therapy_id) + '/?window=3')
+    else:
+        return redirect('/reports/')
+
+
+@login_required
 def process_report(request, id=id):
     process_report = Process_report.objects.get(id=id)
     logger.debug('process_report: Verlaufsprotokoll mit ID: ' + id + ' anzeigen')

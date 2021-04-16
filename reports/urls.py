@@ -19,10 +19,13 @@ urlpatterns = [
     path('add/therapy/', views.add_therapy, name='add_therapy'),
     path('edit/therapy/<id>/', views.edit_therapy, name='edit_therapy'),
     path('therapy/<id>/', views.therapy, name='therapy'),
+
     path('add/process_report/', views.add_process_report, name='add_process_report'),
     path('edit/process_report/<id>/', views.edit_process_report, name='edit_process_report'),
     path('process_report/<id>/', views.process_report, name='process_report'),
     path('show_process_report/', views.show_process_report, name='show_process_report'),
+    path('delete_process_report/<id>', views.delete_process_report, name='delete_process_report'),
+
     path('add/therapy_report/', views.add_therapy_report, name='add_therapy_report'),
     path('edit/therapy_report/<id>/', views.edit_therapy_report, name='edit_therapy_report'),
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),

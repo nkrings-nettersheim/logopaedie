@@ -3,6 +3,7 @@
 {% block extrahead %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block nav %}
@@ -334,7 +335,16 @@
               </div>
               {% for item in process_report %}
                   <div class="row bg-secondary">
-                      <div class="col-sm text-white">Therapie {{ item.process_treatment }} <a class="text-white" href="{% url 'reports:edit_process_report' item.id %}">(ändern)</a></div>
+                      <div class="col-sm-10 text-white">Therapie {{ item.process_treatment }}
+                          <a class="text-white" href="{% url 'reports:edit_process_report' item.id %}">(ändern)</a>
+                      </div>
+                      {% if request.user.groups.all.0.name == 'Leitung' %}
+                      {% if forloop.first %}
+                        <a href="{% url 'reports:delete_process_report' item.id %}">
+                            <div class="col-sm-2 text-white inline"><i class="fa fa-trash"> Löschen</i></div>
+                        </a>
+                      {% endif %}
+                      {% endif %}
                   </div>
                   <div class="row bg-white ">
                       <div class="col-sm-8">{{ item.process_content|linebreaks }}</div>
