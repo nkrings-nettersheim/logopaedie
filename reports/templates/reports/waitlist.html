@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_waitlist' %}" role="button">Neuer Eintrag</a>
+        </li>
+        {% if status == 'True' %}
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' False%}" role="button">Inaktive</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True%}" role="button">Aktive</a>
+            </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+        </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<content>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {% if status == 'True' %}
+                <h5><center>Aktive Warteliste</center></h5>
+                {% else %}
+                <h5><center>Inaktive Warteliste</center></h5>
+                {% endif %}
+            </div>
+        </div>
+
+        {% for item in waitlist %}
+        <div class="row">
+            <div class="col-sm-12">
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 inline">
+                <div class="small inline">Anrufdatum: </div>
+            </div>
+            <div class="col-sm-4 inline">
+                <div class="small inline">Name: </div>
+            </div>
+            <div class="col-sm-4 inline">
+                <div class="small inline">Ort: </div>
+            </div>
+            <div class="col-sm-2 inline">
+                <div class="small inline">Krankenkasse: </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 inline">
+                <strong>{{ item.wl_call_date}}</strong>
+            </div>
+            <div class="col-sm-4 inline">
+                <strong><a href="{% url 'reports:edit_waitlist' item.id %}">{{ item.wl_last_name}} {{ item.wl_first_name}}</a></strong>
+            </div>
+            {% if 'Nettersheim' in item.wl_city %}
+                <div class="col-sm-4 inline text-success">
+                    <strong>{{ item.wl_city}}</strong>
+                </div>
+            {% else %}
+                <div class="col-sm-4 inline">
+                    <strong>{{ item.wl_city}}</strong>
+                </div>
+            {% endif %}
+            <div class="col-sm-2 inline">
+                <strong>{{ item.get_wl_insurance_display}}</strong>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 inline">
+                <div class="small inline">Einbestellt: </div>
+            </div>
+            <div class="col-sm-10 inline">
+                <div class="small inline">Information: </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 inline">
+                <strong>{{ item.wl_call_for}}</strong>
+            </div>
+
+            <div class="col-sm-10 inline">
+                {{ item.wl_information | safe}}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 inline">
+                <div class="small inline">Telefon: </div>
+            </div>
+            <div class="col-sm-4 inline">
+                <div class="small inline">Mögliche Termine: </div>
+            </div>
+            <div class="col-sm-4 inline">
+                <div class="small inline">Diagnose: </div>
+            </div>
+            <div class="col-sm-2 inline">
+                <div class="small inline">Rezept: </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 inline">
+                {% if item.wl_phone %}
+                    {{ item.wl_phone}}
+                {% endif %}
+                {% if item.wl_cell_phone %}
+                    {{ item.wl_cell_phone}}
+                {% endif %}
+            </div>
+            <div class="col-sm-4 inline">
+                {{ item.wl_appointment}}
+            </div>
+            <div class="col-sm-4 inline">
+                {{ item.wl_diagnostic}}
+            </div>
+            <div class="col-sm-2 inline">
+                {{ item.wl_recipe}}
+            </div>
+
+        </div>
+
+        <div class="row">
+            {% if status == 'True' %}
+            <div class="col-sm-2 inline">
+                    <a href="{% url 'reports:copy_waitlist_item' item.id%}">
+                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"> Patient anlegen</i></button>
+                    </a>
+            </div>
+            <div class="col-sm-8">
+                &nbsp;
+            </div>
+            <div class="col-sm-2 inline">
+                 <a href="{% url 'reports:set_waitlist_item_inactive' item.id%}">
+                       <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-square-o" aria-hidden="true"> Inaktive setzen</i></button>
+                 </a>
+            </div>
+            {% else %}
+
+            {% if request.user.groups.all.0.name == 'Fachadmin' or request.user.groups.all.1.name == 'Fachadmin' or request.user.groups.all.2.name == 'Fachadmin'%}
+            <div class="col-sm-2 inline">
+                    <a href="{% url 'reports:delete_waitlist_item' item.id%}">
+                        <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"> löschen</i></button>
+                    </a>
+            </div>
+            {% else %}
+            <div class="col-sm-2 inline">
+                &nbsp;
+            </div>
+            {% endif %}
+            <div class="col-sm-8">
+                &nbsp;
+            </div>
+            <div class="col-sm-2 inline">
+                 <a href="{% url 'reports:set_waitlist_item_active' item.id%}">
+                       <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"> Aktive setzen</i></button>
+                 </a>
+            </div>
+           {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+</content>
+{% endblock %}

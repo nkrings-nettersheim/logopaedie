@@ -1,11 +1,8 @@
 import datetime
 from django import forms
-# from django.contrib.admin.widgets import AdminDateWidget
-
 from ckeditor.widgets import CKEditorWidget
-
-from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment
-from .models import Document, Document_therapy, Therapy_Something, Patient_Something, Diagnostic_group
+from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, \
+    Document, Document_therapy, Therapy_Something, Patient_Something, Diagnostic_group, Wait_list
 
 
 class IndexForm(forms.Form):
@@ -1290,4 +1287,314 @@ class PatientSomethingForm(forms.ModelForm):
         fields = [
             'pa_something_else',
             'patient'
+        ]
+
+
+class WaitlistForm(forms.ModelForm):
+
+    def clean_wl_phone(self):
+        data = self.cleaned_data['wl_phone']
+        if data:
+            data = data.replace(' ', '')
+            return data
+
+    def clean_wl_cell_phone(self):
+        data = self.cleaned_data['wl_cell_phone']
+        if data:
+            data = data.replace(' ', '')
+            return data
+
+    def clean_wl_cell_phone_add1(self):
+        data = self.cleaned_data['wl_cell_phone_add1']
+        if data:
+            data = data.rsplit("/")
+            rightdata = data[1].rsplit("(")
+            data[0] = data[0].replace(' ', '')
+            rightdata[0] = rightdata[0].replace(' ', '')
+            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            return data
+
+    def clean_wl_cell_phone_add2(self):
+        data = self.cleaned_data['wl_cell_phone_add2']
+        if data:
+            data = data.rsplit("/")
+            rightdata = data[1].rsplit("(")
+            data[0] = data[0].replace(' ', '')
+            rightdata[0] = rightdata[0].replace(' ', '')
+            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            return data
+
+    def clean(self):
+        phone = self.cleaned_data['wl_phone']
+        cell_phone = self.cleaned_data['wl_cell_phone']
+        if phone == None and cell_phone == None:
+            raise forms.ValidationError("Bitte Festnetz oder Mobilfunk erfassen!")
+
+
+    wl_call_date = forms.DateField(
+        required=True,
+        initial=datetime.date.today,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Anrufddatum ...',
+            }
+        )
+    )
+
+    wl_active = forms.NullBooleanField(
+        required=False,
+        initial=True,
+        widget=forms.CheckboxInput
+    )
+
+    wl_call_for = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Einbestellt ...',
+            }
+        )
+    )
+
+    wl_contact_person = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Ansprechpartner ...',
+            }
+        )
+    )
+#    pa_something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
+    wl_information = forms.CharField(widget=CKEditorWidget(config_name='something'))
+
+    GENDER = (
+        ('1', 'weiblich'),
+        ('2', 'männlich'),
+    )
+
+    wl_gender = forms.ChoiceField(
+        required=False,
+        choices=GENDER,
+        label="",
+        initial=1,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control'
+            }
+    ))
+
+    wl_first_name = forms.CharField(
+        required=True,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Vornamen eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_last_name = forms.CharField(
+        required=True,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Nachnamen eingeben ...',
+                'autofocus': 'autofocus',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_street = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Strasse eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_city = forms.CharField(
+        required=False,
+        max_length=255,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Ort eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_date_of_birth = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Alter eingeben ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_phone = forms.CharField(
+        required=False,
+        max_length=35,
+        widget=forms.TextInput(
+            attrs={
+                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'class': 'form-control',
+                'placeholder': 'Format: 02251/11223344'
+            }
+        )
+    )
+
+    wl_cell_phone = forms.CharField(
+        required=False,
+        max_length=35,
+        widget=forms.TextInput(
+            attrs={
+                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'class': 'form-control',
+                'placeholder': 'Format: 0171/12233445'
+            }
+        )
+    )
+
+    wl_cell_phone_add1 = forms.CharField(
+        required=False,
+        max_length=60,
+        widget=forms.TextInput(
+            attrs={
+                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
+                'class': 'form-control',
+                'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
+            }
+        )
+    )
+
+    wl_cell_phone_add2 = forms.CharField(
+        required=False,
+        max_length=60,
+        widget=forms.TextInput(
+            attrs={
+                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
+                'class': 'form-control',
+                'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
+            }
+        )
+    )
+
+    wl_cell_phone_sms = forms.CharField(
+        required=False,
+        max_length=35,
+        widget=forms.TextInput(
+            attrs={
+                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'class': 'form-control',
+                'placeholder': 'Format: 0171/12233445'
+            }
+        )
+    )
+
+    wl_email = forms.EmailField(
+        required=False,
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'E-Mail Adresse erfassen'
+            }
+        )
+    )
+
+    wl_diagnostic = forms.CharField(
+        required=False,
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Diagnose ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_appointment = forms.CharField(
+        required=False,
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Termine? ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    INSURANCE = (
+        ('1', 'unbekannt'),
+        ('2', 'gesetzlich'),
+        ('3', 'privat'),
+    )
+
+    wl_insurance = forms.ChoiceField(
+        required=False,
+        choices=INSURANCE,
+        label="",
+        initial=1,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control'
+            }
+    ))
+
+
+    wl_recipe = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Rezept? ...',
+                'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    class Meta:
+        model = Wait_list
+        fields = [
+            'wl_active',
+            'wl_first_name',
+            'wl_last_name',
+            'wl_street',
+            'wl_city',
+            'wl_phone',
+            'wl_cell_phone',
+            'wl_cell_phone_add1',
+            'wl_cell_phone_add2',
+            'wl_cell_phone_sms',
+            'wl_email',
+            'wl_date_of_birth',
+            'wl_gender',
+            'wl_call_date',
+            'wl_call_for',
+            'wl_contact_person',
+            'wl_information',
+            'wl_diagnostic',
+            'wl_appointment',
+            'wl_insurance',
+            'wl_recipe'
         ]

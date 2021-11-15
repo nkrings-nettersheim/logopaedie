@@ -1,8 +1,3 @@
-import os
-#from datetime import date, timezone
-#from django.utils import timezone
-from datetime import datetime
-
 from django.db import models
 from ckeditor.fields import RichTextField
 
@@ -251,3 +246,40 @@ class Login_Failed(models.Model):
     ipaddress = models.CharField(max_length=100, blank=True, default='')
     user_name = models.CharField(max_length=100, blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+
+
+class Wait_list (models.Model):
+    GENDER = (
+        ('1', 'weiblich'),
+        ('2', 'männlich'),
+    )
+    INSURANCE = (
+        ('1', 'unbekannt'),
+        ('2', 'gesetzlich'),
+        ('3', 'privat'),
+    )
+    wl_active = models.BooleanField(default=True, null=True)
+    wl_first_name = models.CharField(max_length=50)
+    wl_last_name = models.CharField(max_length=50)
+    wl_street = models.CharField(max_length=100)
+    wl_zip_code = models.CharField(max_length=10, default='', null=True)
+    wl_city = models.CharField(max_length=255)
+    wl_phone = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_cell_phone = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_cell_phone_add1 = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_cell_phone_add2 = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_cell_phone_sms = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_email = models.EmailField(max_length=254, blank=True)
+    wl_date_of_birth = models.CharField(max_length=10, blank=True, default='', null=True)
+    wl_gender = models.CharField(max_length=1, choices=GENDER, default='1')
+    wl_call_date = models.DateField(default='1900-01-01')
+    wl_call_for = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_contact_person = models.CharField(max_length=100, blank=True, default='', null=True)
+    wl_information = RichTextField()
+    wl_diagnostic = models.CharField(max_length=200, blank=True, default='', null=True)
+    wl_appointment = models.CharField(max_length=200, blank=True, default='', null=True)
+    wl_insurance = models.CharField(max_length=1, choices=INSURANCE, default='1')
+    wl_recipe = models.CharField(max_length=200, blank=True, default='', null=True)
+
+    def __str__(self):
+        return self.wl_last_name + ' ' + self.wl_first_name + '; ' + self.wl_city

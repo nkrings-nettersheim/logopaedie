@@ -1,21 +1,17 @@
-from django.conf.urls import url
 from django.urls import path
-
 from . import views
-from .views import del_document
-
-
 
 app_name = 'reports'
-
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('impressum/', views.impressum, name='impressum'),
+
     path('search/patient/', views.search_patient, name='search_patient'),
     path('add/patient/', views.add_patient, name='add_patient'),
     path('edit/patient/<id>/', views.edit_patient, name='edit_patient'),
     path('patient/<id>/', views.patient, name='patient'),
+
     path('add/therapy/', views.add_therapy, name='add_therapy'),
     path('edit/therapy/<id>/', views.edit_therapy, name='edit_therapy'),
     path('therapy/<id>/', views.therapy, name='therapy'),
@@ -30,11 +26,13 @@ urlpatterns = [
     path('edit/therapy_report/<id>/', views.edit_therapy_report, name='edit_therapy_report'),
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),
     path('show_therapy_report/', views.show_therapy_report, name='show_therapy_report'),
+
     path('search/doctor/start', views.search_doctor_start, name='search_doctor_start'),
     path('search/doctor/', views.search_doctor, name='search_doctor'),
     path('edit/doctor/<id>/', views.edit_doctor, name='edit_doctor'),
     path('add/doctor/', views.add_doctor, name='add_doctor'),
     path('doctor/<id>/', views.doctor, name='doctor'),
+
     path('search/therapist/start', views.search_therapist_start, name='search_therapist_start'),
     path('search/therapist/', views.search_therapist, name='search_therapist'),
     path('edit/therapist/<id>/', views.edit_therapist, name='edit_therapist'),
@@ -69,8 +67,16 @@ urlpatterns = [
     path('therapy_breaks/', views.therapy_breaks, name='therapy_breaks'),
     path('update_report/<id>', views.update_report, name='update_report'),
 
-    path('getSessionTimer/', views.getSessionTimer, name='getSessiontimer'),
+    path('getSessionTimer/', views.getSessionTimer, name='getSessionTimer'),
     path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
+
+    path('add/waitlist/', views.add_waitlist, name='add_waitlist'),
+    path('edit/waitlist/<id>/', views.edit_waitlist, name='edit_waitlist'),
+    path('waitlist/<status>/', views.waitlist, name='waitlist'),
+    path('copy/waitlistitem/<id>/', views.copy_waitlist_item, name='copy_waitlist_item'),
+    path('delete/waitlistitem/<id>/', views.delete_waitlist_item, name='delete_waitlist_item'),
+    path('set/waitlistitem_inactive/<id>/', views.set_waitlist_item_inactive, name='set_waitlist_item_inactive'),
+    path('set/waitlistitem_active/<id>/', views.set_waitlist_item_active, name='set_waitlist_item_active'),
 
 ]
 
