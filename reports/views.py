@@ -2,20 +2,17 @@ import io
 import os
 import logging
 import datetime
-#from datetime import datetime
-#from dateutil import rrule
-from html import escape
+import locale
 
+from html import escape
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
 from django.contrib.auth.models import User
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.utils.timezone import now
 from django.views.generic import DeleteView
 from django.conf import settings
 from django.views import generic
@@ -36,14 +33,16 @@ from weasyprint import HTML, CSS
 
 from logopaedie.settings import BASE_DIR, X_FORWARD
 
-from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, TherapistForm
-from .forms import SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm
-from .forms import DocumentTherapyForm, PatientSomethingForm, Diagnostic_groupForm, SearchDiagnostic_groupForm
-from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document
-from .models import Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group
+from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, \
+    TherapistForm, SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm, \
+    DocumentTherapyForm, PatientSomethingForm, Diagnostic_groupForm, SearchDiagnostic_groupForm, \
+    WaitlistForm
+
+from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
+    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list
 
 logger = logging.getLogger(__name__)
-
+locale.setlocale(locale.LC_TIME, "de_DE")
 
 ##########################################################################
 # Area start and patient search
@@ -609,53 +608,6 @@ def patient(request, id=id):
         return redirect('/reports/')
 
 
-def get_phone_design(data):
-    charvalue = ''
-    charvalue2 = ''
-
-    if data:
-        data = data.replace(' ', '')
-        data = data.rsplit("/")
-        if len(data[1]) % 2:
-            for char in data[1]:
-                charvalue = charvalue + char
-                charvalue2 = charvalue2 + char
-                if len(charvalue2) % 2:
-                    charvalue = charvalue + " "
-        else:
-            for char in data[1]:
-                charvalue = charvalue + char
-                charvalue2 = charvalue2 + char
-                if not len(charvalue2) % 2:
-                    charvalue = charvalue + " "
-
-        return data[0] + " / " + charvalue
-
-
-def get_special_phone_design(data):
-    charvalue = ''
-    charvalue2 = ''
-    if data:
-        data = data.rsplit("/")
-        rightdata = data[1].rsplit("(")
-        data[0] = data[0].replace(' ', '')
-        rightdata[0] = rightdata[0].replace(' ', '')
-
-        if len(rightdata[0]) % 2:  # rightdata[0] ist die Rufnummer
-            for char in rightdata[0]:
-                charvalue = charvalue + char
-                charvalue2 = charvalue2 + char
-                if len(charvalue2) % 2:
-                    charvalue = charvalue + " "
-        else:
-            for char in rightdata[0]:
-                charvalue = charvalue + char
-                charvalue2 = charvalue2 + char
-                if not len(charvalue2) % 2:
-                    charvalue = charvalue + " "
-
-        data = data[0] + " / " + charvalue + "  (" + rightdata[1]
-        return data
 
 ##########################################################################
 # Area Patient Sonstiges create and change
@@ -1136,6 +1088,115 @@ def show_therapy_report(request):
     return response
 
 
+@login_required
+def add_waitlist(request):
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    if request.method == "POST":
+        form = WaitlistForm(request.POST)
+        if form.is_valid():
+            waitlist_item = form.save(commit=False)
+            waitlist_item.save()
+            logger.info('{:>2}'.format(request.user.id) + ' add_waitlist: Waitlist mit der ID:' + str(
+                waitlist_item.id) + ' gespeichert')
+            return redirect('/reports/edit/waitlist/' + str(waitlist_item.id) + '/')
+        else:
+            print('Problems with form')
+    else:
+        logger.debug('add_waitlist: Formular aufgerufen')
+        form = WaitlistForm()
+    return render(request, 'reports/waitlist_form.html', {'form': form})
+
+
+@login_required
+def edit_waitlist(request, id=None):
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    item = get_object_or_404(Wait_list, id=id)
+    form = WaitlistForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        logger.info('{:>2}'.format(request.user.id) + ' edit_waitlist: Wait_list mit der ID:' + str(item.id) + ' geändert')
+        return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
+    logger.debug('edit_waitlist: Wait-list mit der ID: ' + str(id) + ' zwecks Änderung aufgerufen')
+    form.id = item.id
+    return render(request, 'reports/waitlist_form.html', {'form': form})
+
+
+@login_required
+def waitlist(request, status):
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    waitlist = Wait_list.objects.filter(wl_active=status).order_by('wl_call_date')
+
+    for waitlist_item in waitlist:
+        waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
+        waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
+
+    return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': status})
+
+
+@login_required
+def copy_waitlist_item(request, id=id):
+    #select waitlist object
+    waitlist = get_object_or_404(Wait_list, id=id)
+
+    #create patient_object
+    Patient.objects.create(pa_first_name=waitlist.wl_first_name,
+        pa_last_name=waitlist.wl_last_name,
+        pa_street=waitlist.wl_street,
+        pa_city=waitlist.wl_city,
+        pa_zip_code=waitlist.wl_zip_code,
+        pa_phone=waitlist.wl_phone,
+        pa_cell_phone=waitlist.wl_cell_phone,
+        pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
+        pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
+        pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
+        pa_email=waitlist.wl_email,
+        pa_gender=waitlist.wl_gender
+    )
+
+    #set status waitlist object to False
+    waitlist.wl_active = False
+    waitlist.save()
+
+    #Info to Webfrontwend
+    waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+    return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+
+
+@login_required
+def delete_waitlist_item(request, id=None):
+    item = get_object_or_404(Wait_list, id=id)
+    if item:
+        item.delete()
+        waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+        return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+    else:
+        return redirect('/reports/')
+
+
+@login_required
+def set_waitlist_item_inactive(request, id=None):
+    item = get_object_or_404(Wait_list, id=id)
+    if item:
+        item.wl_active = False
+        item.save()
+    else:
+        logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_inactive: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf inaktive gesetzt werden')
+    waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+    return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+
+
+@login_required
+def set_waitlist_item_active(request, id=None):
+    item = get_object_or_404(Wait_list, id=id)
+    if item:
+        item.wl_active = True
+        item.save()
+    else:
+        logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_active: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf aktive gesetzt werden')
+    waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+    return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+
 ##########################################################################
 # Area Document upload
 ##########################################################################
@@ -1331,6 +1392,56 @@ def getOpenReports(request, context=None):
     logger.info('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
 
     return render(request, 'getOpenReports.html', {'form': openContext})
+
+
+def get_phone_design(data):
+    charvalue = ''
+    charvalue2 = ''
+
+    if data:
+        data = data.replace(' ', '')
+        data = data.rsplit("/")
+        if len(data[1]) % 2:
+            for char in data[1]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+        else:
+            for char in data[1]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if not len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+
+        return data[0] + " / " + charvalue
+
+
+def get_special_phone_design(data):
+    charvalue = ''
+    charvalue2 = ''
+    if data:
+        data = data.rsplit("/")
+        rightdata = data[1].rsplit("(")
+        data[0] = data[0].replace(' ', '')
+        rightdata[0] = rightdata[0].replace(' ', '')
+
+        if len(rightdata[0]) % 2:  # rightdata[0] ist die Rufnummer
+            for char in rightdata[0]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+        else:
+            for char in rightdata[0]:
+                charvalue = charvalue + char
+                charvalue2 = charvalue2 + char
+                if not len(charvalue2) % 2:
+                    charvalue = charvalue + " "
+
+        data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+        return data
+
 
 @receiver(user_logged_in)
 def post_login(sender, request, user, **kwargs):
