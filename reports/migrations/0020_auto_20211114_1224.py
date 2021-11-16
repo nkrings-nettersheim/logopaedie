@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wait_list',
             name='wl_information',
-            field=ckeditor.fields.RichTextField(default='Information'),
+            field=ckeditor.fields.RichTextField(),
             preserve_default=False,
         ),
     ]

@@ -42,7 +42,7 @@ from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Th
     Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list
 
 logger = logging.getLogger(__name__)
-locale.setlocale(locale.LC_TIME, "de_DE")
+locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 
 ##########################################################################
 # Area start and patient search
@@ -1163,15 +1163,22 @@ def copy_waitlist_item(request, id=id):
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 
-@login_required
-def delete_waitlist_item(request, id=None):
-    item = get_object_or_404(Wait_list, id=id)
-    if item:
-        item.delete()
-        waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
-        return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
-    else:
-        return redirect('/reports/')
+#@login_required
+#def delete_waitlist_item(request, id=None):
+#    item = get_object_or_404(Wait_list, id=id)
+#    if item:
+#        item.delete()
+#        waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+#        return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+#    else:
+#        return redirect('/reports/')
+
+class delete_waitlist_item(DeleteView):
+    model = Wait_list
+    template_name = 'reports/waitlist_confirm_delete.html'
+    context_object_name = 'waitlist'
+    success_url = reverse_lazy('reports:waitlist', kwargs=dict(status='False'))
+    #('reports/waitlist/%(status)s/', ['status'])
 
 
 @login_required

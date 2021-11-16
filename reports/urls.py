@@ -74,7 +74,7 @@ urlpatterns = [
     path('edit/waitlist/<id>/', views.edit_waitlist, name='edit_waitlist'),
     path('waitlist/<status>/', views.waitlist, name='waitlist'),
     path('copy/waitlistitem/<id>/', views.copy_waitlist_item, name='copy_waitlist_item'),
-    path('delete/waitlistitem/<id>/', views.delete_waitlist_item, name='delete_waitlist_item'),
+    path('delete/waitlistitem/<pk>/', views.delete_waitlist_item.as_view(), name='delete_waitlist_item'),
     path('set/waitlistitem_inactive/<id>/', views.set_waitlist_item_inactive, name='set_waitlist_item_inactive'),
     path('set/waitlistitem_active/<id>/', views.set_waitlist_item_active, name='set_waitlist_item_active'),
 

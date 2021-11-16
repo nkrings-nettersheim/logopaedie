@@ -19,11 +19,11 @@
         </li>
         {% if status == 'True' %}
             <li class="nav-item">
-              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' False%}" role="button">Inaktive</a>
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' False%}" role="button">Pat. wo anders / sonstiges</a>
             </li>
         {% else %}
             <li class="nav-item">
-              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True%}" role="button">Aktive</a>
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True %}" role="button">Warteliste</a>
             </li>
         {% endif %}
         <li class="nav-item">
@@ -39,11 +39,11 @@
     <p></p>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 ">
                 {% if status == 'True' %}
-                <h5><center>Aktive Warteliste</center></h5>
+                <h1 class="display-4 bg-success"><center>Warteliste</center></h1>
                 {% else %}
-                <h5><center>Inaktive Warteliste</center></h5>
+                <h1  class="display-4 bg-danger"><center>Pat. wo anders / sonstiges</center></h1>
                 {% endif %}
             </div>
         </div>
@@ -77,7 +77,7 @@
             <div class="col-sm-4 inline">
                 <strong><a href="{% url 'reports:edit_waitlist' item.id %}">{{ item.wl_last_name}} {{ item.wl_first_name}}</a></strong>
             </div>
-            {% if 'Nettersheim' in item.wl_city %}
+            {% if 'Nett' in item.wl_city %}
                 <div class="col-sm-4 inline text-success">
                     <strong>{{ item.wl_city}}</strong>
                 </div>
@@ -151,7 +151,7 @@
         <div class="row">
             {% if status == 'True' %}
             <div class="col-sm-2 inline">
-                    <a href="{% url 'reports:copy_waitlist_item' item.id%}">
+                    <a href="{% url 'reports:copy_waitlist_item' item.id %}">
                         <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"> Patient anlegen</i></button>
                     </a>
             </div>
@@ -159,7 +159,7 @@
                 &nbsp;
             </div>
             <div class="col-sm-2 inline">
-                 <a href="{% url 'reports:set_waitlist_item_inactive' item.id%}">
+                 <a href="{% url 'reports:set_waitlist_item_inactive' item.id %}">
                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-square-o" aria-hidden="true"> Inaktive setzen</i></button>
                  </a>
             </div>
@@ -167,7 +167,7 @@
 
             {% if request.user.groups.all.0.name == 'Fachadmin' or request.user.groups.all.1.name == 'Fachadmin' or request.user.groups.all.2.name == 'Fachadmin'%}
             <div class="col-sm-2 inline">
-                    <a href="{% url 'reports:delete_waitlist_item' item.id%}">
+                    <a href="{% url 'reports:delete_waitlist_item' item.id %}">
                         <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"> löschen</i></button>
                     </a>
             </div>
@@ -180,7 +180,7 @@
                 &nbsp;
             </div>
             <div class="col-sm-2 inline">
-                 <a href="{% url 'reports:set_waitlist_item_active' item.id%}">
+                 <a href="{% url 'reports:set_waitlist_item_active' item.id %}">
                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"> Aktive setzen</i></button>
                  </a>
             </div>
