@@ -1370,7 +1370,7 @@ class WaitlistForm(forms.ModelForm):
         )
     )
 #    pa_something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
-    wl_information = forms.CharField(required=False, widget=CKEditorWidget(config_name='something'))
+    wl_information = forms.CharField(required=False, widget=CKEditorWidget(config_name='default'))
 
     GENDER = (
         ('1', 'weiblich'),

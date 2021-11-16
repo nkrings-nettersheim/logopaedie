@@ -186,7 +186,7 @@ CKEDITOR_CONFIGS = {'default':
                          'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
                          'toolbar': 'Custom', 'toolbar_Custom':
                                  [
-                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'Scayt', ],
+                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt', ],
                                  ],
                          },
                     'something':
