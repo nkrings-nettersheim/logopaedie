@@ -536,6 +536,8 @@ def add_patient(request):
     else:
         logger.debug('add_patient: Formular aufgerufen')
         form = PatientForm()
+
+    logger.info('{:>2}'.format(request.user.id) + ' add_Patient POST')
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
@@ -1110,15 +1112,20 @@ def add_waitlist(request):
 
 @login_required
 def edit_waitlist(request, id=None):
+    double_entry = 0
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Wait_list, id=id)
     form = WaitlistForm(request.POST or None, instance=item)
+    patient = Patient.objects.filter(pa_last_name=item.wl_last_name, pa_first_name=item.wl_first_name)
+    if patient:
+        double_entry = 1
     if form.is_valid():
         form.save()
         logger.info('{:>2}'.format(request.user.id) + ' edit_waitlist: Wait_list mit der ID:' + str(item.id) + ' geändert')
         return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
     logger.debug('edit_waitlist: Wait-list mit der ID: ' + str(id) + ' zwecks Änderung aufgerufen')
     form.id = item.id
+    form.double_entry = double_entry
     return render(request, 'reports/waitlist_form.html', {'form': form})
 
 
@@ -1131,6 +1138,7 @@ def waitlist(request, status):
         waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
         waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
 
+    logger.info('{:>2}'.format(request.user.id) + ' waitlist: Wait_list aufgerufen')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': status})
 
 
@@ -1140,45 +1148,39 @@ def copy_waitlist_item(request, id=id):
     waitlist = get_object_or_404(Wait_list, id=id)
 
     #create patient_object
-    Patient.objects.create(pa_first_name=waitlist.wl_first_name,
-        pa_last_name=waitlist.wl_last_name,
-        pa_street=waitlist.wl_street,
-        pa_city=waitlist.wl_city,
-        pa_zip_code=waitlist.wl_zip_code,
-        pa_phone=waitlist.wl_phone,
-        pa_cell_phone=waitlist.wl_cell_phone,
-        pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
-        pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
-        pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
-        pa_email=waitlist.wl_email,
-        pa_gender=waitlist.wl_gender
-    )
+    try:
+        Patient.objects.create(pa_first_name=waitlist.wl_first_name,
+            pa_last_name=waitlist.wl_last_name,
+            pa_street=waitlist.wl_street,
+            pa_city=waitlist.wl_city,
+            pa_zip_code=waitlist.wl_zip_code,
+            pa_phone=waitlist.wl_phone,
+            pa_cell_phone=waitlist.wl_cell_phone,
+            pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
+            pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
+            pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
+            pa_email=waitlist.wl_email,
+            pa_gender=waitlist.wl_gender
+        )
+        #set status waitlist object to False
+        waitlist.wl_active = False
+        waitlist.save()
+        logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Patient wurde erfolgreich '
+                                                      'aus Warteliste angelegt')
 
-    #set status waitlist object to False
-    waitlist.wl_active = False
-    waitlist.save()
+    except:
+        logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern')
 
     #Info to Webfrontwend
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 
-#@login_required
-#def delete_waitlist_item(request, id=None):
-#    item = get_object_or_404(Wait_list, id=id)
-#    if item:
-#        item.delete()
-#        waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
-#        return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
-#    else:
-#        return redirect('/reports/')
-
 class delete_waitlist_item(DeleteView):
     model = Wait_list
     template_name = 'reports/waitlist_confirm_delete.html'
     context_object_name = 'waitlist'
     success_url = reverse_lazy('reports:waitlist', kwargs=dict(status='False'))
-    #('reports/waitlist/%(status)s/', ['status'])
 
 
 @login_required
@@ -1339,7 +1341,7 @@ def getSessionTimer(request):
     sessionTimer = request.session.get_expiry_date()
     sessionTimer = sessionTimer.isoformat()
     context = {'getSessionTimer': str(sessionTimer)}
-    logger.info('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
+    logger.debug('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
 
     return render(request, 'getSessionTimer.html', {'form': context})
 

@@ -201,6 +201,20 @@ CKEDITOR_CONFIGS = {'default':
                              [
                                  ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt', 'Source'],
                              ],
+                         },
+                    'waitlist':
+                        {'height': 100,
+                         'width': 540,
+                         'defaultLanguage': "de",
+                         'scayt_autoStartup': True,
+                         'scayt_sLang': "de_DE",
+                         'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
+                         'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
+                         'toolbar': 'Custom', 'toolbar_Custom':
+                             [
+                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt',
+                                  'Source'],
+                             ],
                          }
                     }
 

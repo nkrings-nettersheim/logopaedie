@@ -95,10 +95,12 @@
             <div class="col-sm-2 inline">
                 <div class="small inline">Einbestellt: </div>
             </div>
-            <div class="col-sm-10 inline">
+            <div class="col-sm-8 inline">
                 <div class="small inline">Information: </div>
             </div>
-
+            <div class="col-sm-2 inline">
+                <div class="small inline">Alter: </div>
+            </div>
         </div>
 
         <div class="row">
@@ -106,10 +108,12 @@
                 <strong>{{ item.wl_call_for}}</strong>
             </div>
 
-            <div class="col-sm-10 inline">
+            <div class="col-sm-8 inline">
                 {{ item.wl_information | safe}}
             </div>
-
+            <div class="col-sm-2 inline">
+                <strong>{{ item.wl_date_of_birth}}</strong>
+            </div>
         </div>
 
         <div class="row">
