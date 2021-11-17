@@ -1137,6 +1137,10 @@ def waitlist(request, status):
     for waitlist_item in waitlist:
         waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
         waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        if patient:
+            waitlist_item.double_entry = 1
+
 
     logger.info('{:>2}'.format(request.user.id) + ' waitlist: Wait_list aufgerufen')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': status})

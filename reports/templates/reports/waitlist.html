@@ -75,7 +75,11 @@
                 <strong>{{ item.wl_call_date}}</strong>
             </div>
             <div class="col-sm-4 inline">
+                {% if item.double_entry == 1 %}
+                <strong><a class="text-danger" href="{% url 'reports:edit_waitlist' item.id %}">{{ item.wl_last_name}} {{ item.wl_first_name}}</a></strong>
+                {% else %}
                 <strong><a href="{% url 'reports:edit_waitlist' item.id %}">{{ item.wl_last_name}} {{ item.wl_first_name}}</a></strong>
+                {% endif %}
             </div>
             {% if 'Nett' in item.wl_city %}
                 <div class="col-sm-4 inline text-success">
