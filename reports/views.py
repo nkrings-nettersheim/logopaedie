@@ -1141,7 +1141,6 @@ def waitlist(request, status):
         if patient:
             waitlist_item.double_entry = 1
 
-
     logger.info('{:>2}'.format(request.user.id) + ' waitlist: Wait_list aufgerufen')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': status})
 
@@ -1402,7 +1401,7 @@ def getOpenReports(request, context=None):
     #context = {'getOpenReports': str(openReports)}
     openContext.getOpenReports = str(openReports)
     openContext.therapybreak_count = str(therapybreak_count)
-    logger.info('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
+    logger.debug('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
 
     return render(request, 'getOpenReports.html', {'form': openContext})
 

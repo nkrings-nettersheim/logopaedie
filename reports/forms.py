@@ -302,20 +302,32 @@ class PatientForm(forms.ModelForm):
         data = self.cleaned_data['pa_cell_phone_add1']
         if data:
             data = data.rsplit("/")
-            rightdata = data[1].rsplit("(")
+            if "(" in data[1]:
+                rightdata = data[1].rsplit("(")
+                rightdata[0] = rightdata[0].replace(' ', '')
+            else:
+                data[1] = data[1].replace(' ', '')
             data[0] = data[0].replace(' ', '')
-            rightdata[0] = rightdata[0].replace(' ', '')
-            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            if "(" in data[1]:
+                data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            else:
+                data = data[0] + "/" + data[1]
             return data
 
     def clean_pa_cell_phone_add2(self):
         data = self.cleaned_data['pa_cell_phone_add2']
         if data:
             data = data.rsplit("/")
-            rightdata = data[1].rsplit("(")
+            if "(" in data[1]:
+                rightdata = data[1].rsplit("(")
+                rightdata[0] = rightdata[0].replace(' ', '')
+            else:
+                data[1] = data[1].replace(' ', '')
             data[0] = data[0].replace(' ', '')
-            rightdata[0] = rightdata[0].replace(' ', '')
-            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            if "(" in data[1]:
+                data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            else:
+                data = data[0] + "/" + data[1]
             return data
 
     def clean_pa_date_of_birth(self):
@@ -1308,28 +1320,47 @@ class WaitlistForm(forms.ModelForm):
         data = self.cleaned_data['wl_cell_phone_add1']
         if data:
             data = data.rsplit("/")
-            rightdata = data[1].rsplit("(")
+            if "(" in data[1]:
+                rightdata = data[1].rsplit("(")
+                rightdata[0] = rightdata[0].replace(' ', '')
+            else:
+                data[1] = data[1].replace(' ', '')
             data[0] = data[0].replace(' ', '')
-            rightdata[0] = rightdata[0].replace(' ', '')
-            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            if "(" in data[1]:
+                data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            else:
+                data = data[0] + "/" + data[1]
             return data
 
     def clean_wl_cell_phone_add2(self):
         data = self.cleaned_data['wl_cell_phone_add2']
         if data:
             data = data.rsplit("/")
-            rightdata = data[1].rsplit("(")
+            if "(" in data[1]:
+                rightdata = data[1].rsplit("(")
+                rightdata[0] = rightdata[0].replace(' ', '')
+            else:
+                data[1] = data[1].replace(' ', '')
             data[0] = data[0].replace(' ', '')
-            rightdata[0] = rightdata[0].replace(' ', '')
-            data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            if "(" in data[1]:
+                data = data[0] + "/" + rightdata[0] + "  (" + rightdata[1]
+            else:
+                data = data[0] + "/" + data[1]
             return data
+
+    def clean_wl_date_of_birth(self):
+        birthday = self.cleaned_data['wl_date_of_birth']
+        if birthday:
+            if birthday > datetime.date.today():
+                raise forms.ValidationError("Das Geburtsdatum darf nicht in der Zukunft liegen.")
+
+        return birthday
 
     def clean(self):
         phone = self.cleaned_data['wl_phone']
         cell_phone = self.cleaned_data['wl_cell_phone']
         if phone == None and cell_phone == None:
             raise forms.ValidationError("Bitte Festnetz oder Mobilfunk erfassen!")
-
 
     wl_call_date = forms.DateField(
         required=True,
@@ -1369,8 +1400,11 @@ class WaitlistForm(forms.ModelForm):
             }
         )
     )
-#    pa_something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
-    wl_information = forms.CharField(required=False, widget=CKEditorWidget(config_name='waitlist'))
+
+    wl_information = forms.CharField(
+        required=False,
+        widget=CKEditorWidget(config_name='waitlist')
+    )
 
     GENDER = (
         ('1', 'weiblich'),
@@ -1437,13 +1471,25 @@ class WaitlistForm(forms.ModelForm):
         )
     )
 
-    wl_date_of_birth = forms.CharField(
+    wl_old = forms.CharField(
         required=False,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Alter eingeben ...',
                 'onchange': 'ucFirst(this.value, this.name)'
+            }
+        )
+    )
+
+    wl_date_of_birth = forms.DateField(
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                'pattern': '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\d\d)$',
+                'class': 'form-control',
+                'placeholder': 'Geburtsdatum Format: TT.MM.JJJJ',
+                'onchange': 'CheckDate(this.value, this.name)'
             }
         )
     )
@@ -1587,6 +1633,7 @@ class WaitlistForm(forms.ModelForm):
             'wl_cell_phone_add2',
             'wl_cell_phone_sms',
             'wl_email',
+            'wl_old',
             'wl_date_of_birth',
             'wl_gender',
             'wl_call_date',
