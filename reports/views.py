@@ -1182,11 +1182,6 @@ def copy_waitlist_item(request, id=id):
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 
-class copy_waitlist_item2(CreateView):
-    model = Patient
-
-    pass
-
 class delete_waitlist_item(DeleteView):
     model = Wait_list
     template_name = 'reports/waitlist_confirm_delete.html'
@@ -1347,6 +1342,8 @@ class del_document_therapy(DeleteView):
 
 # **************************************************************************************************
 
+
+
 @login_required
 def getSessionTimer(request):
     sessionTimer = request.session.get_expiry_date()
@@ -1356,6 +1353,10 @@ def getSessionTimer(request):
 
     return render(request, 'getSessionTimer.html', {'form': context})
 
+
+# Die Klasse ist für getOpenReports wichtig!!!
+class openContext:
+    pass
 
 @login_required
 def getOpenReports(request, context=None):
