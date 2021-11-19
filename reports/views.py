@@ -13,7 +13,7 @@ from django.dispatch import receiver
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, CreateView
 from django.conf import settings
 from django.views import generic
 from django.template.loader import render_to_string
@@ -1149,35 +1149,43 @@ def waitlist(request, status):
 def copy_waitlist_item(request, id=id):
     #select waitlist object
     waitlist = get_object_or_404(Wait_list, id=id)
+    #status = request.GET['status']
+    if request.GET['status'] == 'no':
+        return render(request, 'reports/waitlist_confirm_create.html', {'waitlist': waitlist})
+    else:
+        #create patient_object
+        try:
+            Patient.objects.create(pa_first_name=waitlist.wl_first_name,
+                pa_last_name=waitlist.wl_last_name,
+                pa_street=waitlist.wl_street,
+                pa_city=waitlist.wl_city,
+                pa_zip_code=waitlist.wl_zip_code,
+                pa_phone=waitlist.wl_phone,
+                pa_cell_phone=waitlist.wl_cell_phone,
+                pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
+                pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
+                pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
+                pa_email=waitlist.wl_email,
+                pa_gender=waitlist.wl_gender
+            )
+            #set status waitlist object to False
+            waitlist.wl_active = False
+            waitlist.save()
+            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Patient wurde erfolgreich '
+                                                          'aus Warteliste angelegt')
 
-    #create patient_object
-    try:
-        Patient.objects.create(pa_first_name=waitlist.wl_first_name,
-            pa_last_name=waitlist.wl_last_name,
-            pa_street=waitlist.wl_street,
-            pa_city=waitlist.wl_city,
-            pa_zip_code=waitlist.wl_zip_code,
-            pa_phone=waitlist.wl_phone,
-            pa_cell_phone=waitlist.wl_cell_phone,
-            pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
-            pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
-            pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
-            pa_email=waitlist.wl_email,
-            pa_gender=waitlist.wl_gender
-        )
-        #set status waitlist object to False
-        waitlist.wl_active = False
-        waitlist.save()
-        logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Patient wurde erfolgreich '
-                                                      'aus Warteliste angelegt')
-
-    except:
-        logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern')
+        except:
+            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern')
 
     #Info to Webfrontwend
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
+
+class copy_waitlist_item2(CreateView):
+    model = Patient
+
+    pass
 
 class delete_waitlist_item(DeleteView):
     model = Wait_list
@@ -1348,8 +1356,6 @@ def getSessionTimer(request):
 
     return render(request, 'getSessionTimer.html', {'form': context})
 
-class openContext:
-    pass
 
 @login_required
 def getOpenReports(request, context=None):
@@ -1484,6 +1490,7 @@ def post_login(sender, request, user, **kwargs):
     except:
         logger.debug("User not found")
 
+
 @receiver(user_logged_out)
 def post_logout(sender, request, user, **kwargs):
     logger.info(f"Post_logout: User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}; Logout")
@@ -1492,6 +1499,7 @@ def post_logout(sender, request, user, **kwargs):
         logger.info('{:>2}'.format(user.id) + ' ausgeloggt')
     except:
         logger.info('User ausgeloggt')
+
 
 @receiver(user_login_failed)
 def post_login_failed(sender, credentials, request, **kwargs):

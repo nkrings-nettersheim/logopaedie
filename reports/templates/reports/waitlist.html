@@ -159,7 +159,7 @@
         <div class="row">
             {% if status == 'True' %}
             <div class="col-sm-2 inline">
-                    <a href="{% url 'reports:copy_waitlist_item' item.id %}">
+                    <a href="{% url 'reports:copy_waitlist_item' item.id %}?status=no">
                         <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"> Patient anlegen</i></button>
                     </a>
             </div>
