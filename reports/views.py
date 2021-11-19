@@ -1432,26 +1432,45 @@ def get_phone_design(data):
 def get_special_phone_design(data):
     charvalue = ''
     charvalue2 = ''
+
     if data:
         data = data.rsplit("/")
-        rightdata = data[1].rsplit("(")
-        data[0] = data[0].replace(' ', '')
-        rightdata[0] = rightdata[0].replace(' ', '')
-
-        if len(rightdata[0]) % 2:  # rightdata[0] ist die Rufnummer
-            for char in rightdata[0]:
-                charvalue = charvalue + char
-                charvalue2 = charvalue2 + char
-                if len(charvalue2) % 2:
-                    charvalue = charvalue + " "
+        if "(" in data[1]:
+            rightdata = data[1].rsplit("(")
+            rightdata[0] = rightdata[0].replace(' ', '')
+            if len(rightdata[0]) % 2:  # rightdata[0] ist die Rufnummer
+                for char in rightdata[0]:
+                    charvalue = charvalue + char
+                    charvalue2 = charvalue2 + char
+                    if len(charvalue2) % 2:
+                        charvalue = charvalue + " "
+            else:
+                for char in rightdata[0]:
+                    charvalue = charvalue + char
+                    charvalue2 = charvalue2 + char
+                    if not len(charvalue2) % 2:
+                        charvalue = charvalue + " "
         else:
-            for char in rightdata[0]:
-                charvalue = charvalue + char
-                charvalue2 = charvalue2 + char
-                if not len(charvalue2) % 2:
-                    charvalue = charvalue + " "
+            data[1] = data[1].replace(' ', '')
+            if len(data[1]) % 2:
+                for char in data[1]:
+                    charvalue = charvalue + char
+                    charvalue2 = charvalue2 + char
+                    if len(charvalue2) % 2:
+                        charvalue = charvalue + " "
+            else:
+                for char in data[1]:
+                    charvalue = charvalue + char
+                    charvalue2 = charvalue2 + char
+                    if not len(charvalue2) % 2:
+                        charvalue = charvalue + " "
 
-        data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+        data[0] = data[0].replace(' ', '')
+
+        if "(" in data[1]:
+            data = data[0] + " / " + charvalue + "  (" + rightdata[1]
+        else:
+            data = data[0] + " / " + charvalue
         return data
 
 
