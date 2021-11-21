@@ -213,7 +213,7 @@ def search_doctor(request):
         return render(request, 'reports/doctor_search.html')
 
 
-@permission_required('reports.edit_doctor')
+@permission_required('reports.change_doctor')
 def edit_doctor(request, id=None):
     item = get_object_or_404(Doctor, id=id)
     form = DoctorForm(request.POST or None, instance=item)
