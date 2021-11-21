@@ -287,7 +287,7 @@ def search_therapist(request):
         return render(request, 'reports/therapist_search.html', {'form': form})
 
 
-@permission_required('reports.edit_therapist')
+@permission_required('reports.change_therapist')
 def edit_therapist(request, id=None):
     item = get_object_or_404(Therapist, id=id)
     form = TherapistForm(request.POST or None, instance=item)
@@ -640,7 +640,7 @@ def add_pa_something(request):
     return render(request, 'reports/pa_something_form.html', {'form': form})
 
 
-@permission_required('reports.edit_patient_something')
+@permission_required('reports.change_patient_something')
 def edit_pa_something(request, id=None):
     item = get_object_or_404(Patient_Something, id=id)
     form = PatientSomethingForm(request.POST or None, instance=item)
@@ -743,7 +743,7 @@ def add_therapy(request):
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': patient_result})
 
 
-@permission_required('reports.edit_therapy')
+@permission_required('reports.change_therapy')
 def edit_therapy(request, id=None):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Therapy, id=id)
@@ -828,7 +828,7 @@ def add_process_report(request):
         return render(request, 'reports/process_report_form.html', {'form': form})
 
 
-@permission_required('reports.edit_process_report')
+@permission_required('reports.change_process_report')
 def edit_process_report(request, id=None):
     item = get_object_or_404(Process_report, id=id)
     form = ProcessReportForm(request.POST or None, instance=item)
