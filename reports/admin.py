@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Patient, Therapy, Therapy_report, Process_report, Doctor, Therapist, InitialAssessment
-from .models import Document, Document_therapy, Diagnostic_group
+from .models import Document, Document_therapy, Diagnostic_group, Wait_list
 
 
 class TherapyAdmin(admin.ModelAdmin):
@@ -21,3 +21,4 @@ admin.site.register(InitialAssessment)
 admin.site.register(Document)
 admin.site.register(Document_therapy)
 admin.site.register(Diagnostic_group)
+admin.site.register(Wait_list)

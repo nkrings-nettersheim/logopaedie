@@ -19,27 +19,27 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:search_doctor_start' %}" >Arzt suchen</a>
       </li>
-    {% if request.user.groups.all.0.name == 'Leitung' %}
+    {% if perms.reports.add_doctor %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:add_doctor' %}" >Arzt anlegen</a>
       </li>
     {% endif %}
-    {% if request.user.groups.all.0.name == 'Leitung' %}
+    {% if perms.reports.view_therapist %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:search_therapist_start' %}" >TP suchen</a>
       </li>
     {% endif %}
-    {% if request.user.groups.all.0.name == 'Leitung' %}
+    {% if perms.reports.add_therapist %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:add_therapist' %}" >TP anlegen</a>
       </li>
     {% endif %}
-    {% if request.user.groups.all.0.name == 'Leitung' %}
+    {% if perms.reports.view_diagnostic_group %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >DG su.</a>
       </li>
     {% endif %}
-    {% if request.user.groups.all.0.name == 'Leitung' %}
+    {% if perms.reports.add_diagnostic_group %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
       </li>
@@ -50,7 +50,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:therapy_breaks' %}" >Wiedervorst.: <div id="therapy_break" class="nav-link inline"></div></a>
       </li>
-    {% if request.user.groups.all.0.name == 'Leitung' %}
+    {% if perms.reports.view_wait_list %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'reports:waitlist' True%}" >Warteliste</a>
       </li>
