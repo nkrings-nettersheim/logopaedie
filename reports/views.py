@@ -1165,8 +1165,6 @@ def copy_waitlist_item(request, id=id):
         return render(request, 'reports/waitlist_confirm_create.html', {'waitlist': waitlist})
     else:
         #create patient_object
-        logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: WL_ZIP_CODE:' + waitlist.wl_zip_code)
-
         try:
             Patient.objects.create(pa_first_name=waitlist.wl_first_name,
                 pa_last_name=waitlist.wl_last_name,
