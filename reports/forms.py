@@ -880,36 +880,54 @@ class TherapyReportForm(forms.ModelForm):
         ('60', '60'),
     )
 
-    therapy_start = forms.DateField(required=False,
-                                    widget=forms.DateInput(
-                                        attrs={
-                                            'autofocus': 'autofocus',
-                                            'class': 'form-control',
-                                            'placeholder': 'Start der Therapie ...',
-                                            'onchange': 'CheckDate(this.value, this.name)'
-                                        }
-                                    )
-                                    )
+    # therapy_start = forms.DateField(required=False,
+    #                                widget=forms.DateInput(
+    #                                    attrs={
+    #                                        'autofocus': 'autofocus',
+    #                                        'class': 'form-control',
+    #                                        'placeholder': 'Start der Therapie ...',
+    #                                        'onchange': 'CheckDate(this.value, this.name)'
+    #                                    }
+    #                                )
+    #                                )
 
-    therapy_end = forms.DateField(required=False,
-                                  widget=forms.DateInput(
-                                      attrs={
-                                          'class': 'form-control',
-                                          'placeholder': 'Ende der Therapie ...',
-                                          'onchange': 'CheckDate(this.value, this.name)'
-                                      }
-                                  )
-                                  )
+    therapy_start = forms.DateField(
+        required=False,
+        widget=forms.SelectDateWidget(
+            years=range(2020, 2030),
+            attrs={'autofocus': 'autofocus'}
+        )
+    )
 
-    report_date = forms.DateField(required=False,
-                                  widget=forms.DateInput(
-                                      attrs={
-                                          'autofocus': 'autofocus',
-                                          'class': 'form-control',
-                                          'onchange': 'CheckDate(this.value, this.name)'
-                                      }
-                                  )
-                                  )
+    # therapy_end = forms.DateField(required=False,
+    #                              widget=forms.DateInput(
+    #                                  attrs={
+    #                                      'class': 'form-control',
+    #                                      'placeholder': 'Ende der Therapie ...',
+    #                                      'onchange': 'CheckDate(this.value, this.name)'
+    #                                  }
+    #                              )
+    #                              )
+
+    therapy_end = forms.DateField(
+        required=False,
+        widget=forms.SelectDateWidget()
+    )
+
+    # report_date = forms.DateField(required=False,
+    #                              widget=forms.DateInput(
+    #                                  attrs={
+    #                                      'autofocus': 'autofocus',
+    #                                      'class': 'form-control',
+    #                                      'onchange': 'CheckDate(this.value, this.name)'
+    #                                  }
+    #                              )
+    #                              )
+
+    report_date = forms.DateField(
+        required=False,
+        widget=forms.SelectDateWidget()
+    )
 
     therapy_current_result = forms.CharField(required=False,
                                              max_length=820,

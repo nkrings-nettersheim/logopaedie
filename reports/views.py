@@ -1185,8 +1185,8 @@ def copy_waitlist_item(request, id=id):
             logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Patient wurde erfolgreich '
                                                           'aus Warteliste angelegt')
 
-        except:
-            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern')
+        except Exception as e:
+            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern: ' + str(e))
 
     #Info to Webfrontwend
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
