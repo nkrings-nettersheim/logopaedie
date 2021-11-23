@@ -1564,6 +1564,29 @@ def post_login_failed(sender, credentials, request, **kwargs):
             )
 
 
+class meta_info:
+    pass
+
+def list_meta_info(request):
+
+    meta_info.CONTENT_LENGTH = request.META.get('CONTENT_LENGTH')
+    meta_info.CONTENT_TYPE = request.META.get('CONTENT_TYPE')
+    meta_info.HTTP_ACCEPT = request.META.get('HTTP_ACCEPT')
+    meta_info.HTTP_ACCEPT_ENCODING = request.META.get('HTTP_ACCEPT_ENCODING')
+    meta_info.HTTP_ACCEPT_LANGUAGE = request.META.get('HTTP_ACCEPT_LANGUAGE')
+    meta_info.HTTP_HOST = request.META.get('HTTP_HOST')
+    meta_info.HTTP_REFERER = request.META.get('HTTP_REFERER')
+    meta_info.HTTP_USER_AGENT = request.META.get('HTTP_USER_AGENT')
+    meta_info.QUERY_STRING = request.META.get('QUERY_STRING')
+    meta_info.REMOTE_ADDR = request.META.get('REMOTE_ADDR')
+    meta_info.REMOTE_HOST = request.META.get('REMOTE_HOST')
+    meta_info.REMOTE_USER = request.META.get('REMOTE_USER')
+    meta_info.REQUEST_METHOD = request.META.get('REQUEST_METHOD')
+    meta_info.SERVER_NAME = request.META.get('SERVER_NAME')
+    meta_info.SERVER_PORT = request.META.get('SERVER_PORT')
+
+    return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
+
 # **************************************************************************************************
 
 LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()

@@ -1,0 +1,195 @@
+{% extends "base_impressum.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    {% if user.is_authenticated %}
+        <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+    {% else %}
+        <a class="navbar-brand" href="{% url 'reports:index' %}" >Einloggen</a>
+    {% endif %}
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<content>
+   <div class="container">
+        <div class="row">
+            <h3>List META info</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                CONTENT_LENGTH:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.CONTENT_LENGTH}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                CONTENT_TYPE:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.CONTENT_TYPE}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                HTTP_ACCEPT:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.HTTP_ACCEPT}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                HTTP_ACCEPT_ENCODING:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.HTTP_ACCEPT_ENCODING}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                HTTP_ACCEPT_LANGUAGE:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.HTTP_ACCEPT_LANGUAGE}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                HTTP_HOST:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.HTTP_HOST}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                HTTP_REFERER:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.HTTP_REFERER}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                HTTP_USER_AGENT:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.HTTP_USER_AGENT}}
+            </div>
+         </div>
+        <div class="row">
+            <div class="col-sm-3">
+                QUERY_STRING:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.QUERY_STRING}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                REMOTE_ADDR:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.REMOTE_ADDR}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                REMOTE_HOST:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.REMOTE_HOST}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                REMOTE_USER:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.REMOTE_USER}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                REQUEST_METHOD:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.REQUEST_METHOD}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                SERVER_NAME:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.SERVER_NAME}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                SERVER_PORT:
+            </div>
+            <div class="col-sm-9">
+                {{meta_info.SERVER_PORT}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-9">
+                <hr>
+            </div>
+        </div>
+
+    {% for item, value in meta.items %}
+        <div class="row">
+            <div class="col-sm-3">
+                {{ item }}
+            </div>
+            <div class="col-sm-9">
+                {{ value }}
+            </div>
+        </div>
+    {% endfor %}
+
+        <div class="row">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-9">
+                <hr>
+            </div>
+        </div>
+    {% for item, value in request.headers.items %}
+        <div class="row">
+            <div class="col-sm-3">
+                {{ item }}
+            </div>
+            <div class="col-sm-9">
+                {{ value }}
+            </div>
+        </div>
+    {% endfor %}
+
+   </div>
+</content>
+
+<p></p>
+{% endblock %}
