@@ -1158,8 +1158,16 @@ def waitlist(request, status):
 
 @permission_required('reports.view_wait_list')
 def copy_waitlist_item(request, id=id):
-    #select waitlist object
+
     waitlist = get_object_or_404(Wait_list, id=id)
+
+    patient = Patient.objects.filter(pa_last_name=waitlist.wl_last_name, pa_first_name=waitlist.wl_first_name)
+
+    if patient:
+        waitlist.double_entry = 1
+        for item in patient:
+            waitlist.pa_date_of_birth = item.pa_date_of_birth
+
     #status = request.GET['status']
     if request.GET['status'] == 'no':
         return render(request, 'reports/waitlist_confirm_create.html', {'waitlist': waitlist})
@@ -1171,6 +1179,7 @@ def copy_waitlist_item(request, id=id):
                 pa_street=waitlist.wl_street,
                 pa_city=waitlist.wl_city,
                 pa_zip_code=waitlist.wl_zip_code,
+                pa_date_of_birth=waitlist.wl_date_of_birth,
                 pa_phone=waitlist.wl_phone,
                 pa_cell_phone=waitlist.wl_cell_phone,
                 pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
@@ -1209,6 +1218,14 @@ def set_waitlist_item_inactive(request, id=None):
     else:
         logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_inactive: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf inaktive gesetzt werden')
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+
+    for waitlist_item in waitlist:
+        waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
+        waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        if patient:
+            waitlist_item.double_entry = 1
+
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 
@@ -1221,6 +1238,14 @@ def set_waitlist_item_active(request, id=None):
     else:
         logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_active: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf aktive gesetzt werden')
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+
+    for waitlist_item in waitlist:
+        waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
+        waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        if patient:
+            waitlist_item.double_entry = 1
+
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 ##########################################################################

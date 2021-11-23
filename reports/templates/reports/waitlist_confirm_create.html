@@ -31,17 +31,53 @@
         </div>
         {% csrf_token %}
         <div class="row">
-            <div class="col-sm-4">Möchtest Du den Patienten: <br><br><strong>"{{ waitlist }}"</strong> <br><br>wirklich anlegen ?</div>
-
-            <div class="col-sm"></div>
+            <div class="col-sm-12 inline">Möchtest Du den Patienten:
+                <strong>"{{ waitlist.wl_last_name }}; {{ waitlist.wl_first_name }}"</strong>
+                Geburtsdatum:
+                {% if waitlist.wl_date_of_birth %}
+                <strong>{{waitlist.wl_date_of_birth|date:'d.m.Y'}}</strong>
+                {% else %}
+                <strong>'01.01.1900'</strong>
+                {% endif %}
+                wirklich anlegen ?
+            </div>
         </div>
         <div class="row">
-            <div class="col-sm-4"><a class="btn btn-primary" href="{% url 'reports:waitlist' True %}" role="button">Besser nicht!</a></div>
-            <div class="col-sm"><a class="btn btn-primary" href="{% url 'reports:copy_waitlist_item' waitlist.id %}?status=yes" role="button">Ja, ich bin sicher!</a>
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+        {% if waitlist.double_entry == 1%}
+
+        <div class="row">
+            <div class="col-sm-12" >
+                <h1 class="bg-danger" id="blink"><center>ACHTUNG!!! Einen Patienten mit dem gleichen Vornamen und Nachnamen gibt es schon!!!</center></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="bg-danger"><center>Dieser hat das Geburtsdatum: {{ waitlist.pa_date_of_birth|date:'d.m.Y' }}</center>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-4"><a class="btn-lg btn-primary" href="{% url 'reports:waitlist' True %}" role="button">Besser nicht!</a></div>
+            <div class="col-sm"><a class="btn-xs btn-danger" href="{% url 'reports:copy_waitlist_item' waitlist.id %}?status=yes" role="button">Ja, ich bin sicher!</a>
                 </div>
         </div>
     </form>
     </div>
 
 </content>
+    <script type="text/javascript">
+        var blink = document.getElementById('blink');
+        setInterval(function() {
+            blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+        }, 500);
+    </script>
 {% endblock %}
