@@ -158,9 +158,6 @@ SESSION_EXPIRE_SECONDS = 30*60+5
 
 USE_X_FORWARDED_HOST = True
 
-#Eigener Eintrg
-X_FORWARD = False
-
 # Email settings
 EMAIL_HOST = 'look at local_settings'
 EMAIL_HOST_USER = 'look at local_settings'
