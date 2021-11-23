@@ -1072,7 +1072,7 @@ def therapy_report(request, id=id):
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
 
 
-@permission_required('reports.show_therapy_report')
+@permission_required('reports.delete_therapy_report')
 def show_therapy_report(request):
     id = request.GET.get('id')
     logger.info('{:>2}'.format(request.user.id) + ' show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')

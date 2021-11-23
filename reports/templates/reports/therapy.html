@@ -57,7 +57,7 @@
         {% endif %}
       </li>
         {% if therapy_report.therapy_id %}
-            {% if perms.reports.change_therapy_report %}
+            {% if perms.reports.delete_therapy_report %}
                 {% if therapy_report.report_date == None %}
                     <li class="nav-item">
                         <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
