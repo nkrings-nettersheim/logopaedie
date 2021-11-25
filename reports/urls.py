@@ -78,5 +78,7 @@ urlpatterns = [
     path('set/waitlistitem_inactive/<id>/', views.set_waitlist_item_inactive, name='set_waitlist_item_inactive'),
     path('set/waitlistitem_active/<id>/', views.set_waitlist_item_active, name='set_waitlist_item_active'),
 
+    path('list_meta_info/', views.list_meta_info, name='list_meta_info'),
+
 ]
 

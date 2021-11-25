@@ -173,7 +173,7 @@
             </div>
             {% else %}
 
-            {% if request.user.groups.all.0.name == 'Fachadmin' or request.user.groups.all.1.name == 'Fachadmin' or request.user.groups.all.2.name == 'Fachadmin'%}
+            {% if perms.reports.delete_wait_list %}
             <div class="col-sm-2 inline">
                     <a href="{% url 'reports:delete_waitlist_item' item.id %}">
                         <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"> löschen</i></button>

@@ -45,7 +45,7 @@ class Patient(models.Model):
     pa_first_name = models.CharField(max_length=50)
     pa_last_name = models.CharField(max_length=50)
     pa_street = models.CharField(max_length=100)
-    pa_zip_code = models.CharField(max_length=10, default='')
+    pa_zip_code = models.CharField(max_length=10, default='', null=True)
     pa_city = models.CharField(max_length=255)
     pa_phone = models.CharField(max_length=100, blank=True, default='', null=True)
     pa_cell_phone = models.CharField(max_length=100, blank=True, default='', null=True)

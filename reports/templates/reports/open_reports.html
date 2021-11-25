@@ -34,7 +34,7 @@
                 <div class="col-sm-2">Rezeptdatum:</div>
                 <div class="col-sm-2">Patient: </div>
                 <div class="col-sm-2">Th.</div>
-                {% if request.user.groups.all.0.name == 'Leitung' %}
+                {% if perms.reports.view_therapist %}
                 <div class="col-sm-2">Therapeut:</div>
                 {% endif %}
                 <div class="col-sm-5"></div>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-sm-2">{{ tp.pa_last_name }}, {{ tp.pa_first_name }} </div>
                 <div class="col-sm-2">Th. ({{ tp.prvc }}/{{ tp.therapy_regulation_amount }}) </div>
-                {% if request.user.groups.all.0.name == 'Leitung' %}
+                {% if perms.reports.view_therapist %}
                 <div class="col-sm-2">{{ tp.therapists }} </div>
                 {% endif %}
                 <div class="col-sm-5"> </div>

@@ -57,7 +57,7 @@
         {% endif %}
       </li>
         {% if therapy_report.therapy_id %}
-            {% if request.user.groups.all.0.name == 'Leitung' %}
+            {% if perms.reports.delete_therapy_report %}
                 {% if therapy_report.report_date == None %}
                     <li class="nav-item">
                         <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
@@ -338,7 +338,7 @@
                       <div class="col-sm-10 text-white">Therapie {{ item.process_treatment }}
                           <a class="text-white" href="{% url 'reports:edit_process_report' item.id %}">(ändern)</a>
                       </div>
-                      {% if request.user.groups.all.0.name == 'Leitung' %}
+                      {% if perms.reports.delete_process_report %}
                       {% if forloop.first %}
                         <a href="{% url 'reports:delete_process_report' item.id %}">
                             <div class="col-sm-2 text-white inline"><i class="fa fa-trash"> Löschen</i></div>

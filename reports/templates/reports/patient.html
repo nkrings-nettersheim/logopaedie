@@ -65,7 +65,12 @@
                 <div class="small inline">Vorname: </div> <strong> {{ patient.pa_first_name}}</strong>
             </div>
             <div class="col-sm">
-                <div class="small inline">Geburtsdatum: </div> <strong> {{ patient.pa_date_of_birth|date:"d.m.Y" }}</strong>
+                {% if patient.pa_date_of_birth|date:"d.m.Y" == '01.01.1900' %}
+                <div class="small inline">Geburtsdatum: </div> <strong><div class="text-danger inline">
+                {{ patient.pa_date_of_birth|date:"d.m.Y" }}</div></strong>
+                {% else %}
+                <div class="small inline">Geburtsdatum: </div> <strong> {{ patient.pa_date_of_birth }}</strong>
+                {% endif %}
             </div>
         </div>
         <div class="row">

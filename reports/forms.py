@@ -891,6 +891,14 @@ class TherapyReportForm(forms.ModelForm):
                                     )
                                     )
 
+    #therapy_start = forms.DateField(
+    #    required=False,
+    #    widget=forms.SelectDateWidget(
+    #        years=range(2020, 2030),
+    #        attrs={'autofocus': 'autofocus'}
+    #    )
+    #)
+
     therapy_end = forms.DateField(required=False,
                                   widget=forms.DateInput(
                                       attrs={
@@ -901,6 +909,11 @@ class TherapyReportForm(forms.ModelForm):
                                   )
                                   )
 
+    #therapy_end = forms.DateField(
+    #    required=False,
+    #    widget=forms.SelectDateWidget()
+    #)
+
     report_date = forms.DateField(required=False,
                                   widget=forms.DateInput(
                                       attrs={
@@ -910,6 +923,11 @@ class TherapyReportForm(forms.ModelForm):
                                       }
                                   )
                                   )
+
+    # report_date = forms.DateField(
+    #    required=False,
+    #    widget=forms.SelectDateWidget()
+    #)
 
     therapy_current_result = forms.CharField(required=False,
                                              max_length=820,

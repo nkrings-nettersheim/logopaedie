@@ -17,7 +17,7 @@ from django.views.generic import DeleteView, CreateView
 from django.conf import settings
 from django.views import generic
 from django.template.loader import render_to_string
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail
 
@@ -47,7 +47,6 @@ locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 ##########################################################################
 # Area start and patient search
 ##########################################################################
-
 @login_required
 def index(request):
     logger.debug('Indexseite wurde geladen')
@@ -74,7 +73,7 @@ class PatientView(generic.ListView):
 ##########################################################################
 # open Reports
 ##########################################################################
-@login_required
+@permission_required('reports.view_patient')
 def open_reports(request):
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
@@ -113,7 +112,7 @@ def open_reports(request):
 ##########################################################################
 # therapy_breaks_internal
 ##########################################################################
-@login_required
+@permission_required('reports.view_patient')
 def therapy_breaks(request):
     if request.user.groups.filter(name='Leitung').exists():
         therapy_reports = Therapy_report.objects. \
@@ -142,6 +141,7 @@ def therapy_breaks(request):
                                                            'time_red': time_red
                                                            })
 
+
 def update_report(request, id=None):
     report = get_object_or_404(Therapy_report, id=id)
     if report:
@@ -155,7 +155,7 @@ def update_report(request, id=None):
 # Area Doctor create and change
 ##########################################################################
 
-@login_required
+@permission_required('reports.add_doctor')
 def add_doctor(request):
     if request.method == "POST":
         form = DoctorForm(request.POST)
@@ -170,13 +170,15 @@ def add_doctor(request):
         form = DoctorForm()
     return render(request, 'reports/doctor_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_doctor')
 def search_doctor_start(request):
     logger.debug('Suchmaske Arzt geladen')
     form = SearchDoctorForm()
     return render(request, 'reports/doctor_search.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_doctor')
 def search_doctor(request):
     form = SearchDoctorForm()
     if request.method == 'POST':
@@ -210,7 +212,8 @@ def search_doctor(request):
         logger.debug('search_doctor: Keinen Suchbegriff eingegeben')
         return render(request, 'reports/doctor_search.html')
 
-@login_required
+
+@permission_required('reports.change_doctor')
 def edit_doctor(request, id=None):
     item = get_object_or_404(Doctor, id=id)
     form = DoctorForm(request.POST or None, instance=item)
@@ -222,7 +225,8 @@ def edit_doctor(request, id=None):
     form.id = item.id
     return render(request, 'reports/doctor_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_doctor')
 def doctor(request, id=id):
     try:
         doctor_result = Doctor.objects.get(id=id)
@@ -235,8 +239,7 @@ def doctor(request, id=id):
 ##########################################################################
 # Area Therapist create and change
 ##########################################################################
-
-@login_required
+@permission_required('reports.add_therapist')
 def add_therapist(request):
     if request.method == "POST":
         form = TherapistForm(request.POST)
@@ -251,13 +254,15 @@ def add_therapist(request):
         form = TherapistForm()
     return render(request, 'reports/therapist_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_therapist')
 def search_therapist_start(request):
     logger.debug('Suchmaske Therapeut geladen')
     form = SearchTherapistForm()
     return render(request, 'reports/therapist_search.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_therapist')
 def search_therapist(request):
     form = SearchTherapistForm()
     if request.method == 'POST':
@@ -281,7 +286,8 @@ def search_therapist(request):
         logger.debug('search_therapist: Keinen Suchbegriff eingegeben')
         return render(request, 'reports/therapist_search.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.change_therapist')
 def edit_therapist(request, id=None):
     item = get_object_or_404(Therapist, id=id)
     form = TherapistForm(request.POST or None, instance=item)
@@ -293,7 +299,8 @@ def edit_therapist(request, id=None):
     form.id = item.id
     return render(request, 'reports/therapist_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_therapist')
 def therapist(request, id=id):
     try:
         therapist_result = Therapist.objects.get(id=id)
@@ -302,11 +309,11 @@ def therapist(request, id=id):
     except ObjectDoesNotExist:
         return redirect('/reports/')
 
+
 ##########################################################################
 # Area Diagnostic_group create and change
 ##########################################################################
-
-@login_required
+@permission_required('reports.add_diagnostic_group')
 def add_diagnostic_group(request):
     if request.method == "POST":
         form = Diagnostic_groupForm(request.POST)
@@ -321,13 +328,15 @@ def add_diagnostic_group(request):
         form = Diagnostic_groupForm()
     return render(request, 'reports/diagnostic_group_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_diagnostic_group')
 def search_diagnostic_group_start(request):
     logger.debug('Suchmaske Diagnosegruppe geladen')
     form = SearchDiagnostic_groupForm()
     return render(request, 'reports/diagnostic_group_search.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_diagnostic_group')
 def search_diagnostic_group(request):
     form = SearchDiagnostic_groupForm()
     if request.method == 'POST':
@@ -351,7 +360,8 @@ def search_diagnostic_group(request):
         logger.debug('search_diagnostic_group: Keinen Suchbegriff eingegeben')
         return render(request, 'reports/diagnostic_group_search.html')
 
-@login_required
+
+@permission_required('reports.change_diagnostic_group')
 def edit_diagnostic_group(request, id=None):
     item = get_object_or_404(Diagnostic_group, id=id)
     form = Diagnostic_groupForm(request.POST or None, instance=item)
@@ -363,7 +373,8 @@ def edit_diagnostic_group(request, id=None):
     form.id = item.id
     return render(request, 'reports/diagnostic_group_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.view_diagnostic_group')
 def diagnostic_group(request, id=id):
     try:
         diagnostic_group_result = Diagnostic_group.objects.get(id=id)
@@ -373,12 +384,10 @@ def diagnostic_group(request, id=id):
         return redirect('/reports/')
 
 
-
 ##########################################################################
 # Area Patient search, create and change
 ##########################################################################
-
-@login_required
+@permission_required('reports.view_patient')
 def search_patient(request):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
 
@@ -522,7 +531,7 @@ def search_patient(request):
     return render(request, 'reports/index_parents.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.add_patient')
 def add_patient(request):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
@@ -541,7 +550,7 @@ def add_patient(request):
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.change_patient')
 def edit_patient(request, id=None):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Patient, id=id)
@@ -555,7 +564,7 @@ def edit_patient(request, id=None):
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.view_patient')
 def patient(request, id=id):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     try:
@@ -610,11 +619,10 @@ def patient(request, id=id):
         return redirect('/reports/')
 
 
-
 ##########################################################################
 # Area Patient Sonstiges create and change
 ##########################################################################
-@login_required
+@permission_required('reports.add_patient_something')
 def add_pa_something(request):
     if request.method == "POST":
         form = PatientSomethingForm(request.POST)
@@ -631,7 +639,8 @@ def add_pa_something(request):
             initial={'patient': patient_result})
     return render(request, 'reports/pa_something_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.change_patient_something')
 def edit_pa_something(request, id=None):
     item = get_object_or_404(Patient_Something, id=id)
     form = PatientSomethingForm(request.POST or None, instance=item)
@@ -646,7 +655,7 @@ def edit_pa_something(request, id=None):
 ##########################################################################
 # Area Initial Assessment create and change
 ##########################################################################
-@login_required
+@permission_required('reports.add_initialassessment')
 def add_ia(request):
     if request.method == "POST":
         form = InitialAssessmentForm(request.POST)
@@ -663,7 +672,8 @@ def add_ia(request):
             initial={'therapy': therapy_result})
     return render(request, 'reports/ia_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.change_initialassessment')
 def edit_ia(request, id=None):
     item = get_object_or_404(InitialAssessment, id=id)
     form = InitialAssessmentForm(request.POST or None, instance=item)
@@ -678,7 +688,7 @@ def edit_ia(request, id=None):
 ##########################################################################
 # Area Therapy Sonstiges create and change
 ##########################################################################
-@login_required
+@permission_required('reports.add_therapy_something')
 def add_therapy_something(request):
     if request.method == "POST":
         form = TherapySomethingForm(request.POST)
@@ -695,7 +705,8 @@ def add_therapy_something(request):
             initial={'therapy': therapy_result})
     return render(request, 'reports/something_form.html', {'form': form})
 
-@login_required
+
+@permission_required('reports.change_therapy_something')
 def edit_therapy_something(request, id=None):
     item = get_object_or_404(Therapy_Something, id=id)
     form = TherapySomethingForm(request.POST or None, instance=item)
@@ -711,7 +722,7 @@ def edit_therapy_something(request, id=None):
 # Area Therapy create and change
 ##########################################################################
 
-@login_required
+@permission_required('reports.add_therapy')
 def add_therapy(request):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
@@ -732,7 +743,7 @@ def add_therapy(request):
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': patient_result})
 
 
-@login_required
+@permission_required('reports.change_therapy')
 def edit_therapy(request, id=None):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Therapy, id=id)
@@ -766,7 +777,7 @@ def edit_therapy(request, id=None):
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': item.patients})
 
 
-@login_required
+@permission_required('reports.view_therapy')
 def therapy(request, id=id):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapy_result = Therapy.objects.get(id=id)
@@ -797,8 +808,7 @@ def therapy(request, id=id):
 ##########################################################################
 # Area Process Report (in German: Verlaufsprotokol)
 ##########################################################################
-
-@login_required
+@permission_required('reports.add_process_report')
 def add_process_report(request):
     if request.method == "POST":
         form = ProcessReportForm(request.POST)
@@ -818,7 +828,7 @@ def add_process_report(request):
         return render(request, 'reports/process_report_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.change_process_report')
 def edit_process_report(request, id=None):
     item = get_object_or_404(Process_report, id=id)
     form = ProcessReportForm(request.POST or None, instance=item)
@@ -831,7 +841,7 @@ def edit_process_report(request, id=None):
     return render(request, 'reports/process_report_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.delete_process_report')
 def delete_process_report(request, id=None):
     item = get_object_or_404(Process_report, id=id)
     therapy_id = item.therapy_id
@@ -842,14 +852,14 @@ def delete_process_report(request, id=None):
         return redirect('/reports/')
 
 
-@login_required
+@permission_required('reports.view_process_report')
 def process_report(request, id=id):
     process_report = Process_report.objects.get(id=id)
     logger.debug('process_report: Verlaufsprotokoll mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/process_report.html', {'process_report': process_report})
 
 
-@login_required
+@permission_required('reports.view_process_report')
 def show_process_report(request):
     width, height = A4
     styles = getSampleStyleSheet()
@@ -948,7 +958,6 @@ def show_process_report(request):
             cresult = Paragraph((escape(item[9])), styleNC)
             data.append([ctreatment, ccontent, cexercises, cresult])
 
-
     # create table
     table = Table(data, colWidths=[1.5 * cm, 10 * cm, 5.5 * cm,
                                    1.7 * cm])
@@ -962,7 +971,7 @@ def show_process_report(request):
     table.drawOn(p, *coord(1.5, 3.5, height - h, cm))
 
     # Close the PDF object cleanly, and we're done.
-    #p.showPage()
+    # p.showPage()
     p.save()
 
     # FileResponse sets the Content-Disposition header so that browsers
@@ -972,7 +981,8 @@ def show_process_report(request):
     file_name = pa_last_name + "_" + pa_first_name + "_" + str(therapy_value.recipe_date) + ".pdf"
     return FileResponse(buffer, as_attachment=True, filename=file_name)
 
-@login_required
+
+@permission_required('reports.view_process_report')
 def show_process_report2(request):
     therapy_start_value = ''
     therapy_end_value = ''
@@ -987,7 +997,7 @@ def show_process_report2(request):
         therapy_value.therapy_start_value = therapy_report_value.therapy_start
         therapy_value.therapy_end_value = therapy_report_value.therapy_end
 
-    #process_report_value = Process_report.objects.values_list('process_treatment',
+    # process_report_value = Process_report.objects.values_list('process_treatment',
     #                                                          'process_content',
     #                                                          'process_exercises',
     #                                                          'process_results',
@@ -1015,11 +1025,12 @@ def show_process_report2(request):
     response['Content-Disposition'] = 'attachment; filename=' + filename
 
     return response
+
+
 ##########################################################################
 # Area Therapyreport (in German: Therapiebericht)
 ##########################################################################
-
-@login_required
+@permission_required('reports.add_therapy_report')
 def add_therapy_report(request):
     if request.method == "POST":
         form = TherapyReportForm(request.POST)
@@ -1042,7 +1053,7 @@ def add_therapy_report(request):
         return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.change_therapy_report')
 def edit_therapy_report(request, id=None):
     item = get_object_or_404(Therapy_report, id=id)
     form = TherapyReportForm(request.POST or None, instance=item)
@@ -1054,14 +1065,14 @@ def edit_therapy_report(request, id=None):
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.view_therapy_report')
 def therapy_report(request, id=id):
     therapy_report = Therapy_report.objects.get(id=id)
     logger.info('{:>2}'.format(request.user.id) + ' therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
     return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
 
 
-@login_required
+@permission_required('reports.delete_therapy_report')
 def show_therapy_report(request):
     id = request.GET.get('id')
     logger.info('{:>2}'.format(request.user.id) + ' show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
@@ -1090,7 +1101,7 @@ def show_therapy_report(request):
     return response
 
 
-@login_required
+@permission_required('reports.add_wait_list')
 def add_waitlist(request):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
                  f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
@@ -1110,7 +1121,7 @@ def add_waitlist(request):
     return render(request, 'reports/waitlist_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.change_wait_list')
 def edit_waitlist(request, id=None):
     double_entry = 0
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
@@ -1129,7 +1140,7 @@ def edit_waitlist(request, id=None):
     return render(request, 'reports/waitlist_form.html', {'form': form})
 
 
-@login_required
+@permission_required('reports.view_wait_list')
 def waitlist(request, status):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     waitlist = Wait_list.objects.filter(wl_active=status).order_by('wl_call_date')
@@ -1145,10 +1156,18 @@ def waitlist(request, status):
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': status})
 
 
-@login_required
+@permission_required('reports.view_wait_list')
 def copy_waitlist_item(request, id=id):
-    #select waitlist object
+
     waitlist = get_object_or_404(Wait_list, id=id)
+
+    patient = Patient.objects.filter(pa_last_name=waitlist.wl_last_name, pa_first_name=waitlist.wl_first_name)
+
+    if patient:
+        waitlist.double_entry = 1
+        for item in patient:
+            waitlist.pa_date_of_birth = item.pa_date_of_birth
+
     #status = request.GET['status']
     if request.GET['status'] == 'no':
         return render(request, 'reports/waitlist_confirm_create.html', {'waitlist': waitlist})
@@ -1160,6 +1179,7 @@ def copy_waitlist_item(request, id=id):
                 pa_street=waitlist.wl_street,
                 pa_city=waitlist.wl_city,
                 pa_zip_code=waitlist.wl_zip_code,
+                pa_date_of_birth=waitlist.wl_date_of_birth,
                 pa_phone=waitlist.wl_phone,
                 pa_cell_phone=waitlist.wl_cell_phone,
                 pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
@@ -1174,8 +1194,8 @@ def copy_waitlist_item(request, id=id):
             logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Patient wurde erfolgreich '
                                                           'aus Warteliste angelegt')
 
-        except:
-            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern')
+        except Exception as e:
+            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern: ' + str(e))
 
     #Info to Webfrontwend
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
@@ -1189,7 +1209,7 @@ class delete_waitlist_item(DeleteView):
     success_url = reverse_lazy('reports:waitlist', kwargs=dict(status='False'))
 
 
-@login_required
+@permission_required('reports.change_wait_list')
 def set_waitlist_item_inactive(request, id=None):
     item = get_object_or_404(Wait_list, id=id)
     if item:
@@ -1198,10 +1218,18 @@ def set_waitlist_item_inactive(request, id=None):
     else:
         logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_inactive: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf inaktive gesetzt werden')
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+
+    for waitlist_item in waitlist:
+        waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
+        waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        if patient:
+            waitlist_item.double_entry = 1
+
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 
-@login_required
+@permission_required('reports.change_wait_list')
 def set_waitlist_item_active(request, id=None):
     item = get_object_or_404(Wait_list, id=id)
     if item:
@@ -1210,13 +1238,21 @@ def set_waitlist_item_active(request, id=None):
     else:
         logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_active: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf aktive gesetzt werden')
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+
+    for waitlist_item in waitlist:
+        waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
+        waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        if patient:
+            waitlist_item.double_entry = 1
+
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 ##########################################################################
 # Area Document upload
 ##########################################################################
 
-@login_required
+@permission_required('reports.view_patient')
 def upload_document(request):
     if request.method == 'POST':
         item_form = DocumentForm(request.POST, request.FILES)
@@ -1240,7 +1276,7 @@ def upload_document(request):
 IMAGE_FILE_TYPES = ['pdf']
 
 
-@login_required
+@permission_required('reports.view_patient')
 def download_document(request):
     if request.method == 'GET':
         file_id = request.GET.get('id')
@@ -1281,7 +1317,7 @@ class del_document(DeleteView):
 # Area Document upload
 ##########################################################################
 
-@login_required
+@permission_required('reports.view_patient')
 def upload_document_therapy(request):
     if request.method == 'POST':
         item_form = DocumentTherapyForm(request.POST, request.FILES)
@@ -1305,7 +1341,7 @@ def upload_document_therapy(request):
 IMAGE_FILE_TYPES = ['pdf']
 
 
-@login_required
+@permission_required('reports.view_patient')
 def download_document_therapy(request):
     if request.method == 'GET':
         file_id = request.GET.get('id')
@@ -1344,7 +1380,7 @@ class del_document_therapy(DeleteView):
 
 
 
-@login_required
+@permission_required('reports.view_patient')
 def getSessionTimer(request):
     sessionTimer = request.session.get_expiry_date()
     sessionTimer = sessionTimer.isoformat()
@@ -1358,7 +1394,7 @@ def getSessionTimer(request):
 class openContext:
     pass
 
-@login_required
+@permission_required('reports.view_patient')
 def getOpenReports(request, context=None):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
@@ -1552,6 +1588,29 @@ def post_login_failed(sender, credentials, request, **kwargs):
                 fail_silently=False,
             )
 
+
+class meta_info:
+    pass
+
+def list_meta_info(request):
+
+    meta_info.CONTENT_LENGTH = request.META.get('CONTENT_LENGTH')
+    meta_info.CONTENT_TYPE = request.META.get('CONTENT_TYPE')
+    meta_info.HTTP_ACCEPT = request.META.get('HTTP_ACCEPT')
+    meta_info.HTTP_ACCEPT_ENCODING = request.META.get('HTTP_ACCEPT_ENCODING')
+    meta_info.HTTP_ACCEPT_LANGUAGE = request.META.get('HTTP_ACCEPT_LANGUAGE')
+    meta_info.HTTP_HOST = request.META.get('HTTP_HOST')
+    meta_info.HTTP_REFERER = request.META.get('HTTP_REFERER')
+    meta_info.HTTP_USER_AGENT = request.META.get('HTTP_USER_AGENT')
+    meta_info.QUERY_STRING = request.META.get('QUERY_STRING')
+    meta_info.REMOTE_ADDR = request.META.get('REMOTE_ADDR')
+    meta_info.REMOTE_HOST = request.META.get('REMOTE_HOST')
+    meta_info.REMOTE_USER = request.META.get('REMOTE_USER')
+    meta_info.REQUEST_METHOD = request.META.get('REQUEST_METHOD')
+    meta_info.SERVER_NAME = request.META.get('SERVER_NAME')
+    meta_info.SERVER_PORT = request.META.get('SERVER_PORT')
+
+    return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
 
 # **************************************************************************************************
 

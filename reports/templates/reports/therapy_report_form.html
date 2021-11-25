@@ -80,7 +80,7 @@
                 {{ form.therapy_break_internal.errors }}
             </div>
         </div>
-        {% if request.user.groups.all.0.name == 'Leitung' %}
+        {% if perms.reports.delete_therapy_report %}
         <div class="form-group row">
             <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Versanddatum: </label>
             <div class="col-sm-6">
