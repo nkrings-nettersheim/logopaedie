@@ -80,5 +80,7 @@ urlpatterns = [
 
     path('list_meta_info/', views.list_meta_info, name='list_meta_info'),
 
+    path('shortcuts/', views.readShortcuts, name='shortcuts'),
+
 ]
 

@@ -284,3 +284,11 @@ class Wait_list (models.Model):
 
     def __str__(self):
         return self.wl_last_name + ' ' + self.wl_first_name + '; ' + self.wl_city
+
+
+class Shortcuts (models.Model):
+    short = models.CharField(max_length=10)
+    long = models.CharField(max_length=200, blank=True, default='', null=True)
+
+    def __str__(self):
+        return self.short

@@ -3,6 +3,7 @@ import os
 import logging
 import datetime
 import locale
+import json
 
 from html import escape
 from dateutil.parser import parse
@@ -10,7 +11,7 @@ from django.contrib.auth import user_logged_in, user_logged_out, user_login_fail
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
-from django.http import FileResponse, HttpResponseRedirect, HttpResponse
+from django.http import FileResponse, HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, CreateView
@@ -20,6 +21,8 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail
+from django.forms.models import model_to_dict
+from django.core.serializers import serialize
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
@@ -39,7 +42,7 @@ from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, Thera
     WaitlistForm
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
-    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list
+    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts
 
 logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
@@ -1612,6 +1615,14 @@ def list_meta_info(request):
 
     return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
 
+def readShortcuts(request):
+    if request.is_ajax and request.method == "GET":
+        shortcuts = Shortcuts.objects.all()
+
+        data = serialize("json", shortcuts, fields=('short', 'long'))
+        return JsonResponse({'shortcuts': data}, status=200)
+
+    return JsonResponse({"error": ""}, status=400)
 # **************************************************************************************************
 
 LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()
