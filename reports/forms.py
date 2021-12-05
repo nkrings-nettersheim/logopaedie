@@ -1029,6 +1029,68 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_necessary = forms.NullBooleanField(required=False,  widget=forms.CheckboxInput)
 
+    therapy_summary = forms.CharField(required=False,
+                                       max_length=820,
+                                       widget=CKEditorWidget()
+                                       )
+
+    therapy_request_of = forms.CharField(required=False,
+                                           max_length=100,
+                                           widget=forms.TextInput(
+                                               attrs={
+                                                   'class': 'form-control'
+                                               }
+                                           )
+                                           )
+
+    therapy_insurance = forms.CharField(required=False,
+                                           max_length=100,
+                                           widget=forms.TextInput(
+                                               attrs={
+                                                   'class': 'form-control'
+                                               }
+                                           )
+                                           )
+
+    therapy_diagnostic = forms.CharField(required=False,
+                                           max_length=100,
+                                           widget=forms.TextInput(
+                                               attrs={
+                                                   'class': 'form-control'
+                                               }
+                                           )
+                                           )
+
+    therapy_doc_diagnostic = forms.CharField(required=False,
+                                           max_length=100,
+                                           widget=forms.TextInput(
+                                               attrs={
+                                                   'class': 'form-control'
+                                               }
+                                           )
+                                           )
+
+    therapy_status = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+
+    therapy_aims = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+
+    therapy_content = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+
+    therapy_process = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+
+    therapy_compliance = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+
+    VARIATION = (
+        ('0', 'Kurzbericht'),
+        ('1', 'Standardbericht'),
+        ('2', 'Großer Bericht'),
+    )
+
+    therapy_report_variation = forms.ChoiceField(choices=VARIATION, label="", initial='1', widget=forms.Select(
+        attrs={
+            'class': 'form-control'
+        }
+    ))
 
     class Meta:
         model = Therapy_report
@@ -1041,7 +1103,6 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_indicated',
                   'therapy_break',
                   'therapy_break_internal',
-                  #'therapy_break_date',
                   'therapy_comment',
                   'therapy',
                   'therapy_individual',
@@ -1056,7 +1117,19 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_another',
                   'therapy_another_text',
                   'therapy_home_visit',
-                  'therapy_necessary']
+                  'therapy_necessary',
+                  'therapy_summary',
+                  'therapy_request_of',
+                  'therapy_insurance',
+                  'therapy_diagnostic',
+                  'therapy_doc_diagnostic',
+                  'therapy_status',
+                  'therapy_aims',
+                  'therapy_content',
+                  'therapy_process',
+                  'therapy_compliance',
+                  'therapy_report_variation'
+                  ]
 
 
 class InitialAssessmentForm(forms.ModelForm):
@@ -1420,6 +1493,7 @@ class WaitlistForm(forms.ModelForm):
     )
 
     wl_information = forms.CharField(
+        max_length=255,
         required=False,
         widget=CKEditorWidget(config_name='waitlist')
     )

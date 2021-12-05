@@ -1064,6 +1064,7 @@ def edit_therapy_report(request, id=None):
         form.save()
         logger.info('{:>2}'.format(request.user.id) + ' edit_therapy_report: Therapiebericht ändern mit ID: ' + str(id))
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
+
     logger.debug('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
@@ -1072,7 +1073,7 @@ def edit_therapy_report(request, id=None):
 def therapy_report(request, id=id):
     therapy_report = Therapy_report.objects.get(id=id)
     logger.info('{:>2}'.format(request.user.id) + ' therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
-    return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
+    return render(request, 'reports/therapy_report_standard.html', {'therapy_report': therapy_report})
 
 
 @permission_required('reports.delete_therapy_report')
@@ -1082,22 +1083,35 @@ def show_therapy_report(request):
     therapy_result = Therapy.objects.get(id=request.GET.get('id'))
     result = Therapy_report.objects.get(therapy=request.GET.get('id'))
     doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
-    result.pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
-    result.pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
-    result.pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
-    result.recipe_date = Therapy.objects.get(id=id).recipe_date
+    result.pa_first_name = therapy_result.patients.pa_first_name
+    result.pa_last_name = therapy_result.patients.pa_last_name
+    result.pa_date_of_birth = therapy_result.patients.pa_date_of_birth
+    result.recipe_date = therapy_result.recipe_date
+    result.therapy_regulation_amount = therapy_result.therapy_regulation_amount
     result.process_count = Process_report.objects.filter(therapy=id).count()
     result.static_root = settings.STATIC_ROOT
 
-    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
+    report_variation = result.therapy_report_variation
 
-    html_string = render_to_string('pdf_templates/therapy_report.html', {'therapy': therapy_result,
-                                                                         'result': result,
-                                                                         'doctor': doctor_result
-                                                                         })
+    if report_variation == 0:
+        html_file = 'pdf_templates/therapy_report_short.html'
+        css_file = '/reports/therapy_report_short.css'
+        fileext = "_kurz"
+    elif report_variation == 1:
+        html_file = 'pdf_templates/therapy_report_standard.html'
+        css_file = '/reports/therapy_report_standard.css'
+        fileext = "_st"
+    else :
+        html_file = 'pdf_templates/therapy_report_big.html'
+        css_file = '/reports/therapy_report_big.css'
+        fileext = '_groß'
+
+    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + fileext + ".pdf"
+
+    html_string = render_to_string(html_file, {'therapy': therapy_result, 'result': result, 'doctor': doctor_result})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-    pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + '/reports/therapy_report.css')])
+    pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + css_file)])
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=' + filename
 
@@ -1163,7 +1177,6 @@ def waitlist(request, status):
 def copy_waitlist_item(request, id=id):
 
     waitlist = get_object_or_404(Wait_list, id=id)
-
     patient = Patient.objects.filter(pa_last_name=waitlist.wl_last_name, pa_first_name=waitlist.wl_first_name)
 
     if patient:
@@ -1177,6 +1190,9 @@ def copy_waitlist_item(request, id=id):
     else:
         #create patient_object
         try:
+            if waitlist.wl_date_of_birth == None:
+                waitlist.wl_date_of_birth = "1900-01-01"
+
             Patient.objects.create(pa_first_name=waitlist.wl_first_name,
                 pa_last_name=waitlist.wl_last_name,
                 pa_street=waitlist.wl_street,
@@ -1189,7 +1205,8 @@ def copy_waitlist_item(request, id=id):
                 pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
                 pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
                 pa_email=waitlist.wl_email,
-                pa_gender=waitlist.wl_gender
+                pa_gender=waitlist.wl_gender,
+                pa_note=waitlist.wl_information
             )
             #set status waitlist object to False
             waitlist.wl_active = False
@@ -1380,17 +1397,25 @@ class del_document_therapy(DeleteView):
 
 
 # **************************************************************************************************
+#@permission_required('reports.view_patient')
+#def getSessionTimer(request):
+#    sessionTimer = request.session.get_expiry_date()
+#    sessionTimer = sessionTimer.isoformat()
+#    context = {'getSessionTimer': str(sessionTimer)}
+#    logger.debug('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
 
+#    return render(request, 'getSessionTimer.html', {'form': context})
 
 
 @permission_required('reports.view_patient')
-def getSessionTimer(request):
-    sessionTimer = request.session.get_expiry_date()
-    sessionTimer = sessionTimer.isoformat()
-    context = {'getSessionTimer': str(sessionTimer)}
-    logger.debug('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
+def get_session_timer(request):
 
-    return render(request, 'getSessionTimer.html', {'form': context})
+    if request.is_ajax and request.method == "GET":
+        sessiontimer = request.session.get_expiry_date().isoformat()
+        logger.debug('{:>2}'.format(request.user.id) + " getSessionTimerNew: " + str(sessiontimer))
+        return JsonResponse({'sessiontimer': sessiontimer}, status=200)
+
+    return JsonResponse({"error": ""}, status=400)
 
 
 # Die Klasse ist für getOpenReports wichtig!!!

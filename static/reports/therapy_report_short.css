@@ -1,0 +1,587 @@
+/* @charset "UTF-8"; */
+/* @import url("https://fonts.googleapis.com/css?family=Pacifico|Source+Sans+Pro:400,700"); */
+
+@page {
+    size: A4 portrait;
+    margin-top: 0cm;
+    margin-left: 0cm;
+    margin-right: 0cm;
+    margin-bottom: 0cm;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 10pt;
+}
+
+#kopfbalken {
+    position: absolute;
+    left: 7.5cm;
+    top: 0.05cm;
+    width: 13cm;
+    height: 0.6cm;
+    background: #AA85D2;
+}
+
+#seitenbalken {
+    position: absolute;
+    left: 0cm;
+    top: 0.1cm;
+    width: 0.6cm;
+    height: 29.5cm;
+    background: #AA85D2;
+}
+
+#logo {
+    position: absolute;
+    left: 1.0cm;
+    top: 0.4cm;
+    width: 2cm;
+}
+
+#kopf {
+    position: absolute;
+    left: 13cm;
+    top: 0.0cm;
+    font-family: "Times New Roman";
+    font-size: 18pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#kopf1 {
+    position: absolute;
+    left: 4.2cm;
+    top: 1.1cm;
+    font-family: "Times New Roman";
+    font-size: 22pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#kopf2 {
+    position: absolute;
+    left: 4.2cm;
+    top: 2.1cm;
+    font-family: "Times New Roman";
+    font-size: 12pt;
+    font-weight: bold;
+    color: #777777;
+}
+
+#kopf3 {
+    position: absolute;
+    left: 4.2cm;
+    top: 2.9cm;
+    font-size: 10pt;
+    color: #AA85D2;
+}
+
+#fenster_headline {
+    position: relative;
+    left: 1.8cm;
+    top: 4.7cm;
+    font-size: 6pt;
+}
+
+#adresse {
+    position: absolute;
+    left: 16.0cm;
+    top: 1.3cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+#tel_eu { position: absolute; left: 16.9cm; top: 2.14cm; font-size: 8pt; color: #AAAAAA; }
+
+#tel_net {
+    position: absolute;
+    left: 16.9cm;
+    top: 4.1cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+#adresse_arzt {
+    position: absolute;
+    left: 1.8cm;
+    top: 6.0cm;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+#datum {
+    position: absolute;
+    left: 12.6cm;
+    top: 7.2cm;
+    font-weight: bold;
+}
+
+#betreff {
+    position: absolute;
+    left: 1.8cm;
+    top: 9.5cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#patient1 {
+    position: absolute;
+    left: 1.8cm;
+    top: 10.3cm;
+    font-weight: bold;
+}
+
+#patient2 {
+    position: absolute;
+    left: 5.7cm;
+    top: 10.3cm;
+}
+
+#geburtsdatum1 {
+    position: absolute;
+    left: 11.3cm;
+    top: 10.3cm;
+    font-weight: bold;
+}
+
+#geburtsdatum2 {
+    position: absolute;
+    left: 13.0cm;
+    top: 10.3cm;
+}
+
+#rezeptdatum1 {
+    position: absolute;
+    left: 1.8cm;
+    top: 10.8cm;
+    font-weight: bold;
+}
+
+#rezeptdatum2 {
+    position: absolute;
+    left: 5.7cm;
+    top: 10.8cm;
+}
+
+#therapist_1 {
+    position: absolute;
+    left: 12.1cm;
+    top: 10.8cm;
+    font-weight: bold;
+}
+
+#therapist_2 {
+    position: absolute;
+    left: 13.0cm;
+    top: 10.8cm;
+}
+
+#behandlungen1 {
+    position: absolute;
+    left: 1.8cm;
+    top: 11.3cm;
+    font-weight: bold;
+}
+
+#behandlungen2 {
+    position: absolute;
+    left: 2.25cm;
+    top: 11.3cm;
+    font-weight: bold;
+}
+
+#behandlung_vom {
+    position: absolute;
+    left: 5.7cm;
+    top: 11.3cm;
+}
+
+#behandlung_bis1 {
+    position: absolute;
+    left: 12.1cm;
+    top: 11.3cm;
+    font-weight: bold;
+}
+
+#behandlung_bis2 {
+  position: absolute;
+  left: 13.0cm;
+  top: 11.3cm;
+}
+
+#indikation1 {
+    position: absolute;
+    left: 1.8cm;
+    top: 11.8cm;
+    font-weight: bold;
+}
+
+#indikation2 {
+  position: absolute;
+  left: 5.7cm;
+  top: 11.8cm;
+}
+
+#diagnostic_group_key {
+  position: absolute;
+  left: 5.7cm;
+  top: 11.8cm;
+}
+
+#diagnostic_group_description {
+  position: absolute;
+  left: 5.7cm;
+  top: 12.2cm;
+}
+
+#icd1 {
+    position: absolute;
+    left: 11.0cm;
+    top: 11.8cm;
+    font-weight: bold;
+}
+
+#icd2 {
+    position: absolute;
+    left: 13.0cm;
+    top: 11.8cm;
+}
+
+
+
+
+#empfehlung {
+    position: absolute;
+    left: 1.8cm;
+    top: 13.7cm;
+    text-decoration: underline ;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+
+
+#behandlung1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 14.3cm;
+    font-weight: bold;
+}
+
+#behandlung2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 14.2cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#behandlung3 {
+    position: absolute;
+    color: red;
+    left: 1.95cm;
+    top: 14.3cm;
+}
+
+
+#individual1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 14.3cm;
+    font-weight: bold;
+}
+#individual2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 14.2cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+#individual3 {
+    position: absolute;
+    color: red;
+    left: 12.95cm;
+    top: 14.3cm;
+}
+#individual4 {
+    position: absolute;
+    color: red;
+    left: 16.5cm;
+    top: 14.3cm;
+}
+
+
+#pause1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 14.9cm;
+    font-weight: bold;
+}
+
+#pause2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 14.8cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#pause3 {
+    position: absolute;
+    color: red;
+    left: 1.95cm;
+    top: 14.9cm;
+}
+
+
+#group1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 14.9cm;
+    font-weight: bold;
+}
+#group2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 14.8cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+#group3 {
+    position: absolute;
+    color: red;
+    left: 12.95cm;
+    top: 14.9cm;
+}
+#group4 {
+    position: absolute;
+    color: red;
+    left: 16.5cm;
+    top: 14.9cm;
+}
+
+#doppel1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 15.5cm;
+    font-weight: bold;
+}
+#doppel2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 15.4cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#ende1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 15.5cm;
+    font-weight: bold;
+}
+
+#ende2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 15.4cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#ende3 {
+    position: absolute;
+    color: red;
+    left: 1.95cm;
+    top: 15.5cm;
+}
+
+
+#frequence1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 16.1cm;
+    font-weight: bold;
+}
+#frequence2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 16.0cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+#frequence3 {
+    position: absolute;
+    color: red;
+    left: 12.95cm;
+    top: 16.1cm;
+}
+#frequence4 {
+    position: absolute;
+    color: red;
+    left: 18.0cm;
+    top: 16.1cm;
+}
+
+
+#wiedervorstellung1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 16.1cm;
+    font-weight: bold;
+}
+
+#wiedervorstellung2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 16.0cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#wiedervorstellung3 {
+    position: absolute;
+    color: red;
+    left: 1.95cm;
+    top: 16.1cm;
+}
+
+#wiedervorstellung4 {
+    position: absolute;
+    color: red;
+    left: 6.05cm;
+    top: 16.1cm;
+}
+
+#another1 {
+    position: absolute;
+    left: 2.5cm;
+    top: 16.7cm;
+    font-weight: bold;
+}
+
+#another2 {
+    position: absolute;
+    left: 1.8cm;
+    top: 16.6cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#another3 {
+    position: absolute;
+    color: red;
+    left: 1.95cm;
+    top: 16.7cm;
+}
+
+#another4 {
+    position: absolute;
+    color: red;
+    left: 5.5cm;
+    top: 16.7cm;
+}
+
+
+#home_visit1 {
+    position: absolute;
+    left: 13.5cm;
+    top: 16.7cm;
+    font-weight: bold;
+}
+
+#home_visit2 {
+    position: absolute;
+    left: 12.8cm;
+    top: 16.6cm;
+    background: #FFF;
+    border: 2px solid #000000;
+    height: 0.4cm;
+    width: 0.4cm;
+}
+
+#home_visit3 {
+    position: absolute;
+    color: red;
+    left: 12.95cm;
+    top: 16.7cm;
+}
+
+#therapy_summary_header {
+    position: absolute;
+    left: 1.8cm;
+    top: 18.6cm;
+    text-decoration: underline ;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#therapy_summary {
+    position: absolute;
+    font-size: 10pt;
+    left: 1.8cm;
+    top: 18.8cm;
+    width: 18cm;
+}
+
+#hint_on_Anhang_A {
+    position: absolute;
+    left: 1.8cm;
+    top: 25.2cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}
+
+#fragen {
+    position: absolute;
+    left: 1.8cm;
+    top: 26.2cm;
+    font-weight: bold;
+}
+
+#gruss {
+    position: absolute;
+    left: 1.8cm;
+    top: 26.8cm;
+}
+
+#dank {
+    position: absolute;
+    left: 11.0cm;
+    top: 27.8cm;
+    font-weight: bold;
+}
+
+#unterschrift {
+    position: absolute;
+    left: 1.8cm;
+    top: 27.3cm;
+    width: 4cm;
+}
+
+#footer {
+    position: absolute;
+    left: 2.8cm;
+    top: 28.7cm;
+    font-size: 8pt;
+    color: #AAAAAA;
+}

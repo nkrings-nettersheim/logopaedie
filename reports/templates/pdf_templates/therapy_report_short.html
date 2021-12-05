@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% load static %}
+    <meta charset="utf-8">
+    <title>Therapiebericht</title>
+    <meta name="description" content="Therapiebericht Logopädische Praxis Petra Klein">
+    <meta name="author" content="Norbert Krings">
+</head>
+<body>
+<img id="logo" src="file:////{{ result.static_root}}/images/logopaedie.jpeg">
+
+<div id="kopfbalken"></div>
+<div id="seitenbalken"></div>
+<div id="kopf">seit 1987</div>
+<div id="kopf1">Logopädische Praxis P. Klein</div>
+<div id="kopf2">Petra Schumacher (vorm. Petra Klein); staatl. gepr. Logopädin</div>
+<div id="kopf3">Behandlungen von Sprach-, Stimm-, Sprech- und Schluckstörungen,<br>Mutismus, Autismus, Demenz, Hörstörungen</div>
+<div id="adresse">
+    Rathausstrasse 8<br>
+    53879 Euskirchen<br><br>
+    Tel. <br>
+    Fax. <br><br><br>
+    Bahnhofstrasse 26<br>
+    53947 Nettersheim<br><br>
+    Tel. <br>
+    Fax.
+</div>
+<div id="tel_eu">
+    02251 / 5 97 62<br>
+    02251 / 7 15 11
+</div>
+<div id="tel_net">
+    02486 / 80 29 50<br>
+    02486 / 80 29 60
+</div>
+<div id="fenster_headline">Logopädische Praxis Petra Klein / Inh. Toni Schumacher - Rathausstr. 8 - 53879 Euskirchen</div>
+
+<div id="adresse_arzt">
+    {{ doctor.doctor_name1 | truncatechars:50}}<br>
+    {{ doctor.doctor_name2 | truncatechars:50}}<br>
+    {{ doctor.doctor_name3 | truncatechars:50}}<br>
+    {{ doctor.doctor_street }}<br><br>
+    {{ doctor.doctor_zip_code }} {{ doctor.doctor_city }}
+</div>
+<div id="datum">Euskirchen den: {{ result.report_date | date:"d.m.Y" }}</div>
+
+<div id="betreff">Verordnungs-Bericht:</div>
+<div id="patient1">Name des Patienten:</div>
+<div id="patient2">{{ result.pa_last_name}}, {{ result.pa_first_name}}</div>
+<div id="geburtsdatum1">geb. am:</div>
+<div id="geburtsdatum2">{{ result.pa_date_of_birth | date:"d.m.Y"}}</div>
+<div id="rezeptdatum1">Rezeptdatum:</div>
+<div id="rezeptdatum2">{{ result.recipe_date | date:"d.m.Y" }}</div>
+<div id="therapist_1">Th.:</div>
+<div id="therapist_2">{{ therapy.therapists }}</div>
+<div id="behandlungen1">{{ result.process_count }}</div>
+<div id="behandlungen2">Behandlungen vom:</div>
+<div id="behandlung_vom">{{ result.therapy_start | date:"d.m.Y" }}</div>
+<div id="behandlung_bis1">bis:</div>
+<div id="behandlung_bis2">{{ result.therapy_end | date:"d.m.Y" }}</div>
+<div id="indikation1">Diagnosegruppe:</div>
+{% if therapy.diagnostic_group.diagnostic_key != '' %}
+    <div id="diagnostic_group_key">{{ therapy.diagnostic_group.diagnostic_key }}</div>
+    <div id="diagnostic_group_description">{{ therapy.diagnostic_group.diagnostic_description }}</div>
+{% else %}
+    <div id="indikation2">{{ therapy.therapy_indication_key }}</div>
+{% endif %}
+
+<div id="icd1">ICD-Code:</div>
+<div id="icd2">{{ therapy.therapy_icd_cod }}{% if therapy.therapy_icd_cod_2 == "-" %}{% else %}, {{ therapy.therapy_icd_cod_2 }}{% endif %}
+</div>
+
+
+<div id="empfehlung">Empfehlungen:</div>
+<div id="behandlung1">Fortführung der Therapie</div>
+<div id="behandlung2"></div>
+<div id="behandlung3">{% if result.therapy_indicated %} X {% endif %}</div>
+
+<div id="individual1">Einzeltherapie</div>
+<div id="individual2"></div>
+<div id="individual3">{% if result.therapy_individual %} X {% endif %}</div>
+<div id="individual4">
+    {% if result.therapy_individual_min != "-" %}
+     Minuten: {{ result.therapy_individual_min }}
+    {% endif %}
+</div>
+
+<div id="group1">Gruppentherapie</div>
+<div id="group2"></div>
+<div id="group3">{% if result.therapy_group %} X {% endif %}</div>
+<div id="group4">
+    {% if result.therapy_group_min != "-" %}
+    Minuten: {{ result.therapy_group_min }}
+    {% endif %}
+</div>
+
+<div id="doppel1">Doppelbehandlung</div>
+<div id="doppel2"></div>
+
+<div id="pause1">Therapiepause</div>
+<div id="pause2"></div>
+<div id="pause3">{% if result.therapy_break %} X {% endif %}</div>
+
+<div id="ende1">Beendigung der Therapie</div>
+<div id="ende2"></div>
+<div id="ende3">{% if result.therapy_finish %} X {% endif %}</div>
+
+<div id="frequence1">Frequenz&nbsp;&nbsp;&nbsp; Anzahl/Woche:</div>
+<div id="frequence2"></div>
+<div id="frequence3">{% if result.therapy_frequence %} X {% endif %}</div>
+<div id="frequence4">
+    {% if result.therapy_frequence_count_per_week %}
+    {{ result.therapy_frequence_count_per_week }}
+    {% endif %}
+</div>
+
+<div id="wiedervorstellung1">Wiedervorstellung in </div>
+<div id="wiedervorstellung2"></div>
+
+<div id="wiedervorstellung3">{% if result.therapy_re_introduction %} X {% endif %}</div>
+<div id="wiedervorstellung4">
+    {% if result.therapy_re_introduction_weeks != 0 %}
+    {{ result.therapy_re_introduction_weeks }} Wochen
+    {% endif %}
+</div>
+
+<div id="another1">andere Therapie: </div>
+<div id="another2"></div>
+<div id="another3">{% if result.therapy_another %} X {% endif %}</div>
+<div id="another4">{{ result.therapy_another_text }} </div>
+
+<div id="home_visit1">Hausbesuch </div>
+<div id="home_visit2"></div>
+<div id="home_visit3">{% if result.therapy_home_visit %} X {% endif %}</div>
+
+<div id="therapy_summary_header">Zusammenfassung Therapieverlauf, ggf. Begründung für Empfehlung:</div>
+<div id="therapy_summary">{{ result.therapy_summary | safe }}</div>
+
+<div id="hint_on_Anhang_A">Anhang A zu Anlage 1 zum Vertrag nach § 125 Absatz 1 SGB V: Verordnungs-Bericht
+Bericht gemäß § 13 Absatz 2 lit. d, <br>§ 16 Absatz 7 HeilM-RL / § 11 Absatz 2 lit. c, § 15 Absatz 5 HeilM-RL ZÄ
+</div>
+
+<div id="fragen">Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!</div>
+<div id="gruss">Mit freundlichen Grüßen</div>
+<img id="unterschrift" src="file:////{{ result.static_root}}/images/unterschrift_ps.jpg">
+<div id="dank">Vielen Dank für die Kooperation</div>
+<div id="footer">Zur Beachtung!!  Dieses Schreiben enthält schutzbedürftige personenbezogene Daten,
+    für deren Weitergabe an Dritte die <br>Beschränkungen des §203 StGB gelten.
+    Eine durch den Patienten nicht autorisierte Weitergabe an Dritte ist nicht statthaft.
+</div>
+
+</body>
+</html>

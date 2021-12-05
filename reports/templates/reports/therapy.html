@@ -384,7 +384,7 @@
                   <div class="col-sm-2">kein Bericht erforderlich:</div>
                   <div class="col-sm-10"><strong>{% if therapy_report.therapy_necessary %} X {% endif %}</strong></div>
               </div>
-              <div class="row bg-white ">
+              <div class="row bg-light ">
                   <div class="col-sm-2">Berichtsdatum:</div>
                   <div class="col-sm-10"><strong>{{ therapy_report.report_date }}</strong></div>
               </div>
@@ -392,6 +392,73 @@
                   <div class="col-sm-2">Wiedervorstellung (intern):</div>
                   <div class="col-sm-10"><strong>{% if therapy_report.therapy_break_internal %} X {% endif %}</strong></div>
               </div>
+              <div class="row bg-light">
+                  <div class="col-sm-2">Berichtsform:</div>
+                  <div class="col-sm-7">
+                      {% if therapy_report.therapy_report_variation == 0 %}
+                      <strong>Kurzbericht</strong>
+                      {% elif therapy_report.therapy_report_variation == 1 %}
+                      <strong>Standardbericht</strong>
+                      {% elif therapy_report.therapy_report_variation == 2 %}
+                      <strong>Großer Bericht</strong>
+                      {% endif %}
+                  </div>
+              </div>
+              {% if therapy_report.therapy_request_of %}
+                  <div class="row bg-white">
+                      <div class="col-sm-2">auf Anforderung von:</div>
+                      <div class="col-sm-7"><strong>{{ therapy_report.therapy_request_of }}</strong></div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_insurance %}
+                  <div class="row bg-light">
+                      <div class="col-sm-2">Krankenkasse:</div>
+                      <div class="col-sm-7"><strong>{{ therapy_report.therapy_insurance }}</strong></div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_diagnostic %}
+                  <div class="row bg-white">
+                      <div class="col-sm-2">Therapeutische Diagnose:</div>
+                      <div class="col-sm-7"><strong>{{ therapy_report.therapy_diagnostic }}</strong></div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_doc_diagnostic %}
+                  <div class="row bg-light">
+                      <div class="col-sm-2">Ärztliche Diagnose:</div>
+                      <div class="col-sm-7"><strong>{{ therapy_report.therapy_doc_diagnostic }}</strong></div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_status %}
+                  <div class="row bg-white">
+                      <div class="col-sm-2">Status:</div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_status | safe }}</div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_aims %}
+                  <div class="row bg-light">
+                      <div class="col-sm-2">Ziel/e:</div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_aims | safe }}</div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_content %}
+                  <div class="row bg-white">
+                      <div class="col-sm-2">Inhalt:</div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_content | safe }}</div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_process %}
+                  <div class="row bg-light">
+                      <div class="col-sm-2">Verlauf:</div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_process | safe }}</div>
+                  </div>
+              {% endif %}
+              {% if therapy_report.therapy_compliance %}
+                  <div class="row bg-white">
+                      <div class="col-sm-2">Compliance:</div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_compliance | safe }}</div>
+                  </div>
+              {% endif %}
+
               <div class="row bg-light">
                   <div class="col-sm-2">Aktueller Stand:</div>
                   <div class="col-sm-7">{{ therapy_report.therapy_current_result | safe }}</div>
@@ -404,6 +471,12 @@
                   <div class="col-sm-2">Prognose:</div>
                   <div class="col-sm-7">{{ therapy_report.therapy_forecast | safe }}</div>
               </div>
+              {% if therapy_report.therapy_summary %}
+                  <div class="row bg-light">
+                      <div class="col-sm-2">Begründung:</div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_summary | safe }}</div>
+                  </div>
+              {% endif %}
               <div class="row bg-white">
                   <div class="col-sm-2">Fortführung der Therapie:</div>
                   <div class="col-sm-10"><strong>{% if therapy_report.therapy_indicated %} X {% endif %}</strong></div>
@@ -437,7 +510,7 @@
                   <div class="col-sm-1"><strong>{{ therapy_report.therapy_re_introduction_weeks }}</strong> Wochen</div>
               </div>
 
-              <div class="row bg-light">
+              <div class="row bg-white">
                   <div class="col-sm-2">Frequenz:</div>
                   <div class="col-sm-1"><strong>{% if therapy_report.therapy_frequence %} X {% endif %}</strong></div>
                   <div class="col-sm-1">Anzahl/Woche: </div>
@@ -455,7 +528,7 @@
                   <div class="col-sm-3"><strong>{{ therapy_report.therapy_another_text }}</strong></div>
                   <div class="col-sm-1"></div>
               </div>
-              <div class="row bg-light">
+              <div class="row bg-white">
                   <div class="col-sm-2">Hausbesuch:</div>
                   <div class="col-sm-2"><strong>{% if therapy_report.therapy_home_visit %} X {% endif %}</strong></div>
               </div>
