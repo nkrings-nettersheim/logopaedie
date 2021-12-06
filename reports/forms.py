@@ -1070,6 +1070,8 @@ class TherapyReportForm(forms.ModelForm):
                                            )
                                            )
 
+    therapy_therapist_diagnostic = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+
     therapy_status = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
 
     therapy_aims = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
@@ -1081,9 +1083,9 @@ class TherapyReportForm(forms.ModelForm):
     therapy_compliance = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
 
     VARIATION = (
-        ('0', 'Kurzbericht'),
-        ('1', 'Standardbericht'),
-        ('2', 'Großer Bericht'),
+        ('0', 'Verordnungs-kurz Bericht Arzt'),
+        ('1', 'eigener Individueller Bericht'),
+        ('2', 'Anforderungsbericht Arzt / KK /MDK'),
     )
 
     therapy_report_variation = forms.ChoiceField(choices=VARIATION, label="", initial='1', widget=forms.Select(
@@ -1123,6 +1125,7 @@ class TherapyReportForm(forms.ModelForm):
                   'therapy_insurance',
                   'therapy_diagnostic',
                   'therapy_doc_diagnostic',
+                  'therapy_therapist_diagnostic',
                   'therapy_status',
                   'therapy_aims',
                   'therapy_content',

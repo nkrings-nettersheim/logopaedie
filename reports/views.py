@@ -1593,7 +1593,7 @@ def post_login_failed(sender, credentials, request, **kwargs):
             send_mail(
                 subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
                 message='User: ' + credentials['username'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Passwort eingeloggt und wurde deaktiviert',
-                from_email='logopaedieklein.raspberry@gmail.com',
+                from_email='logopakt@logoeu.uber.space',
                 recipient_list=['norbert.krings@gmail.com', ],
                 fail_silently=False,
             )
@@ -1611,7 +1611,7 @@ def post_login_failed(sender, credentials, request, **kwargs):
             send_mail(
                 subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
                 message='IP-Adresse: ' + request.META['REMOTE_ADDR'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Benutzernamen eingeloggt',
-                from_email='logopaedieklein.raspberry@gmail.com',
+                from_email='logopakt@logoeu.uber.space',
                 recipient_list=['norbert.krings@gmail.com', ],
                 fail_silently=False,
             )

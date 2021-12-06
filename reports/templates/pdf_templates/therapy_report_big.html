@@ -116,9 +116,10 @@
             {{ therapy.therapy_icd_cod_2 }}
             {{ therapy.therapy_icd_cod_3 }} </td>
     </tr>
+</table>
+<table style="width:100%">
     <tr>
-        <td style="width:40%">Therapeutische Diagnostik</td>
-        <td><b>Keine Ahnung was hier rein soll ???</b></td>
+        <td >Therapeutische Diagnostik{{ result.therapy_therapist_diagnostic | safe }}</td>
     </tr>
 </table>
 <h3>Statusfeststellung</h3>
@@ -129,7 +130,7 @@
 </table>
 <h3>Behandlung</h3>
 
-<table style="width:100%" border="1">
+<table style="width:100%">
     <tr>
         <td><strong>Ziel/e</strong>{{result.therapy_aims | safe }}</td>
     </tr>
@@ -163,14 +164,19 @@
         <td><strong>Begründung</strong>{{ result.therapy_summary | safe }}</td>
     </tr>
 </table>
-<p id="hint_on_Anhang_C">Anhang A zu Anlage 1 zum Vertrag nach § 125 Absatz 1 SGB V: Verordnungs-Bericht
-Bericht gemäß § 13 Absatz 2 lit. d, <br>§ 16 Absatz 7 HeilM-RL / § 11 Absatz 2 lit. c, § 15 Absatz 5 HeilM-RL ZÄ
+<p id="hint_on_Anhang_C">Anhang C zu Anlage 1 zum Vertrag nach § 125 Absatz 1 SGB V: Bericht<br>
+Für die Versicherte oder den Versicherten von Ärztinnen oder Ärzten, Medizinischem Dienst und anderen vergleichbaren
+    Institutionen angeforderter Bericht<br>
+    (kein Bericht i.S. §13 Absatz 2 lit.d, §16 Absatz 7 HeilM-RL oder §11 Absatz 2 lit.c, §15 Absatz 5 HeilM-RL ZÄ)
 </p>
 
-<p>Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!</p>
-<p>Mit freundlichen Grüßen</p>
-<img src="file:////{{ result.static_root}}/images/unterschrift_ps.jpg">
-<p>Vielen Dank für die Kooperation</p>
+<div id="signature">
+    <p>Bei Fragen stehe ich Ihnen jeder Zeit zur Verfügung!</p>
+    <p>Mit freundlichen Grüßen</p>
+    <img src="file:////{{ result.static_root}}/images/unterschrift_ps.jpg">
+    <p>Vielen Dank für die Kooperation</p>
+</div>
+
 <div id="footer">Zur Beachtung!!  Dieses Schreiben enthält schutzbedürftige personenbezogene Daten,
     für deren Weitergabe an Dritte die <br>Beschränkungen des §203 StGB gelten.
     Eine durch den Patienten nicht autorisierte Weitergabe an Dritte ist nicht statthaft.

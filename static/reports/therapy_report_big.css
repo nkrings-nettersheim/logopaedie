@@ -7,6 +7,12 @@
     margin-left: 0cm;
     margin-right: 0cm;
     margin-bottom: 1cm;
+    @bottom-center {
+       content: "Seite " counter(page) " von " counter(pages);
+        font-size: 8pt;
+        color: #AAAAAA;
+        border-top: .25pt;
+    }
 }
 
 body {
@@ -618,10 +624,14 @@ td {
     color: #AAAAAA;
 }
 
+#signature {
+    display: inline-block;
+}
+
 #footer {
     position: fixed;
     left: 2.8cm;
-    top: 27.7cm;
+    top: 27.5cm;
     font-size: 8pt;
     color: #AAAAAA;
 }

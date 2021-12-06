@@ -138,11 +138,12 @@ class Therapy_report(models.Model):
     therapy_insurance = models.CharField(max_length=100, default='')
     therapy_diagnostic = models.CharField(max_length=100, default='')
     therapy_doc_diagnostic = models.CharField(max_length=100, default='')
-    therapy_status = RichTextField(default="")
-    therapy_aims = RichTextField(default="")
-    therapy_content = RichTextField(default="")
-    therapy_process = RichTextField(default="")
-    therapy_compliance = RichTextField(default="")
+    therapy_therapist_diagnostic = RichTextField(default='')
+    therapy_status = RichTextField(default='')
+    therapy_aims = RichTextField(default='')
+    therapy_content = RichTextField(default='')
+    therapy_process = RichTextField(default='')
+    therapy_compliance = RichTextField(default='')
     therapy_report_variation = models.IntegerField(default=1)
 
     def __str__(self):

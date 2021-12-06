@@ -248,13 +248,24 @@ body {
     top: 11.8cm;
 }
 
+#therapeutische_diagnose1 {
+    position: absolute;
+    left: 1.8cm;
+    top: 12.8cm;
+    font-weight: bold;
+}
 
+#therapeutische_diagnose2 {
+    position: absolute;
+    left: 5.7cm;
+    top: 12.8cm;
+}
 
 
 #empfehlung {
     position: absolute;
     left: 1.8cm;
-    top: 13.7cm;
+    top: 14.7cm;
     text-decoration: underline ;
     font-size: 12pt;
     font-weight: bold;
@@ -265,14 +276,14 @@ body {
 #behandlung1 {
     position: absolute;
     left: 2.5cm;
-    top: 14.3cm;
+    top: 15.3cm;
     font-weight: bold;
 }
 
 #behandlung2 {
     position: absolute;
     left: 1.8cm;
-    top: 14.2cm;
+    top: 15.2cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -283,20 +294,20 @@ body {
     position: absolute;
     color: red;
     left: 1.95cm;
-    top: 14.3cm;
+    top: 15.3cm;
 }
 
 
 #individual1 {
     position: absolute;
     left: 13.5cm;
-    top: 14.3cm;
+    top: 15.3cm;
     font-weight: bold;
 }
 #individual2 {
     position: absolute;
     left: 12.8cm;
-    top: 14.2cm;
+    top: 15.2cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -306,27 +317,27 @@ body {
     position: absolute;
     color: red;
     left: 12.95cm;
-    top: 14.3cm;
+    top: 15.3cm;
 }
 #individual4 {
     position: absolute;
     color: red;
     left: 16.5cm;
-    top: 14.3cm;
+    top: 15.3cm;
 }
 
 
 #pause1 {
     position: absolute;
     left: 2.5cm;
-    top: 14.9cm;
+    top: 15.9cm;
     font-weight: bold;
 }
 
 #pause2 {
     position: absolute;
     left: 1.8cm;
-    top: 14.8cm;
+    top: 15.8cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -337,20 +348,20 @@ body {
     position: absolute;
     color: red;
     left: 1.95cm;
-    top: 14.9cm;
+    top: 15.9cm;
 }
 
 
 #group1 {
     position: absolute;
     left: 13.5cm;
-    top: 14.9cm;
+    top: 15.9cm;
     font-weight: bold;
 }
 #group2 {
     position: absolute;
     left: 12.8cm;
-    top: 14.8cm;
+    top: 15.8cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -360,25 +371,25 @@ body {
     position: absolute;
     color: red;
     left: 12.95cm;
-    top: 14.9cm;
+    top: 15.9cm;
 }
 #group4 {
     position: absolute;
     color: red;
     left: 16.5cm;
-    top: 14.9cm;
+    top: 15.9cm;
 }
 
 #doppel1 {
     position: absolute;
     left: 13.5cm;
-    top: 15.5cm;
+    top: 16.5cm;
     font-weight: bold;
 }
 #doppel2 {
     position: absolute;
     left: 12.8cm;
-    top: 15.4cm;
+    top: 16.4cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -388,14 +399,14 @@ body {
 #ende1 {
     position: absolute;
     left: 2.5cm;
-    top: 15.5cm;
+    top: 16.5cm;
     font-weight: bold;
 }
 
 #ende2 {
     position: absolute;
     left: 1.8cm;
-    top: 15.4cm;
+    top: 16.4cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -406,20 +417,20 @@ body {
     position: absolute;
     color: red;
     left: 1.95cm;
-    top: 15.5cm;
+    top: 16.5cm;
 }
 
 
 #frequence1 {
     position: absolute;
     left: 13.5cm;
-    top: 16.1cm;
+    top: 17.1cm;
     font-weight: bold;
 }
 #frequence2 {
     position: absolute;
     left: 12.8cm;
-    top: 16.0cm;
+    top: 17.0cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -429,27 +440,27 @@ body {
     position: absolute;
     color: red;
     left: 12.95cm;
-    top: 16.1cm;
+    top: 17.1cm;
 }
 #frequence4 {
     position: absolute;
     color: red;
     left: 18.0cm;
-    top: 16.1cm;
+    top: 17.1cm;
 }
 
 
 #wiedervorstellung1 {
     position: absolute;
     left: 2.5cm;
-    top: 16.1cm;
+    top: 17.1cm;
     font-weight: bold;
 }
 
 #wiedervorstellung2 {
     position: absolute;
     left: 1.8cm;
-    top: 16.0cm;
+    top: 17.0cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -460,27 +471,27 @@ body {
     position: absolute;
     color: red;
     left: 1.95cm;
-    top: 16.1cm;
+    top: 17.1cm;
 }
 
 #wiedervorstellung4 {
     position: absolute;
     color: red;
     left: 6.05cm;
-    top: 16.1cm;
+    top: 17.1cm;
 }
 
 #another1 {
     position: absolute;
     left: 2.5cm;
-    top: 16.7cm;
+    top: 17.7cm;
     font-weight: bold;
 }
 
 #another2 {
     position: absolute;
     left: 1.8cm;
-    top: 16.6cm;
+    top: 17.6cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -491,28 +502,28 @@ body {
     position: absolute;
     color: red;
     left: 1.95cm;
-    top: 16.7cm;
+    top: 17.7cm;
 }
 
 #another4 {
     position: absolute;
     color: red;
     left: 5.5cm;
-    top: 16.7cm;
+    top: 17.7cm;
 }
 
 
 #home_visit1 {
     position: absolute;
     left: 13.5cm;
-    top: 16.7cm;
+    top: 17.7cm;
     font-weight: bold;
 }
 
 #home_visit2 {
     position: absolute;
     left: 12.8cm;
-    top: 16.6cm;
+    top: 17.6cm;
     background: #FFF;
     border: 2px solid #000000;
     height: 0.4cm;
@@ -523,13 +534,13 @@ body {
     position: absolute;
     color: red;
     left: 12.95cm;
-    top: 16.7cm;
+    top: 17.7cm;
 }
 
 #therapy_summary_header {
     position: absolute;
     left: 1.8cm;
-    top: 18.6cm;
+    top: 19.6cm;
     text-decoration: underline ;
     font-size: 12pt;
     font-weight: bold;
@@ -539,7 +550,7 @@ body {
     position: absolute;
     font-size: 10pt;
     left: 1.8cm;
-    top: 18.8cm;
+    top: 19.8cm;
     width: 18cm;
 }
 

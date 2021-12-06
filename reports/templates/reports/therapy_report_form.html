@@ -146,6 +146,13 @@
                 <div class="text-danger">{{ form.therapy_doc_diagnostic.errors }}</div>
             </div>
         </div>
+        <div class="form-group row" id="therapy_therapist_diagnostic" style="display: none;">
+            <label for="{{ form.therapy_therapist_diagnostic.id_for_label }}" class="col-sm-2 control-label">Therapeutische Diagnostik: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_therapist_diagnostic }}
+                <div class="text-danger">{{ form.therapy_therapist_diagnostic.errors }}</div>
+            </div>
+        </div>
         <div class="form-group row" id="therapy_status" style="display: none;">
             <label for="{{ form.therapy_status.id_for_label }}" class="col-sm-2 control-label">Status: </label>
             <div class="col-sm-6">
@@ -353,14 +360,15 @@ function hide_show_fields(report_variation) {
             $("#therapy_forecast").hide();
             $("#therapy_request_of").hide();
             $("#therapy_insurance").hide();
-            $("#therapy_diagnostic").hide();
             $("#therapy_doc_diagnostic").hide();
+            $("#therapy_therapist_diagnostic").hide();
             $("#therapy_status").hide();
             $("#therapy_aims").hide();
             $("#therapy_content").hide();
             $("#therapy_process").hide();
             $("#therapy_compliance").hide();
 
+            $("#therapy_diagnostic").show();
             $("#therapy_summary").show();
       } else if (report_variation === "1") {
             $("#therapy_summary").hide();
@@ -368,6 +376,7 @@ function hide_show_fields(report_variation) {
             $("#therapy_insurance").hide();
             $("#therapy_diagnostic").hide();
             $("#therapy_doc_diagnostic").hide();
+            $("#therapy_therapist_diagnostic").hide();
             $("#therapy_status").hide();
             $("#therapy_aims").hide();
             $("#therapy_content").hide();
@@ -384,6 +393,7 @@ function hide_show_fields(report_variation) {
             $("#therapy_insurance").show();
             $("#therapy_diagnostic").show();
             $("#therapy_doc_diagnostic").show();
+            $("#therapy_therapist_diagnostic").show();
             $("#therapy_status").show();
             $("#therapy_aims").show();
             $("#therapy_content").show();
