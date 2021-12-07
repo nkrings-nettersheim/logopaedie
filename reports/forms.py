@@ -524,7 +524,7 @@ class PatientForm(forms.ModelForm):
                 'class': 'form-control',
                 'cols': '20',
                 'rows': '5',
-                'placeholder': "Notizen ..."
+                'placeholder': "Bemerkungen ..."
             }
         )
     )
@@ -1070,17 +1070,17 @@ class TherapyReportForm(forms.ModelForm):
                                            )
                                            )
 
-    therapy_therapist_diagnostic = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+    therapy_therapist_diagnostic = forms.CharField(required=False, widget=CKEditorWidget())
 
-    therapy_status = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+    therapy_status = forms.CharField(required=False, widget=CKEditorWidget())
 
-    therapy_aims = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+    therapy_aims = forms.CharField(required=False, widget=CKEditorWidget())
 
-    therapy_content = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+    therapy_content = forms.CharField(required=False, widget=CKEditorWidget())
 
-    therapy_process = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+    therapy_process = forms.CharField(required=False, widget=CKEditorWidget())
 
-    therapy_compliance = forms.CharField(required=False, max_length=820, widget=CKEditorWidget())
+    therapy_compliance = forms.CharField(required=False, widget=CKEditorWidget())
 
     VARIATION = (
         ('0', 'Verordnungs-kurz Bericht Arzt'),
@@ -1496,9 +1496,16 @@ class WaitlistForm(forms.ModelForm):
     )
 
     wl_information = forms.CharField(
-        max_length=255,
         required=False,
-        widget=CKEditorWidget(config_name='waitlist')
+        max_length=255,
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'cols': '20',
+                'rows': '5',
+                'placeholder': "Bemerkungen ..."
+            }
+        )
     )
 
     GENDER = (
