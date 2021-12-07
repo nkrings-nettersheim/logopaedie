@@ -82,6 +82,7 @@
                 {{ form.therapy_break_internal.errors }}
             </div>
         </div>
+        {% if form.report_date.value == None %}
         <div class="form-group row">
             <label for="{{ form.therapy_report_variation.id_for_label }}" class="col-sm-2 control-label">Berichtsform: </label>
             <div class="col-sm-6">
@@ -89,6 +90,10 @@
                 {{ form.therapy_report_variation.errors }}
             </div>
         </div>
+        {% else %}
+            <input type="hidden" id="id_therapy_report_variation" name="therapy_report_variation" value="{{ form.therapy_report_variation.value }}">
+        {% endif %}
+
         {% if perms.reports.delete_therapy_report %}
         <div class="form-group row" id="report_date">
             <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Versanddatum: </label>

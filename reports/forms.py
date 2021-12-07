@@ -1088,7 +1088,7 @@ class TherapyReportForm(forms.ModelForm):
         ('2', 'Anforderungsbericht Arzt / KK /MDK'),
     )
 
-    therapy_report_variation = forms.ChoiceField(choices=VARIATION, label="", initial='1', widget=forms.Select(
+    therapy_report_variation = forms.ChoiceField(choices=VARIATION, label="", initial='0', widget=forms.Select(
         attrs={
             'class': 'form-control'
         }

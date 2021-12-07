@@ -144,7 +144,7 @@ class Therapy_report(models.Model):
     therapy_content = RichTextField(default='')
     therapy_process = RichTextField(default='')
     therapy_compliance = RichTextField(default='')
-    therapy_report_variation = models.IntegerField(default=1)
+    therapy_report_variation = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.report_date)
