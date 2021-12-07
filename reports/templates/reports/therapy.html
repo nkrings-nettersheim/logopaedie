@@ -431,7 +431,7 @@
               {% if therapy_report.therapy_therapist_diagnostic %}
                   <div class="row bg-light">
                       <div class="col-sm-2">Therapeutische Diagnostik:</div>
-                      <div class="col-sm-7"><strong>{{ therapy_report.therapy_therapist_diagnostic | safe }}</strong></div>
+                      <div class="col-sm-7">{{ therapy_report.therapy_therapist_diagnostic | safe }}</div>
                   </div>
               {% endif %}
               {% if therapy_report.therapy_status %}
