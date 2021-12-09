@@ -4,6 +4,7 @@ import logging
 import datetime
 import locale
 import json
+import asyncio
 
 from html import escape
 from dateutil.parser import parse
@@ -20,9 +21,12 @@ from django.views import generic
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.forms.models import model_to_dict
 from django.core.serializers import serialize
+from asgiref.sync import sync_to_async
+from email.mime.image import MIMEImage
+from django.utils import timezone
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
@@ -42,7 +46,8 @@ from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, Thera
     WaitlistForm
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
-    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts
+    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts, \
+    Login_User_Agent
 
 logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
@@ -1544,16 +1549,64 @@ def get_special_phone_design(data):
             data = data[0] + " / " + charvalue
         return data
 
+#helper function
+def send_personal_mail(user):
+    logger.debug("Sending an email")
+    logger.info('{:>2}'.format(user.id) + " " + format(user) + ' E-Mail senden wegen neuem Gerät')
+    subject = 'Anmeldung an der Anwendung LogoPAkt'
+    from_email = 'logopakt@logoeu.uber.space'
+    email_list = [user.email]
+
+    openContext.static_root = settings.STATIC_ROOT
+    openContext.media_root = settings.MEDIA_ROOT
+    openContext.user = user
+    image = 'logopaedie.png'
+    file_path = os.path.join(settings.STATIC_ROOT + '/images/', image)
+    with open(file_path, 'rb') as f:
+        img = MIMEImage(f.read())
+        img.add_header('Content-ID', '<{name}>'.format(name=image))
+        img.add_header('Content-Disposition', 'inline', filename=image)
+
+    text_content = 'Sie haben sich gerade an der Anwendung LogoPAkt angemeldet. Sollte dies nicht stimmen, ' \
+                   'bitte umgehend Toni Schumacher informieren!!!'
+    html_content = render_to_string('mail_templates/login_mail.html', {'openContext': openContext})
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, email_list)
+    msg.mixed_subtype = 'related'
+    msg.attach_alternative(html_content, "text/html")
+    msg.attach(img)
+    msg.send()
+    logger.debug("EMail was send")
+
 
 @receiver(user_logged_in)
 def post_login(sender, request, user, **kwargs):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
+    if request.META.get('REMOTE_ADDR'):
+        ip_address = request.META.get('REMOTE_ADDR')
+    elif request.META.get('HTTP_X_FORWARDED_FOR'):
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        ip_address = "nothing"
+
+    http_user_agent = request.META.get('HTTP_USER_AGENT')
+
     try:
         Login_Failed.objects.filter(user_name=user).delete()
         logger.debug("Userdaten von " + format(user) + " in failed_login gelöscht")
     except:
         logger.debug("User not found")
+
+    try:
+        login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
+        login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
+        login_user_agent.save()
+        logger.info('Do nothing')
+    except:
+        login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
+        login_user_agent.save()
+        send_personal_mail(user)
 
 
 @receiver(user_logged_out)

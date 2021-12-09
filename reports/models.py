@@ -260,6 +260,13 @@ class Login_Failed(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
 
+class Login_User_Agent(models.Model):
+    user_name = models.CharField(max_length=100, blank=True, default='')
+    ip_address = models.CharField(max_length=100, blank=True, default='')
+    user_agent = models.CharField(max_length=255, blank=True, default='')
+    last_login = models.DateTimeField(auto_now_add=True, blank=True)
+
+
 class Wait_list (models.Model):
     GENDER = (
         ('1', 'weiblich'),
