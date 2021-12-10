@@ -1583,10 +1583,10 @@ def send_personal_mail(user):
 def post_login(sender, request, user, **kwargs):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
-    if request.META.get('REMOTE_ADDR'):
-        ip_address = request.META.get('REMOTE_ADDR')
-    elif request.META.get('HTTP_X_FORWARDED_FOR'):
+    if request.META.get('HTTP_X_FORWARDED_FOR'):
         ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+    elif request.META.get('REMOTE_ADDR'):
+        ip_address = request.META.get('REMOTE_ADDR')
     else:
         ip_address = "nothing"
 
