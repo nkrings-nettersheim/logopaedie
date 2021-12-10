@@ -137,6 +137,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/reports/'
 
@@ -183,8 +185,11 @@ CKEDITOR_CONFIGS = {'default':
                          'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
                          'toolbar': 'Custom', 'toolbar_Custom':
                                  [
-                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt', ],
+                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt'],
                                  ],
+                         'extraPlugins': ','.join([
+                             'autocorrection'
+                         ]),
                          },
                     'something':
                         {'height': 380,
@@ -196,7 +201,8 @@ CKEDITOR_CONFIGS = {'default':
                          'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
                          'toolbar': 'Custom', 'toolbar_Custom':
                              [
-                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt', 'Source'],
+                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt',
+                                  'Source'],
                              ],
                          },
                     'waitlist':
@@ -214,6 +220,8 @@ CKEDITOR_CONFIGS = {'default':
                              ],
                          }
                     }
+
+
 
 ###################################
 

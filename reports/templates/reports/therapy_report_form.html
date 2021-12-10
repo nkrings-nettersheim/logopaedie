@@ -6,7 +6,7 @@
     <script>
     window.onload = function () {
         var x = document.getElementById("id_therapy_break");
-        if (x.checked == 1){
+        if (x.checked === 1){
           document.getElementById("help_check_necessary").checked = true;
         } else {
           document.getElementById("help_check_necessary").checked = false;
@@ -57,6 +57,8 @@
     {% csrf_token %}
         {{ form.media }}
     {{ form.non_field_errors }}
+    {{ form.errors }}
+
     <div class="container">
         <div class="row">
             <div class="col-sm">
@@ -80,8 +82,20 @@
                 {{ form.therapy_break_internal.errors }}
             </div>
         </div>
-        {% if perms.reports.delete_therapy_report %}
+        {% if form.report_date.value == None %}
         <div class="form-group row">
+            <label for="{{ form.therapy_report_variation.id_for_label }}" class="col-sm-2 control-label">Berichtsform: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_report_variation }}
+                {{ form.therapy_report_variation.errors }}
+            </div>
+        </div>
+        {% else %}
+            <input type="hidden" id="id_therapy_report_variation" name="therapy_report_variation" value="{{ form.therapy_report_variation.value }}">
+        {% endif %}
+
+        {% if perms.reports.delete_therapy_report %}
+        <div class="form-group row" id="report_date">
             <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Versanddatum: </label>
             <div class="col-sm-6">
                 {{ form.report_date }}
@@ -95,43 +109,122 @@
                      <input type="hidden" id="id_report_date" name="report_date">
              {% endif %}
         {% endif %}
-        <div class="form-group row">
+        <div class="form-group row" id="therapy_start">
             <label for="{{ form.therapy_start.id_for_label }}" class="col-sm-2 control-label">Therapie Start: </label>
             <div class="col-sm-6">
                 {{ form.therapy_start }}
                 <div class="text-danger">{{ form.therapy_start.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" id="therapy_end">
             <label for="{{ form.therapy_end.id_for_label }}" class="col-sm-2 control-label">Therapie Ende: </label>
             <div class="col-sm-6">
                 {{ form.therapy_end }}
                 <div class="text-danger">{{ form.therapy_end.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" id="therapy_request_of" style="display: none;">
+            <label for="{{ form.therapy_request_of.id_for_label }}" class="col-sm-2 control-label">auf Anforderung von: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_request_of }}
+                <div class="text-danger">{{ form.therapy_request_of.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_insurance" style="display: none;">
+            <label for="{{ form.therapy_insurance.id_for_label }}" class="col-sm-2 control-label">Krankenkasse: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_insurance }}
+                <div class="text-danger">{{ form.therapy_insurance.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_diagnostic" style="display: none;">
+            <label for="{{ form.therapy_diagnostic.id_for_label }}" class="col-sm-2 control-label">Therapeutische Diagnose: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_diagnostic }}
+                <div class="text-danger">{{ form.therapy_diagnostic.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_doc_diagnostic" style="display: none;">
+            <label for="{{ form.therapy_doc_diagnostic.id_for_label }}" class="col-sm-2 control-label">Ärztliche Diagnose: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_doc_diagnostic }}
+                <div class="text-danger">{{ form.therapy_doc_diagnostic.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_therapist_diagnostic" style="display: none;">
+            <label for="{{ form.therapy_therapist_diagnostic.id_for_label }}" class="col-sm-2 control-label">Therapeutische Diagnostik: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_therapist_diagnostic }}
+                <div class="text-danger">{{ form.therapy_therapist_diagnostic.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_status" style="display: none;">
+            <label for="{{ form.therapy_status.id_for_label }}" class="col-sm-2 control-label">Status: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_status }}
+                <div class="text-danger">{{ form.therapy_status.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_aims" style="display: none;">
+            <label for="{{ form.therapy_aims.id_for_label }}" class="col-sm-2 control-label">Ziel/e: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_aims }}
+                <div class="text-danger">{{ form.therapy_aims.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_content" style="display: none;">
+            <label for="{{ form.therapy_content.id_for_label }}" class="col-sm-2 control-label">Inhalt: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_content }}
+                <div class="text-danger">{{ form.therapy_content.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_process" style="display: none;">
+            <label for="{{ form.therapy_process.id_for_label }}" class="col-sm-2 control-label">Verlauf: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_process }}
+                <div class="text-danger">{{ form.therapy_process.errors }}</div>
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_compliance" style="display: none;">
+            <label for="{{ form.therapy_compliance.id_for_label }}" class="col-sm-2 control-label">Compliance: </label>
+            <div class="col-sm-6">
+                {{ form.therapy_compliance }}
+                <div class="text-danger">{{ form.therapy_compliance.errors }}</div>
+            </div>
+        </div>
+
+
+        <div class="form-group row" id="therapy_current_result">
             <label for="{{ form.therapy_current_result.id_for_label }}" class="col-sm-2 control-label">Aktueller Stand: </label>
             <div class="col-sm-9">
                 {{ form.therapy_current_result }}
                 {{ form.therapy_current_result.errors }}
             </div>
         </div>
-        <div class="form-group row">
+
+        <div class="form-group row" id="therapy_emphases">
             <label for="{{ form.therapy_emphases.id_for_label }}" class="col-sm-2 control-label">Therapieschwerpunkte: </label>
             <div class="col-sm-9">
                 {{ form.therapy_emphases }}
                 {{ form.therapy_emphases.errors }}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" id="therapy_forecast">
             <label for="{{ form.therapy_forecast.id_for_label }}" class="col-sm-2 control-label">Prognose: </label>
             <div class="col-sm-9">
                 {{ form.therapy_forecast }}
                 {{ form.therapy_forecast.errors }}
             </div>
         </div>
-
-        <div class="form-group row">
+        <div class="form-group row" id="therapy_summary" style="display: none;">
+            <label for="{{ form.therapy_summary.id_for_label }}" class="col-sm-2 control-label">Zusammenfassung: </label>
+            <div class="col-sm-9">
+                {{ form.therapy_summary }}
+                {{ form.therapy_summary.errors }}
+            </div>
+        </div>
+        <div class="form-group row" id="therapy_indicated">
             <label for="{{ form.therapy_indicated.id_for_label }}" class="col-sm-2 control-label">Fortführung: </label>
             <div class="col-sm-6">
                 {{ form.therapy_indicated }}
@@ -249,8 +342,75 @@
         </div>
     </div>
 </form>
-
 </content>
 {% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function(){
+      var report_variation = $("#id_therapy_report_variation").val();
+      hide_show_fields(report_variation)
+
+      $("#id_therapy_report_variation").change(function(){
+          report_variation = $(this).val();
+          hide_show_fields(report_variation)
+      });
+});
+
+function hide_show_fields(report_variation) {
+      if (report_variation === "0") {
+            //$('label[for=id_report_date], input#id_report_date').hide();
+            $("#therapy_current_result").hide();
+            $("#therapy_emphases").hide();
+            $("#therapy_forecast").hide();
+            $("#therapy_request_of").hide();
+            $("#therapy_insurance").hide();
+            $("#therapy_doc_diagnostic").hide();
+            $("#therapy_therapist_diagnostic").hide();
+            $("#therapy_status").hide();
+            $("#therapy_aims").hide();
+            $("#therapy_content").hide();
+            $("#therapy_process").hide();
+            $("#therapy_compliance").hide();
+
+            $("#therapy_diagnostic").show();
+            $("#therapy_summary").show();
+      } else if (report_variation === "1") {
+            $("#therapy_summary").hide();
+            $("#therapy_request_of").hide();
+            $("#therapy_insurance").hide();
+            $("#therapy_diagnostic").hide();
+            $("#therapy_doc_diagnostic").hide();
+            $("#therapy_therapist_diagnostic").hide();
+            $("#therapy_status").hide();
+            $("#therapy_aims").hide();
+            $("#therapy_content").hide();
+            $("#therapy_process").hide();
+            $("#therapy_compliance").hide();
+
+            $("#therapy_current_result").show();
+            $("#therapy_emphases").show();
+            $("#therapy_forecast").show();
+      } else if (report_variation === "2") {
+            $("#therapy_emphases").hide();
+
+            $("#therapy_request_of").show();
+            $("#therapy_insurance").show();
+            $("#therapy_diagnostic").show();
+            $("#therapy_doc_diagnostic").show();
+            $("#therapy_therapist_diagnostic").show();
+            $("#therapy_status").show();
+            $("#therapy_aims").show();
+            $("#therapy_content").show();
+            $("#therapy_process").show();
+            $("#therapy_compliance").show();
+            $("#therapy_summary").show();
+      } else {
+          console.log("Keine richtige Auswahl getroffen");
+      }
+}
+</script>
+{% endblock %}
+
 
 

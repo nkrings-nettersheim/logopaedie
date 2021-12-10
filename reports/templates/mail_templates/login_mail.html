@@ -1,0 +1,91 @@
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+body{margin-top:20px;}
+
+.mail-seccess {
+    text-align: center;
+	background: #fff;
+	border-top: 0px solid #eee;
+}
+.mail-seccess .success-inner {
+	display: inline-block;
+}
+.mail-seccess .success-inner h1 {
+	font-size: 25px;
+	text-shadow: 3px 5px 2px #3333;
+	color: #006DFE;
+	font-weight: 700;
+}
+.mail-seccess .success-inner h1 span {
+	display: block;
+	font-size: 25px;
+	color: #333;
+	font-weight: 600;
+	text-shadow: none;
+	margin: 0px;
+}
+.mail-seccess .success-inner p {
+	padding: 0px 0px;
+	font-size:18px;
+}
+.mail-seccess .success-inner .btn{
+	color:#fff;
+}
+
+#kopfbalken {
+    position: fixed;
+    left: 5.5cm;
+    top: 0cm;
+    width: 13cm;
+    height: 0.6cm;
+    background: #AA85D2;
+}
+#seitenbalken {
+    position: fixed;
+    left: 0cm;
+    top: 1cm;
+    width: 0.6cm;
+    height: 29.5cm;
+    background: #AA85D2;
+}
+
+#logo{
+	margin: 20px;
+}
+
+</style>
+</head>
+
+<div id="kopfbalken"></div>
+<div id="seitenbalken"></div>
+
+<section class="mail-seccess section">
+	<div class="container">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-lg-6 offset-lg-3 col-8">
+				<!-- Error Inner -->
+				<div class="success-inner">
+					<img id='logo' src="cid:logopaedie.png">
+					<h1><span>Hallo {{ openContext.user.first_name }} {{ openContext.user.last_name }}!</span></h1>
+					<p>Innerhalb der letzten Minuten hat sich <br>jemand mit deinem Account an einem <br>bislang
+						nicht benutzten Gerät/Browser<br> an der Anwendung<br><strong>LogoPAkt</strong><br> angemeldet.</p>
+					<p>Warst du das?</p>
+					<p style="color:green">Wenn ja! Alles ok <i class="fa fa-thumbs-o-up"></i> <br>Dann kannst Du die Mail einfach löschen</p>
+					<p style="color:red">Wenn nein!!! <i class="fa fa-thumbs-o-down"></i><br>Bitte sofort Toni Schumacher <br>oder Norbert Krings informieren!!!</p>
+
+					<p>Mit freundlichem Gruß</p>
+					<p>Die LogoPAkt Anwendung</p>
+				</div>
+				<!--/ End Error Inner -->
+			</div>
+			<div class="col-2"></div>
+		</div>
+	</div>
+</section>
+
+
+
+</html>

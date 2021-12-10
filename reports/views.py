@@ -3,6 +3,8 @@ import os
 import logging
 import datetime
 import locale
+import json
+import asyncio
 
 from html import escape
 from dateutil.parser import parse
@@ -10,7 +12,7 @@ from django.contrib.auth import user_logged_in, user_logged_out, user_login_fail
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
-from django.http import FileResponse, HttpResponseRedirect, HttpResponse
+from django.http import FileResponse, HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, CreateView
@@ -19,7 +21,12 @@ from django.views import generic
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.forms.models import model_to_dict
+from django.core.serializers import serialize
+from asgiref.sync import sync_to_async
+from email.mime.image import MIMEImage
+from django.utils import timezone
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
@@ -39,7 +46,8 @@ from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, Thera
     WaitlistForm
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
-    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list
+    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts, \
+    Login_User_Agent
 
 logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
@@ -1061,6 +1069,7 @@ def edit_therapy_report(request, id=None):
         form.save()
         logger.info('{:>2}'.format(request.user.id) + ' edit_therapy_report: Therapiebericht ändern mit ID: ' + str(id))
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
+
     logger.debug('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
@@ -1069,7 +1078,7 @@ def edit_therapy_report(request, id=None):
 def therapy_report(request, id=id):
     therapy_report = Therapy_report.objects.get(id=id)
     logger.info('{:>2}'.format(request.user.id) + ' therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
-    return render(request, 'reports/therapy_report.html', {'therapy_report': therapy_report})
+    return render(request, 'reports/therapy_report_standard.html', {'therapy_report': therapy_report})
 
 
 @permission_required('reports.delete_therapy_report')
@@ -1079,22 +1088,35 @@ def show_therapy_report(request):
     therapy_result = Therapy.objects.get(id=request.GET.get('id'))
     result = Therapy_report.objects.get(therapy=request.GET.get('id'))
     doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
-    result.pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
-    result.pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
-    result.pa_date_of_birth = Therapy.objects.get(id=id).patients.pa_date_of_birth
-    result.recipe_date = Therapy.objects.get(id=id).recipe_date
+    result.pa_first_name = therapy_result.patients.pa_first_name
+    result.pa_last_name = therapy_result.patients.pa_last_name
+    result.pa_date_of_birth = therapy_result.patients.pa_date_of_birth
+    result.recipe_date = therapy_result.recipe_date
+    result.therapy_regulation_amount = therapy_result.therapy_regulation_amount
     result.process_count = Process_report.objects.filter(therapy=id).count()
     result.static_root = settings.STATIC_ROOT
 
-    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
+    report_variation = result.therapy_report_variation
 
-    html_string = render_to_string('pdf_templates/therapy_report.html', {'therapy': therapy_result,
-                                                                         'result': result,
-                                                                         'doctor': doctor_result
-                                                                         })
+    if report_variation == 0:
+        html_file = 'pdf_templates/therapy_report_short.html'
+        css_file = '/reports/therapy_report_short.css'
+        fileext = "_kurz"
+    elif report_variation == 1:
+        html_file = 'pdf_templates/therapy_report_standard.html'
+        css_file = '/reports/therapy_report_standard.css'
+        fileext = "_st"
+    else :
+        html_file = 'pdf_templates/therapy_report_big.html'
+        css_file = '/reports/therapy_report_big.css'
+        fileext = '_groß'
+
+    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + fileext + ".pdf"
+
+    html_string = render_to_string(html_file, {'therapy': therapy_result, 'result': result, 'doctor': doctor_result})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-    pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + '/reports/therapy_report.css')])
+    pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + css_file)])
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=' + filename
 
@@ -1160,7 +1182,6 @@ def waitlist(request, status):
 def copy_waitlist_item(request, id=id):
 
     waitlist = get_object_or_404(Wait_list, id=id)
-
     patient = Patient.objects.filter(pa_last_name=waitlist.wl_last_name, pa_first_name=waitlist.wl_first_name)
 
     if patient:
@@ -1174,6 +1195,9 @@ def copy_waitlist_item(request, id=id):
     else:
         #create patient_object
         try:
+            if waitlist.wl_date_of_birth == None:
+                waitlist.wl_date_of_birth = "1900-01-01"
+
             Patient.objects.create(pa_first_name=waitlist.wl_first_name,
                 pa_last_name=waitlist.wl_last_name,
                 pa_street=waitlist.wl_street,
@@ -1186,7 +1210,8 @@ def copy_waitlist_item(request, id=id):
                 pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
                 pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
                 pa_email=waitlist.wl_email,
-                pa_gender=waitlist.wl_gender
+                pa_gender=waitlist.wl_gender,
+                pa_note=waitlist.wl_information
             )
             #set status waitlist object to False
             waitlist.wl_active = False
@@ -1377,17 +1402,25 @@ class del_document_therapy(DeleteView):
 
 
 # **************************************************************************************************
+#@permission_required('reports.view_patient')
+#def getSessionTimer(request):
+#    sessionTimer = request.session.get_expiry_date()
+#    sessionTimer = sessionTimer.isoformat()
+#    context = {'getSessionTimer': str(sessionTimer)}
+#    logger.debug('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
 
+#    return render(request, 'getSessionTimer.html', {'form': context})
 
 
 @permission_required('reports.view_patient')
-def getSessionTimer(request):
-    sessionTimer = request.session.get_expiry_date()
-    sessionTimer = sessionTimer.isoformat()
-    context = {'getSessionTimer': str(sessionTimer)}
-    logger.debug('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
+def get_session_timer(request):
 
-    return render(request, 'getSessionTimer.html', {'form': context})
+    if request.is_ajax and request.method == "GET":
+        sessiontimer = request.session.get_expiry_date().isoformat()
+        logger.debug('{:>2}'.format(request.user.id) + " getSessionTimerNew: " + str(sessiontimer))
+        return JsonResponse({'sessiontimer': sessiontimer}, status=200)
+
+    return JsonResponse({"error": ""}, status=400)
 
 
 # Die Klasse ist für getOpenReports wichtig!!!
@@ -1516,16 +1549,64 @@ def get_special_phone_design(data):
             data = data[0] + " / " + charvalue
         return data
 
+#helper function
+def send_personal_mail(user):
+    logger.debug("Sending an email")
+    logger.info('{:>2}'.format(user.id) + " " + format(user) + ' E-Mail senden wegen neuem Gerät')
+    subject = 'Anmeldung an der Anwendung LogoPAkt'
+    from_email = 'logopakt@logoeu.uber.space'
+    email_list = [user.email]
+
+    openContext.static_root = settings.STATIC_ROOT
+    openContext.media_root = settings.MEDIA_ROOT
+    openContext.user = user
+    image = 'logopaedie.png'
+    file_path = os.path.join(settings.STATIC_ROOT + '/images/', image)
+    with open(file_path, 'rb') as f:
+        img = MIMEImage(f.read())
+        img.add_header('Content-ID', '<{name}>'.format(name=image))
+        img.add_header('Content-Disposition', 'inline', filename=image)
+
+    text_content = 'Sie haben sich gerade an der Anwendung LogoPAkt angemeldet. Sollte dies nicht stimmen, ' \
+                   'bitte umgehend Toni Schumacher informieren!!!'
+    html_content = render_to_string('mail_templates/login_mail.html', {'openContext': openContext})
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, email_list)
+    msg.mixed_subtype = 'related'
+    msg.attach_alternative(html_content, "text/html")
+    msg.attach(img)
+    msg.send()
+    logger.debug("EMail was send")
+
 
 @receiver(user_logged_in)
 def post_login(sender, request, user, **kwargs):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
+    if request.META.get('REMOTE_ADDR'):
+        ip_address = request.META.get('REMOTE_ADDR')
+    elif request.META.get('HTTP_X_FORWARDED_FOR'):
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        ip_address = "nothing"
+
+    http_user_agent = request.META.get('HTTP_USER_AGENT')
+
     try:
         Login_Failed.objects.filter(user_name=user).delete()
         logger.debug("Userdaten von " + format(user) + " in failed_login gelöscht")
     except:
         logger.debug("User not found")
+
+    try:
+        login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
+        login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
+        login_user_agent.save()
+        logger.info('Do nothing')
+    except:
+        login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
+        login_user_agent.save()
+        send_personal_mail(user)
 
 
 @receiver(user_logged_out)
@@ -1565,7 +1646,7 @@ def post_login_failed(sender, credentials, request, **kwargs):
             send_mail(
                 subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
                 message='User: ' + credentials['username'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Passwort eingeloggt und wurde deaktiviert',
-                from_email='logopaedieklein.raspberry@gmail.com',
+                from_email='logopakt@logoeu.uber.space',
                 recipient_list=['norbert.krings@gmail.com', ],
                 fail_silently=False,
             )
@@ -1583,7 +1664,7 @@ def post_login_failed(sender, credentials, request, **kwargs):
             send_mail(
                 subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
                 message='IP-Adresse: ' + request.META['REMOTE_ADDR'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Benutzernamen eingeloggt',
-                from_email='logopaedieklein.raspberry@gmail.com',
+                from_email='logopakt@logoeu.uber.space',
                 recipient_list=['norbert.krings@gmail.com', ],
                 fail_silently=False,
             )
@@ -1612,6 +1693,14 @@ def list_meta_info(request):
 
     return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
 
+def readShortcuts(request):
+    if request.is_ajax and request.method == "GET":
+        shortcuts = Shortcuts.objects.all()
+
+        data = serialize("json", shortcuts, fields=('short', 'long'))
+        return JsonResponse({'shortcuts': data}, status=200)
+
+    return JsonResponse({"error": ""}, status=400)
 # **************************************************************************************************
 
 LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()

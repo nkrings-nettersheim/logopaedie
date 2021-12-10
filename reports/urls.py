@@ -67,7 +67,8 @@ urlpatterns = [
     path('therapy_breaks/', views.therapy_breaks, name='therapy_breaks'),
     path('update_report/<id>', views.update_report, name='update_report'),
 
-    path('getSessionTimer/', views.getSessionTimer, name='getSessionTimer'),
+    #path('getSessionTimer/', views.getSessionTimer, name='getSessionTimer'),
+    path('getsessiontimer/', views.get_session_timer, name='getsessiontimer'),
     path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
 
     path('add/waitlist/', views.add_waitlist, name='add_waitlist'),
@@ -79,6 +80,8 @@ urlpatterns = [
     path('set/waitlistitem_active/<id>/', views.set_waitlist_item_active, name='set_waitlist_item_active'),
 
     path('list_meta_info/', views.list_meta_info, name='list_meta_info'),
+
+    path('shortcuts/', views.readShortcuts, name='shortcuts'),
 
 ]
 

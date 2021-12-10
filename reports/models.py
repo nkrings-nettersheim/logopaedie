@@ -133,6 +133,18 @@ class Therapy_report(models.Model):
     therapy_another_text = models.CharField(max_length=25, default='')
     therapy_home_visit = models.BooleanField(default=False)
     therapy_necessary = models.BooleanField(default=False)
+    therapy_summary = RichTextField(default="")
+    therapy_request_of = models.CharField(max_length=100, default='')
+    therapy_insurance = models.CharField(max_length=100, default='')
+    therapy_diagnostic = models.CharField(max_length=100, default='')
+    therapy_doc_diagnostic = models.CharField(max_length=100, default='')
+    therapy_therapist_diagnostic = RichTextField(default='')
+    therapy_status = RichTextField(default='')
+    therapy_aims = RichTextField(default='')
+    therapy_content = RichTextField(default='')
+    therapy_process = RichTextField(default='')
+    therapy_compliance = RichTextField(default='')
+    therapy_report_variation = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.report_date)
@@ -248,6 +260,13 @@ class Login_Failed(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
 
+class Login_User_Agent(models.Model):
+    user_name = models.CharField(max_length=100, blank=True, default='')
+    ip_address = models.CharField(max_length=100, blank=True, default='')
+    user_agent = models.CharField(max_length=255, blank=True, default='')
+    last_login = models.DateTimeField(auto_now_add=True, blank=True)
+
+
 class Wait_list (models.Model):
     GENDER = (
         ('1', 'weiblich'),
@@ -276,7 +295,7 @@ class Wait_list (models.Model):
     wl_call_date = models.DateField(default='1900-01-01')
     wl_call_for = models.CharField(max_length=100, blank=True, default='', null=True)
     wl_contact_person = models.CharField(max_length=100, blank=True, default='', null=True)
-    wl_information = RichTextField()
+    wl_information = models.CharField(max_length=255, blank=True, default='')
     wl_diagnostic = models.CharField(max_length=200, blank=True, default='', null=True)
     wl_appointment = models.CharField(max_length=200, blank=True, default='', null=True)
     wl_insurance = models.CharField(max_length=1, choices=INSURANCE, default='1')
@@ -284,3 +303,11 @@ class Wait_list (models.Model):
 
     def __str__(self):
         return self.wl_last_name + ' ' + self.wl_first_name + '; ' + self.wl_city
+
+
+class Shortcuts (models.Model):
+    short = models.CharField(max_length=10)
+    long = models.CharField(max_length=200, blank=True, default='', null=True)
+
+    def __str__(self):
+        return self.short
