@@ -1,18 +1,26 @@
 
 
+
+<div id="kopfbalken"></div>
+<div id="seitenbalken"></div>
 <div id="header">Therapieverlaufsdokumentation</div>
 <div id="recipe">Rezept-Datum: {{ therapy.recipe_date | date:"d.m.Y" }}</div>
 <div id="report">Bericht: </div>
 <div id="patient">Patient: {{therapy.pa_first_name}} {{therapy.pa_last_name}}</div>
 <div id="treatment">Behandlung von: {{therapy.therapy_start_value | date:"d.m.Y" }} bis {{therapy.therapy_end_value | date:"d.m.Y" }}</div>
 <div id="line1">&nbsp;</div>
-<div id="tbl_header1">Beh.</div>
-<div id="tbl_header2">Therapieinhalt</div>
-<div id="tbl_header3">Übungen</div>
-<div id="tbl_header4">Ergebnis</div>
+
+<table class="table_header" >
+    <tr>
+        <th class="th1">Beh.</th>
+        <th class="th2">Therapieinhalt</th>
+        <th class="th3">Übungen</th>
+        <th class="th4">Ergebnis</th>
+    </tr>
+</table>
 
 {% for item in process %}
-    <table class="table_content" class="fixed">
+    <table class="table_content" >
         <tr>
             <td class="td1">{{ item.process_treatment }}</td>
             <td class="td2">{{ item.process_content }}</td>
@@ -31,24 +39,9 @@
             <td class="td3">{{ item.process_exercises_3 }}</td>
             <td class="td4">{{ item.process_results_3 }}</td>
         </tr>
-        <tr>
-            <td class="td1">&nbsp;</td>
-            <td class="td2">&nbsp;</td>
-            <td class="td3">&nbsp;</td>
-            <td class="td4">&nbsp;</td>
-        </tr>
+
     </table>
-
-    {% if forloop.counter|divisibleby:4 %}
-
-
-        {% comment %}
-            Either of the following two lines works fine.
-        {% endcomment %}
-
-        <div style="page-break-after: always;"></div>
-        {# <div style="page-break-before: always;"></div> #}
-    {% endif %}
+<hr>
 {% endfor %}
 
 
