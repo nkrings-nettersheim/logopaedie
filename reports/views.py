@@ -1116,7 +1116,7 @@ def show_therapy_report(request):
     html_string = render_to_string(html_file, {'therapy': therapy_result, 'result': result, 'doctor': doctor_result})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-    logger.info("CSS_File: " + settings.STATIC_ROOT + css_file)
+    logger.debug("CSS_File: " + settings.STATIC_ROOT + css_file)
     pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + css_file)])
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=' + filename
