@@ -50,7 +50,7 @@ $(document).ready(function(){
     var logopakt_endTime = new Date();
     logopakt_endTime = new Date(logopakt_endTime.getTime() + 30*60000);
     //console.log('logopakt_endTime0: ' + logopakt_endTime)
-
+    //dies ist eine Test
     //$.get("/reports/getSessionTimer", function(data, status){
       //console.log('getSessionTimer ' +  data)
     //  logopakt_endTime = data;

@@ -1603,7 +1603,7 @@ def post_login(sender, request, user, **kwargs):
         login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
         login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
         login_user_agent.save()
-        logger.info('Do nothing')
+        logger.debug('Do nothing')
     except:
         login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
         login_user_agent.save()
