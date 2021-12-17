@@ -1073,6 +1073,49 @@ def edit_therapy_report(request, id=None):
     logger.debug('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
+@permission_required('reports.change_therapy_report')
+def save_therapyreport_element(request):
+    #logger.info("Hallo Start")
+    if request.is_ajax():
+        id = request.POST.get('id')
+        data_field = request.POST.get('field')
+        item = get_object_or_404(Therapy_report, id=id)
+        content = request.POST.get('content')
+
+        if data_field == 'therapy_therapist_diagnostic':
+            setattr(item, 'therapy_therapist_diagnostic', content)
+        elif data_field == 'therapy_status':
+            setattr(item, 'therapy_status', content)
+        elif data_field == 'therapy_aims':
+            setattr(item, 'therapy_aims', content)
+        elif data_field == 'therapy_content':
+            setattr(item, 'therapy_content', content)
+        elif data_field == 'therapy_process':
+            setattr(item, 'therapy_process', content)
+        elif data_field == 'therapy_compliance':
+            setattr(item, 'therapy_compliance', content)
+        elif data_field == 'therapy_summary':
+            setattr(item, 'therapy_summary', content)
+        elif data_field == 'therapy_forecast':
+            setattr(item, 'therapy_forecast', content)
+        elif data_field == 'therapy_emphases':
+            setattr(item, 'therapy_emphases', content)
+        elif data_field == 'therapy_current_result':
+            setattr(item, 'therapy_current_result', content)
+
+        item.save()
+        #print("ID: " + id + "; data_field: " + data_field + "; " + content)
+
+        return JsonResponse({
+            'msg': 'Success'
+        })
+
+    return JsonResponse({
+        'msg': 'Error'
+    })
+
+
+
 
 @permission_required('reports.view_therapy_report')
 def therapy_report(request, id=id):
