@@ -48,7 +48,7 @@ function logopakt_makeTimer(logopakt_endTime) {
 
 $(document).ready(function(){
     var logopakt_endTime = new Date();
-    logopakt_endTime = new Date(logopakt_endTime.getTime() + 30*60000);
+    logopakt_endTime = new Date(logopakt_endTime.getTime() + 45*60000);
     //console.log('logopakt_endTime0: ' + logopakt_endTime)
     //dies ist eine Test
     //$.get("/reports/getSessionTimer", function(data, status){
