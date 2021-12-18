@@ -3,8 +3,8 @@ import os
 import logging
 import datetime
 import locale
-import json
-import asyncio
+# import json
+# import asyncio
 
 from html import escape
 from dateutil.parser import parse
@@ -22,20 +22,9 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail, EmailMultiAlternatives
-from django.forms.models import model_to_dict
 from django.core.serializers import serialize
-from asgiref.sync import sync_to_async
 from email.mime.image import MIMEImage
 from django.utils import timezone
-
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.units import cm
-from reportlab.pdfgen import canvas
-from reportlab.platypus import Table, TableStyle, Paragraph
-
 from weasyprint import HTML, CSS
 
 from logopaedie.settings import BASE_DIR, X_FORWARD
@@ -52,19 +41,21 @@ from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Th
 logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 
+
 ##########################################################################
 # Area start and patient search
 ##########################################################################
 @login_required
 def index(request):
-    logger.debug('Indexseite wurde geladen')
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Indexseite wurde geladen")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     form = IndexForm()
     return render(request, 'reports/index.html', {'form': form})
 
 
 def impressum(request):
-    logger.debug('Impressumseite aufgerufen')
+    logger.debug(f"User-ID: {request.user.id}; Impressumseite aufgerufen")
     return render(request, 'reports/impressum.html')
 
 
@@ -72,7 +63,7 @@ class PatientView(generic.ListView):
     model = Patient
     template_name = 'reports/patients.html'
     context_object_name = 'patients_list'
-    logger.debug('Patientenliste geladen')
+    logger.debug(f" Patientenliste geladen")
 
     def get_queryset(self):
         return Patient.objects.all()
@@ -101,19 +92,20 @@ def open_reports(request):
             try:
                 report_date_value = therapy_report_result[0].report_date
             except:
-                logger.debug("Try Exception")
+                logger.debug(f"User-ID: {request.user.id}; Try Exception")
 
             if not report_date_value:
                 patient_value = Patient.objects.filter(id=tp_item.patients.id)
                 tp_item.pa_last_name = patient_value[0].pa_last_name
                 tp_item.pa_first_name = patient_value[0].pa_first_name
                 reports_list.append(tp_item)
-        logger.debug('verordnet: ' + str(tp_item.therapy_regulation_amount) +
-                    ' ;Therapien: ' + str(process_report_value_count) +
-                    ' Quotient: ' + str(quotient) +
-                    ' report_date_value: ' + str(report_date_value))
+        logger.debug(f"User-ID: {request.user.id}; "
+                     f"verordnet: {str(tp_item.therapy_regulation_amount)}; "
+                     f"Therapien: {str(process_report_value_count)}; "
+                     f"Quotient: {str(quotient)}; "
+                     f"report_date_value: {str(report_date_value)}")
 
-    logger.debug('Open_Reports wurde geladen')
+    logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
     return render(request, 'reports/open_reports.html', {'reports': reports_list})
 
 
@@ -142,7 +134,7 @@ def therapy_breaks(request):
     time_orange = datetime.datetime.now() + datetime.timedelta(days=-52)
     time_red = datetime.datetime.now() + datetime.timedelta(days=-92)
     print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
-    logger.debug('Open_Reports wurde geladen')
+    logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
     return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
                                                            'time_green': time_green,
                                                            'time_orange': time_orange,
@@ -162,7 +154,6 @@ def update_report(request, id=None):
 ##########################################################################
 # Area Doctor create and change
 ##########################################################################
-
 @permission_required('reports.add_doctor')
 def add_doctor(request):
     if request.method == "POST":
@@ -170,18 +161,18 @@ def add_doctor(request):
         if form.is_valid():
             doctor_item = form.save(commit=False)
             doctor_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_doctor: Arzt mit Namen: ' + str(
-                doctor_item.doctor_name1) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_doctor: Arzt mit "
+                        f"Namen: {str(doctor_item.doctor_name1)}  angelegt")
             return redirect('/reports/doctor/' + str(doctor_item.id) + '/')
     else:
-        logger.debug('add_doctor: Formular zur Bearbeitung/Erfassung der Arztdaten')
+        logger.debug(f"User-ID: {request.user.id}; add_doctor: Formular zur Bearbeitung/Erfassung der Arztdaten")
         form = DoctorForm()
     return render(request, 'reports/doctor_form.html', {'form': form})
 
 
 @permission_required('reports.view_doctor')
 def search_doctor_start(request):
-    logger.debug('Suchmaske Arzt geladen')
+    logger.debug(f"User-ID: {request.user.id}; Suchmaske Arzt geladen")
     form = SearchDoctorForm()
     return render(request, 'reports/doctor_search.html', {'form': form})
 
@@ -197,27 +188,30 @@ def search_doctor(request):
                                                  Q(doctor_name2__icontains=name1) |
                                                  Q(doctor_name3__icontains=name1))
             if len(doctors_list) > 1:
-                logger.debug('search_doctor: mehr als einen Arzt gefunden mit dem Suchbegriff: ' + name1)
+                logger.debug(f"User-ID: {request.user.id}; "
+                             f"search_doctor: mehr als einen Arzt gefunden mit dem Suchbegriff: {name1}")
                 return render(request, 'reports/doctors.html', {'doctors_list': doctors_list})
             elif len(doctors_list) == 1:
-                logger.debug('search_doctor: Arzt gefunden mit dem Suchbegriff: ' + name1)
+                logger.debug(f"User-ID: {request.user.id}; search_doctor: Arzt gefunden mit dem Suchbegriff: {name1}")
                 return redirect('/reports/doctor/' + str(doctors_list[0].id) + '/')
             else:
-                logger.debug('search_doctor: Keinen Arzt gefunden mit dem Suchbegriff: ' + name1)
+                logger.debug(f"User-ID: {request.user.id}; search_doctor: Keinen Arzt gefunden "
+                             f"mit dem Suchbegriff: {name1}")
                 return render(request, 'reports/doctor_search.html', {'form': form})
         elif lanr != "":
             doctors_list = Doctor.objects.filter(doctor_lanr=lanr)
             if len(doctors_list) == 1:
-                logger.debug('search_doctor: Arzt gefunden mit dem Suchbegriff: ' + lanr)
+                logger.debug(f"User-ID: {request.user.id}; search_doctor: Arzt gefunden mit dem Suchbegriff: {lanr}")
                 return redirect('/reports/doctor/' + str(doctors_list[0].id) + '/')
             else:
-                logger.debug('search_doctor: Keinen Arzt gefunden mit dem Suchbegriff: ' + lanr)
+                logger.debug(f"User-ID: {request.user.id}; search_doctor: Keinen Arzt gefunden "
+                             f"mit dem Suchbegriff: {lanr}")
                 return render(request, 'reports/doctor_search.html', {'form': form})
         else:
-            logger.debug('search_doctor: Keinen Suchbegriff eingegeben:')
+            logger.debug(f"User-ID: {request.user.id}; search_doctor: Keinen Suchbegriff eingegeben")
             return render(request, 'reports/doctor_search.html', {'form': form})
     else:
-        logger.debug('search_doctor: Keinen Suchbegriff eingegeben')
+        logger.debug(f"User-ID: {request.user.id}; search_doctor: Keinen Suchbegriff eingegeben")
         return render(request, 'reports/doctor_search.html')
 
 
@@ -227,9 +221,9 @@ def edit_doctor(request, id=None):
     form = DoctorForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_doctor: ' + str(item.id) + ' Daten werden gespeichert')
+        logger.info(f"User-ID: {request.user.id}; edit_doctor: {str(item.id)} Daten werden gespeichert")
         return redirect('/reports/doctor/' + str(item.id) + '/')
-    logger.debug('edit_doctor: Bearbeitungsformular aufgerufen ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_doctor: Bearbeitungsformular aufgerufen ID: {id}")
     form.id = item.id
     return render(request, 'reports/doctor_form.html', {'form': form})
 
@@ -238,7 +232,7 @@ def edit_doctor(request, id=None):
 def doctor(request, id=id):
     try:
         doctor_result = Doctor.objects.get(id=id)
-        logger.debug('doctor: Arzt mit der ID: ' + id + ' aufgerufen')
+        logger.debug(f"User-ID: {request.user.id}; doctor: Arzt mit der ID: {id} aufgerufen")
         return render(request, 'reports/doctor.html', {'doctor': doctor_result})
     except ObjectDoesNotExist:
         return redirect('/reports/')
@@ -254,18 +248,19 @@ def add_therapist(request):
         if form.is_valid():
             therapist_item = form.save(commit=False)
             therapist_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_therapist: Therapist mit Namen: ' + str(
-                therapist_item.tp_last_name) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_therapist: Therapist mit "
+                        f"Namen: {str(therapist_item.tp_last_name)} angelegt")
             return redirect('/reports/therapist/' + str(therapist_item.id) + '/')
     else:
-        logger.debug('add_therapist: Formular zur Bearbeitung/Erfassung der Therapistdaten')
+        logger.debug(f"User-ID: {request.user.id}; add_therapist: Formular zur Bearbeitung/Erfassung "
+                     f"der Therapistdaten")
         form = TherapistForm()
     return render(request, 'reports/therapist_form.html', {'form': form})
 
 
 @permission_required('reports.view_therapist')
 def search_therapist_start(request):
-    logger.debug('Suchmaske Therapeut geladen')
+    logger.debug(f"User-ID: {request.user.id}; Suchmaske Therapeut geladen")
     form = SearchTherapistForm()
     return render(request, 'reports/therapist_search.html', {'form': form})
 
@@ -278,20 +273,23 @@ def search_therapist(request):
         if kuerzel != "":
             therapists_list = Therapist.objects.filter(tp_initial__icontains=kuerzel)
             if len(therapists_list) > 1:
-                logger.debug('search_therapist: mehr als einen Therapeut gefunden mit dem Suchbegriff: ' + kuerzel)
+                logger.debug(f"User-ID: {request.user.id}; search_therapist: mehr als einen Therapeut "
+                             f"gefunden mit dem Suchbegriff: {kuerzel}")
                 return render(request, 'reports/therapists.html', {'therapists_list': therapists_list})
             elif len(therapists_list) == 1:
-                logger.debug('search_therapist: Therpeut gefunden mit dem Suchbegriff: ' + kuerzel)
+                logger.debug(f"User-ID: {request.user.id}; search_therapist: Therpeut gefunden mit dem "
+                             f"Suchbegriff: {kuerzel}")
                 return redirect('/reports/therapist/' + str(therapists_list[0].id) + '/')
             else:
-                logger.debug('search_therapist: Keinen Therapeut gefunden mit dem Suchbegriff: ' + kuerzel)
+                logger.debug(f"User-ID: {request.user.id}; search_therapist: Keinen Therapeut gefunden "
+                             f"mit dem Suchbegriff: {kuerzel}")
                 return render(request, 'reports/therapist_search.html', {'form': form})
 
         else:
-            logger.debug('search_therapist: Keinen Suchbegriff eingegeben:')
+            logger.debug(f"User-ID: {request.user.id}; search_therapist: Keinen Suchbegriff eingegeben")
             return render(request, 'reports/therapist_search.html', {'form': form})
     else:
-        logger.debug('search_therapist: Keinen Suchbegriff eingegeben')
+        logger.debug(f"User-ID: {request.user.id}; search_therapist: Keinen Suchbegriff eingegeben")
         return render(request, 'reports/therapist_search.html', {'form': form})
 
 
@@ -301,9 +299,9 @@ def edit_therapist(request, id=None):
     form = TherapistForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_therapist: ' + str(item.id) + ' Daten werden gespeichert')
+        logger.info(f"User-ID: {request.user.id}; edit_therapist: {str(item.id)} Daten werden gespeichert")
         return redirect('/reports/therapist/' + str(item.id) + '/')
-    logger.debug('edit_therapist: Bearbeitungsformular aufgerufen ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_therapist: Bearbeitungsformular aufgerufen ID: {id}")
     form.id = item.id
     return render(request, 'reports/therapist_form.html', {'form': form})
 
@@ -312,7 +310,7 @@ def edit_therapist(request, id=None):
 def therapist(request, id=id):
     try:
         therapist_result = Therapist.objects.get(id=id)
-        logger.debug('therapist: Therapeut mit der ID: ' + id + ' aufgerufen')
+        logger.debug(f"User-ID: {request.user.id}; therapist: Therapeut mit der ID: {id} aufgerufen")
         return render(request, 'reports/therapist.html', {'therapist': therapist_result})
     except ObjectDoesNotExist:
         return redirect('/reports/')
@@ -328,18 +326,19 @@ def add_diagnostic_group(request):
         if form.is_valid():
             diagnostic_group_item = form.save(commit=False)
             diagnostic_group_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_diagnostic_group: Diagnosticgruppe mit Namen: ' + str(
-                diagnostic_group_item.diagnostic_key) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_diagnostic_group: Diagnosticgruppe mit Namen: "
+                        f"{str(diagnostic_group_item.diagnostic_key)} angelegt")
             return redirect('/reports/diagnostic_group/' + str(diagnostic_group_item.id) + '/')
     else:
-        logger.debug('add_diagnostic_group: Formular zur Bearbeitung/Erfassung der Diagnosedaten')
+        logger.debug(f"User-ID: {request.user.id}; add_diagnostic_group: Formular zur Bearbeitung/Erfassung "
+                     f"der Diagnosedaten")
         form = Diagnostic_groupForm()
     return render(request, 'reports/diagnostic_group_form.html', {'form': form})
 
 
 @permission_required('reports.view_diagnostic_group')
 def search_diagnostic_group_start(request):
-    logger.debug('Suchmaske Diagnosegruppe geladen')
+    logger.debug(f"User-ID: {request.user.id}; Suchmaske Diagnosegruppe geladen")
     form = SearchDiagnostic_groupForm()
     return render(request, 'reports/diagnostic_group_search.html', {'form': form})
 
@@ -353,19 +352,23 @@ def search_diagnostic_group(request):
             diagnostic_group_list = Diagnostic_group.objects.filter(diagnostic_key__istartswith=diagnostic_key)
 
             if len(diagnostic_group_list) > 1:
-                logger.debug('search_diagnostic_group: mehr als eine Diagnostic gefunden mit dem Suchbegriff: ' + diagnostic_key)
-                return render(request, 'reports/diagnostic_groups.html', {'diagnostic_group_list': diagnostic_group_list})
+                logger.debug(f"User-ID: {request.user.id}; search_diagnostic_group: mehr als eine "
+                             f"Diagnostic gefunden mit dem Suchbegriff: {diagnostic_key}")
+                return render(request, 'reports/diagnostic_groups.html',
+                              {'diagnostic_group_list': diagnostic_group_list})
             elif len(diagnostic_group_list) == 1:
-                logger.debug('search_diagnostic_group: Diagnosticgruppe gefunden mit dem Suchbegriff: ' + diagnostic_key)
+                logger.debug(f"User-ID: {request.user.id}; search_diagnostic_group: Diagnosticgruppe gefunden "
+                             f"mit dem Suchbegriff: {diagnostic_key}")
                 return redirect('/reports/diagnostic_group/' + str(diagnostic_group_list[0].id) + '/')
             else:
-                logger.debug('search_diagnostic_group: Keine Diagnosticgruppe gefunden mit dem Suchbegriff: ' + diagnostic_key)
+                logger.debug(f"User-ID: {request.user.id}; search_diagnostic_group: Keine Diagnosticgruppe "
+                             f"gefunden mit dem Suchbegriff: {diagnostic_key}")
                 return render(request, 'reports/diagnostic_group_search.html', {'form': form})
         else:
-            logger.debug('search_diagnostic_group: Keinen Suchbegriff eingegeben:')
+            logger.debug(f"User-ID: {request.user.id}; search_diagnostic_group: Keinen Suchbegriff eingegeben")
             return render(request, 'reports/diagnostic_group_search.html', {'form': form})
     else:
-        logger.debug('search_diagnostic_group: Keinen Suchbegriff eingegeben')
+        logger.debug(f"User-ID: {request.user.id}; search_diagnostic_group: Keinen Suchbegriff eingegeben")
         return render(request, 'reports/diagnostic_group_search.html')
 
 
@@ -375,9 +378,9 @@ def edit_diagnostic_group(request, id=None):
     form = Diagnostic_groupForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_diagnostic_group: ' + str(item.id) + ' Daten werden gespeichert')
+        logger.info(f"User-ID: {request.user.id}; edit_diagnostic_group: {str(item.id)} Daten werden gespeichert")
         return redirect('/reports/diagnostic_group/' + str(item.id) + '/')
-    logger.debug('edit_diagnostic_group: Bearbeitungsformular aufgerufen ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_diagnostic_group: Bearbeitungsformular aufgerufen ID: {id}")
     form.id = item.id
     return render(request, 'reports/diagnostic_group_form.html', {'form': form})
 
@@ -386,7 +389,7 @@ def edit_diagnostic_group(request, id=None):
 def diagnostic_group(request, id=id):
     try:
         diagnostic_group_result = Diagnostic_group.objects.get(id=id)
-        logger.debug('diagnostic_group: Diagnosegruppe mit der ID: ' + id + ' aufgerufen')
+        logger.debug(f"User-ID: {request.user.id}; diagnostic_group: Diagnosegruppe mit der ID: {id} aufgerufen")
         return render(request, 'reports/diagnostic_group.html', {'diagnostic_group': diagnostic_group_result})
     except ObjectDoesNotExist:
         return redirect('/reports/')
@@ -397,7 +400,8 @@ def diagnostic_group(request, id=id):
 ##########################################################################
 @permission_required('reports.view_patient')
 def search_patient(request):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
 
     if request.method == 'POST':
         form = IndexForm(request.POST)
@@ -422,7 +426,7 @@ def search_patient(request):
                     active = ''
             except:
                 inactive = ''
-            logger.debug('active: ' + str(active))
+            logger.debug(f"User-ID: {request.user.id}; active: {str(active)}")
             data = request.POST['phone']
             if data:
                 phone = data.replace(' ', '')
@@ -432,7 +436,7 @@ def search_patient(request):
                 cell_phone = data.replace(' ', '')
 
             if last_name != "":
-                if active == True or active == False:
+                if active is True or active is False:
                     patients_list = Patient.objects.filter(pa_last_name__istartswith=last_name,
                                                            pa_active_no_yes=active).order_by('pa_last_name',
                                                                                              'pa_first_name')
@@ -441,17 +445,20 @@ def search_patient(request):
                                                                                                          'pa_first_name')
 
                 if len(patients_list) > 1:
-                    logger.debug("search_patient: Mehrere Patienten mit dem Namen: " + last_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit dem Namen: "
+                                 f"{last_name} gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
                 elif len(patients_list) == 1:
-                    logger.debug("search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Patient mit dem Suchbegriff: "
+                                 f"{last_name} gefunden")
                     return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
                 else:
-                    logger.debug("search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Patient mit dem Nachnamen: "
+                                 f"{last_name} gefunden")
                     return redirect('/reports/')
 
             elif first_name != "":
-                if active == True or active == False:
+                if active is True or active is False:
                     patients_list = Patient.objects.filter(pa_first_name__istartswith=first_name,
                                                            pa_active_no_yes=active).order_by('pa_last_name',
                                                                                              'pa_first_name')
@@ -460,19 +467,20 @@ def search_patient(request):
                         'pa_last_name', 'pa_first_name')
 
                 if len(patients_list) > 1:
-                    logger.debug("search_patient: Mehrere Patienten mit dem Vornamen: " + first_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit dem Vornamen: "
+                                 f"{first_name} gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
                 elif len(patients_list) == 1:
-                    logger.debug(
-                        "search_patient: Patient mit dem Suchbegriff: " + last_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Patient mit dem Suchbegriff: "
+                                 f"{first_name} gefunden")
                     return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
                 else:
-                    logger.debug(
-                        "search_patient: Kein Patient mit dem Nachnamen: " + last_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Patient mit dem Vornamen:"
+                                 f" {first_name} gefunden")
                     return redirect('/reports/')
 
             elif date_of_birth != "":
-                if active == True or active == False:
+                if active is True or active is False:
                     patients_list = Patient.objects.filter(pa_date_of_birth=parse(date_of_birth, dayfirst=True),
                                                            pa_active_no_yes=active).order_by('pa_last_name',
                                                                                              'pa_first_name')
@@ -481,18 +489,20 @@ def search_patient(request):
                         pa_date_of_birth=parse(date_of_birth, dayfirst=True)).order_by('pa_last_name', 'pa_first_name')
 
                 if len(patients_list) > 1:
-                    logger.debug(
-                        "search_patient: Mehrere Patienten mit dem Geburtsdatum " + date_of_birth + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit dem Geburtsdatum "
+                                 f"{date_of_birth} gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
                 elif len(patients_list) == 1:
-                    logger.debug("search_patient: Patient mit dem Geburtsdatum: " + date_of_birth + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Patient mit dem Geburtsdatum: "
+                                 f"{date_of_birth}  gefunden")
                     return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
                 else:
-                    logger.debug("search_patient: Kein Patient mit dem Geburtsdatum: " + last_name + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Patient mit dem Geburtsdatum: "
+                                 f"{last_name} gefunden")
                     return redirect('/reports/')
 
             elif phone != "":
-                if active == True or active == False:
+                if active is True or active is False:
                     patients_list = Patient.objects.filter(pa_phone__istartswith=phone,
                                                            pa_active_no_yes=active).order_by('pa_last_name',
                                                                                              'pa_first_name')
@@ -501,17 +511,20 @@ def search_patient(request):
                                                                                                  'pa_first_name')
 
                 if len(patients_list) > 1:
-                    logger.debug("search_patient: Mehrere Patienten mit der Telefonnummer " + phone + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit der "
+                                 f"Telefonnummer {phone} gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
                 elif len(patients_list) == 1:
-                    logger.debug("search_patient: Patient mit der Telefonnummer: " + phone + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Patient mit der "
+                                 f"Telefonnummer: {phone} gefunden")
                     return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
                 else:
-                    logger.debug("search_patient: Kein Patient mit der Telefonnummer: " + phone + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Patient mit der "
+                                 f"Telefonnummer: {phone} gefunden")
                     return redirect('/reports/')
 
             elif cell_phone != "":
-                if active == True or active == False:
+                if active is True or active is False:
                     patients_list = Patient.objects.filter(pa_cell_phone__istartswith=cell_phone,
                                                            pa_active_no_yes=active).order_by('pa_last_name',
                                                                                              'pa_first_name')
@@ -520,61 +533,66 @@ def search_patient(request):
                         'pa_last_name', 'pa_first_name')
 
                 if len(patients_list) > 1:
-                    logger.debug(
-                        "search_patient: Mehrere Patienten mit der Mobilfunknummer " + cell_phone + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit der "
+                                 f"Mobilfunknummer {cell_phone} gefunden")
                     return render(request, 'reports/patients.html', {'patients_list': patients_list})
                 elif len(patients_list) == 1:
-                    logger.debug("search_patient: Patient mit der Mobilfunknummer: " + cell_phone + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Patient mit der "
+                                 f"Mobilfunknummer: {cell_phone} gefunden")
                     return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
                 else:
-                    logger.debug("search_patient: Kein Patient mit der Mobilfunknummer: " + cell_phone + " gefunden")
+                    logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Patient mit der "
+                                 f"Mobilfunknummer: {cell_phone} gefunden")
                     return redirect('/reports/')
 
             else:
-                logger.debug("search_patient: Kein Suchkriterium eingegeben ")
+                logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Suchkriterium eingegeben ")
                 return redirect('/reports/')
     else:
-        logger.debug("search_patient: Kein POST Befehl erhalten")
+        logger.debug(f"User-ID: {request.user.id}; search_patient: Kein POST Befehl erhalten")
         return redirect('/reports/')
     return render(request, 'reports/index_parents.html', {'form': form})
 
 
 @permission_required('reports.add_patient')
 def add_patient(request):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
             patient_item = form.save(commit=False)
             patient_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_patient: Patient mit der ID:' + str(
-                patient_item.id) + ' gespeichert')
+            logger.info(f"User-ID: {request.user.id}; add_patient: Patient mit der ID: "
+                        f"{str(patient_item.id)} gespeichert")
             return redirect('/reports/patient/' + str(patient_item.id) + '/')
     else:
-        logger.debug('add_patient: Formular aufgerufen')
+        logger.debug(f"User-ID: {request.user.id}; add_patient: Formular aufgerufen")
         form = PatientForm()
 
-    logger.info('{:>2}'.format(request.user.id) + ' add_Patient POST')
+    logger.info(f"User-ID: {request.user.id};add_Patient: POST")
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
 @permission_required('reports.change_patient')
 def edit_patient(request, id=None):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Patient, id=id)
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_patient: Patient mit der ID:' + str(item.id) + ' geändert')
+        logger.info(f"User-ID: {request.user.id}; edit_patient: Patient mit der ID: {str(item.id)} geändert")
         return redirect('/reports/patient/' + str(item.id) + '/')
-    logger.debug('edit_patient: Patient mit der ID: ' + str(id) + ' zwecks Änderung aufgerufen')
+    logger.debug(f"User-ID: {request.user.id}; edit_patient: Patient mit der ID: {str(id)} zwecks Änderung aufgerufen")
     form.id = item.id
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
 @permission_required('reports.view_patient')
 def patient(request, id=id):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     try:
         patient_result = Patient.objects.get(id=id)
         patient_helper = patient_result.id
@@ -585,7 +603,6 @@ def patient(request, id=id):
         patient_result.pa_cell_phone_add2 = get_special_phone_design(patient_result.pa_cell_phone_add2)
         if patient_result.pa_cell_phone_sms:
             patient_result.pa_cell_phone_sms = "#" + patient_result.pa_cell_phone_sms.replace('/', '')
-
 
         therapy_result = Therapy.objects.filter(patients_id=patient_helper).order_by('-recipe_date')
         therapy_result_count = Therapy.objects.filter(patients_id=patient_helper, recipe_date__gte='2021-01-01').count()
@@ -613,9 +630,9 @@ def patient(request, id=id):
                 therapy_result[i].report_id = therapy_report_result[0].id
                 therapy_result[i].necessary = therapy_report_result[0].therapy_necessary
             except:
-                logger.debug("Try Exception")
+                logger.debug(f"User-ID: {request.user.id}; patient: therapy_result_item Try Exception")
             i = i + 1
-        logger.info('{:>2}'.format(request.user.id) + ' patient: Patient mit der ID: ' + str(id) + ' aufgerufen')
+        logger.info(f"User-ID: {request.user.id}; patient: Patient mit der ID: {str(id)} aufgerufen")
         return render(request, 'reports/patient.html', {'patient': patient_result,
                                                         'therapy': therapy_result,
                                                         'ps': patient_something_value,
@@ -623,7 +640,7 @@ def patient(request, id=id):
                                                         'process_count': process_result_count
                                                         })
     except ObjectDoesNotExist:
-        logger.debug('patient: Objekt existiert nicht')
+        logger.debug(f"User-ID: {request.user.id}; patient: Objekt existiert nicht")
         return redirect('/reports/')
 
 
@@ -637,14 +654,13 @@ def add_pa_something(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_pa_something: Sonstiges mit id: ' + str(
-                item.id) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_pa_something: Sonstiges mit id: {str(item.id)} angelegt")
             return redirect('/reports/patient/' + str(request.POST.get('patient')))
     else:
-        logger.debug('add_pa_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld am Patienten')
+        logger.debug(f"User-ID: {request.user.id}; add_pa_something: Formular zur Bearbeitung/Erfassung "
+                     f"des Sonstiges-Feld am Patienten")
         patient_result = Patient.objects.get(id=request.GET.get('id'))
-        form = PatientSomethingForm(
-            initial={'patient': patient_result})
+        form = PatientSomethingForm(initial={'patient': patient_result})
     return render(request, 'reports/pa_something_form.html', {'form': form})
 
 
@@ -654,9 +670,9 @@ def edit_pa_something(request, id=None):
     form = PatientSomethingForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_pa_something: Sonstiges ändern mit ID: ' + str(id))
+        logger.info(f"User-ID: {request.user.id}; edit_pa_something: Sonstiges ändern mit ID: {str(id)}")
         return redirect('/reports/patient/' + str(item.patient_id))
-    logger.debug('edit_pa_something: Sonstige Form aufgerufen für ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_pa_something: Sonstige Form aufgerufen für ID: {id}")
     return render(request, 'reports/pa_something_form.html', {'form': form})
 
 
@@ -670,14 +686,13 @@ def add_ia(request):
         if form.is_valid():
             InitialAssessment_item = form.save(commit=False)
             InitialAssessment_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_ia: Erstbefund mit id: ' + str(
-                InitialAssessment_item.id) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_ia: Erstbefund mit id: "
+                        f"{str(InitialAssessment_item.id)} angelegt")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=1')
     else:
-        logger.debug('add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds')
+        logger.debug(f"User-ID: {request.user.id}; add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds")
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
-        form = InitialAssessmentForm(
-            initial={'therapy': therapy_result})
+        form = InitialAssessmentForm(initial={'therapy': therapy_result})
     return render(request, 'reports/ia_form.html', {'form': form})
 
 
@@ -687,9 +702,9 @@ def edit_ia(request, id=None):
     form = InitialAssessmentForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_ia: Erstbefund ändern mit ID: ' + str(id))
+        logger.info(f"User-ID: {request.user.id}; edit_ia: Erstbefund ändern mit ID: {str(id)}")
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=1')
-    logger.debug('edit_ia: Erstbefund Form angerufen mit ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_ia: Erstbefund Form angerufen mit ID: {id}")
     return render(request, 'reports/ia_form.html', {'form': form})
 
 
@@ -703,14 +718,13 @@ def add_therapy_something(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_therapy_something: Sonstiges mit id: ' + str(
-                item.id) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_therapy_something: Sonstiges mit id: {str(item.id)} angelegt")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=2')
     else:
-        logger.debug('add_therapy_something: Formular zur Bearbeitung/Erfassung des Sonstiges-Feld')
+        logger.debug(f"User-ID: {request.user.id}; add_therapy_something: Formular zur Bearbeitung/Erfassung "
+                     f"des Sonstiges-Feld")
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
-        form = TherapySomethingForm(
-            initial={'therapy': therapy_result})
+        form = TherapySomethingForm(initial={'therapy': therapy_result})
     return render(request, 'reports/something_form.html', {'form': form})
 
 
@@ -720,9 +734,9 @@ def edit_therapy_something(request, id=None):
     form = TherapySomethingForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_therapy_something: Sonstiges ändern mit ID: ' + str(id))
+        logger.info(f"User-ID: {request.user.id}; edit_therapy_something: Sonstiges ändern mit ID: {str(id)}")
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=2')
-    logger.debug('edit_therapy_something: Sonstige Form aufgerufen für ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_therapy_something: Sonstige Form aufgerufen für ID: {id}")
     return render(request, 'reports/something_form.html', {'form': form})
 
 
@@ -732,20 +746,21 @@ def edit_therapy_something(request, id=None):
 
 @permission_required('reports.add_therapy')
 def add_therapy(request):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     if request.method == "POST":
         form = TherapyForm(request.POST)
         patient_result = Patient.objects.get(id=request.POST.get('patients'))
         if form.is_valid():
             therapy_item = form.save(commit=False)
             therapy_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_therapy: Rezept für Patient mit ID: ' + str(
-                patient_result.id) + ' angelegt')
+            logger.info(f"User-ID: {request.user.id}; add_therapy: Rezept für Patient "
+                        f"mit ID: {str(patient_result.id)} angelegt")
             return redirect('/reports/patient/' + str(patient_result.id) + '/')
         else:
-            logger.info('Dates not valid')
+            logger.info(f"User-ID: {request.user.id}; Dates not valid")
     else:
-        logger.info('add_therapy: Formular aufgerufen um eine Rezept anzulegen')
+        logger.info(f"User-ID: {request.user.id}; add_therapy: Formular aufgerufen um eine Rezept anzulegen")
         form = TherapyForm(initial={'patients': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
     return render(request, 'reports/therapy_form.html', {'form': form, 'patient': patient_result})
@@ -753,14 +768,16 @@ def add_therapy(request):
 
 @permission_required('reports.change_therapy')
 def edit_therapy(request, id=None):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Therapy, id=id)
     form = TherapyForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_therapy: Rezept mit der ID:' + str(item.id) + ' geändert')
+        logger.info(f"User-ID: {request.user.id}; edit_therapy: Rezept mit der ID: {str(item.id)} geändert")
         return redirect('/reports/therapy/' + str(item.id) + '/')
-    logger.debug('edit_therapy: Rezeptformular des Patienten mit der ID: ' + str(item.id) + ' zwecks Änderung aufgerufen')
+    logger.debug(f"User-ID: {request.user.id}; edit_therapy: Rezeptformular des Patienten "
+                 f"mit der ID: {str(item.id)} zwecks Änderung aufgerufen")
     doctor_value = Doctor.objects.get(id=item.therapy_doctor.id)
     data = {'id': item.id,
             'recipe_date': item.recipe_date,
@@ -787,7 +804,8 @@ def edit_therapy(request, id=None):
 
 @permission_required('reports.view_therapy')
 def therapy(request, id=id):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapy_result = Therapy.objects.get(id=id)
     patient_value = Patient.objects.get(id=str((therapy_result.patients_id)))
     process_report_value = Process_report.objects.filter(therapy_id=id).order_by('-process_treatment')
@@ -804,7 +822,7 @@ def therapy(request, id=id):
         therapy_something_value = Therapy_Something.objects.get(therapy_id=id)
     else:
         therapy_something_value = ''
-    logger.info('{:>2}'.format(request.user.id) + ' therapy: Rezept mit der ID: ' + str(id) + ' aufgerufen')
+    logger.info(f"User-ID: {request.user.id}; therapy: Rezept mit der ID: {str(id)} aufgerufen")
     return render(request, 'reports/therapy.html', {'therapy': therapy_result,
                                                     'patient': patient_value,
                                                     'ia': ia_value,
@@ -823,16 +841,17 @@ def add_process_report(request):
         if form.is_valid():
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
-            logger.info(
-                '{:>2}'.format(request.user.id) + ' add_process_report: Verlaufsprotokoll gespeichert mit ID: ' + str(
-                    request.POST.get('therapy')))
+            logger.info(f"User-ID: {request.user.id} add_process_report: Verlaufsprotokoll "
+                        f"gespeichert mit ID: {str(request.POST.get('therapy'))}")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=3')
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
-        form = ProcessReportForm(
-            initial={'process_treatment': Process_report.objects.filter(therapy_id=request.GET.get('id')).count() + 1,
-                     'therapy': therapy_result})
-        logger.debug('add_process_report: Verlaufsprotokoll anlegen mit ID: ' + request.GET.get('id'))
+        form = ProcessReportForm(initial={'process_treatment':
+                                              Process_report.objects.filter(
+                                                  therapy_id=request.GET.get('id')).count() + 1,
+                                          'therapy': therapy_result})
+        logger.debug(f"User-ID: {request.user.id}; add_process_report: Verlaufsprotokoll "
+                     f"anlegen mit ID: {request.GET.get('id')}")
         return render(request, 'reports/process_report_form.html', {'form': form})
 
 
@@ -842,10 +861,10 @@ def edit_process_report(request, id=None):
     form = ProcessReportForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(
-            '{:>2}'.format(request.user.id) + ' edit_process_report: Verlaufsprotokoll ändern mit ID: ' + str(item.id))
+        logger.info(f"User-ID: {request.user.id}; edit_process_report: Verlaufsprotokoll "
+                    f"ändern mit ID: {str(item.id)}")
         return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=3')
-    logger.info('{:>2}'.format(request.user.id) + ' edit_process_report: Verlaufsprotokoll anlegen mit ID: ' + id)
+    logger.info(f"User-ID: {request.user.id}; edit_process_report: Verlaufsprotokoll anlegen mit ID: {id}")
     return render(request, 'reports/process_report_form.html', {'form': form})
 
 
@@ -862,132 +881,9 @@ def delete_process_report(request, id=None):
 
 @permission_required('reports.view_process_report')
 def process_report(request, id=id):
-    process_report = Process_report.objects.get(id=id)
-    logger.debug('process_report: Verlaufsprotokoll mit ID: ' + id + ' anzeigen')
-    return render(request, 'reports/process_report.html', {'process_report': process_report})
-
-
-@permission_required('reports.view_process_report')
-def show_process_report(request):
-    width, height = A4
-    styles = getSampleStyleSheet()
-    styleN = styles["BodyText"]
-    styleN.alignment = TA_LEFT
-    styleN.fontSize = 8
-    styleNC = styles['Normal']
-    styleNC.alignment = TA_JUSTIFY
-    styleNC.fontSize = 8
-    styleBH = styles["Normal"]
-    styleBH.alignment = TA_CENTER
-    styleBH.fontSize = 8
-
-    def coord(x, y, height, unit=1):
-        x, y = x * unit, height - y * unit
-        return x, y
-
-    therapy_start_value = ''
-    therapy_end_value = ''
-    id = request.GET.get('id')
-    logger.info('{:>2}'.format(request.user.id) + ' show_process_report: Verlaufsprotokoll mit ID: ' + id + ' gedruckt')
-    therapy_value = Therapy.objects.get(id=id)
-    pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
-    pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
-    if Therapy_report.objects.filter(therapy=id):
-        therapy_report_value = Therapy_report.objects.get(therapy=id)
-        therapy_start_value = therapy_report_value.therapy_start
-        therapy_end_value = therapy_report_value.therapy_end
-
-    process_report_value = Process_report.objects.values_list('process_treatment',
-                                                              'process_content',
-                                                              'process_exercises',
-                                                              'process_results',
-                                                              'process_content_2',
-                                                              'process_exercises_2',
-                                                              'process_results_2',
-                                                              'process_content_3',
-                                                              'process_exercises_3',
-                                                              'process_results_3'
-                                                              ).filter(therapy=id)
-    buffer = io.BytesIO()
-
-    # Create the PDF object, using the buffer as its "file."
-    p = canvas.Canvas(buffer)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.setFont('Helvetica', 18)
-    p.drawString(6 * cm, 28 * cm, "Therapieverlaufdokumentation")
-    p.setFont('Helvetica', 10)
-    p.drawString(1.5 * cm, 27 * cm, "Rezept - Datum: " + str(therapy_value.recipe_date.strftime("%d.%m.%Y")))
-    p.drawString(12 * cm, 27 * cm, "Patient: " + pa_last_name + ", " + pa_first_name)
-    p.setFont('Helvetica', 10)
-    p.drawString(1.5 * cm, 26.5 * cm, "Bericht: ")
-    p.drawString(13 * cm, 26.5 * cm, "Behandlung von: ")
-
-    if therapy_start_value != '' and therapy_start_value is not None:
-        p.drawString(15.8 * cm, 26.5 * cm, str(therapy_start_value.strftime("%d.%m.%Y")) + " bis: ")
-    if therapy_end_value != '' and therapy_end_value is not None:
-        p.drawString(18.3 * cm, 26.5 * cm, str(therapy_end_value.strftime("%d.%m.%Y")))
-    p.setFont('Helvetica', 8)
-    p.drawString(1.5 * cm, 0.5 * cm, "Druckdatum: " + str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M")))
-
-    # initiate data list
-    data = []
-
-    # create Headers
-    htreatment = Paragraph('''Behand- lung''', styleBH)
-    hcontent = Paragraph('''Therapieinhalt''', styleBH)
-    hexercises = Paragraph('''Übungen''', styleBH)
-    hresult = Paragraph('''Ergebnis  + ; - ; 0''', styleBH)
-
-    # write header to data
-    data.append([htreatment, hcontent, hexercises, hresult])
-    # write contentelements to data
-    for item in list(process_report_value):
-        ctreatment = Paragraph((str(item[0])), styleNC)
-        content = str(escape(item[1])).replace('\n', '<br />\n')
-        # content = '<font size=8>' + content + '</font>'
-        ccontent = Paragraph(((content)), styleN)
-        cexercises = Paragraph((escape(item[2])), styleN)
-        cresult = Paragraph((escape(item[3])), styleNC)
-        data.append([ctreatment, ccontent, cexercises, cresult])
-        if item[4]:
-            ctreatment = ''
-            content = str(escape(item[4])).replace('\n', '<br />\n')
-            ccontent = Paragraph(((content)), styleN)
-            cexercises = Paragraph((escape(item[5])), styleN)
-            cresult = Paragraph((escape(item[6])), styleNC)
-            data.append([ctreatment, ccontent, cexercises, cresult])
-        if item[7]:
-            ctreatment = ''
-            content = str(escape(item[7])).replace('\n', '<br />\n')
-            ccontent = Paragraph(((content)), styleN)
-            cexercises = Paragraph((escape(item[8])), styleN)
-            cresult = Paragraph((escape(item[9])), styleNC)
-            data.append([ctreatment, ccontent, cexercises, cresult])
-
-    # create table
-    table = Table(data, colWidths=[1.5 * cm, 10 * cm, 5.5 * cm,
-                                   1.7 * cm])
-
-    table.setStyle(TableStyle([('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
-                               ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
-                               ('VALIGN', (0, 0), (-1, -1), 'TOP')
-                               ]))
-    w, h = table.wrap(width, height)
-    table.wrapOn(p, width, height)
-    table.drawOn(p, *coord(1.5, 3.5, height - h, cm))
-
-    # Close the PDF object cleanly, and we're done.
-    # p.showPage()
-    p.save()
-
-    # FileResponse sets the Content-Disposition header so that browsers
-    # present the option to save the file.
-    buffer.seek(0)
-
-    file_name = pa_last_name + "_" + pa_first_name + "_" + str(therapy_value.recipe_date) + ".pdf"
-    return FileResponse(buffer, as_attachment=True, filename=file_name)
+    process_report_element = Process_report.objects.get(id=id)
+    logger.debug(f"User-ID: {request.user.id}; process_report: Verlaufsprotokoll mit ID: {id} anzeigen")
+    return render(request, 'reports/process_report.html', {'process_report': process_report_element})
 
 
 @permission_required('reports.view_process_report')
@@ -995,7 +891,7 @@ def show_process_report2(request):
     therapy_start_value = ''
     therapy_end_value = ''
     id = request.GET.get('id')
-    logger.info('{:>2}'.format(request.user.id) + ' show_process_report2: Verlaufsreport mit ID: ' + id + ' gedruckt')
+    logger.info(f"User-ID: {request.user.id}; show_process_report2: Verlaufsreport mit ID: {id} gedruckt")
     therapy_value = Therapy.objects.get(id=id)
     therapy_value.pa_first_name = Therapy.objects.get(id=id).patients.pa_first_name
     therapy_value.pa_last_name = Therapy.objects.get(id=id).patients.pa_last_name
@@ -1005,23 +901,12 @@ def show_process_report2(request):
         therapy_value.therapy_start_value = therapy_report_value.therapy_start
         therapy_value.therapy_end_value = therapy_report_value.therapy_end
 
-    # process_report_value = Process_report.objects.values_list('process_treatment',
-    #                                                          'process_content',
-    #                                                          'process_exercises',
-    #                                                          'process_results',
-    #                                                          'process_content_2',
-    #                                                          'process_exercises_2',
-    #                                                          'process_results_2',
-    #                                                          'process_content_3',
-    #                                                          'process_exercises_3',
-    #                                                          'process_results_3'
-    #                                                          ).filter(therapy=id)
-
     process_report_value = Process_report.objects.filter(therapy=id)
 
     process_report_value.static_root = settings.STATIC_ROOT
 
-    filename = "Verlauf_" + therapy_value.pa_last_name + "_" + therapy_value.pa_first_name + "_" + str(therapy_value.recipe_date) + ".pdf"
+    filename = "Verlauf_" + therapy_value.pa_last_name + "_" + therapy_value.pa_first_name + "_" + str(
+        therapy_value.recipe_date) + ".pdf"
 
     html_string = render_to_string('pdf_templates/process_report.html', {'therapy': therapy_value,
                                                                          'process': process_report_value
@@ -1045,19 +930,17 @@ def add_therapy_report(request):
         if form.is_valid():
             therapy_report_item = form.save(commit=False)
             therapy_report_item.save()
-            logger.info(
-                '{:>2}'.format(request.user.id) + ' add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(
-                    request.POST.get('therapy')))
+            logger.info(f"User-ID: {request.user.id}; add_therapy_report: Therapiebericht gespeichert mit ID: "
+                        f"{str(request.POST.get('therapy'))}")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=4')
         else:
             return render(request, 'reports/therapy_report_form.html', {'form': form})
 
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
-        form = TherapyReportForm(
-            initial={'therapy': therapy_result})
-        logger.info('{:>2}'.format(request.user.id) + ' add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(
-            request.POST.get('therapy')))
+        form = TherapyReportForm(initial={'therapy': therapy_result})
+        logger.info(f"User-ID: {request.user.id}; add_therapy_report: Therapiebericht "
+                    f"gespeichert mit ID: {str(request.POST.get('therapy'))}")
         return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
@@ -1067,24 +950,24 @@ def edit_therapy_report(request, id=None):
     form = TherapyReportForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_therapy_report: Therapiebericht ändern mit ID: ' + str(id))
+        logger.info(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht ändern mit ID: {str(id)}")
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
 
-    logger.debug('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
+    logger.debug(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht anlegen mit ID: {id}")
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
 @permission_required('reports.view_therapy_report')
 def therapy_report(request, id=id):
     therapy_report = Therapy_report.objects.get(id=id)
-    logger.info('{:>2}'.format(request.user.id) + ' therapy_report: Therapiebericht mit ID: ' + id + ' anzeigen')
+    logger.info(f"User-ID: {request.user.id}; therapy_report: Therapiebericht mit ID: {id} anzeigen")
     return render(request, 'reports/therapy_report_standard.html', {'therapy_report': therapy_report})
 
 
 @permission_required('reports.delete_therapy_report')
 def show_therapy_report(request):
     id = request.GET.get('id')
-    logger.info('{:>2}'.format(request.user.id) + ' show_therapy_report: Therapiebericht mit ID: ' + id + ' gedruckt')
+    logger.info(f"User-ID: {request.user.id}; show_therapy_report: Therapiebericht mit ID: {id} gedruckt")
     therapy_result = Therapy.objects.get(id=request.GET.get('id'))
     result = Therapy_report.objects.get(therapy=request.GET.get('id'))
     doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
@@ -1106,7 +989,7 @@ def show_therapy_report(request):
         html_file = 'pdf_templates/therapy_report_standard.html'
         css_file = '/reports/therapy_report_standard.css'
         fileext = "_st"
-    else :
+    else:
         html_file = 'pdf_templates/therapy_report_big.html'
         css_file = '/reports/therapy_report_big.css'
         fileext = '_groß'
@@ -1116,7 +999,7 @@ def show_therapy_report(request):
     html_string = render_to_string(html_file, {'therapy': therapy_result, 'result': result, 'doctor': doctor_result})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-    logger.debug("CSS_File: " + settings.STATIC_ROOT + css_file)
+    logger.debug(f"User-ID: {request.user.id}; show_therapy_report CSS_File: {settings.STATIC_ROOT}{css_file}")
     pdf = html.write_pdf(stylesheets=[CSS(settings.STATIC_ROOT + css_file)])
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=' + filename
@@ -1133,13 +1016,13 @@ def add_waitlist(request):
         if form.is_valid():
             waitlist_item = form.save(commit=False)
             waitlist_item.save()
-            logger.info('{:>2}'.format(request.user.id) + ' add_waitlist: Waitlist mit der ID:' + str(
-                waitlist_item.id) + ' gespeichert')
+            logger.info(f"User-ID: {request.user.id}; add_waitlist: Waitlist "
+                        f"mit der ID: {str(waitlist_item.id)} gespeichert")
             return redirect('/reports/edit/waitlist/' + str(waitlist_item.id) + '/')
         else:
             print('Problems with form')
     else:
-        logger.debug('add_waitlist: Formular aufgerufen')
+        logger.debug(f"User-ID: {request.user.id}; add_waitlist: Formular aufgerufen")
         form = WaitlistForm()
     return render(request, 'reports/waitlist_form.html', {'form': form})
 
@@ -1147,7 +1030,8 @@ def add_waitlist(request):
 @permission_required('reports.change_wait_list')
 def edit_waitlist(request, id=None):
     double_entry = 0
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Wait_list, id=id)
     form = WaitlistForm(request.POST or None, instance=item)
     patient = Patient.objects.filter(pa_last_name=item.wl_last_name, pa_first_name=item.wl_first_name)
@@ -1155,9 +1039,10 @@ def edit_waitlist(request, id=None):
         double_entry = 1
     if form.is_valid():
         form.save()
-        logger.info('{:>2}'.format(request.user.id) + ' edit_waitlist: Wait_list mit der ID:' + str(item.id) + ' geändert')
+        logger.info(f"User-ID: {request.user.id}; edit_waitlist: Wait_list mit der ID: {str(item.id)} geändert")
         return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
-    logger.debug('edit_waitlist: Wait-list mit der ID: ' + str(id) + ' zwecks Änderung aufgerufen')
+    logger.debug(f"User-ID: {request.user.id}; edit_waitlist: Wait-list "
+                 f"mit der ID: {str(id)} zwecks Änderung aufgerufen")
     form.id = item.id
     form.double_entry = double_entry
     return render(request, 'reports/waitlist_form.html', {'form': form})
@@ -1165,23 +1050,24 @@ def edit_waitlist(request, id=None):
 
 @permission_required('reports.view_wait_list')
 def waitlist(request, status):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     waitlist = Wait_list.objects.filter(wl_active=status).order_by('wl_call_date')
 
     for waitlist_item in waitlist:
         waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
         waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
-        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name,
+                                         pa_first_name=waitlist_item.wl_first_name)
         if patient:
             waitlist_item.double_entry = 1
 
-    logger.info('{:>2}'.format(request.user.id) + ' waitlist: Wait_list aufgerufen')
+    logger.info(f"User-ID: {request.user.id}; waitlist: Wait_list aufgerufen")
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': status})
 
 
 @permission_required('reports.view_wait_list')
 def copy_waitlist_item(request, id=id):
-
     waitlist = get_object_or_404(Wait_list, id=id)
     patient = Patient.objects.filter(pa_last_name=waitlist.wl_last_name, pa_first_name=waitlist.wl_first_name)
 
@@ -1190,40 +1076,40 @@ def copy_waitlist_item(request, id=id):
         for item in patient:
             waitlist.pa_date_of_birth = item.pa_date_of_birth
 
-    #status = request.GET['status']
+    # status = request.GET['status']
     if request.GET['status'] == 'no':
         return render(request, 'reports/waitlist_confirm_create.html', {'waitlist': waitlist})
     else:
-        #create patient_object
+        # create patient_object
         try:
             if waitlist.wl_date_of_birth == None:
                 waitlist.wl_date_of_birth = "1900-01-01"
 
             Patient.objects.create(pa_first_name=waitlist.wl_first_name,
-                pa_last_name=waitlist.wl_last_name,
-                pa_street=waitlist.wl_street,
-                pa_city=waitlist.wl_city,
-                pa_zip_code=waitlist.wl_zip_code,
-                pa_date_of_birth=waitlist.wl_date_of_birth,
-                pa_phone=waitlist.wl_phone,
-                pa_cell_phone=waitlist.wl_cell_phone,
-                pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
-                pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
-                pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
-                pa_email=waitlist.wl_email,
-                pa_gender=waitlist.wl_gender,
-                pa_note=waitlist.wl_information
-            )
-            #set status waitlist object to False
+                                   pa_last_name=waitlist.wl_last_name,
+                                   pa_street=waitlist.wl_street,
+                                   pa_city=waitlist.wl_city,
+                                   pa_zip_code=waitlist.wl_zip_code,
+                                   pa_date_of_birth=waitlist.wl_date_of_birth,
+                                   pa_phone=waitlist.wl_phone,
+                                   pa_cell_phone=waitlist.wl_cell_phone,
+                                   pa_cell_phone_add1=waitlist.wl_cell_phone_add1,
+                                   pa_cell_phone_add2=waitlist.wl_cell_phone_add2,
+                                   pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
+                                   pa_email=waitlist.wl_email,
+                                   pa_gender=waitlist.wl_gender,
+                                   pa_note=waitlist.wl_information
+                                   )
+            # set status waitlist object to False
             waitlist.wl_active = False
             waitlist.save()
-            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Patient wurde erfolgreich '
-                                                          'aus Warteliste angelegt')
+            logger.info(f"User-ID: {request.user.id}; copy_waitlist_item: Patient wurde "
+                        f"erfolgreich aus Warteliste angelegt")
 
         except Exception as e:
-            logger.info('{:>2}'.format(request.user.id) + ' copy_waitlist_item: Fehler beim speichern: ' + str(e))
+            logger.info(f"User-ID: {request.user.id}; copy_waitlist_item: Fehler beim speichern: {str(e)}")
 
-    #Info to Webfrontwend
+    # Info to Webfrontwend
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
@@ -1242,13 +1128,15 @@ def set_waitlist_item_inactive(request, id=None):
         item.wl_active = False
         item.save()
     else:
-        logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_inactive: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf inaktive gesetzt werden')
+        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_inactive: Wait_list mit der ID: {str(item.id)} "
+                    f"konnte nicht auf inaktive gesetzt werden")
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
 
     for waitlist_item in waitlist:
         waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
         waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
-        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name,
+                                         pa_first_name=waitlist_item.wl_first_name)
         if patient:
             waitlist_item.double_entry = 1
 
@@ -1262,17 +1150,20 @@ def set_waitlist_item_active(request, id=None):
         item.wl_active = True
         item.save()
     else:
-        logger.info('{:>2}'.format(request.user.id) + ' set_waitlist_item_active: Wait_list mit der ID:' + str(item.id) + ' konnte nicht auf aktive gesetzt werden')
+        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_active: Wait_list "
+                    f"mit der ID: {str(item.id)} konnte nicht auf aktive gesetzt werden")
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
 
     for waitlist_item in waitlist:
         waitlist_item.wl_phone = get_phone_design(waitlist_item.wl_phone)
         waitlist_item.wl_cell_phone = get_phone_design(waitlist_item.wl_cell_phone)
-        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name, pa_first_name=waitlist_item.wl_first_name)
+        patient = Patient.objects.filter(pa_last_name=waitlist_item.wl_last_name,
+                                         pa_first_name=waitlist_item.wl_first_name)
         if patient:
             waitlist_item.double_entry = 1
 
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+
 
 ##########################################################################
 # Area Document upload
@@ -1284,14 +1175,15 @@ def upload_document(request):
         item_form = DocumentForm(request.POST, request.FILES)
         patient_result = Patient.objects.get(id=request.POST.get('patient'))
         if item_form.is_valid():
-            logger.debug('upload_document: Dokument zum speichern valide')
+            logger.debug(f"User-ID: {request.user.id}; upload_document: Dokument zum speichern valide")
             item = item_form.save(commit=False)
             item.patient_id = patient_result.id
             item.save()
-            logger.debug('upload_document: Dokument gespeichert')
+            logger.debug(f"User-ID: {request.user.id}; upload_document: Dokument gespeichert")
             return redirect('/reports/document/?id=' + str(patient_result.id))
     else:
-        logger.debug('upload_document: Formular aufgerufen um Dokumente zu sehen oder hochzuladen')
+        logger.debug(f"User-ID: {request.user.id}; upload_document: Formular aufgerufen um Dokumente "
+                     f"zu sehen oder hochzuladen")
         form = DocumentForm(initial={'patient': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
         documents = Document.objects.filter(patient_id=request.GET.get('id')).order_by('-uploaded_at')
@@ -1306,14 +1198,14 @@ IMAGE_FILE_TYPES = ['pdf']
 def download_document(request):
     if request.method == 'GET':
         file_id = request.GET.get('id')
-        logger.debug('download_document: Dokument mit file_id: ' + file_id + ' downloaded')
+        logger.debug(f"User-ID: {request.user.id}; download_document: Dokument mit file_id: {file_id} downloaded")
         file_info = Document.objects.get(id=file_id)
         document_name = file_info.document.name
         document_path = settings.MEDIA_ROOT + '/' + document_name
         response = FileResponse(open(document_path, 'rb'), as_attachment=True)
         return response
 
-    logger.debug('download_document: keine Get-Methode beim Download')
+    logger.debug(f"User-ID: {request.user.id}; download_document: keine Get-Methode beim Download")
     return redirect('/reports/')
 
 
@@ -1332,9 +1224,10 @@ class del_document(DeleteView):
         if os.path.exists(document_path):
             os.remove(document_path)
             file_info.delete()
-            logger.debug('del_document: Dokument: ' + document_name + " gelöscht")
+            logger.debug(f"User-ID: {request.user.id}; del_document: Dokument: {document_name} gelöscht")
         else:
-            logger.debug('del_document: Dokument: ' + document_path + " konnte nicht gelöscht werden")
+            logger.debug(f"User-ID: {request.user.id}; del_document: Dokument: {document_path} konnte "
+                         f"nicht gelöscht werden")
 
         return HttpResponseRedirect(self.success_url + "?id=" + patient_id)
 
@@ -1349,14 +1242,15 @@ def upload_document_therapy(request):
         item_form = DocumentTherapyForm(request.POST, request.FILES)
         therapy_result = Therapy.objects.get(id=request.POST.get('therapy'))
         if item_form.is_valid():
-            logger.debug('upload_document_therapy: Dokument zum speichern valide')
+            logger.debug(f"User-ID: {request.user.id}; upload_document_therapy: Dokument zum speichern valide")
             item = item_form.save(commit=False)
             item.therapy_id = therapy_result.id
             item.save()
-            logger.debug('upload_document_therapy: Dokument gespeichert')
+            logger.debug(f"User-ID: {request.user.id}; upload_document_therapy: Dokument gespeichert")
             return redirect('/reports/document_therapy/?id=' + str(therapy_result.id))
     else:
-        logger.debug('upload_document_therapy: Formular aufgerufen um Dokumente zu sehen oder hochzuladen')
+        logger.debug(f"User-ID: {request.user.id}; upload_document_therapy: Formular aufgerufen um Dokumente "
+                     f"zu sehen oder hochzuladen")
         form = DocumentTherapyForm(initial={'therapy': request.GET.get('id')})
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
         documents = Document_therapy.objects.filter(therapy_id=request.GET.get('id')).order_by('-uploaded_at')
@@ -1395,30 +1289,18 @@ class del_document_therapy(DeleteView):
         if os.path.exists(document_path):
             os.remove(document_path)
             file_info.delete()
-            logger.debug('del_document_therapy: Dokument: ' + document_name + " gelöscht")
+            logger.debug(f"User-ID: {request.user.id}; del_document_therapy: Dokument: {document_name} gelöscht")
         else:
-            logger.debug('del_document_therapy: Dokument: ' + document_path + " konnte nicht gelöscht werden")
+            logger.debug(f"User-ID: {request.user.id}; del_document_therapy: Dokument: {document_path} konnte "
+                         f"nicht gelöscht werden")
 
         return HttpResponseRedirect(self.success_url + "?id=" + therapy_id)
 
-
-# **************************************************************************************************
-#@permission_required('reports.view_patient')
-#def getSessionTimer(request):
-#    sessionTimer = request.session.get_expiry_date()
-#    sessionTimer = sessionTimer.isoformat()
-#    context = {'getSessionTimer': str(sessionTimer)}
-#    logger.debug('{:>2}'.format(request.user.id) + " getSessionTimer: " + str(sessionTimer))
-
-#    return render(request, 'getSessionTimer.html', {'form': context})
-
-
 @permission_required('reports.view_patient')
 def get_session_timer(request):
-
     if request.is_ajax and request.method == "GET":
         sessiontimer = request.session.get_expiry_date().isoformat()
-        logger.debug('{:>2}'.format(request.user.id) + " getSessionTimerNew: " + str(sessiontimer))
+        logger.debug(f"User-ID: {request.user.id}; get_session_timer: {str(sessiontimer)}")
         return JsonResponse({'sessiontimer': sessiontimer}, status=200)
 
     return JsonResponse({"error": ""}, status=400)
@@ -1428,9 +1310,11 @@ def get_session_timer(request):
 class openContext:
     pass
 
+
 @permission_required('reports.view_patient')
 def getOpenReports(request, context=None):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
         therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
@@ -1449,7 +1333,7 @@ def getOpenReports(request, context=None):
             try:
                 report_date_value = therapy_report_result[0].report_date
             except:
-                logger.debug("Try Exception")
+                logger.debug(f"User-ID: {request.user.id}; Try Exception")
 
             if not report_date_value:
                 patient_value = Patient.objects.filter(id=tp_item.patients.id)
@@ -1457,28 +1341,27 @@ def getOpenReports(request, context=None):
                 tp_item.pa_first_name = patient_value[0].pa_first_name
                 reports_list.append(tp_item)
 
-    #Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
+    # Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
     if request.user.groups.filter(name='Leitung').exists():
-        therapybreak_count = Therapy_report.objects.\
-            select_related('therapy__patients').\
+        therapybreak_count = Therapy_report.objects. \
+            select_related('therapy__patients'). \
             filter(therapy_break_internal=True,
-                    therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
-                    therapy__patients__pa_active_no_yes=True).count()
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                   therapy__patients__pa_active_no_yes=True).count()
     else:
-        therapybreak_count = Therapy_report.objects.\
-            select_related('therapy__patients').\
+        therapybreak_count = Therapy_report.objects. \
+            select_related('therapy__patients'). \
             filter(therapy_break_internal=True,
-                    therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
-                    therapy__therapists__tp_user_logopakt=str(request.user),
-                    therapy__patients__pa_active_no_yes=True).count()
-
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                   therapy__therapists__tp_user_logopakt=str(request.user),
+                   therapy__patients__pa_active_no_yes=True).count()
 
     openReports = len(reports_list)
 
-    #context = {'getOpenReports': str(openReports)}
+    # context = {'getOpenReports': str(openReports)}
     openContext.getOpenReports = str(openReports)
     openContext.therapybreak_count = str(therapybreak_count)
-    logger.debug('{:>2}'.format(request.user.id) + ' getOpenReports aufgerufen')
+    logger.debug(f"User-ID: {request.user.id}; getOpenReports aufgerufen")
 
     return render(request, 'getOpenReports.html', {'form': openContext})
 
@@ -1550,10 +1433,11 @@ def get_special_phone_design(data):
             data = data[0] + " / " + charvalue
         return data
 
-#helper function
+
+# helper function
 def send_personal_mail(user):
     logger.debug("Sending an email")
-    logger.info('{:>2}'.format(user.id) + " " + format(user) + ' E-Mail senden wegen neuem Gerät')
+    logger.info(f"User-ID: {user.id}; {format(user)} E-Mail senden wegen neuem Gerät")
     subject = 'Anmeldung an der Anwendung LogoPAkt'
     from_email = 'logopakt@logoeu.uber.space'
     email_list = [user.email]
@@ -1577,13 +1461,14 @@ def send_personal_mail(user):
     msg.attach_alternative(html_content, "text/html")
     msg.attach(img)
     msg.send()
-    logger.debug("EMail was send")
+    logger.debug(f"User-ID: {user.id}; EMail was send")
 
 
 @receiver(user_logged_in)
 def post_login(sender, request, user, **kwargs):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
-    logger.info('{:>2}'.format(user.id) + " " + format(user) + ' eingeloggt')
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    logger.info(f"User-ID: {request.user.id}; {format(user)} eingeloggt")
     if request.META.get('HTTP_X_FORWARDED_FOR'):
         ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
     elif request.META.get('REMOTE_ADDR'):
@@ -1591,31 +1476,35 @@ def post_login(sender, request, user, **kwargs):
     else:
         ip_address = "nothing"
 
+    logger.debug(f"User-ID: {request.user.id}; SESSION_EXPIRE_SECONDS: {settings.SESSION_EXPIRE_SECONDS}")
+
     http_user_agent = request.META.get('HTTP_USER_AGENT')
 
     try:
         Login_Failed.objects.filter(user_name=user).delete()
-        logger.debug("Userdaten von " + format(user) + " in failed_login gelöscht")
+        logger.debug(f"User-ID: {request.user.id};Userdaten von {format(user)} in failed_login gelöscht")
     except:
-        logger.debug("User not found")
+        logger.debug(f"User not found")
 
     try:
         login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
         login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
         login_user_agent.save()
-        logger.debug('Do nothing')
+        logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: Do nothing")
     except:
         login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
         login_user_agent.save()
+        logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: send e-mail to {user}")
         send_personal_mail(user)
 
 
 @receiver(user_logged_out)
 def post_logout(sender, request, user, **kwargs):
-    logger.info(f"Post_logout: User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; {request.session.get_expiry_date()}; {datetime.datetime.utcnow()}; Logout")
+    logger.info(f"Post_logout: User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}; Logout")
 
     try:
-        logger.info('{:>2}'.format(user.id) + ' ausgeloggt')
+        logger.info(f"User-ID: {request.user.id}; ausgeloggt")
     except:
         logger.info('User ausgeloggt')
 
@@ -1640,13 +1529,14 @@ def post_login_failed(sender, credentials, request, **kwargs):
         failed_count = Login_Failed.objects.filter(user_name=credentials['username'])
         x = failed_count.count()
         if x > 5:
-            logger.debug('Fehlversuche: ' + credentials['username'] + ": " + str(x))
+            logger.debug(f"User-ID: {request.user.id}; Fehlversuche: {credentials['username']} : {str(x)}")
             user_local.request_status = 'A'
             user_local.is_active = False
             user_local.save()
             send_mail(
                 subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
-                message='User: ' + credentials['username'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Passwort eingeloggt und wurde deaktiviert',
+                message='User: ' + credentials['username'] + ' hat sich mehr als ' + str(
+                    x) + 'x mit falschem Passwort eingeloggt und wurde deaktiviert',
                 from_email='logopakt@logoeu.uber.space',
                 recipient_list=['norbert.krings@gmail.com', ],
                 fail_silently=False,
@@ -1661,10 +1551,11 @@ def post_login_failed(sender, credentials, request, **kwargs):
         failed_count = Login_Failed.objects.filter(ipaddress=request.META['REMOTE_ADDR'], user_name='')
         x = failed_count.count()
         if x > 5:
-            logger.info('Fehlversuche: ' + request.META['REMOTE_ADDR'] + ": " + str(x))
+            logger.info(f"User-ID: {request.user.id};  Fehlversuche: {request.META['REMOTE_ADDR']} : {str(x)}")
             send_mail(
                 subject='ACHTUNG: Anmeldefehlversuche logoPAkt!!!',
-                message='IP-Adresse: ' + request.META['REMOTE_ADDR'] + ' hat sich mehr als ' + str(x) + 'x mit falschem Benutzernamen eingeloggt',
+                message='IP-Adresse: ' + request.META['REMOTE_ADDR'] + ' hat sich mehr als ' + str(
+                    x) + 'x mit falschem Benutzernamen eingeloggt',
                 from_email='logopakt@logoeu.uber.space',
                 recipient_list=['norbert.krings@gmail.com', ],
                 fail_silently=False,
@@ -1674,8 +1565,8 @@ def post_login_failed(sender, credentials, request, **kwargs):
 class meta_info:
     pass
 
-def list_meta_info(request):
 
+def list_meta_info(request):
     meta_info.CONTENT_LENGTH = request.META.get('CONTENT_LENGTH')
     meta_info.CONTENT_TYPE = request.META.get('CONTENT_TYPE')
     meta_info.HTTP_ACCEPT = request.META.get('HTTP_ACCEPT')
@@ -1694,6 +1585,7 @@ def list_meta_info(request):
 
     return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
 
+
 def readShortcuts(request):
     if request.is_ajax and request.method == "GET":
         shortcuts = Shortcuts.objects.all()
@@ -1703,49 +1595,3 @@ def readShortcuts(request):
 
     return JsonResponse({"error": ""}, status=400)
 # **************************************************************************************************
-
-LOGLEVEL = os.environ.get('LOGLEVEL', 'info').upper()
-logging.config.dictConfig({
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'console': {
-            'format': '%(name)-12s %(levelname)-8s %(message)s'
-        },
-        'file': {
-            'format': '%(asctime)s %(name)-23s %(levelname)-8s %(message)s'
-        }
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console'
-        },
-        'file': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'file',
-            'filename': BASE_DIR + '/logopaedie.log',
-            'maxBytes': 1024*1024*1,
-            'backupCount': 10,
-        }
-    },
-    'loggers': {
-        '': {
-            'level': 'DEBUG',
-            'handlers': ['console']
-        },
-        'reports': {
-            'level': 'INFO',
-            'handlers': ['console', 'file'],
-            'propagate': False,
-        },
-        'django.request': {
-            'level': 'DEBUG',
-            'handlers': ['console', 'file']
-        },
-        'django.security.*': {
-            'level': 'INFO',
-            'handlers': ['console', 'file']
-        }
-    }
-})

@@ -8,7 +8,7 @@ from reports.views import index, impressum, search_patient, add_patient, edit_pa
     search_diagnostic_group, edit_diagnostic_group, add_diagnostic_group, diagnostic_group, add_ia, edit_ia, \
     upload_document, download_document, del_document, upload_document_therapy, download_document_therapy, \
     del_document_therapy, add_therapy_something, edit_therapy_something, open_reports, therapy_breaks, update_report,\
-    getSessionTimer, getOpenReports, add_waitlist, edit_waitlist, delete_waitlist_item, set_waitlist_item_inactive, \
+    get_session_timer, getOpenReports, add_waitlist, edit_waitlist, delete_waitlist_item, set_waitlist_item_inactive, \
     set_waitlist_item_active, add_pa_something
 
 
@@ -220,7 +220,7 @@ class TestUrls(SimpleTestCase):
 
     def test_url_getSessionTimer_is_resolved(self):
         url = reverse('reports:getSessionTimer')
-        self.assertEqual(resolve(url).func, getSessionTimer)
+        self.assertEqual(resolve(url).func, get_session_timer)
 
     def test_url_getOpenReports_is_resolved(self):
         url = reverse('reports:getOpenReports')
