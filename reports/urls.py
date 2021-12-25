@@ -23,9 +23,11 @@ urlpatterns = [
     path('delete_process_report/<id>', views.delete_process_report, name='delete_process_report'),
 
     path('add/therapy_report/', views.add_therapy_report, name='add_therapy_report'),
+    #path('add/therapy_report/<id>/', views.add_therapy_report, name='add_therapy_report'),
     path('edit/therapy_report/<id>/', views.edit_therapy_report, name='edit_therapy_report'),
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),
     path('show_therapy_report/', views.show_therapy_report, name='show_therapy_report'),
+    path('save_therapyreport_element/', views.save_therapyreport_element, name='save_therapyreport_element'),
 
     path('search/doctor/start', views.search_doctor_start, name='search_doctor_start'),
     path('search/doctor/', views.search_doctor, name='search_doctor'),

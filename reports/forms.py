@@ -891,14 +891,6 @@ class TherapyReportForm(forms.ModelForm):
                                     )
                                     )
 
-    #therapy_start = forms.DateField(
-    #    required=False,
-    #    widget=forms.SelectDateWidget(
-    #        years=range(2020, 2030),
-    #        attrs={'autofocus': 'autofocus'}
-    #    )
-    #)
-
     therapy_end = forms.DateField(required=False,
                                   widget=forms.DateInput(
                                       attrs={
@@ -909,11 +901,6 @@ class TherapyReportForm(forms.ModelForm):
                                   )
                                   )
 
-    #therapy_end = forms.DateField(
-    #    required=False,
-    #    widget=forms.SelectDateWidget()
-    #)
-
     report_date = forms.DateField(required=False,
                                   widget=forms.DateInput(
                                       attrs={
@@ -923,11 +910,6 @@ class TherapyReportForm(forms.ModelForm):
                                       }
                                   )
                                   )
-
-    # report_date = forms.DateField(
-    #    required=False,
-    #    widget=forms.SelectDateWidget()
-    #)
 
     therapy_current_result = forms.CharField(required=False,
                                              max_length=820,
@@ -946,26 +928,9 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_indicated = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
-    #therapy_break = forms.NullBooleanField(required=False,
-    #                                       widget=forms.CheckboxInput(
-    #                                               attrs={
-    #                                                   'onchange': "change_necessary_button();"
-    #                                               }
-    #                                           )
-    #                                       )
     therapy_break = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
     therapy_break_internal = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
-
-    #therapy_break_date = forms.DateField(required=False,
-    #                                     widget=forms.DateInput(
-    #                                         attrs={
-    #                                             'class': 'form-control',
-    #                                             'placeholder': 'Datum festlegen ...',
-    #                                             'onchange': 'CheckDate(this.value, this.name)'
-    #                                         }
-    #                                     )
-    #                                     )
 
     therapy_comment = forms.CharField(required=False,
                                       max_length=85,
@@ -1096,7 +1061,8 @@ class TherapyReportForm(forms.ModelForm):
 
     class Meta:
         model = Therapy_report
-        fields = ['therapy_start',
+        fields = ['id',
+            'therapy_start',
                   'therapy_end',
                   'report_date',
                   'therapy_current_result',

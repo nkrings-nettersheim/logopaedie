@@ -926,10 +926,12 @@ def show_process_report2(request):
 @permission_required('reports.add_therapy_report')
 def add_therapy_report(request):
     if request.method == "POST":
-        form = TherapyReportForm(request.POST)
+
+        item = get_object_or_404(Therapy_report, therapy=request.POST.get('therapy'))
+        form = TherapyReportForm(request.POST, instance=item)
+
         if form.is_valid():
-            therapy_report_item = form.save(commit=False)
-            therapy_report_item.save()
+            form.save()
             logger.info(f"User-ID: {request.user.id}; add_therapy_report: Therapiebericht gespeichert mit ID: "
                         f"{str(request.POST.get('therapy'))}")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=4')
@@ -938,6 +940,8 @@ def add_therapy_report(request):
 
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
+        Therapy_report.objects.create(report_date=datetime.date.today(), therapy=therapy_result)
+
         form = TherapyReportForm(initial={'therapy': therapy_result})
         logger.info(f"User-ID: {request.user.id}; add_therapy_report: Therapiebericht "
                     f"gespeichert mit ID: {str(request.POST.get('therapy'))}")
@@ -948,13 +952,58 @@ def add_therapy_report(request):
 def edit_therapy_report(request, id=None):
     item = get_object_or_404(Therapy_report, id=id)
     form = TherapyReportForm(request.POST or None, instance=item)
+    print(request.POST)
     if form.is_valid():
         form.save()
         logger.info(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht ändern mit ID: {str(id)}")
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
 
     logger.debug(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht anlegen mit ID: {id}")
+
     return render(request, 'reports/therapy_report_form.html', {'form': form})
+
+@permission_required('reports.change_therapy_report')
+def save_therapyreport_element(request):
+    #logger.info("Hallo Start")
+    if request.is_ajax():
+        id_therapy = request.POST.get('id_therapy')
+        data_field = request.POST.get('field')
+        item = get_object_or_404(Therapy_report, therapy=id_therapy)
+        content = request.POST.get('content')
+
+        if data_field == 'therapy_therapist_diagnostic':
+            setattr(item, 'therapy_therapist_diagnostic', content)
+        elif data_field == 'therapy_status':
+            setattr(item, 'therapy_status', content)
+        elif data_field == 'therapy_aims':
+            setattr(item, 'therapy_aims', content)
+        elif data_field == 'therapy_content':
+            setattr(item, 'therapy_content', content)
+        elif data_field == 'therapy_process':
+            setattr(item, 'therapy_process', content)
+        elif data_field == 'therapy_compliance':
+            setattr(item, 'therapy_compliance', content)
+        elif data_field == 'therapy_summary':
+            setattr(item, 'therapy_summary', content)
+        elif data_field == 'therapy_forecast':
+            setattr(item, 'therapy_forecast', content)
+        elif data_field == 'therapy_emphases':
+            setattr(item, 'therapy_emphases', content)
+        elif data_field == 'therapy_current_result':
+            setattr(item, 'therapy_current_result', content)
+
+        item.save()
+        #print("ID: " + id + "; data_field: " + data_field + "; " + content)
+
+        return JsonResponse({
+            'msg': 'Success'
+        })
+
+    return JsonResponse({
+        'msg': 'Error'
+    })
+
+
 
 
 @permission_required('reports.view_therapy_report')
