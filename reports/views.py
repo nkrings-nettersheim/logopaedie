@@ -1041,10 +1041,12 @@ def show_process_report2(request):
 @permission_required('reports.add_therapy_report')
 def add_therapy_report(request):
     if request.method == "POST":
-        form = TherapyReportForm(request.POST)
+
+        item = get_object_or_404(Therapy_report, therapy=request.POST.get('therapy'))
+        form = TherapyReportForm(request.POST, instance=item)
+
         if form.is_valid():
-            therapy_report_item = form.save(commit=False)
-            therapy_report_item.save()
+            form.save()
             logger.info(
                 '{:>2}'.format(request.user.id) + ' add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(
                     request.POST.get('therapy')))
@@ -1054,10 +1056,12 @@ def add_therapy_report(request):
 
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
-        form = TherapyReportForm(
-            initial={'therapy': therapy_result})
+        Therapy_report.objects.create(report_date=datetime.date.today(), therapy=therapy_result)
+
+        form = TherapyReportForm(initial={'therapy': therapy_result})
         logger.info('{:>2}'.format(request.user.id) + ' add_therapy_report: Therapiebericht gespeichert mit ID: ' + str(
             request.POST.get('therapy')))
+
         return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 
@@ -1065,21 +1069,23 @@ def add_therapy_report(request):
 def edit_therapy_report(request, id=None):
     item = get_object_or_404(Therapy_report, id=id)
     form = TherapyReportForm(request.POST or None, instance=item)
+    print(request.POST)
     if form.is_valid():
         form.save()
         logger.info('{:>2}'.format(request.user.id) + ' edit_therapy_report: Therapiebericht ändern mit ID: ' + str(id))
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
 
     logger.debug('edit_therapy_report: Therapybericht anlegen mit ID: ' + id)
+    print(form)
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
 @permission_required('reports.change_therapy_report')
 def save_therapyreport_element(request):
     #logger.info("Hallo Start")
     if request.is_ajax():
-        id = request.POST.get('id')
+        id_therapy = request.POST.get('id_therapy')
         data_field = request.POST.get('field')
-        item = get_object_or_404(Therapy_report, id=id)
+        item = get_object_or_404(Therapy_report, therapy=id_therapy)
         content = request.POST.get('content')
 
         if data_field == 'therapy_therapist_diagnostic':
