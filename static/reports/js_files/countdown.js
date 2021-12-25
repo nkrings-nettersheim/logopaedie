@@ -48,7 +48,7 @@ function logopakt_makeTimer(logopakt_endTime) {
 
 $(document).ready(function(){
     var logopakt_endTime = new Date();
-    logopakt_endTime = new Date(logopakt_endTime.getTime() + 30*60000);
+    logopakt_endTime = new Date(logopakt_endTime.getTime() + 45*60000);
     //console.log('logopakt_endTime0: ' + logopakt_endTime)
 
     //$.get("/reports/getSessionTimer", function(data, status){
@@ -84,7 +84,8 @@ $(document).ready(function(){
 	       //console.log('logopakt_endTime2: ' + logopakt_endTime)
 	       if (logopakt_endTime <= new Date()) {
 	          var t = new Date();
-	          t.setSeconds(t.getSeconds() + 1800);
+	          console.log("logopakt_endTime nicht definirt")
+	          t.setSeconds(t.getSeconds() + 2700);
 	          logopakt_endTime = t;
 	       }
 	       logopakt_makeTimer(logopakt_endTime);

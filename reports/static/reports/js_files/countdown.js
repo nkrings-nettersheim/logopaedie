@@ -49,21 +49,12 @@ function logopakt_makeTimer(logopakt_endTime) {
 $(document).ready(function(){
     var logopakt_endTime = new Date();
     logopakt_endTime = new Date(logopakt_endTime.getTime() + 45*60000);
-    //console.log('logopakt_endTime0: ' + logopakt_endTime)
-    //dies ist eine Test
-    //$.get("/reports/getSessionTimer", function(data, status){
-      //console.log('getSessionTimer ' +  data)
-    //  logopakt_endTime = data;
-    //  console.log('logopakt_endTime1: ' +  logopakt_endTime)
-    //});
 
     $.ajax({
         type: 'GET',
         url: "/reports/getsessiontimer/",
         success: function (response) {
-                //console.log(response)
                 let logopakt_endTime = response.sessiontimer;
-                console.log("Inhalt: " + logopakt_endTime)
             },
             error: function (response) {
                 console.log(response);
@@ -71,7 +62,6 @@ $(document).ready(function(){
         })
 
     if (document.getElementById('openreports') != null) {
-      //console.log('getOpenReports')
       $.get("/reports/getOpenReports", function(data, status){
                   result = data.split('|')
                   $("#openreports").html(result[0]);
@@ -80,17 +70,12 @@ $(document).ready(function(){
     }
 
 	logopakt_myTimer = setInterval(function() {
-	       //console.log('Aktuelle Zeit    : ' + new Date())
-	       console.log('logopakt_endTime: ' + logopakt_endTime)
-
 	       if (logopakt_endTime <= new Date()) {
 	          var t = new Date();
-	          console.log("logopakt_endTime nicht definirt")
 	          t.setSeconds(t.getSeconds() + 2700);
 	          logopakt_endTime = t;
 	       }
 	       logopakt_makeTimer(logopakt_endTime);
 	       }, 1000
        );
-
 });
