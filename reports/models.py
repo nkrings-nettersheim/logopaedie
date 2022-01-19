@@ -28,6 +28,7 @@ class Therapist(models.Model):
     def __str__(self):
         return self.tp_initial
 
+
 class Diagnostic_group(models.Model):
     diagnostic_key = models.CharField(max_length=10, default=True, unique=True)
     diagnostic_description = models.CharField(max_length=250, default=False)
@@ -99,10 +100,10 @@ class Therapy(models.Model):
     def __str__(self):
         return str(self.recipe_date)
 
-    def save(self, force_insert=False, force_update=False):
+    def save(self, force_insert=False, force_update=False, using=False):
         self.therapy_icd_cod = self.therapy_icd_cod.upper()
         self.therapy_icd_cod_2 = self.therapy_icd_cod_2.upper()
-        super(Therapy, self).save(force_insert, force_update)
+        super(Therapy, self).save(force_insert, force_update, using)
 
 
 class Therapy_report(models.Model):
@@ -123,12 +124,12 @@ class Therapy_report(models.Model):
     therapy_individual = models.BooleanField(default=False)
     therapy_individual_min = models.CharField(max_length=10, default='')
     therapy_group = models.BooleanField(default=False)
-    therapy_group_min = models.CharField(max_length=10,default='')
+    therapy_group_min = models.CharField(max_length=10, default='')
     therapy_finish = models.BooleanField(default=False)
     therapy_re_introduction = models.BooleanField(default=False)
     therapy_re_introduction_weeks = models.IntegerField(default=0)
     therapy_frequence = models.BooleanField(default=False)
-    therapy_frequence_count_per_week = models.CharField(max_length=10,default='')
+    therapy_frequence_count_per_week = models.CharField(max_length=10, default='')
     therapy_another = models.BooleanField(default=False)
     therapy_another_text = models.CharField(max_length=25, default='')
     therapy_home_visit = models.BooleanField(default=False)
@@ -225,6 +226,9 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
+    def __str__(self):
+        return self.description
+
 
 def dynamik_path_therapy(instance, filename):
     file_path = 'therapy/{therapy_id}/{filename}'.format(therapy_id=instance.therapy_id, filename=filename)
@@ -239,12 +243,18 @@ class Document_therapy(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
+    def __str__(self):
+        return self.description
+
 
 class Therapy_Something(models.Model):
     something_else = RichTextField()
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.something_else
 
 
 class Patient_Something(models.Model):
@@ -253,11 +263,17 @@ class Patient_Something(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
+    def __str__(self):
+        return self.pa_something_else
+
 
 class Login_Failed(models.Model):
     ipaddress = models.CharField(max_length=100, blank=True, default='')
     user_name = models.CharField(max_length=100, blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return self.user_name
 
 
 class Login_User_Agent(models.Model):
@@ -265,6 +281,9 @@ class Login_User_Agent(models.Model):
     ip_address = models.CharField(max_length=100, blank=True, default='')
     user_agent = models.CharField(max_length=255, blank=True, default='')
     last_login = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return self.user_name
 
 
 class Wait_list (models.Model):
@@ -305,7 +324,7 @@ class Wait_list (models.Model):
         return self.wl_last_name + ' ' + self.wl_first_name + '; ' + self.wl_city
 
 
-class Shortcuts (models.Model):
+class Shortcuts(models.Model):
     short = models.CharField(max_length=10)
     long = models.CharField(max_length=200, blank=True, default='', null=True)
 

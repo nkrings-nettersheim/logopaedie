@@ -9,9 +9,8 @@ from reports.views import index, impressum, search_patient, add_patient, edit_pa
     upload_document, download_document, del_document, upload_document_therapy, download_document_therapy, \
     del_document_therapy, add_therapy_something, edit_therapy_something, open_reports, therapy_breaks, update_report,\
     get_session_timer, getOpenReports, add_waitlist, edit_waitlist, delete_waitlist_item, set_waitlist_item_inactive, \
-    set_waitlist_item_active, add_pa_something
-
-
+    set_waitlist_item_active, add_pa_something, edit_pa_something, save_therapyreport_element, waitlist, \
+    copy_waitlist_item, list_meta_info, readShortcuts
 
 
 class TestUrls(SimpleTestCase):
@@ -24,6 +23,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:impressum')
         self.assertEqual(resolve(url).func, impressum)
 
+    ################################################################################################
     def test_url_search_patient_is_resolved(self):
         url = reverse('reports:search_patient')
         self.assertEqual(resolve(url).func, search_patient)
@@ -40,6 +40,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:patient', args=['1'])
         self.assertEqual(resolve(url).func, patient)
 
+    ################################################################################################
     def test_url_add_therapy_is_resolved(self):
         url = reverse('reports:add_therapy')
         self.assertEqual(resolve(url).func, add_therapy)
@@ -52,7 +53,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:therapy', args=['1'])
         self.assertEqual(resolve(url).func, therapy)
 
-################################################################################################
+    ################################################################################################
     def test_url_add_process_report_is_resolved(self):
         url = reverse('reports:add_process_report')
         self.assertEqual(resolve(url).func, add_process_report)
@@ -73,7 +74,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:delete_process_report', args=['1'])
         self.assertEqual(resolve(url).func, delete_process_report)
 
-################################################################################################
+    ################################################################################################
     def test_url_add_therapy_report_is_resolved(self):
         url = reverse('reports:add_therapy_report')
         self.assertEqual(resolve(url).func, add_therapy_report)
@@ -90,6 +91,11 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:show_therapy_report')
         self.assertEqual(resolve(url).func, show_therapy_report)
 
+    def test_url_save_therapyreport_element_is_resolved(self):
+        url = reverse('reports:save_therapyreport_element')
+        self.assertEqual(resolve(url).func, save_therapyreport_element)
+
+    ################################################################################################
     def test_url_search_doctor_start_is_resolved(self):
         url = reverse('reports:search_doctor_start')
         self.assertEqual(resolve(url).func, search_doctor_start)
@@ -110,6 +116,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:doctor', args=['1'])
         self.assertEqual(resolve(url).func, doctor)
 
+    ################################################################################################
     def test_url_search_therapist_start_is_resolved(self):
         url = reverse('reports:search_therapist_start')
         self.assertEqual(resolve(url).func, search_therapist_start)
@@ -130,8 +137,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:therapist', args=['1'])
         self.assertEqual(resolve(url).func, therapist)
 
-################################################################################################
-
+    ################################################################################################
     def test_url_search_diagnostic_group_start_is_resolved(self):
         url = reverse('reports:search_diagnostic_group_start')
         self.assertEqual(resolve(url).func, search_diagnostic_group_start)
@@ -152,8 +158,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:diagnostic_group', args=['1'])
         self.assertEqual(resolve(url).func, diagnostic_group)
 
-################################################################################################
-
+    ################################################################################################
     def test_url_add_ia_is_resolved(self):
         url = reverse('reports:add_ia')
         self.assertEqual(resolve(url).func, add_ia)
@@ -162,8 +167,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:edit_ia', args=['1'])
         self.assertEqual(resolve(url).func, edit_ia)
 
-################################################################################################
-
+    ################################################################################################
     def test_url_document_is_resolved(self):
         url = reverse('reports:document')
         self.assertEqual(resolve(url).func, upload_document)
@@ -176,8 +180,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:delete', args=['1'])
         self.assertEqual(resolve(url).func.view_class, del_document)
 
-################################################################################################
-
+    ################################################################################################
     def test_url_document_therapy_is_resolved(self):
         url = reverse('reports:document_therapy')
         self.assertEqual(resolve(url).func, upload_document_therapy)
@@ -190,8 +193,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:delete_therapy', args=['1'])
         self.assertEqual(resolve(url).func.view_class, del_document_therapy)
 
-################################################################################################
-
+    ################################################################################################
     def test_url_add_something_is_resolved(self):
         url = reverse('reports:add_something')
         self.assertEqual(resolve(url).func, add_therapy_something)
@@ -200,13 +202,21 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:edit_something', args=['1'])
         self.assertEqual(resolve(url).func, edit_therapy_something)
 
-################################################################################################
+    ################################################################################################
+    def test_url_add_pa_something_is_resolved(self):
+        url = reverse('reports:add_pa_something')
+        self.assertEqual(resolve(url).func, add_pa_something)
 
+    def test_url_edit_pa_something_is_resolved(self):
+        url = reverse('reports:edit_pa_something', args=['1'])
+        self.assertEqual(resolve(url).func, edit_pa_something)
+
+    ################################################################################################
     def test_url_open_reports_is_resolved(self):
         url = reverse('reports:open_reports')
         self.assertEqual(resolve(url).func, open_reports)
 
-################################################################################################
+    ################################################################################################
 
     def test_url_therapy_breaks_is_resolved(self):
         url = reverse('reports:therapy_breaks')
@@ -216,18 +226,17 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:update_report', args=['1'])
         self.assertEqual(resolve(url).func, update_report)
 
-################################################################################################
+    ################################################################################################
 
-    def test_url_getSessionTimer_is_resolved(self):
-        url = reverse('reports:getSessionTimer')
+    def test_url_getsessiontimer_is_resolved(self):
+        url = reverse('reports:getsessiontimer')
         self.assertEqual(resolve(url).func, get_session_timer)
 
     def test_url_getOpenReports_is_resolved(self):
         url = reverse('reports:getOpenReports')
         self.assertEqual(resolve(url).func, getOpenReports)
 
-################################################################################################
-
+    ################################################################################################
     def test_url_add_waitlist_is_resolved(self):
         url = reverse('reports:add_waitlist')
         self.assertEqual(resolve(url).func, add_waitlist)
@@ -236,9 +245,17 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:edit_waitlist', args=['1'])
         self.assertEqual(resolve(url).func, edit_waitlist)
 
+    def test_url_waitlist_is_resolved(self):
+        url = reverse('reports:waitlist', args=['True'])
+        self.assertEqual(resolve(url).func, waitlist)
+
+    def test_url_copy_waitlist_item_is_resolved(self):
+        url = reverse('reports:copy_waitlist_item', args=['1'])
+        self.assertEqual(resolve(url).func, copy_waitlist_item)
+
     def test_url_delete_waitlist_item_is_resolved(self):
         url = reverse('reports:delete_waitlist_item', args=['1'])
-        self.assertEqual(resolve(url).func, delete_waitlist_item)
+        self.assertEqual(resolve(url).func.view_class, delete_waitlist_item)
 
     def test_url_set_waitlist_item_inactive_is_resolved(self):
         url = reverse('reports:set_waitlist_item_inactive', args=['1'])
@@ -248,3 +265,12 @@ class TestUrls(SimpleTestCase):
         url = reverse('reports:set_waitlist_item_active', args=['1'])
         self.assertEqual(resolve(url).func, set_waitlist_item_active)
 
+    ################################################################################################
+    def test_url_list_meta_info_is_resolved(self):
+        url = reverse('reports:list_meta_info')
+        self.assertEqual(resolve(url).func, list_meta_info)
+
+    ################################################################################################
+    def test_url_shortcuts_is_resolved(self):
+        url = reverse('reports:shortcuts')
+        self.assertEqual(resolve(url).func, readShortcuts)

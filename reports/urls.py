@@ -19,11 +19,10 @@ urlpatterns = [
     path('add/process_report/', views.add_process_report, name='add_process_report'),
     path('edit/process_report/<id>/', views.edit_process_report, name='edit_process_report'),
     path('process_report/<id>/', views.process_report, name='process_report'),
-    path('show_process_report/', views.show_process_report2, name='show_process_report'),
+    path('show_process_report/', views.show_process_report, name='show_process_report'),
     path('delete_process_report/<id>', views.delete_process_report, name='delete_process_report'),
 
     path('add/therapy_report/', views.add_therapy_report, name='add_therapy_report'),
-    #path('add/therapy_report/<id>/', views.add_therapy_report, name='add_therapy_report'),
     path('edit/therapy_report/<id>/', views.edit_therapy_report, name='edit_therapy_report'),
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),
     path('show_therapy_report/', views.show_therapy_report, name='show_therapy_report'),
@@ -69,7 +68,6 @@ urlpatterns = [
     path('therapy_breaks/', views.therapy_breaks, name='therapy_breaks'),
     path('update_report/<id>', views.update_report, name='update_report'),
 
-    #path('getSessionTimer/', views.getSessionTimer, name='getSessionTimer'),
     path('getsessiontimer/', views.get_session_timer, name='getsessiontimer'),
     path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
 

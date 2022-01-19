@@ -69,9 +69,19 @@ body{margin-top:20px;}
 				<!-- Error Inner -->
 				<div class="success-inner">
 					<img id='logo' src="cid:logopaedie.png">
-					<h1><span>Hallo {{ openContext.user.first_name }} {{ openContext.user.last_name }}!</span></h1>
+					<h2><span>Hallo {{ openContext.user.first_name }} {{ openContext.user.last_name }}!</span></h2>
 					<p>Innerhalb der letzten Minuten hat sich <br>jemand mit deinem Account an einem <br>bislang
 						nicht benutzten Gerät/Browser<br> an der Anwendung<br><strong>LogoPAkt</strong><br> angemeldet.</p>
+					<p>Umgebung:</p>
+					<small>{{meta.HTTP_HOST}}</small><br>
+					<small>{{meta.HTTP_USER_AGENT }}</small><br>
+					<small>
+						{% if meta.HTTP_X_FORWARDED_FOR %}
+							{{meta.HTTP_X_FORWARDED_FOR}}
+						{% else %}
+							{{meta.REMOTE_ADDR}}
+						{% endif %}
+					</small><br>
 					<p>Warst du das?</p>
 					<p style="color:green">Wenn ja! Alles ok <i class="fa fa-thumbs-o-up"></i> <br>Dann kannst Du die Mail einfach löschen</p>
 					<p style="color:red">Wenn nein!!! <i class="fa fa-thumbs-o-down"></i><br>Bitte sofort Toni Schumacher <br>oder Norbert Krings informieren!!!</p>

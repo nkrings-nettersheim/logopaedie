@@ -1,0 +1,54 @@
+#Test commands
+
+python manage.py test
+
+python manage.py test reports
+
+python manage.py test reports.tests
+
+python manage.py test reports.tests.test_models
+
+# coverage commands
+coverage run manage.py test reports
+
+coverage report
+
+coverage run --omit='*/venv/*' manage.py reports
+
+coverage html
+
+/Users/norbertkrings/PycharmProjects/logopaedie/htmlcov/index.html
+
+
+# managing commands
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py runserver
+
+python manage.py collectstatic
+
+python manage.py createsuperuser
+
+##############
+# inside the testcases
+
+    self.assertEqual
+    self.assertNotEqual
+    self.assertTrue
+    self.assertIs(future_question.was_published_recently(), False)
+    self.assertContains(response, "No polls are available.")
+    self.assertQuerysetEqual(response.context['latest_question_list'], [])
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            [question],
+        )
+
+    print(dir(response)
+
+    redirect_path = response.request.get("PATH_INFO")
+
+    ---
+    from django.contrib.auth import get_user_model
+    User = get_user_model()

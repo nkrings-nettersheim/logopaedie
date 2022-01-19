@@ -172,7 +172,7 @@ def add_doctor(request):
 
 @permission_required('reports.view_doctor')
 def search_doctor_start(request):
-    logger.debug(f"User-ID: {request.user.id}; Suchmaske Arzt geladen")
+    logger.debug(f"User-ID: {request.user.id}; search_doctor_start: Suchmaske Arzt geladen")
     form = SearchDoctorForm()
     return render(request, 'reports/doctor_search.html', {'form': form})
 
@@ -887,7 +887,7 @@ def process_report(request, id=id):
 
 
 @permission_required('reports.view_process_report')
-def show_process_report2(request):
+def show_process_report(request):
     therapy_start_value = ''
     therapy_end_value = ''
     id = request.GET.get('id')
@@ -1484,8 +1484,8 @@ def get_special_phone_design(data):
 
 
 # helper function
-def send_personal_mail(user):
-    logger.debug("Sending an email")
+def send_personal_mail(user, request):
+    logger.debug(f"User-ID: {user.id}; Sending an email")
     logger.info(f"User-ID: {user.id}; {format(user)} E-Mail senden wegen neuem Gerät")
     subject = 'Anmeldung an der Anwendung LogoPAkt'
     from_email = 'logopakt@logoeu.uber.space'
@@ -1503,7 +1503,7 @@ def send_personal_mail(user):
 
     text_content = 'Sie haben sich gerade an der Anwendung LogoPAkt angemeldet. Sollte dies nicht stimmen, ' \
                    'bitte umgehend Toni Schumacher informieren!!!'
-    html_content = render_to_string('mail_templates/login_mail.html', {'openContext': openContext})
+    html_content = render_to_string('mail_templates/login_mail.html', {'openContext': openContext, 'meta': request.META})
 
     msg = EmailMultiAlternatives(subject, text_content, from_email, email_list)
     msg.mixed_subtype = 'related'
@@ -1528,12 +1528,13 @@ def post_login(sender, request, user, **kwargs):
     logger.debug(f"User-ID: {request.user.id}; SESSION_EXPIRE_SECONDS: {settings.SESSION_EXPIRE_SECONDS}")
 
     http_user_agent = request.META.get('HTTP_USER_AGENT')
+    logger.debug(f"User-ID: {request.user.id}; User Agent: {http_user_agent}")
 
     try:
         Login_Failed.objects.filter(user_name=user).delete()
-        logger.debug(f"User-ID: {request.user.id};Userdaten von {format(user)} in failed_login gelöscht")
+        logger.debug(f"User-ID: {request.user.id}; Userdaten von {format(user)} in failed_login gelöscht")
     except:
-        logger.debug(f"User not found")
+        logger.debug(f"User-ID: {request.user.id}; User not found")
 
     try:
         login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
@@ -1544,7 +1545,7 @@ def post_login(sender, request, user, **kwargs):
         login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
         login_user_agent.save()
         logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: send e-mail to {user}")
-        send_personal_mail(user)
+        send_personal_mail(user, request)
 
 
 @receiver(user_logged_out)
@@ -1640,7 +1641,9 @@ def readShortcuts(request):
         shortcuts = Shortcuts.objects.all()
 
         data = serialize("json", shortcuts, fields=('short', 'long'))
+        logger.debug(f"User-ID: {request.user.id}; Shortcuts gelesen")
         return JsonResponse({'shortcuts': data}, status=200)
 
+    logger.debug(f"User-ID: {request.user.id}; Shortcuts konnten nicht gelesen werden")
     return JsonResponse({"error": ""}, status=400)
 # **************************************************************************************************
