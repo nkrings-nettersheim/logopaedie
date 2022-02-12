@@ -1033,17 +1033,14 @@ def show_therapy_report(request):
     if report_variation == 0:
         html_file = 'pdf_templates/therapy_report_short.html'
         css_file = '/reports/therapy_report_short.css'
-        fileext = "_kurz"
     elif report_variation == 1:
         html_file = 'pdf_templates/therapy_report_standard.html'
         css_file = '/reports/therapy_report_standard.css'
-        fileext = "_st"
     else:
         html_file = 'pdf_templates/therapy_report_big.html'
         css_file = '/reports/therapy_report_big.css'
-        fileext = '_groß'
 
-    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + fileext + ".pdf"
+    filename = result.pa_last_name + "_" + result.pa_first_name + "_" + str(result.recipe_date) + ".pdf"
 
     html_string = render_to_string(html_file, {'therapy': therapy_result, 'result': result, 'doctor': doctor_result})
 
