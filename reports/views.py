@@ -27,7 +27,7 @@ from email.mime.image import MIMEImage
 from django.utils import timezone
 from weasyprint import HTML, CSS
 
-from logopaedie.settings import BASE_DIR, X_FORWARD
+from logopaedie.settings import BASE_DIR, X_FORWARD, time_green_value, time_orange_value, time_red_value
 
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, \
     TherapistForm, SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm, \
@@ -119,21 +119,21 @@ def therapy_breaks(request):
             select_related('therapy__patients'). \
             select_related('therapy__therapists'). \
             filter(therapy_break_internal=True,
-                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-22),
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=time_green_value),
                    therapy__patients__pa_active_no_yes=True).order_by('therapy_end')
     else:
         therapy_reports = Therapy_report.objects. \
             select_related('therapy__patients'). \
             select_related('therapy__therapists'). \
             filter(therapy_break_internal=True,
-                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-22),
+                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=time_green_value),
                    therapy__therapists__tp_user_logopakt=str(request.user),
                    therapy__patients__pa_active_no_yes=True).order_by('therapy_end')
 
-    time_green = datetime.datetime.now() + datetime.timedelta(days=-22)
-    time_orange = datetime.datetime.now() + datetime.timedelta(days=-52)
-    time_red = datetime.datetime.now() + datetime.timedelta(days=-92)
-    print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
+    time_green = datetime.datetime.now() + datetime.timedelta(days=time_green_value)
+    time_orange = datetime.datetime.now() + datetime.timedelta(days=time_orange_value)
+    time_red = datetime.datetime.now() + datetime.timedelta(days=time_red_value)
+    #print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
     logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
     return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
                                                            'time_green': time_green,
