@@ -133,7 +133,7 @@ def therapy_breaks(request):
     time_green = datetime.datetime.now() + datetime.timedelta(days=time_green_value)
     time_orange = datetime.datetime.now() + datetime.timedelta(days=time_orange_value)
     time_red = datetime.datetime.now() + datetime.timedelta(days=time_red_value)
-    #print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
+    # print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
     logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
     return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
                                                            'time_green': time_green,
@@ -159,11 +159,18 @@ def add_doctor(request):
     if request.method == "POST":
         form = DoctorForm(request.POST)
         if form.is_valid():
-            doctor_item = form.save(commit=False)
-            doctor_item.save()
-            logger.info(f"User-ID: {request.user.id}; add_doctor: Arzt mit "
-                        f"Namen: {str(doctor_item.doctor_name1)}  angelegt")
-            return redirect('/reports/doctor/' + str(doctor_item.id) + '/')
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_doctor: 'doc{str(item.id)}';"
+                        f"[ doctor_name1: {str(item.doctor_name1)},"
+                        f"doctor_name2: {str(item.doctor_name2)},"
+                        f"doctor_name3: {str(item.doctor_name3)},"
+                        f"doctor_street: {str(item.doctor_street)},"
+                        f"doctor_zip_code: {str(item.doctor_zip_code)},"
+                        f"doctor_city: {str(item.doctor_city)},"
+                        f"doctor_lanr: {str(item.doctor_lanr)} ]")
+
+            return redirect('/reports/doctor/' + str(item.id) + '/')
     else:
         logger.debug(f"User-ID: {request.user.id}; add_doctor: Formular zur Bearbeitung/Erfassung der Arztdaten")
         form = DoctorForm()
@@ -221,7 +228,15 @@ def edit_doctor(request, id=None):
     form = DoctorForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_doctor: {str(item.id)} Daten werden gespeichert")
+        logger.info(f"User-ID: {request.user.id}; edit_doctor: 'doc{str(item.id)}';"
+                    f"[ doctor_name1: {str(item.doctor_name1)},"
+                    f"doctor_name2: {str(item.doctor_name2)},"
+                    f"doctor_name3: {str(item.doctor_name3)},"
+                    f"doctor_street: {str(item.doctor_street)},"
+                    f"doctor_zip_code: {str(item.doctor_zip_code)},"
+                    f"doctor_city: {str(item.doctor_city)},"
+                    f"doctor_lanr: {str(item.doctor_lanr)} ]")
+
         return redirect('/reports/doctor/' + str(item.id) + '/')
     logger.debug(f"User-ID: {request.user.id}; edit_doctor: Bearbeitungsformular aufgerufen ID: {id}")
     form.id = item.id
@@ -246,11 +261,15 @@ def add_therapist(request):
     if request.method == "POST":
         form = TherapistForm(request.POST)
         if form.is_valid():
-            therapist_item = form.save(commit=False)
-            therapist_item.save()
-            logger.info(f"User-ID: {request.user.id}; add_therapist: Therapist mit "
-                        f"Namen: {str(therapist_item.tp_last_name)} angelegt")
-            return redirect('/reports/therapist/' + str(therapist_item.id) + '/')
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_therapist: 'ther{str(item.id)}';"
+                        f"[ tp_first_name: {str(item.tp_first_name)},"
+                        f"tp_last_name: {str(item.tp_last_name)},"
+                        f"tp_initial: {str(item.tp_initial)},"
+                        f"tp_user_logopakt: {str(item.tp_user_logopakt)} ]")
+
+            return redirect('/reports/therapist/' + str(item.id) + '/')
     else:
         logger.debug(f"User-ID: {request.user.id}; add_therapist: Formular zur Bearbeitung/Erfassung "
                      f"der Therapistdaten")
@@ -299,7 +318,12 @@ def edit_therapist(request, id=None):
     form = TherapistForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_therapist: {str(item.id)} Daten werden gespeichert")
+        logger.info(f"User-ID: {request.user.id}; edit_therapist: 'ther{str(item.id)}';"
+                    f"[ tp_first_name: {str(item.tp_first_name)},"
+                    f"tp_last_name: {str(item.tp_last_name)},"
+                    f"tp_initial: {str(item.tp_initial)},"
+                    f"tp_user_logopakt: {str(item.tp_user_logopakt)} ]")
+
         return redirect('/reports/therapist/' + str(item.id) + '/')
     logger.debug(f"User-ID: {request.user.id}; edit_therapist: Bearbeitungsformular aufgerufen ID: {id}")
     form.id = item.id
@@ -324,11 +348,14 @@ def add_diagnostic_group(request):
     if request.method == "POST":
         form = Diagnostic_groupForm(request.POST)
         if form.is_valid():
-            diagnostic_group_item = form.save(commit=False)
-            diagnostic_group_item.save()
-            logger.info(f"User-ID: {request.user.id}; add_diagnostic_group: Diagnosticgruppe mit Namen: "
-                        f"{str(diagnostic_group_item.diagnostic_key)} angelegt")
-            return redirect('/reports/diagnostic_group/' + str(diagnostic_group_item.id) + '/')
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_diagnostic_group: 'diag{str(item.id)}';"
+                        f"[ diagnostic_key: {str(item.diagnostic_key)},"
+                        f"diagnostic_description: {str(item.diagnostic_description)},"
+                        f"diagnostic_max_therapy: {str(item.diagnostic_max_therapy)} ]")
+
+            return redirect('/reports/diagnostic_group/' + str(item.id) + '/')
     else:
         logger.debug(f"User-ID: {request.user.id}; add_diagnostic_group: Formular zur Bearbeitung/Erfassung "
                      f"der Diagnosedaten")
@@ -378,7 +405,11 @@ def edit_diagnostic_group(request, id=None):
     form = Diagnostic_groupForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_diagnostic_group: {str(item.id)} Daten werden gespeichert")
+        logger.info(f"User-ID: {request.user.id}; edit_diagnostic_group: 'diag{str(item.id)}';"
+                    f"[ diagnostic_key: {str(item.diagnostic_key)},"
+                    f"diagnostic_description: {str(item.diagnostic_description)},"
+                    f"diagnostic_max_therapy: {str(item.diagnostic_max_therapy)} ]")
+
         return redirect('/reports/diagnostic_group/' + str(item.id) + '/')
     logger.debug(f"User-ID: {request.user.id}; edit_diagnostic_group: Bearbeitungsformular aufgerufen ID: {id}")
     form.id = item.id
@@ -561,16 +592,25 @@ def add_patient(request):
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
-            patient_item = form.save(commit=False)
-            patient_item.save()
-            logger.info(f"User-ID: {request.user.id}; add_patient: Patient mit der ID: "
-                        f"{str(patient_item.id)} gespeichert")
-            return redirect('/reports/patient/' + str(patient_item.id) + '/')
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_patient: add patient with ID: "
+                        f"'pa{str(item.id)}'; "
+                        f"[ pa_first_name: {str(item.pa_first_name)},pa_last_name: {str(item.pa_last_name)},"
+                        f"pa_street: {str(item.pa_street)},pa_zip_code: {str(item.pa_zip_code)},"
+                        f"pa_city: {str(item.pa_city)},pa_phone: {str(item.pa_phone)},"
+                        f"pa_cell_phone: {str(item.pa_cell_phone)},pa_cell_phone_add1: {str(item.pa_cell_phone_add1)},"
+                        f"pa_cell_phone_add2: {str(item.pa_cell_phone_add2)},pa_cell_phone_sms: {str(item.pa_cell_phone_sms)},"
+                        f"pa_email: {str(item.pa_email)},pa_date_of_birth: {str(item.pa_date_of_birth)},"
+                        f"pa_gender: {str(item.pa_gender)},pa_active_no_yes: {str(item.pa_active_no_yes)},"
+                        f"pa_invoice_mail: {str(item.pa_invoice_mail)},pa_sms_no_yes: {str(item.pa_sms_no_yes)},"
+                        f"pa_email_no_yes: {str(item.pa_email_no_yes)} ]")
+            return redirect('/reports/patient/' + str(item.id) + '/')
     else:
         logger.debug(f"User-ID: {request.user.id}; add_patient: Formular aufgerufen")
         form = PatientForm()
 
-    logger.info(f"User-ID: {request.user.id};add_Patient: POST")
+    logger.info(f"User-ID: {request.user.id}; add_Patient: POST")
     return render(request, 'reports/patient_form.html', {'form': form})
 
 
@@ -582,9 +622,19 @@ def edit_patient(request, id=None):
     form = PatientForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_patient: Patient mit der ID: {str(item.id)} geändert")
+        logger.info(f"User-ID: {request.user.id}; edit_patient: edit patient with ID: 'pa{str(item.id)}'; "
+                    f"[ pa_first_name: {str(item.pa_first_name)},pa_last_name: {str(item.pa_last_name)},"
+                    f"pa_street: {str(item.pa_street)},pa_zip_code: {str(item.pa_zip_code)},"
+                    f"pa_city: {str(item.pa_city)},pa_phone: {str(item.pa_phone)},"
+                    f"pa_cell_phone: {str(item.pa_cell_phone)},pa_cell_phone_add1: {str(item.pa_cell_phone_add1)},"
+                    f"pa_cell_phone_add2: {str(item.pa_cell_phone_add2)},pa_cell_phone_sms: {str(item.pa_cell_phone_sms)},"
+                    f"pa_email: {str(item.pa_email)},pa_date_of_birth: {str(item.pa_date_of_birth)},"
+                    f"pa_gender: {str(item.pa_gender)},pa_active_no_yes: {str(item.pa_active_no_yes)},"
+                    f"pa_invoice_mail: {str(item.pa_invoice_mail)},pa_sms_no_yes: {str(item.pa_sms_no_yes)},"
+                    f"pa_email_no_yes: {str(item.pa_email_no_yes)} ]")
+
         return redirect('/reports/patient/' + str(item.id) + '/')
-    logger.debug(f"User-ID: {request.user.id}; edit_patient: Patient mit der ID: {str(id)} zwecks Änderung aufgerufen")
+    logger.debug(f"User-ID: {request.user.id}; edit_patient: patient with ID: 'pa{str(id)}' called")
     form.id = item.id
     return render(request, 'reports/patient_form.html', {'form': form})
 
@@ -632,7 +682,7 @@ def patient(request, id=id):
             except:
                 logger.debug(f"User-ID: {request.user.id}; patient: therapy_result_item Try Exception")
             i = i + 1
-        logger.info(f"User-ID: {request.user.id}; patient: Patient mit der ID: {str(id)} aufgerufen")
+        logger.info(f"User-ID: {request.user.id}; patient: call patient with ID: 'pa{str(id)}' ")
         return render(request, 'reports/patient.html', {'patient': patient_result,
                                                         'therapy': therapy_result,
                                                         'ps': patient_something_value,
@@ -654,7 +704,7 @@ def add_pa_something(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            logger.info(f"User-ID: {request.user.id}; add_pa_something: Sonstiges mit id: {str(item.id)} angelegt")
+            logger.info(f"User-ID: {request.user.id}; add_pa_something: 'pa_som{str(item.id)}'")
             return redirect('/reports/patient/' + str(request.POST.get('patient')))
     else:
         logger.debug(f"User-ID: {request.user.id}; add_pa_something: Formular zur Bearbeitung/Erfassung "
@@ -670,7 +720,7 @@ def edit_pa_something(request, id=None):
     form = PatientSomethingForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_pa_something: Sonstiges ändern mit ID: {str(id)}")
+        logger.info(f"User-ID: {request.user.id}; edit_pa_something: 'pa_som{str(item.id)}'")
         return redirect('/reports/patient/' + str(item.patient_id))
     logger.debug(f"User-ID: {request.user.id}; edit_pa_something: Sonstige Form aufgerufen für ID: {id}")
     return render(request, 'reports/pa_something_form.html', {'form': form})
@@ -684,10 +734,9 @@ def add_ia(request):
     if request.method == "POST":
         form = InitialAssessmentForm(request.POST)
         if form.is_valid():
-            InitialAssessment_item = form.save(commit=False)
-            InitialAssessment_item.save()
-            logger.info(f"User-ID: {request.user.id}; add_ia: Erstbefund mit id: "
-                        f"{str(InitialAssessment_item.id)} angelegt")
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_ia: 'ia{str(item.id)}'")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=1')
     else:
         logger.debug(f"User-ID: {request.user.id}; add_ia: Formular zur Bearbeitung/Erfassung des Erstbefunds")
@@ -702,7 +751,7 @@ def edit_ia(request, id=None):
     form = InitialAssessmentForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_ia: Erstbefund ändern mit ID: {str(id)}")
+        logger.info(f"User-ID: {request.user.id}; edit_ia: 'ia{str(item.id)}'")
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=1')
     logger.debug(f"User-ID: {request.user.id}; edit_ia: Erstbefund Form angerufen mit ID: {id}")
     return render(request, 'reports/ia_form.html', {'form': form})
@@ -718,7 +767,7 @@ def add_therapy_something(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            logger.info(f"User-ID: {request.user.id}; add_therapy_something: Sonstiges mit id: {str(item.id)} angelegt")
+            logger.info(f"User-ID: {request.user.id}; add_therapy_something: 'the_som{str(item.id)}'")
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=2')
     else:
         logger.debug(f"User-ID: {request.user.id}; add_therapy_something: Formular zur Bearbeitung/Erfassung "
@@ -734,7 +783,7 @@ def edit_therapy_something(request, id=None):
     form = TherapySomethingForm(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_therapy_something: Sonstiges ändern mit ID: {str(id)}")
+        logger.info(f"User-ID: {request.user.id}; edit_therapy_something: 'the_som{str(item.id)}'")
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=2')
     logger.debug(f"User-ID: {request.user.id}; edit_therapy_something: Sonstige Form aufgerufen für ID: {id}")
     return render(request, 'reports/something_form.html', {'form': form})
@@ -752,10 +801,30 @@ def add_therapy(request):
         form = TherapyForm(request.POST)
         patient_result = Patient.objects.get(id=request.POST.get('patients'))
         if form.is_valid():
-            therapy_item = form.save(commit=False)
-            therapy_item.save()
-            logger.info(f"User-ID: {request.user.id}; add_therapy: Rezept für Patient "
-                        f"mit ID: {str(patient_result.id)} angelegt")
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_therapy: for patient with ID: "
+                        f"'pa{str(patient_result.id)}_th{item.id}'; "
+                        f"[ recipe_date: {str(item.recipe_date)},"
+                        f"therapy_regulation_amount): {str(item.therapy_regulation_amount)},"
+                        f"therapy_duration: {str(item.therapy_duration)},"
+                        f"therapy_frequence: {str(item.therapy_frequence)},"
+                        f"therapy_rid_of: {str(item.therapy_rid_of)},"
+                        f"therapy_report_no_yes: {str(item.therapy_report_no_yes)},"
+                        f"therapy_homevisit_no_yes: {str(item.therapy_homevisit_no_yes)},"
+                        f"therapy_indication_key: {str(item.therapy_icd_cod)},"
+                        f"therapy_icd_cod: {str(item.therapy_icd_cod)},"
+                        f"therapy_icd_cod_2: {str(item.therapy_icd_cod_2)},"
+                        f"therapy_icd_cod_3: {str(item.therapy_icd_cod_3)},"
+                        f"therapy_doctor: {str(item.therapy_doctor)},"
+                        f"patients: {str(item.patients)},"
+                        f"therapists: {str(item.therapists)},"
+                        f"diagnostic_group: {str(item.diagnostic_group)},"
+                        f"first_diagnostic_no_yes: {str(item.first_diagnostic_no_yes)},"
+                        f"need_diagnostic_no_yes: {str(item.need_diagnostic_no_yes)},"
+                        f"continue_diagnostic_no_yes: {str(item.continue_diagnostic_no_yes)} ]"
+                        )
+
             return redirect('/reports/patient/' + str(patient_result.id) + '/')
         else:
             logger.info(f"User-ID: {request.user.id}; Dates not valid")
@@ -772,9 +841,29 @@ def edit_therapy(request, id=None):
                  f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
     item = get_object_or_404(Therapy, id=id)
     form = TherapyForm(request.POST or None, instance=item)
+
     if form.is_valid():
+        patient_result = Patient.objects.get(id=request.POST.get('patients'))
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_therapy: Rezept mit der ID: {str(item.id)} geändert")
+        logger.info(f"User-ID: {request.user.id}; edit_therapy: edit therapy for patient "
+                    f"with ID: 'pa{str(patient_result.id)}_th{item.id}'; "
+                    f"[ recipe_date: {str(item.recipe_date)},therapy_regulation_amount): {str(item.therapy_regulation_amount)},"
+                    f"therapy_duration: {str(item.therapy_duration)},therapy_frequence: {str(item.therapy_frequence)},"
+                    f"therapy_rid_of: {str(item.therapy_rid_of)},"
+                    f"therapy_report_no_yes: {str(item.therapy_report_no_yes)},"
+                    f"therapy_homevisit_no_yes: {str(item.therapy_homevisit_no_yes)},"
+                    f"therapy_indication_key: {str(item.therapy_icd_cod)},"
+                    f"therapy_icd_cod: {str(item.therapy_icd_cod)},"
+                    f"therapy_icd_cod_2: {str(item.therapy_icd_cod_2)},"
+                    f"therapy_icd_cod_3: {str(item.therapy_icd_cod_3)},"
+                    f"therapy_doctor: {str(item.therapy_doctor)},"
+                    f"patients: {str(item.patients)},"
+                    f"therapists: {str(item.therapists)},"
+                    f"diagnostic_group: {str(item.diagnostic_group)},"
+                    f"first_diagnostic_no_yes: {str(item.first_diagnostic_no_yes)},"
+                    f"need_diagnostic_no_yes: {str(item.need_diagnostic_no_yes)},"
+                    f"continue_diagnostic_no_yes: {str(item.continue_diagnostic_no_yes)} ]"
+                    )
         return redirect('/reports/therapy/' + str(item.id) + '/')
     logger.debug(f"User-ID: {request.user.id}; edit_therapy: Rezeptformular des Patienten "
                  f"mit der ID: {str(item.id)} zwecks Änderung aufgerufen")
@@ -822,7 +911,7 @@ def therapy(request, id=id):
         therapy_something_value = Therapy_Something.objects.get(therapy_id=id)
     else:
         therapy_something_value = ''
-    logger.info(f"User-ID: {request.user.id}; therapy: Rezept mit der ID: {str(id)} aufgerufen")
+    logger.info(f"User-ID: {request.user.id}; therapy: call therapy with ID: 'th{str(id)}'")
     return render(request, 'reports/therapy.html', {'therapy': therapy_result,
                                                     'patient': patient_value,
                                                     'ia': ia_value,
@@ -839,10 +928,11 @@ def add_process_report(request):
     if request.method == "POST":
         form = ProcessReportForm(request.POST)
         if form.is_valid():
-            therapy_report_item = form.save(commit=False)
-            therapy_report_item.save()
-            logger.info(f"User-ID: {request.user.id} add_process_report: Verlaufsprotokoll "
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_process_report: Verlaufsprotokoll "
                         f"gespeichert mit ID: {str(request.POST.get('therapy'))}")
+
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=3')
     else:
         therapy_result = Therapy.objects.get(id=request.GET.get('id'))
@@ -932,8 +1022,31 @@ def add_therapy_report(request):
 
         if form.is_valid():
             form.save()
-            logger.info(f"User-ID: {request.user.id}; add_therapy_report: Therapiebericht gespeichert mit ID: "
-                        f"{str(request.POST.get('therapy'))}")
+            logger.info(f"User-ID: {request.user.id}; add_therapy_report: ID: "
+                        f"'th{str(request.POST.get('therapy'))}_trr{str(item.id)}';"
+                        f"[ report_date: {str(item.report_date)},"
+                        f"therapy_start: {str(item.therapy_start)},"
+                        f"therapy_end: {str(item.therapy_end)},"
+                        f"therapy_indicated: {str(item.therapy_indicated)},"
+                        f"therapy_break: {str(item.therapy_break)},"
+                        f"therapy_break_internal: {str(item.therapy_break_internal)},"
+                        f"therapy_break_date: {str(item.therapy_break_date)},"
+                        f"therapy_comment: {str(item.therapy_comment)},"
+                        f"therapy_individual: {str(item.therapy_individual)},"
+                        f"therapy_individual_min: {str(item.therapy_individual_min)},"
+                        f"therapy_group: {str(item.therapy_group)},"
+                        f"therapy_group_min: {str(item.therapy_group_min)},"
+                        f"therapy_finish: {str(item.therapy_finish)},"
+                        f"therapy_re_introduction: {str(item.therapy_re_introduction)},"
+                        f"therapy_re_introduction_weeks: {str(item.therapy_re_introduction_weeks)},"
+                        f"therapy_frequence: {str(item.therapy_frequence)},"
+                        f"therapy_frequence_count_per_week: {str(item.therapy_frequence_count_per_week)},"
+                        f"therapy_another: {str(item.therapy_another)},"
+                        f"therapy_another_text: {str(item.therapy_another_text)},"
+                        f"therapy_home_visit: {str(item.therapy_home_visit)},"
+                        f"therapy_necessary: {str(item.therapy_necessary)},"
+                        f"therapy_report_variation: {str(item.therapy_report_variation)} ]")
+
             return redirect('/reports/therapy/' + str(request.POST.get('therapy')) + '/?window=4')
         else:
             return render(request, 'reports/therapy_report_form.html', {'form': form})
@@ -952,19 +1065,44 @@ def add_therapy_report(request):
 def edit_therapy_report(request, id=None):
     item = get_object_or_404(Therapy_report, id=id)
     form = TherapyReportForm(request.POST or None, instance=item)
-    print(request.POST)
+    #print(request.POST)
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht ändern mit ID: {str(id)}")
+        logger.info(f"User-ID: {request.user.id}; edit_therapy_report: ID: "
+                    f"'th{str(request.POST.get('therapy'))}_trr{str(item.id)}';"
+                    f"[ report_date: {str(item.report_date)},"
+                    f"therapy_start: {str(item.therapy_start)},"
+                    f"therapy_end: {str(item.therapy_end)},"
+                    f"therapy_indicated: {str(item.therapy_indicated)},"
+                    f"therapy_break: {str(item.therapy_break)},"
+                    f"therapy_break_internal: {str(item.therapy_break_internal)},"
+                    f"therapy_break_date: {str(item.therapy_break_date)},"
+                    f"therapy_comment: {str(item.therapy_comment)},"
+                    f"therapy_individual: {str(item.therapy_individual)},"
+                    f"therapy_individual_min: {str(item.therapy_individual_min)},"
+                    f"therapy_group: {str(item.therapy_group)},"
+                    f"therapy_group_min: {str(item.therapy_group_min)},"
+                    f"therapy_finish: {str(item.therapy_finish)},"
+                    f"therapy_re_introduction: {str(item.therapy_re_introduction)},"
+                    f"therapy_re_introduction_weeks: {str(item.therapy_re_introduction_weeks)},"
+                    f"therapy_frequence: {str(item.therapy_frequence)},"
+                    f"therapy_frequence_count_per_week: {str(item.therapy_frequence_count_per_week)},"
+                    f"therapy_another: {str(item.therapy_another)},"
+                    f"therapy_another_text: {str(item.therapy_another_text)},"
+                    f"therapy_home_visit: {str(item.therapy_home_visit)},"
+                    f"therapy_necessary: {str(item.therapy_necessary)},"
+                    f"therapy_report_variation: {str(item.therapy_report_variation)} ]")
+
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
 
     logger.debug(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht anlegen mit ID: {id}")
 
     return render(request, 'reports/therapy_report_form.html', {'form': form})
 
+
 @permission_required('reports.change_therapy_report')
 def save_therapyreport_element(request):
-    #logger.info("Hallo Start")
+    # logger.info("Hallo Start")
     if request.is_ajax():
         id_therapy = request.POST.get('id_therapy')
         data_field = request.POST.get('field')
@@ -993,7 +1131,7 @@ def save_therapyreport_element(request):
             setattr(item, 'therapy_current_result', content)
 
         item.save()
-        #print("ID: " + id + "; data_field: " + data_field + "; " + content)
+        # print("ID: " + id + "; data_field: " + data_field + "; " + content)
 
         return JsonResponse({
             'msg': 'Success'
@@ -1004,19 +1142,17 @@ def save_therapyreport_element(request):
     })
 
 
-
-
 @permission_required('reports.view_therapy_report')
 def therapy_report(request, id=id):
     therapy_report = Therapy_report.objects.get(id=id)
-    logger.info(f"User-ID: {request.user.id}; therapy_report: Therapiebericht mit ID: {id} anzeigen")
+    logger.info(f"User-ID: {request.user.id}; therapy_report: call report with ID: 'trr{id}'")
     return render(request, 'reports/therapy_report_standard.html', {'therapy_report': therapy_report})
 
 
 @permission_required('reports.delete_therapy_report')
 def show_therapy_report(request):
     id = request.GET.get('id')
-    logger.info(f"User-ID: {request.user.id}; show_therapy_report: Therapiebericht mit ID: {id} gedruckt")
+    logger.info(f"User-ID: {request.user.id}; show_therapy_report: show therapy report with  ID: 'trr{id}' gedruckt")
     therapy_result = Therapy.objects.get(id=request.GET.get('id'))
     result = Therapy_report.objects.get(therapy=request.GET.get('id'))
     doctor_result = Doctor.objects.get(id=therapy_result.therapy_doctor_id)
@@ -1060,11 +1196,11 @@ def add_waitlist(request):
     if request.method == "POST":
         form = WaitlistForm(request.POST)
         if form.is_valid():
-            waitlist_item = form.save(commit=False)
-            waitlist_item.save()
+            item = form.save(commit=False)
+            item.save()
             logger.info(f"User-ID: {request.user.id}; add_waitlist: Waitlist "
-                        f"mit der ID: {str(waitlist_item.id)} gespeichert")
-            return redirect('/reports/edit/waitlist/' + str(waitlist_item.id) + '/')
+                        f"mit der ID: 'wl{str(item.id)}' gespeichert")
+            return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
         else:
             print('Problems with form')
     else:
@@ -1085,7 +1221,7 @@ def edit_waitlist(request, id=None):
         double_entry = 1
     if form.is_valid():
         form.save()
-        logger.info(f"User-ID: {request.user.id}; edit_waitlist: Wait_list mit der ID: {str(item.id)} geändert")
+        logger.info(f"User-ID: {request.user.id}; edit_waitlist: Wait_list mit der ID: 'wl{str(item.id)}' geändert")
         return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
     logger.debug(f"User-ID: {request.user.id}; edit_waitlist: Wait-list "
                  f"mit der ID: {str(id)} zwecks Änderung aufgerufen")
@@ -1122,7 +1258,6 @@ def copy_waitlist_item(request, id=id):
         for item in patient:
             waitlist.pa_date_of_birth = item.pa_date_of_birth
 
-    # status = request.GET['status']
     if request.GET['status'] == 'no':
         return render(request, 'reports/waitlist_confirm_create.html', {'waitlist': waitlist})
     else:
@@ -1173,9 +1308,9 @@ def set_waitlist_item_inactive(request, id=None):
     if item:
         item.wl_active = False
         item.save()
+        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_inactive: set item 'wl{str(item.id)}' inactive")
     else:
-        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_inactive: Wait_list mit der ID: {str(item.id)} "
-                    f"konnte nicht auf inaktive gesetzt werden")
+        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_inactive: can't set 'wl{str(item.id)}' inactive")
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
 
     for waitlist_item in waitlist:
@@ -1195,9 +1330,11 @@ def set_waitlist_item_active(request, id=None):
     if item:
         item.wl_active = True
         item.save()
+        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_active: set item 'wl{str(item.id)}' active")
+
     else:
-        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_active: Wait_list "
-                    f"mit der ID: {str(item.id)} konnte nicht auf aktive gesetzt werden")
+        logger.info(f"User-ID: {request.user.id}; set_waitlist_item_active: can't set 'wl{str(item.id)}' active")
+
     waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
 
     for waitlist_item in waitlist:
@@ -1221,11 +1358,10 @@ def upload_document(request):
         item_form = DocumentForm(request.POST, request.FILES)
         patient_result = Patient.objects.get(id=request.POST.get('patient'))
         if item_form.is_valid():
-            logger.debug(f"User-ID: {request.user.id}; upload_document: Dokument zum speichern valide")
             item = item_form.save(commit=False)
             item.patient_id = patient_result.id
             item.save()
-            logger.debug(f"User-ID: {request.user.id}; upload_document: Dokument gespeichert")
+            logger.debug(f"User-ID: {request.user.id}; upload_document: document {str(item.id)} uploaded")
             return redirect('/reports/document/?id=' + str(patient_result.id))
     else:
         logger.debug(f"User-ID: {request.user.id}; upload_document: Formular aufgerufen um Dokumente "
@@ -1244,7 +1380,7 @@ IMAGE_FILE_TYPES = ['pdf']
 def download_document(request):
     if request.method == 'GET':
         file_id = request.GET.get('id')
-        logger.debug(f"User-ID: {request.user.id}; download_document: Dokument mit file_id: {file_id} downloaded")
+        logger.info(f"User-ID: {request.user.id}; download_document: document {file_id} downloaded")
         file_info = Document.objects.get(id=file_id)
         document_name = file_info.document.name
         document_path = settings.MEDIA_ROOT + '/' + document_name
@@ -1270,10 +1406,9 @@ class del_document(DeleteView):
         if os.path.exists(document_path):
             os.remove(document_path)
             file_info.delete()
-            logger.debug(f"User-ID: {request.user.id}; del_document: Dokument: {document_name} gelöscht")
+            logger.info(f"User-ID: {request.user.id}; del_document: document: {document_name} deleted")
         else:
-            logger.debug(f"User-ID: {request.user.id}; del_document: Dokument: {document_path} konnte "
-                         f"nicht gelöscht werden")
+            logger.info(f"User-ID: {request.user.id}; del_document: document: {document_path} can't be deleted ")
 
         return HttpResponseRedirect(self.success_url + "?id=" + patient_id)
 
@@ -1288,11 +1423,10 @@ def upload_document_therapy(request):
         item_form = DocumentTherapyForm(request.POST, request.FILES)
         therapy_result = Therapy.objects.get(id=request.POST.get('therapy'))
         if item_form.is_valid():
-            logger.debug(f"User-ID: {request.user.id}; upload_document_therapy: Dokument zum speichern valide")
             item = item_form.save(commit=False)
             item.therapy_id = therapy_result.id
             item.save()
-            logger.debug(f"User-ID: {request.user.id}; upload_document_therapy: Dokument gespeichert")
+            logger.info(f"User-ID: {request.user.id}; upload_document_therapy: document {item.id} uploaded")
             return redirect('/reports/document_therapy/?id=' + str(therapy_result.id))
     else:
         logger.debug(f"User-ID: {request.user.id}; upload_document_therapy: Formular aufgerufen um Dokumente "
@@ -1314,6 +1448,7 @@ def download_document_therapy(request):
         file_info = Document_therapy.objects.get(id=file_id)
         document_name = file_info.document.name
         document_path = settings.MEDIA_ROOT + '/' + document_name
+        logger.info(f"User-ID: {request.user.id}; download_document_therapy: document: {document_name} downloaded")
         response = FileResponse(open(document_path, 'rb'), as_attachment=True)
         return response
 
@@ -1335,12 +1470,12 @@ class del_document_therapy(DeleteView):
         if os.path.exists(document_path):
             os.remove(document_path)
             file_info.delete()
-            logger.debug(f"User-ID: {request.user.id}; del_document_therapy: Dokument: {document_name} gelöscht")
+            logger.info(f"User-ID: {request.user.id}; del_document_therapy: document: {document_name} deleted")
         else:
-            logger.debug(f"User-ID: {request.user.id}; del_document_therapy: Dokument: {document_path} konnte "
-                         f"nicht gelöscht werden")
+            logger.info(f"User-ID: {request.user.id}; del_document_therapy: document: {document_path} can't be deleted")
 
         return HttpResponseRedirect(self.success_url + "?id=" + therapy_id)
+
 
 @permission_required('reports.view_patient')
 def get_session_timer(request):
@@ -1500,7 +1635,8 @@ def send_personal_mail(user, request):
 
     text_content = 'Sie haben sich gerade an der Anwendung LogoPAkt angemeldet. Sollte dies nicht stimmen, ' \
                    'bitte umgehend Toni Schumacher informieren!!!'
-    html_content = render_to_string('mail_templates/login_mail.html', {'openContext': openContext, 'meta': request.META})
+    html_content = render_to_string('mail_templates/login_mail.html',
+                                    {'openContext': openContext, 'meta': request.META})
 
     msg = EmailMultiAlternatives(subject, text_content, from_email, email_list)
     msg.mixed_subtype = 'related'
@@ -1514,7 +1650,7 @@ def send_personal_mail(user, request):
 def post_login(sender, request, user, **kwargs):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
                  f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
-    logger.info(f"User-ID: {request.user.id}; {format(user)} eingeloggt")
+    logger.info(f"User-ID: {request.user.id}; {format(user)} log in")
     if request.META.get('HTTP_X_FORWARDED_FOR'):
         ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
     elif request.META.get('REMOTE_ADDR'):
