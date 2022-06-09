@@ -1,2 +1,2 @@
 # logopaedie
-Website based on django to manage patient of a logogädie praxis
+Website based on django to manage patient of a logopädie praxis
