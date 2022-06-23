@@ -1368,9 +1368,14 @@ def upload_document(request):
                      f"zu sehen oder hochzuladen")
         form = DocumentForm(initial={'patient': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
-        documents = Document.objects.filter(patient_id=request.GET.get('id')).order_by('-uploaded_at')
+        documents_registration = Document.objects.filter(patient_id=request.GET.get('id'), registration_form=1)
+        documents_parents = Document.objects.filter(patient_id=request.GET.get('id'), parents_form=1)
+        documents = Document.objects.filter(patient_id=request.GET.get('id'),
+                                            registration_form=0, parents_form=0).order_by('-uploaded_at')
     return render(request, 'reports/document_form.html',
-                  {'form': form, 'patient': patient_result, 'documents': documents})
+                  {'form': form, 'patient': patient_result, 'documents': documents,
+                   'documents_registration': documents_registration,
+                   'documents_parents': documents_parents})
 
 
 IMAGE_FILE_TYPES = ['pdf']

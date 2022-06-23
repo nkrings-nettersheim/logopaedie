@@ -41,7 +41,21 @@
                 {{ form.description }}
                 <div class="text-danger">{{ form.description.errors }}</div>
             </div>
-            <div class="col-sm-sm-7 "></div>
+
+            <div class="col-sm-sm-3 ">
+                {{ form.registration_form }}
+                <div class="text-danger">{{ form.registration_form.errors }}</div>
+            </div>
+            <label for="{{ form.registration_form.id_for_label }}" class="col-sm-2 control-label">Anmeldebogen:</label>
+
+            <div class="col-sm-sm-3 ">
+                {{ form.parents_form }}
+                <div class="text-danger">{{ form.parents_form.errors }}</div>
+            </div>
+            <label for="{{ form.parents_form.id_for_label }}" class="col-sm-2 control-label">Elternbogen:</label>
+            <div class="col-sm-sm-1 ">
+
+            </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.document.id_for_label }}" class="col-sm-2 control-label">Dokument:</label>
@@ -55,6 +69,72 @@
         </div>
     </div>
   </form>
+    <div class="container">
+        {% for obj in documents_registration %}
+        <hr>
+            <div class="row">
+                <div class="col-sm-8">
+                    {{ obj.description }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="small inline">Datei: {{ obj.document.name }}</div>
+                </div>
+                <div class="col-sm-2">
+                     <small>(Upload am: {{ obj.uploaded_at | date:"d.m.Y"}})</small>
+                </div>
+                <div class="col-sm-2">
+                    <div class="small inline">
+                        <a href="{% url 'reports:download' %}?id={{ obj.id }}">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-download"> Öffnen</i></button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="small inline">
+                        <a href="{% url 'reports:delete' obj.id %}">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-trash"> Löschen</i></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        {% for obj in documents_parents %}
+        <hr>
+            <div class="row">
+                <div class="col-sm-8">
+                    {{ obj.description }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="small inline">Datei: {{ obj.document.name }}</div>
+                </div>
+                <div class="col-sm-2">
+                     <small>(Upload am: {{ obj.uploaded_at | date:"d.m.Y"}})</small>
+                </div>
+                <div class="col-sm-2">
+                    <div class="small inline">
+                        <a href="{% url 'reports:download' %}?id={{ obj.id }}">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-download"> Öffnen</i></button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="small inline">
+                        <a href="{% url 'reports:delete' obj.id %}">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-trash"> Löschen</i></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
     <div class="container">
         {% for obj in documents %}
         <hr>
