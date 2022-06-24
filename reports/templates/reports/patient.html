@@ -132,15 +132,21 @@
         </div>
         <div class="row">
             <div class="col-sm">
-
-                <div class="small inline"> </div> <strong>  </strong>
-
+                {% if registration_form_exist %}
+                <div class="small inline">Anmeldebogen:</div> <strong>liegt vor</strong>
+                {% else %}
+                <div class="small inline">Anmeldebogen:</div> <strong><div class="text-danger inline">fehlt</div></strong>
+                {% endif %}
             </div>
 
             <div class="col-sm">
-
-                <div class="small inline"> </div> <strong>   </strong>
-
+                {% if parents_form_exist == '1' %}
+                <div class="small inline">Elternbogen:</div> <strong>liegt vor</strong>
+                {% elif parents_form_exist == '0' %}
+                <div class="small inline">Elternbogen:</div> <strong><div class="text-danger inline">fehlt</div></strong>
+                {% else %}
+                <div class="small inline">Elternbogen:</div> <strong>nicht erfordlich</strong>
+                {% endif %}
             </div>
             <div class="col-sm">
                 {% if patient.pa_invoice_mail %}
