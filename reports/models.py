@@ -225,8 +225,8 @@ class Document(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
-    registration_form = models.BooleanField(default=False)
-    parents_form = models.BooleanField(default=False)
+    registration_form = models.BooleanField(default=False, blank=True)
+    parents_form = models.BooleanField(default=False, blank=True)
 
     def __str__(self):
         return self.description
