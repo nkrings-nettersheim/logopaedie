@@ -9,7 +9,7 @@ class TherapyAdmin(admin.ModelAdmin):
 class DoctorAdmin(admin.ModelAdmin):
     list_display = ('doctor_name1', 'doctor_name2', 'doctor_city')
 
-admin.site.site_header = "Admin Bereich Logopädie Klein"
+admin.site.site_header = "Admin Bereich Logopädische Praxis Schumacher"
 
 admin.site.register(Patient)
 admin.site.register(Therapy, TherapyAdmin)

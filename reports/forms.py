@@ -1312,12 +1312,18 @@ class DocumentForm(forms.ModelForm):
                                   )
                                   )
 
+    registration_form = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
+    parents_form = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
+
     class Meta:
         model = Document
         fields = [
             'description',
             'document',
-            'patient'
+            'patient',
+            'registration_form',
+            'parents_form'
         ]
 
 

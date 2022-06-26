@@ -6,6 +6,8 @@ import locale
 # import json
 # import asyncio
 
+#from datetime import date
+#from datetime import datetime
 from html import escape
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
@@ -663,6 +665,23 @@ def patient(request, id=id):
         else:
             patient_something_value = ''
 
+        if Document.objects.filter(patient_id=patient_result.id, registration_form=1).exists():
+            registration_form_exist = True
+        else:
+            registration_form_exist = False
+
+        parents_form_exist = ''
+        #ts = str(patient_result.pa_date_of_birth)
+        #f = '%Y-%m-%d %H:%M:%S'
+        f = '%Y-%m-%d'
+        print(str(datetime.datetime.strptime(str(patient_result.pa_date_of_birth), f)))
+        print(str(datetime.datetime.now()-datetime.timedelta(days=5475)))
+        if datetime.datetime.strptime(str(patient_result.pa_date_of_birth), f) > datetime.datetime.now()-datetime.timedelta(days=5475):
+            if Document.objects.filter(patient_id=patient_result.id, parents_form=1).exists():
+                parents_form_exist = '1'
+            else:
+                parents_form_exist = '0'
+
         i = 0
         for therapy_result_item in therapy_result:
             x = therapy_result_item.recipe_date
@@ -687,7 +706,9 @@ def patient(request, id=id):
                                                         'therapy': therapy_result,
                                                         'ps': patient_something_value,
                                                         'therapy_count': therapy_result_count,
-                                                        'process_count': process_result_count
+                                                        'process_count': process_result_count,
+                                                        'registration_form_exist': registration_form_exist,
+                                                        'parents_form_exist': parents_form_exist
                                                         })
     except ObjectDoesNotExist:
         logger.debug(f"User-ID: {request.user.id}; patient: Objekt existiert nicht")
@@ -1368,9 +1389,14 @@ def upload_document(request):
                      f"zu sehen oder hochzuladen")
         form = DocumentForm(initial={'patient': request.GET.get('id')})
         patient_result = Patient.objects.get(id=request.GET.get('id'))
-        documents = Document.objects.filter(patient_id=request.GET.get('id')).order_by('-uploaded_at')
+        documents_registration = Document.objects.filter(patient_id=request.GET.get('id'), registration_form=1)
+        documents_parents = Document.objects.filter(patient_id=request.GET.get('id'), parents_form=1)
+        documents = Document.objects.filter(patient_id=request.GET.get('id'),
+                                            registration_form=0, parents_form=0).order_by('-uploaded_at')
     return render(request, 'reports/document_form.html',
-                  {'form': form, 'patient': patient_result, 'documents': documents})
+                  {'form': form, 'patient': patient_result, 'documents': documents,
+                   'documents_registration': documents_registration,
+                   'documents_parents': documents_parents})
 
 
 IMAGE_FILE_TYPES = ['pdf']
