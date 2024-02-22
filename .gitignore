@@ -12,6 +12,7 @@ static/admin/
 static/ckeditor/
 logopaedie/local_settings.py
 static/parents/
+.idea/
 
 # Django #
 *.log
@@ -132,3 +133,5 @@ GitHub.sublime-settings
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_12_21,_08_00_[Default_Changelist]/shelved.patch
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_12_21,_08_00_[Default_Changelist]1/shelved.patch
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_12_21__08_00__Default_Changelist_.xml
+/logopaedie.log.2
+/jquery.dirty.js

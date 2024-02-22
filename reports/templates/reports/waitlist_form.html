@@ -27,7 +27,7 @@
 {% block content %}
 <content>
     <p></p>
-    <form method="POST" enctype="multipart/form-data" action="">
+    <form method="POST" enctype="multipart/form-data" action="" id="form">
         {% csrf_token %}
         {{ form.media }}
     <div class="container">
@@ -213,4 +213,18 @@
     </div>
     </form>
 </content>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'reports/js_files/jquery.dirty.js' %}"></script>
+
+<script>
+
+$("#form").dirty({
+  preventLeaving:true,
+  leavingMessage: "Man Toni!."
+});
+
+</script>
 {% endblock %}

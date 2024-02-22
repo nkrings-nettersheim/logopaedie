@@ -827,7 +827,7 @@ def add_therapy(request):
             logger.info(f"User-ID: {request.user.id}; add_therapy: for patient with ID: "
                         f"'pa{str(patient_result.id)}_th{item.id}'; "
                         f"[ recipe_date: {str(item.recipe_date)},"
-                        f"therapy_regulation_amount): {str(item.therapy_regulation_amount)},"
+                        f"therapy_regulation_amount: {str(item.therapy_regulation_amount)},"
                         f"therapy_duration: {str(item.therapy_duration)},"
                         f"therapy_frequence: {str(item.therapy_frequence)},"
                         f"therapy_rid_of: {str(item.therapy_rid_of)},"
