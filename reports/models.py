@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Doctor(models.Model):
@@ -110,9 +110,9 @@ class Therapy_report(models.Model):
     report_date = models.DateField(blank=True, default='', null=True, auto_now=False, auto_now_add=False)
     therapy_start = models.DateField(blank=True, default=None, null=True, auto_now=False, auto_now_add=False)
     therapy_end = models.DateField(blank=True, default=None, null=True, auto_now=False, auto_now_add=False)
-    therapy_current_result = RichTextField()
-    therapy_emphases = RichTextField()
-    therapy_forecast = RichTextField()
+    therapy_current_result = CKEditor5Field('Text', config_name='extends')
+    therapy_emphases = CKEditor5Field('Text', config_name='extends')
+    therapy_forecast = CKEditor5Field('Text', config_name='extends')
     therapy_indicated = models.BooleanField(default=False)
     therapy_break = models.BooleanField(default=False)
     therapy_break_internal = models.BooleanField(default=False)
@@ -134,17 +134,17 @@ class Therapy_report(models.Model):
     therapy_another_text = models.CharField(max_length=25, default='')
     therapy_home_visit = models.BooleanField(default=False)
     therapy_necessary = models.BooleanField(default=False)
-    therapy_summary = RichTextField(default="")
+    therapy_summary = CKEditor5Field('Text', config_name='extends')
     therapy_request_of = models.CharField(max_length=100, default='')
     therapy_insurance = models.CharField(max_length=100, default='')
     therapy_diagnostic = models.CharField(max_length=100, default='')
     therapy_doc_diagnostic = models.CharField(max_length=100, default='')
-    therapy_therapist_diagnostic = RichTextField(default='')
-    therapy_status = RichTextField(default='')
-    therapy_aims = RichTextField(default='')
-    therapy_content = RichTextField(default='')
-    therapy_process = RichTextField(default='')
-    therapy_compliance = RichTextField(default='')
+    therapy_therapist_diagnostic =CKEditor5Field('Text', config_name='extends')
+    therapy_status = CKEditor5Field('Text', config_name='extends')
+    therapy_aims = CKEditor5Field('Text', config_name='extends')
+    therapy_content = CKEditor5Field('Text', config_name='extends')
+    therapy_process = CKEditor5Field('Text', config_name='extends')
+    therapy_compliance = CKEditor5Field('Text', config_name='extends')
     therapy_report_variation = models.IntegerField(default=0)
 
     def __str__(self):
@@ -203,7 +203,7 @@ class InitialAssessment(models.Model):
     ia_test_result = models.CharField(max_length=1, choices=RESULT, default='1')
     ia_enhancement = models.BooleanField(default=False, null=True)
     ia_information = models.CharField(max_length=500, blank=True, default='')
-    ia_first_diagnostic = RichTextField(blank=True, null=True)
+    ia_first_diagnostic = CKEditor5Field('Text', config_name='extends')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
@@ -250,7 +250,7 @@ class Document_therapy(models.Model):
 
 
 class Therapy_Something(models.Model):
-    something_else = RichTextField()
+    something_else = CKEditor5Field('Text', config_name='extends')
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
@@ -260,7 +260,7 @@ class Therapy_Something(models.Model):
 
 
 class Patient_Something(models.Model):
-    pa_something_else = RichTextField()
+    pa_something_else = CKEditor5Field('Text', config_name='extends')
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)

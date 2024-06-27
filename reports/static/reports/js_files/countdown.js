@@ -17,7 +17,6 @@ function CheckDate(elementValue, element) {
 function logopakt_makeTimer(logopakt_endTime) {
 
     logopakt_endTime = (Date.parse(logopakt_endTime) / 1000);
-    //console.log('logopakt_endTime: ' + logopakt_endTime)
 
     var logopakt_now = new Date();
     logopakt_now = (Date.parse(logopakt_now) / 1000);
@@ -46,35 +45,64 @@ function logopakt_makeTimer(logopakt_endTime) {
 
 }
 
+async function makeRequest(url, method, body) {
+    let headers = {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+    }
+
+    if (method == 'post') {
+        const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value
+        headers['X-CSRFToken'] = csrf
+    }
+
+    let response = await fetch(url, {
+        method: method,
+        headers: headers,
+        body: body
+    })
+
+    return await response.json()
+}
+
+async function getNumber() {
+    const data = await makeRequest("getOpenReportsAjax/", "GET");
+    $("#openreports").html(data["openreports"]);
+    $("#therapy_break").html(data["therapy_break"]);
+}
+
+async function getSessionTimer() {
+    const data = await makeRequest("/reports/getsessiontimer/", "GET");
+    sessiontimer = await data["sessiontimer"]
+    return sessiontimer
+}
+
 $(document).ready(function(){
     var logopakt_endTime = new Date();
-    logopakt_endTime = new Date(logopakt_endTime.getTime() + 45*60000);
+    //logopakt_endTime = new Date(logopakt_endTime.getTime() + 30*60000);
 
-    $.ajax({
-        type: 'GET',
-        url: "/reports/getsessiontimer/",
-        success: function (response) {
-                let logopakt_endTime = response.sessiontimer;
-            },
-            error: function (response) {
-                console.log(response);
-            }
-        })
+    getSessionTimer().then(
+        function(value) {
+            logopakt_endTime = value
+        },
+        function(error) {
+            logopakt_endTime = new Date(logopakt_endTime.getTime() + 60*60000);
+        }
+    );
+    //console.log("Neue Zeit:" + logopakt_endTime)
 
     if (document.getElementById('openreports') != null) {
-      $.get("/reports/getOpenReports", function(data, status){
-                  result = data.split('|')
-                  $("#openreports").html(result[0]);
-                  $("#therapy_break").html(result[1]);
-             });
+        getNumber();
     }
+
 
 	logopakt_myTimer = setInterval(function() {
 	       if (logopakt_endTime <= new Date()) {
 	          var t = new Date();
 	          t.setSeconds(t.getSeconds() + 2700);
 	          logopakt_endTime = t;
-	       }
+           }
+	       //console.log(logopakt_endTime)
 	       logopakt_makeTimer(logopakt_endTime);
 	       }, 1000
        );
