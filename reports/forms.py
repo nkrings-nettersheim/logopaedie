@@ -1,6 +1,6 @@
 import datetime
 from django import forms
-from ckeditor.widgets import CKEditorWidget
+from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, \
     Document, Document_therapy, Therapy_Something, Patient_Something, Diagnostic_group, Wait_list
 
@@ -404,7 +404,7 @@ class PatientForm(forms.ModelForm):
         max_length=35,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s]{0,20}',
                 'class': 'form-control',
                 'placeholder': 'Format: 02251/11223344'
             }
@@ -416,7 +416,7 @@ class PatientForm(forms.ModelForm):
         max_length=35,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s]{0,20}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445'
             }
@@ -428,7 +428,7 @@ class PatientForm(forms.ModelForm):
         max_length=60,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
             }
@@ -440,7 +440,7 @@ class PatientForm(forms.ModelForm):
         max_length=60,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
             }
@@ -452,7 +452,7 @@ class PatientForm(forms.ModelForm):
         max_length=35,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s]{0,20}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445'
             }
@@ -475,7 +475,7 @@ class PatientForm(forms.ModelForm):
         required=True,
         widget=forms.DateInput(
             attrs={
-                'pattern': '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\d\d)$',
+                'pattern': r'^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\d\d)$',
                 'class': 'form-control',
                 'placeholder': 'Geburtsdatum Format: TT.MM.JJJJ',
                 'onchange': 'CheckDate(this.value, this.name)'
@@ -913,17 +913,17 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_current_result = forms.CharField(required=False,
                                              max_length=820,
-                                             widget=CKEditorWidget()
+                                             widget=CKEditor5Widget(config_name='text')
                                              )
 
     therapy_emphases = forms.CharField(required=False,
                                        max_length=820,
-                                       widget=CKEditorWidget()
+                                       widget=CKEditor5Widget(config_name='text')
                                        )
 
     therapy_forecast = forms.CharField(required=False,
                                        max_length=820,
-                                       widget=CKEditorWidget()
+                                       widget=CKEditor5Widget(config_name='text')
                                        )
 
     therapy_indicated = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
@@ -996,7 +996,7 @@ class TherapyReportForm(forms.ModelForm):
 
     therapy_summary = forms.CharField(required=False,
                                        max_length=820,
-                                       widget=CKEditorWidget()
+                                       widget=CKEditor5Widget(config_name='text')
                                        )
 
     therapy_request_of = forms.CharField(required=False,
@@ -1035,17 +1035,17 @@ class TherapyReportForm(forms.ModelForm):
                                            )
                                            )
 
-    therapy_therapist_diagnostic = forms.CharField(required=False, widget=CKEditorWidget())
+    therapy_therapist_diagnostic = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
 
-    therapy_status = forms.CharField(required=False, widget=CKEditorWidget())
+    therapy_status = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
 
-    therapy_aims = forms.CharField(required=False, widget=CKEditorWidget())
+    therapy_aims = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
 
-    therapy_content = forms.CharField(required=False, widget=CKEditorWidget())
+    therapy_content = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
 
-    therapy_process = forms.CharField(required=False, widget=CKEditorWidget())
+    therapy_process = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
 
-    therapy_compliance = forms.CharField(required=False, widget=CKEditorWidget())
+    therapy_compliance = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
 
     VARIATION = (
         ('0', 'Verordnungs-kurz Bericht Arzt'),
@@ -1273,7 +1273,7 @@ class InitialAssessmentForm(forms.ModelForm):
                                      )
                                      )
 
-    ia_first_diagnostic = forms.CharField(required=False, widget=CKEditorWidget(config_name='something'))
+    ia_first_diagnostic = forms.CharField(required=False, widget=CKEditor5Widget(config_name='something'))
 
 
     class Meta:
@@ -1347,7 +1347,7 @@ class DocumentTherapyForm(forms.ModelForm):
 
 
 class TherapySomethingForm(forms.ModelForm):
-    something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
+    something_else = forms.CharField(widget=CKEditor5Widget(config_name='something'))
 
     class Meta:
         model = Therapy_Something
@@ -1358,7 +1358,7 @@ class TherapySomethingForm(forms.ModelForm):
 
 
 class PatientSomethingForm(forms.ModelForm):
-    pa_something_else = forms.CharField(widget=CKEditorWidget(config_name='something'))
+    pa_something_else = forms.CharField(widget=CKEditor5Widget(config_name='something'))
 
     class Meta:
         model = Patient_Something
@@ -1560,7 +1560,7 @@ class WaitlistForm(forms.ModelForm):
         required=False,
         widget=forms.DateInput(
             attrs={
-                'pattern': '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\d\d)$',
+                'pattern': r'^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\d\d)$',
                 'class': 'form-control',
                 'placeholder': 'Geburtsdatum Format: TT.MM.JJJJ',
                 'onchange': 'CheckDate(this.value, this.name)'
@@ -1573,7 +1573,7 @@ class WaitlistForm(forms.ModelForm):
         max_length=35,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s]{0,20}',
                 'class': 'form-control',
                 'placeholder': 'Format: 02251/11223344'
             }
@@ -1585,7 +1585,7 @@ class WaitlistForm(forms.ModelForm):
         max_length=35,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s]{0,20}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445'
             }
@@ -1597,7 +1597,7 @@ class WaitlistForm(forms.ModelForm):
         max_length=60,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
             }
@@ -1609,7 +1609,7 @@ class WaitlistForm(forms.ModelForm):
         max_length=60,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s()A-Za-zÜÖÄüöäß]{0,60}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445 (Zusatzinfo)'
             }
@@ -1621,7 +1621,7 @@ class WaitlistForm(forms.ModelForm):
         max_length=35,
         widget=forms.TextInput(
             attrs={
-                'pattern': '0[0-9\s]{2,5}/[0-9\s]{0,20}',
+                'pattern': r'0[0-9\s]{2,5}/[0-9\s]{0,20}',
                 'class': 'form-control',
                 'placeholder': 'Format: 0171/12233445'
             }

@@ -70,6 +70,7 @@ urlpatterns = [
 
     path('getsessiontimer/', views.get_session_timer, name='getsessiontimer'),
     path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
+    path('getOpenReportsAjax/', views.getOpenReportsAjax, name='getOpenReportsAjax'),
 
     path('add/waitlist/', views.add_waitlist, name='add_waitlist'),
     path('edit/waitlist/<id>/', views.edit_waitlist, name='edit_waitlist'),

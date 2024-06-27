@@ -674,8 +674,8 @@ def patient(request, id=id):
         #ts = str(patient_result.pa_date_of_birth)
         #f = '%Y-%m-%d %H:%M:%S'
         f = '%Y-%m-%d'
-        print(str(datetime.datetime.strptime(str(patient_result.pa_date_of_birth), f)))
-        print(str(datetime.datetime.now()-datetime.timedelta(days=5475)))
+        #print(str(datetime.datetime.strptime(str(patient_result.pa_date_of_birth), f)))
+        #print(str(datetime.datetime.now()-datetime.timedelta(days=5475)))
         if datetime.datetime.strptime(str(patient_result.pa_date_of_birth), f) > datetime.datetime.now()-datetime.timedelta(days=5475):
             if Document.objects.filter(patient_id=patient_result.id, parents_form=1).exists():
                 parents_form_exist = '1'
@@ -1505,7 +1505,7 @@ class del_document_therapy(DeleteView):
 
 @permission_required('reports.view_patient')
 def get_session_timer(request):
-    if request.is_ajax and request.method == "GET":
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
         sessiontimer = request.session.get_expiry_date().isoformat()
         logger.debug(f"User-ID: {request.user.id}; get_session_timer: {str(sessiontimer)}")
         return JsonResponse({'sessiontimer': sessiontimer}, status=200)
@@ -1517,7 +1517,7 @@ def get_session_timer(request):
 class openContext:
     pass
 
-
+# Diese Funktion kann beim nächsten aufräumen entfernt werden. getOpenReportsAjex ersetzt sie
 @permission_required('reports.view_patient')
 def getOpenReports(request, context=None):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
@@ -1571,6 +1571,60 @@ def getOpenReports(request, context=None):
     logger.debug(f"User-ID: {request.user.id}; getOpenReports aufgerufen")
 
     return render(request, 'getOpenReports.html', {'form': openContext})
+
+@permission_required('reports.view_patient')
+def getOpenReportsAjax(request):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
+
+        logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                     f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+        therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
+        if therapist_value:
+            therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
+                                                  therapy_report_no_yes=True).order_by('recipe_date')
+        else:
+            therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
+        reports_list = []
+        for tp_item in therapy_list:
+            report_date_value = ''
+            process_report_value = Process_report.objects.filter(therapy=tp_item.id)
+            process_report_value_count = process_report_value.count()
+            tp_item.prvc = process_report_value_count
+            quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
+            if quotient > 0.6:
+                therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
+                try:
+                    report_date_value = therapy_report_result[0].report_date
+                except:
+                    logger.debug(f"User-ID: {request.user.id}; Try Exception")
+
+                if not report_date_value:
+                    patient_value = Patient.objects.filter(id=tp_item.patients.id)
+                    tp_item.pa_last_name = patient_value[0].pa_last_name
+                    tp_item.pa_first_name = patient_value[0].pa_first_name
+                    reports_list.append(tp_item)
+
+        # Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
+        if request.user.groups.filter(name='Leitung').exists():
+            therapybreak_count = Therapy_report.objects. \
+                select_related('therapy__patients'). \
+                filter(therapy_break_internal=True,
+                       therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                       therapy__patients__pa_active_no_yes=True).count()
+        else:
+            therapybreak_count = Therapy_report.objects. \
+                select_related('therapy__patients'). \
+                filter(therapy_break_internal=True,
+                       therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
+                       therapy__therapists__tp_user_logopakt=str(request.user),
+                       therapy__patients__pa_active_no_yes=True).count()
+
+        openReports = len(reports_list)
+
+        return JsonResponse({'openreports': openReports, 'therapy_break': therapybreak_count})
+    else:
+        #print("getOpenReports wurde nicht mit XMLHttpRequest aufgerufen")
+        return JsonResponse({"error": "Falscher Header!"}, status=400)
 
 
 def get_phone_design(data):
@@ -1696,9 +1750,9 @@ def post_login(sender, request, user, **kwargs):
         logger.debug(f"User-ID: {request.user.id}; User not found")
 
     try:
-        login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
-        login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
-        login_user_agent.save()
+        #login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
+        #login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
+        #login_user_agent.save()
         logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: Do nothing")
     except:
         login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
@@ -1774,7 +1828,7 @@ def post_login_failed(sender, credentials, request, **kwargs):
 class meta_info:
     pass
 
-
+@permission_required('reports.view_patient')
 def list_meta_info(request):
     meta_info.CONTENT_LENGTH = request.META.get('CONTENT_LENGTH')
     meta_info.CONTENT_TYPE = request.META.get('CONTENT_TYPE')
@@ -1794,9 +1848,10 @@ def list_meta_info(request):
 
     return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
 
-
+# Aufruf dieser Funktion erfolgt aus der plugin.js des Moduls "CKEditor" (static/ckeditor/ckeditor/plugins/autocorrection/plugin.js)
+@permission_required('reports.view_patient')
 def readShortcuts(request):
-    if request.is_ajax and request.method == "GET":
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
         shortcuts = Shortcuts.objects.all()
 
         data = serialize("json", shortcuts, fields=('short', 'long'))
