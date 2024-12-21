@@ -141,6 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/reports/'
+LOGOUT_REDIRECT_URL = '/reports/'
 
 #SESSION_EXPIRE_SECONDS = 900  # 900 - >15 minutes = 15 * 60
 #SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
