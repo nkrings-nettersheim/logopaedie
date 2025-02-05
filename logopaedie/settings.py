@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
-    #'ckeditor_uploader',
     'reports.apps.ReportsConfig',
     'parents.apps.ParentsConfig',
     'debug_toolbar',
@@ -168,61 +167,6 @@ EMAIL_HOST_PASSWORD = 'look at local_settings'
 EMAIL_PORT = 'look at local_settings'
 EMAIL_USE_TLS = 'look at local_settings'
 #DEFAULT_FROM_EMAIL = ''
-
-####################################
-##  CKEDITOR CONFIGURATION ##
-####################################
-
-CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
-
-CKEDITOR_UPLOAD_PATH = 'uploads/'
-CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_CONFIGS = {'default':
-                        {'height': 160,
-                         'defaultLanguage': "de",
-                         'scayt_autoStartup': True,
-                         'scayt_sLang': "de_DE",
-                         'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
-                         'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
-                         'toolbar': 'Custom', 'toolbar_Custom':
-                                 [
-                                     ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt'],
-                                 ],
-                         'extraPlugins': ','.join([
-                             'autocorrection'
-                         ]),
-                         },
-                    'something':
-                        {'height': 380,
-                         'width': 800,
-                         'defaultLanguage': "de",
-                         'scayt_autoStartup': True,
-                         'scayt_sLang': "de_DE",
-                         'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
-                         'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
-                         'toolbar': 'Custom', 'toolbar_Custom':
-                             [
-                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt',
-                                  'Source'],
-                             ],
-                         },
-                    'waitlist':
-                        {'height': 100,
-                         'width': 540,
-                         'defaultLanguage': "de",
-                         'scayt_autoStartup': True,
-                         'scayt_sLang': "de_DE",
-                         'coreStyles_bold': {'element': 'b', 'overrides': 'strong'},
-                         'coreStyles_italic': {'element': 'i', 'overrides': 'em'},
-                         'toolbar': 'Custom', 'toolbar_Custom':
-                             [
-                                 ['Bold', 'Italic', 'Underline', 'BGColor', 'TextColor', 'BulletedList', 'Scayt',
-                                  'Source'],
-                             ],
-                         }
-                    }
-
-
 
 ###################################
 ##  neue CKEditor 5 config       ##

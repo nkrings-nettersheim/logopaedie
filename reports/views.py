@@ -136,7 +136,7 @@ def therapy_breaks(request):
     time_orange = datetime.datetime.now() + datetime.timedelta(days=time_orange_value)
     time_red = datetime.datetime.now() + datetime.timedelta(days=time_red_value)
     # print(f"grün: {time_green}; orange: {time_orange}; red: {time_red}")
-    logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
+    logger.debug(f"User-ID: {request.user.id}; therapy_breaks wurde geladen")
     return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
                                                            'time_green': time_green,
                                                            'time_orange': time_orange,

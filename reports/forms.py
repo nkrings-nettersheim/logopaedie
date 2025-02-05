@@ -10,6 +10,7 @@ class IndexForm(forms.Form):
         attrs={
             'class': 'form-control',
             'autofocus': 'autofocus',
+            'autocomplete': 'off',
             'placeholder': 'Name eingeben ...'
         }
     ),
@@ -19,6 +20,7 @@ class IndexForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control',
+            'autocomplete': 'off',
             'placeholder': 'Vornamen eingeben ...'
         }
     ),
@@ -28,6 +30,7 @@ class IndexForm(forms.Form):
     date_of_birth = forms.DateField(widget=forms.DateInput(
         attrs={
             'class': 'form-control',
+            'autocomplete': 'off',
             'placeholder': 'Geburtsdatum eingeben ...',
             'onchange': 'CheckDate(this.value, this.name)'
         }
@@ -38,6 +41,7 @@ class IndexForm(forms.Form):
     phone = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control',
+            'autocomplete': 'off',
             'placeholder': 'Format: 02251/11223344'
         }
     ),
@@ -47,6 +51,7 @@ class IndexForm(forms.Form):
     cell_phone = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control',
+            'autocomplete': 'off',
             'placeholder': 'Format: 0171/11223344'
         }
     ),
