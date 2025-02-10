@@ -137,7 +137,17 @@
             <div class="col-sm">
                 Hausbesuch: <strong>{% if therapy.therapy_homevisit_no_yes %}<div class="text-danger inline">ja</div> {% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
             </div>
-            <div class="col-sm inline">Eigenanteil: <strong>{% if therapy.therapy_rid_of %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong></div>
+            <div class="col-sm inline">Eigenanteil: <strong>{% if therapy.therapy_rid_of %}<div class="text-danger inline">ja</div>{% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
+             {% if therapy.therapy_rid_of_method == 1 %}
+                (per Post)
+             {% elif therapy.therapy_rid_of_method == 2 %}
+                (per Mail)
+             {% elif therapy.therapy_rid_of_method == 3 %}
+                (Therapeut kassiert)
+             {% elif therapy.therapy_rid_of_method == 4 %}
+                (Rechnung mitgeben)
+             {% endif %}
+            </div>
             <div class="col-sm">
                 Therapiebericht: <strong>{% if therapy.therapy_report_no_yes %}<div class="text-danger inline">ja</div> {% else %}<div class="text-success inline">nein</div>{% endif %}</strong>
 

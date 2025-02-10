@@ -206,7 +206,7 @@ CKEDITOR_5_CONFIGS = {
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
     },
     'text': {
-        'toolbar': ['bold', 'italic', 'underline', '|', 'fontSize', 'fontFamily', '|', ],
+        'toolbar': ['bold', 'italic', 'underline', '|', 'fontSize', 'fontFamily', '|', 'bulletedList', 'numberedList', ],
         'language': 'de',
     },
     'something':

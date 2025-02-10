@@ -618,6 +618,9 @@ class TherapyForm(forms.ModelForm):
 
     therapy_regulation_amount = forms.IntegerField(required=True,
                                                    widget=forms.NumberInput(
+                                                       attrs={
+                                                           'class': 'form-control',
+                                                       }
                                                    )
                                                    )
 
@@ -655,6 +658,24 @@ class TherapyForm(forms.ModelForm):
                                                           }
                                             )
                                             )
+
+    RID_OF_METHOD = (
+        ('0', 'keine Auswahl'),
+        ('1', 'per Post'),
+        ('2', 'per Mail'),
+        ('3', 'Therapeut kassiert mitgeben'),
+        ('4', 'RG. Therap. mitgeben ohne kassieren'),
+    )
+
+    therapy_rid_of_method = forms.ChoiceField(choices=RID_OF_METHOD,
+                                         label="",
+                                         initial=1,
+                                         widget=forms.Select(
+                                             attrs={
+                                                 'class': 'form-select'
+                                             }
+                                         )
+                                         )
 
     therapy_report_no_yes = forms.NullBooleanField(required=True,
                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
@@ -799,6 +820,7 @@ class TherapyForm(forms.ModelForm):
                   'therapy_duration',
                   'therapy_frequence',
                   'therapy_rid_of',
+                  'therapy_rid_of_method',
                   'therapy_report_no_yes',
                   'therapy_homevisit_no_yes',
                   'therapy_indication_key',

@@ -871,6 +871,7 @@ def edit_therapy(request, id=None):
                     f"[ recipe_date: {str(item.recipe_date)},therapy_regulation_amount): {str(item.therapy_regulation_amount)},"
                     f"therapy_duration: {str(item.therapy_duration)},therapy_frequence: {str(item.therapy_frequence)},"
                     f"therapy_rid_of: {str(item.therapy_rid_of)},"
+                    f"therapy_rid_of_method: {str(item.therapy_rid_of_method)},"
                     f"therapy_report_no_yes: {str(item.therapy_report_no_yes)},"
                     f"therapy_homevisit_no_yes: {str(item.therapy_homevisit_no_yes)},"
                     f"therapy_indication_key: {str(item.therapy_icd_cod)},"
@@ -895,6 +896,7 @@ def edit_therapy(request, id=None):
             'therapy_duration': item.therapy_duration,
             'therapy_frequence': item.therapy_frequence,
             'therapy_rid_of': item.therapy_rid_of,
+            'therapy_rid_of_method': item.therapy_rid_of_method,
             'therapy_report_no_yes': item.therapy_report_no_yes,
             'therapy_homevisit_no_yes': item.therapy_homevisit_no_yes,
             'therapy_indication_key': item.therapy_indication_key,

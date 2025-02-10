@@ -76,11 +76,13 @@ class Patient(models.Model):
 
 
 class Therapy(models.Model):
+
     recipe_date = models.DateField(auto_now=False, auto_now_add=False)
     therapy_regulation_amount = models.IntegerField(blank=True, null=True)
     therapy_duration = models.CharField(max_length=10, default='')
     therapy_frequence = models.CharField(max_length=5, default='')
     therapy_rid_of = models.BooleanField(default=False, null=True)
+    therapy_rid_of_method = models.IntegerField(blank=True, null=True, default=0)
     therapy_report_no_yes = models.BooleanField(default=True, null=True)
     therapy_homevisit_no_yes = models.BooleanField(default=False, null=True)
     therapy_indication_key = models.CharField(max_length=10, default='')
