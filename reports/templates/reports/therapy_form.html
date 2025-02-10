@@ -7,22 +7,24 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
-        </li>
-        {% if form.id %}
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.id %}" role="button">zurück</a>
-        </li>
-        {% endif %}
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
+            </li>
+            {% if form.id %}
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.id %}" role="button">zurück</a>
+            </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -36,142 +38,124 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <h5>Rezeptdaten erfassen/ändern für {{ patient.pa_first_name }} {{ patient.pa_last_name }}: </h5>
+                    <h4>Rezeptdaten erfassen/ändern für {{ patient.pa_first_name }} {{ patient.pa_last_name }}: </h4>
                     <p></p>
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <div class="col-sm-offset-2 col-sm-6">
                     <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapists.id_for_label }}" class="col-sm-2 control-label">Therapeut:</label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.therapists }}
                     <div class="text-danger">{{ form.therapists.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">Arzt-Nummer:</label>
                 <div class="col-sm-6">
                     {{ form.therapy_doctor }}
                     <div class="text-danger">{{ form.therapy_doctor.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.recipe_date.id_for_label }}" class="col-sm-2 control-label">Rezeptdatum: </label>
                 <div class="col-sm-6">
                     {{ form.recipe_date }}
                     <div class="text-danger">{{ form.recipe_date.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_icd_cod.id_for_label }}" class="col-sm-2 control-label">1. ICD-CoD: </label>
                 <div class="col-sm-6">
                     {{ form.therapy_icd_cod }}
                     <div class="text-danger">{{ form.therapy_icd_cod.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_icd_cod_2.id_for_label }}" class="col-sm-2 control-label">2. ICD-CoD: <br>(- wenn kein Eintrag)</label>
                 <div class="col-sm-6">
                     {{ form.therapy_icd_cod_2 }}
                     <div class="text-danger">{{ form.therapy_icd_cod_2.errors }}</div>
                 </div>
             </div>
-            <!--
-            <div class="form-group row">
-                <label for="{{ form.therapy_icd_cod_3.id_for_label }}" class="col-sm-2 control-label">3. ICD-CoD: </label>
-                <div class="col-sm-6">
-                    {{ form.therapy_icd_cod_3 }}
-                    <div class="text-danger">{{ form.therapy_icd_cod_3.errors }}</div>
-                </div>
-            </div>
-            -->
-            <!--
-            <div class="form-group row">
-                <label for="{{ form.therapy_indication_key.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe: </label>
-                <div class="col-sm-6">
-                    {{ form.therapy_indication_key }}
-                    <div class="text-danger">{{ form.therapy_indication_key.errors }}</div>
-                </div>
-            </div>
-            -->
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.diagnostic_group.id_for_label }}" class="col-sm-2 control-label">Diagnosegruppe: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.diagnostic_group }}
                     <div class="text-danger">{{ form.diagnostic_group.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_regulation_amount.id_for_label }}" class="col-sm-2 control-label">Verordnungsmenge: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.therapy_regulation_amount }}
                     <div class="text-danger">{{ form.therapy_regulation_amount.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Therapiefrequenz: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     {{ form.therapy_frequence }}
                     <div class="text-danger">{{ form.therapy_frequence.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_duration.id_for_label }}" class="col-sm-2 control-label">Therapie Dauer: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.therapy_duration }}
                     <div class="text-danger">{{ form.therapy_duration.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_report_no_yes.id_for_label }}" class="col-sm-2 control-label">Therapiebericht: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.therapy_report_no_yes }}
                     <div class="text-danger">{{ form.therapy_report_no_yes.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_homevisit_no_yes.id_for_label }}" class="col-sm-2 control-label">Hausbesuch: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.therapy_homevisit_no_yes }}
                     <div class="text-danger">{{ form.therapy_homevisit_no_yes.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.therapy_rid_of.id_for_label }}" class="col-sm-2 control-label">Eigenanteil: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.therapy_rid_of }}
                     <div class="text-danger">{{ form.therapy_rid_of.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.first_diagnostic_no_yes.id_for_label }}" class="col-sm-2 control-label">Erst-Diagnose: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.first_diagnostic_no_yes }}
                     <div class="text-danger">{{ form.first_diagnostic_no_yes.errors }}</div>
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.need_diagnostic_no_yes.id_for_label }}" class="col-sm-2 control-label">Bedarfs-Diagnose: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.need_diagnostic_no_yes }}
                     <div class="text-danger">{{ form.need_diagnostic_no_yes.errors }}</div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="{{ form.continue_diagnostic_no_yes.id_for_label }}" class="col-sm-2 control-label">Weiterführende-Diagnose: </label>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {{ form.continue_diagnostic_no_yes }}
                     <div class="text-danger">{{ form.continue_diagnostic_no_yes.errors }}</div>
                 </div>
             </div>
 
             <input type="hidden" id="id_patients" name="patients" value="{{ form.patients.value }}">
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <div class="col-sm-offset-2 col-sm-6">
                     <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
                 </div>

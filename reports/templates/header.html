@@ -29,16 +29,27 @@
             <div class="col-sm-2 d-none d-md-block">
                 <div class="row">&nbsp;</div>
                 {% if user.is_authenticated %}
-                <div class="row">
-                    <div class="text-success">Logout |&nbsp;</div><div id="minutes" class="text-success"></div><div class="text-success">:</div><div id="seconds" class="text-success"></div>
+                <div class="d-flex">
+                    <div class="p-0 text-success">
+                        Logout |
+                    </div>
+                    <div class="p-0 text-success">
+                        <div id="minutes"></div>
+                    </div>
+                    <div class="p-0 text-success">
+                        :
+                    </div>
+                    <div class="p-0 text-success">
+                        <div id="seconds"></div>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="d-flex">
                     <form action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary">Abmelden</button>
                     </form>
                 </div>
-                <div class="row"><a href="{% url 'password_change' %}">Passwort ändern</a></div>
+                <div class="d-flex"><a href="{% url 'password_change' %}">Passwort ändern</a></div>
                 {% else %}
                 {% endif %}
             </div>

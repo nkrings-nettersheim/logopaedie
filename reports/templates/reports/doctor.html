@@ -7,27 +7,29 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:search_doctor_start' %}" role="button">zurück</a>
-        </li>
-        {% if perms.reports.change_doctor %}
-        <li class="nav-item">
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_doctor' doctor.id %}" role="button">Daten ändern</a>
-        </li>
-        {% endif %}
-        {% if perms.reports.add_doctor %}
-        <li class="nav-item">
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_doctor' %}" role="button">Neuen Arzt anlegen</a>
-        </li>
-        {% endif %}
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:search_doctor_start' %}" role="button">zurück</a>
+            </li>
+            {% if perms.reports.change_doctor %}
+            <li class="nav-item">
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_doctor' doctor.id %}" role="button">Daten ändern</a>
+            </li>
+            {% endif %}
+            {% if perms.reports.add_doctor %}
+            <li class="nav-item">
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:add_doctor' %}" role="button">Neuen Arzt anlegen</a>
+            </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 

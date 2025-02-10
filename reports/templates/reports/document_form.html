@@ -8,17 +8,19 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
-      </li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button">Deckblatt</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -35,29 +37,33 @@
                 <h4>Dokument hochladen:</h4>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.description.id_for_label }}" class="col-sm-2 control-label">Beschreibung:</label>
             <div class="col-sm-5">
                 {{ form.description }}
                 <div class="text-danger">{{ form.description.errors }}</div>
             </div>
-
+        </div>
+        <div class="mb-3 row">
             <div class="col-sm-sm-3 ">
+            <label for="{{ form.registration_form.id_for_label }}" class="col-sm-2 control-label">Anmeldebogen</label>
                 {{ form.registration_form }}
                 <div class="text-danger">{{ form.registration_form.errors }}</div>
             </div>
-            <label for="{{ form.registration_form.id_for_label }}" class="col-sm-2 control-label">Anmeldebogen</label>
-
+        </div>
+        <div class="mb-3 row">
             <div class="col-sm-sm-3 ">
+            <label for="{{ form.parents_form.id_for_label }}" class="col-sm-2 control-label">Elternbogen</label>
                 {{ form.parents_form }}
                 <div class="text-danger">{{ form.parents_form.errors }}</div>
             </div>
-            <label for="{{ form.parents_form.id_for_label }}" class="col-sm-2 control-label">Elternbogen</label>
+        </div>
+        <div class="mb-3 row">
             <div class="col-sm-sm-1 ">
 
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.document.id_for_label }}" class="col-sm-2 control-label">Dokument:</label>
             <div class="col-sm-5">
                 {{ form.document }}

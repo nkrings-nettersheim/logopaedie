@@ -8,29 +8,31 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_waitlist' %}" role="button">Neuer Eintrag</a>
-        </li>
-        {% if status == 'True' %}
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' False%}" role="button">Pat. wo anders / sonstiges</a>
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:add_waitlist' %}" role="button">Neuer Eintrag</a>
             </li>
-        {% else %}
+            {% if status == 'True' %}
+                <li class="nav-item">
+                  <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' False%}" role="button">Pat. wo anders / sonstiges</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                  <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True %}" role="button">Warteliste</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
-              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True %}" role="button">Warteliste</a>
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
             </li>
-        {% endif %}
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
-        </li>
-    </ul>
-  </div>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 

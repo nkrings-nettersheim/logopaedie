@@ -7,56 +7,58 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-            <a class="nav-link" href="{% url 'reports:add_patient' %}" >Patient anlegen</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:search_doctor_start' %}" >Arzt suchen</a>
-      </li>
-    {% if perms.reports.add_doctor %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:add_doctor' %}" >Arzt anlegen</a>
-      </li>
-    {% endif %}
-    {% if perms.reports.view_therapist %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:search_therapist_start' %}" >TP suchen</a>
-      </li>
-    {% endif %}
-    {% if perms.reports.add_therapist %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:add_therapist' %}" >TP anlegen</a>
-      </li>
-    {% endif %}
-    {% if perms.reports.view_diagnostic_group %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >DG su.</a>
-      </li>
-    {% endif %}
-    {% if perms.reports.add_diagnostic_group %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
-      </li>
-    {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:open_reports' %}" >Offene Berichte: <div id="openreports" class="nav-link inline"></div></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:therapy_breaks' %}" >Wiedervorst.: <div id="therapy_break" class="nav-link inline"></div></a>
-      </li>
-    {% if perms.reports.view_wait_list %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'reports:waitlist' True%}" >Warteliste</a>
-      </li>
-    {% endif %}
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+                <a class="nav-link" href="{% url 'reports:add_patient' %}" >Patient anlegen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:search_doctor_start' %}" >Arzt suchen</a>
+          </li>
+        {% if perms.reports.add_doctor %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:add_doctor' %}" >Arzt anlegen</a>
+          </li>
+        {% endif %}
+        {% if perms.reports.view_therapist %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:search_therapist_start' %}" >TP suchen</a>
+          </li>
+        {% endif %}
+        {% if perms.reports.add_therapist %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:add_therapist' %}" >TP anlegen</a>
+          </li>
+        {% endif %}
+        {% if perms.reports.view_diagnostic_group %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >DG su.</a>
+          </li>
+        {% endif %}
+        {% if perms.reports.add_diagnostic_group %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
+          </li>
+        {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:open_reports' %}" >Offene Berichte: <div id="openreports" class="nav-link inline"></div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:therapy_breaks' %}" >Wiedervorst.: <div id="therapy_break" class="nav-link inline"></div></a>
+          </li>
+        {% if perms.reports.view_wait_list %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'reports:waitlist' True%}" >Warteliste</a>
+          </li>
+        {% endif %}
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -66,47 +68,47 @@
         {% csrf_token %}
         <p></p>
        <div class="container">
-           <div class="form-group row">
+           <div class="mb-3 row">
                <div class="col-sm-4">
-                   <h5>Patient suchen:</h5>
+                   <h4>Patient suchen:</h4>
                </div>
            </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <label for="{{ form.last_name.id_for_label }}" class="col-sm-2 control-label">Name:</label>
                 <div class="col-sm-4">
                     {{ form.last_name }}
                     {{ form.last_name.errors }}
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <label for="{{ form.first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
                 <div class="col-sm-4">
                     {{ form.first_name }}
                     {{ form.first_name.errors }}
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <label for="{{ form.date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtstag:</label>
                 <div class="col-sm-4">
                     {{ form.date_of_birth }}
                     {{ form.date_of_birth.errors }}
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <label for="{{ form.phone.id_for_label }}" class="col-sm-2 control-label">Telefonnr.:</label>
                 <div class="col-sm-4">
                     {{ form.phone }}
                     {{ form.phone.errors }}
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <label for="{{ form.cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunknr.:</label>
                 <div class="col-sm-4">
                     {{ form.cell_phone }}
                     {{ form.cell_phone.errors }}
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                 <label for="{{ form.active.id_for_label }}" class="col-sm-2 control-label">Aktive:</label>
                 <div class="col-sm-1">
                     {{ form.active }}
@@ -118,7 +120,7 @@
                     {{ form.inactive.errors }}
                 </div>
             </div>
-           <div class="form-group row">
+           <div class="mb-3 row">
                <div class="col-sm-12">
                    <button type="submit" class="btn btn-primary btn-sm">suchen</button>
                </div>

@@ -7,23 +7,25 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        {% if form.id %}
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' form.id %}" role="button">zurück</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
-        </li>
-        {% endif %}
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            {% if form.id %}
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:patient' form.id %}" role="button">zurück</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+            </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -39,82 +41,82 @@
                 <h4>Patient erfassen:</h4>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_active_no_yes.id_for_label }}" class="col-sm-2 control-label">Aktive:</label>
             <div class="col-sm-6">
                 {{ form.pa_active_no_yes }}
                 <div class="text-danger">{{ form.pa_active_no_yes.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
             <div class="col-sm-6">
                 {{ form.pa_last_name }}
                 <div class="text-danger">{{ form.pa_last_name.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
             <div class="col-sm-6">
                 {{ form.pa_first_name }}
                 <div class="text-danger">{{ form.pa_first_name.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_street.id_for_label }}" class="col-sm-2 control-label">Strasse/Nr.:</label>
             <div class="col-sm-6">
                 {{ form.pa_street }}
                 <div class="text-danger">{{ form.pa_street.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_city.id_for_label }}" class="col-sm-2 control-label">Ort:</label>
             <div class="col-sm-6">
                 {{ form.pa_city }}
                 <div class="text-danger">{{ form.pa_city.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtsdatum:</label>
             <div class="col-sm-6">
                 {{ form.pa_date_of_birth }}
                 <div class="text-danger">{{ form.pa_date_of_birth.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_phone.id_for_label }}" class="col-sm-2 control-label">Telefonnummer:</label>
             <div class="col-sm-6">
                 {{ form.pa_phone }}
                 <div class="text-danger">{{ form.pa_phone.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunk:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone }}
                 <div class="text-danger">{{ form.pa_cell_phone.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_cell_phone_add1.id_for_label }}" class="col-sm-2 control-label">Telefonnr.:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone_add1 }}
                 <div class="text-danger">{{ form.pa_cell_phone_add1.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_cell_phone_add2.id_for_label }}" class="col-sm-2 control-label">Telefonnr:</label>
             <div class="col-sm-6">
                 {{ form.pa_cell_phone_add2 }}
                 <div class="bg_warning">{{ form.pa_cell_phone_add2.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_cell_phone_sms.id_for_label }}" class="col-sm-2 control-label">SMS-Versand-Nr:</label>
             <div class="col-sm-3">
                 {{ form.pa_cell_phone_sms }}
@@ -126,7 +128,7 @@
                 <div class="text-danger">{{ form.pa_sms_no_yes.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_email.id_for_label }}" class="col-sm-2 control-label">E-Mail Adresse:</label>
             <div class="col-sm-3">
                 {{ form.pa_email }}
@@ -138,42 +140,42 @@
                 <div class="text-danger">{{ form.pa_email_no_yes.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_invoice_mail.id_for_label }}" class="col-sm-2 control-label">Rechnung per E-Mail:</label>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 {{ form.pa_invoice_mail }}
                 <div class="text-danger">{{ form.pa_invoice_mail.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_gender.id_for_label }}" class="col-sm-2 control-label">Geschlecht:</label>
             <div class="col-sm-6">
                 {{ form.pa_gender }}
                 <div class="text-danger">{{ form.pa_gender.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_attention.id_for_label }}" class="col-sm-2 control-label">Achtung!:</label>
             <div class="col-sm-6">
                 {{ form.pa_attention }}
                 <div class="text-danger">{{ form.pa_attention.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_allergy.id_for_label }}" class="col-sm-2 control-label">Allergien:</label>
             <div class="col-sm-6">
                 {{ form.pa_allergy }}
                 <div class="text-danger">{{ form.pa_allergy.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.pa_note.id_for_label }}" class="col-sm-2 control-label">Bemerkung:</label>
             <div class="col-sm-6">
                 {{ form.pa_note }}
                 <div class="text-danger">{{ form.pa_note.errors }}</div>
             </div>
         </div>
-       <div class="form-group row">
+       <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>

@@ -7,20 +7,22 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True%}" role="button">Warteliste</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
-        </li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:waitlist' True%}" role="button">Warteliste</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+            </li>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -37,54 +39,54 @@
                 <h4>Warteliste Patient erfassen:</h4>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_active.id_for_label }}" class="col-sm-2 control-label">Aktive:</label>
             <div class="col-sm-6">
                 {{ form.wl_active }}
                 <div class="text-danger">{{ form.wl_active.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_call_date.id_for_label }}" class="col-sm-2 control-label">Anruf Datum:</label>
             <div class="col-sm-6">
                 {{ form.wl_call_date }}
                 <div class="text-danger">{{ form.wl_call_date.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_call_for.id_for_label }}" class="col-sm-2 control-label">Einbestellt:</label>
             <div class="col-sm-6">
                 {{ form.wl_call_for }}
                 <div class="text-danger">{{ form.wl_call_for.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_contact_person.id_for_label }}" class="col-sm-2 control-label">Ansprechpartner:</label>
             <div class="col-sm-6">
                 {{ form.wl_contact_person }}
                 <div class="text-danger">{{ form.wl_contact_person.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_information.id_for_label }}" class="col-sm-2 control-label">Bemerkung:</label>
             <div class="col-sm-10">
                 {{ form.wl_information | safe }}
                 <div class="text-danger">{{ form.wl_information.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_gender.id_for_label }}" class="col-sm-2 control-label">Geschlecht:</label>
             <div class="col-sm-6">
                 {{ form.wl_gender }}
                 <div class="text-danger">{{ form.wl_gender.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
             {% if form.double_entry == 1 %}
                 <div class="col-sm-6 text-danger">
@@ -99,105 +101,105 @@
                 </div>
             {% endif %}
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
             <div class="col-sm-6">
                 {{ form.wl_first_name }}
                 <div class="text-danger">{{ form.wl_first_name.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_street.id_for_label }}" class="col-sm-2 control-label">Strasse/Nr.:</label>
             <div class="col-sm-6">
                 {{ form.wl_street }}
                 <div class="text-danger">{{ form.wl_street.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_city.id_for_label }}" class="col-sm-2 control-label">Ort:</label>
             <div class="col-sm-6">
                 {{ form.wl_city }}
                 <div class="text-danger">{{ form.wl_city.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_old.id_for_label }}" class="col-sm-2 control-label">wie alt:</label>
             <div class="col-sm-6">
                 {{ form.wl_old }}
                 <div class="text-danger">{{ form.wl_old.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtsdatum:</label>
             <div class="col-sm-6">
                 {{ form.wl_date_of_birth }}
                 <div class="text-danger">{{ form.wl_date_of_birth.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_phone.id_for_label }}" class="col-sm-2 control-label">Telefonnummer:</label>
             <div class="col-sm-6">
                 {{ form.wl_phone }}
                 <div class="text-danger">{{ form.wl_phone.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunk:</label>
             <div class="col-sm-6">
                 {{ form.wl_cell_phone }}
                 <div class="text-danger">{{ form.wl_cell_phone.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_cell_phone_add1.id_for_label }}" class="col-sm-2 control-label">Telefonnr.:</label>
             <div class="col-sm-6">
                 {{ form.wl_cell_phone_add1 }}
                 <div class="text-danger">{{ form.wl_cell_phone_add1.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_cell_phone_add2.id_for_label }}" class="col-sm-2 control-label">Telefonnr:</label>
             <div class="col-sm-6">
                 {{ form.wl_cell_phone_add2 }}
                 <div class="bg_warning">{{ form.wl_cell_phone_add2.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_cell_phone_sms.id_for_label }}" class="col-sm-2 control-label">SMS-Versand-Nr:</label>
             <div class="col-sm-3">
                 {{ form.wl_cell_phone_sms }}
                 <div class="text-danger">{{ form.wl_cell_phone_sms.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_email.id_for_label }}" class="col-sm-2 control-label">E-Mail Adresse:</label>
             <div class="col-sm-3">
                 {{ form.wl_email }}
                 <div class="text-danger">{{ form.wl_email.errors }}</div>
             </div>
         </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="{{ form.wl_diagnostic.id_for_label }}" class="col-sm-2 control-label">Diagnose:</label>
             <div class="col-sm-6">
                 {{ form.wl_diagnostic }}
                 <div class="text-danger">{{ form.wl_diagnostic.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_appointment.id_for_label }}" class="col-sm-2 control-label">mögliche Termine:</label>
             <div class="col-sm-6">
                 {{ form.wl_appointment }}
                 <div class="text-danger">{{ form.wl_appointment.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_insurance.id_for_label }}" class="col-sm-2 control-label">Krankenkasse:</label>
             <div class="col-sm-6">
                 {{ form.wl_insurance }}
                 <div class="text-danger">{{ form.wl_insurance.errors }}</div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.wl_recipe.id_for_label }}" class="col-sm-2 control-label">Rezept:</label>
             <div class="col-sm-6">
                 {{ form.wl_recipe }}
@@ -205,7 +207,7 @@
             </div>
         </div>
 
-       <div class="form-group row">
+       <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>

@@ -8,69 +8,63 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button"><strong>Deckblatt</strong></a>
-      </li>
-      <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezept ändern</a>
-      </li>
-      <li class="nav-item">
-        {% if ia.therapy_id %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Diagnose</a>
-        {% else %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Diagnose</a>
-        {% endif %}
-      </li>
-<!--
-      <li class="nav-item">
-        {% if ts.therapy_id %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_something' ts.id%}" role="button">Sonstiges</a>
-        {% else %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_something' %}?id={{ therapy.id }}" role="button">Sonstiges</a>
-        {% endif %}
--->
-      </li>
-      <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:document_therapy' %}?id={{ therapy.id }}" role="button">Dokumente</a>
-      </li>
-      <li class="nav-item">
-          {% if process_report.countvalue  < therapy.therapy_regulation_amount %}
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf</a>
-          {% else %}
-          <div class="btn btn-warning btn-sm" onclick="window.alert('Die maximale Anzahl an Therapien ist für dieses Rezept erreicht!');" role="button">Verlauf</div>
-          {% endif %}
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>
-      </li>
-      <li class="nav-item">
-        {% if therapy_report.therapy_id %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Th.Bericht ändern</a>
-        {% else %}
-            <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Th.Bericht anl.</a>
-        {% endif %}
-      </li>
-        {% if therapy_report.therapy_id %}
-            {% if perms.reports.delete_therapy_report %}
-                {% if therapy_report.report_date == None %}
-                    <li class="nav-item">
-                        <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
-                    </li>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="btn btn-success btn-sm" href="{% url 'reports:patient' patient.id %}" role="button"><strong>Deckblatt</strong></a>
+          </li>
+          <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy' therapy.id %}" role="button">Rezept ändern</a>
+          </li>
+          <li class="nav-item">
+            {% if ia.therapy_id %}
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_ia' ia.id %}" role="button">Diagnose</a>
+            {% else %}
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:add_ia' %}?id={{ therapy.id }}" role="button">Diagnose</a>
+            {% endif %}
+          </li>
+          </li>
+          <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:document_therapy' %}?id={{ therapy.id }}" role="button">Dokumente</a>
+          </li>
+          <li class="nav-item">
+              {% if process_report.countvalue  < therapy.therapy_regulation_amount %}
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:add_process_report' %}?id={{ therapy.id }}" role="button">Verlauf</a>
+              {% else %}
+              <div class="btn btn-warning btn-sm" onclick="window.alert('Die maximale Anzahl an Therapien ist für dieses Rezept erreicht!');" role="button">Verlauf</div>
+              {% endif %}
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary btn-sm" href="{% url 'reports:show_process_report' %}?id={{ therapy.id }}" role="button">Verlauf als PDF</a>
+          </li>
+          <li class="nav-item">
+            {% if therapy_report.therapy_id %}
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button">Th.Bericht ändern</a>
+            {% else %}
+                <a class="btn btn-primary btn-sm" href="{% url 'reports:add_therapy_report' %}?id={{ therapy.id }}" role="button">Th.Bericht anl.</a>
+            {% endif %}
+          </li>
+            {% if therapy_report.therapy_id %}
+                {% if perms.reports.delete_therapy_report %}
+                    {% if therapy_report.report_date == None %}
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm" href="{% url 'reports:edit_therapy_report' therapy_report.id%}" role="button"><div class="text-warning">Endedatum eintragen</div></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm" href="{% url 'reports:show_therapy_report' %}?id={{ therapy.id }}" role="button">Therapiebericht als PDF</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             {% endif %}
-        {% endif %}
-    </ul>
-  </div>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -159,6 +153,7 @@
     </div>
     <br>
     <div class="col">
+        <div class="container-fluid">
          <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
               {% if request.GET.window == "1" %}
@@ -193,6 +188,8 @@
               {% endif %}
           </li>
          </ul>
+        </div>
+        <div class="container-fluid">
         <div class="tab-content" id="myTabContent">
               {% if request.GET.window == "1" %}
                   <div class="tab-pane fade show active" id="erstbefund" role="tabpanel" aria-labelledby="erstbefund-tab">
@@ -340,9 +337,12 @@
                       </div>
                       {% if perms.reports.delete_process_report %}
                       {% if forloop.first %}
-                        <a href="{% url 'reports:delete_process_report' item.id %}">
-                            <div class="col-sm-2 text-white inline"><i class="fa fa-trash"> Löschen</i></div>
-                        </a>
+                          <div class="col-sm-2 text-white inline">
+                              <a class="text-white" href="{% url 'reports:delete_process_report' item.id %}">
+                                  <i class="fa fa-trash"> Löschen</i>
+                              </a>
+                          </div>
+
                       {% endif %}
                       {% endif %}
                   </div>
@@ -545,6 +545,7 @@
           </div>
         </div>
     </div>
+  </div>
 
 </content>
 {% endblock %}
