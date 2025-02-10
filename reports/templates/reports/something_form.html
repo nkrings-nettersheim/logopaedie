@@ -7,17 +7,19 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.therapy.value %}" role="button">zurück</a>
-        </li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.therapy.value %}" role="button">zurück</a>
+            </li>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -35,19 +37,19 @@
                 <h4>Sonstiges:</h4>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-offset-12 col-sm-12">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-10">
                 {{ form.something_else }}
                 <div class="text-danger">{{ form.something_else.errors }}</div>
             </div>
         </div>
         <input type="hidden" id="id_therapy" name="therapy" value="{{ form.therapy.value }}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-offset-12 col-sm-12">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>

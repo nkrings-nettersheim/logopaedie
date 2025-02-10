@@ -539,7 +539,12 @@ class PatientForm(forms.ModelForm):
 
     pa_invoice_mail = forms.NullBooleanField(required=True,
                                                       error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                      widget=forms.NullBooleanSelect)
+                                                      widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                                      )
+                                             )
 
 
     pa_sms_no_yes = forms.NullBooleanField(required=False, initial=False,
@@ -632,35 +637,69 @@ class TherapyForm(forms.ModelForm):
         ('60', '60'),
     )
 
-    therapy_duration = forms.ChoiceField(choices=DURATION, label="", initial=45, widget=forms.Select(
-        attrs={
-            'class': 'form-control'
-        }
-    ))
+    therapy_duration = forms.ChoiceField(choices=DURATION,
+                                         label="",
+                                         initial=45,
+                                         widget=forms.Select(
+                                            attrs={
+                                                'class': 'form-select'
+                                            }
+                                         )
+                                        )
 
     therapy_rid_of = forms.NullBooleanField(required=True,
                                             error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                            widget=forms.NullBooleanSelect)
+                                            widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                            )
+                                            )
 
     therapy_report_no_yes = forms.NullBooleanField(required=True,
                                                    error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                   widget=forms.NullBooleanSelect)
+                                                   widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                            )
+                                            )
 
     therapy_homevisit_no_yes = forms.NullBooleanField(required=True,
                                                       error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                      widget=forms.NullBooleanSelect)
+                                                      widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                            )
+                                            )
 
     first_diagnostic_no_yes = forms.NullBooleanField(required=True,
                                                      error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                     widget=forms.NullBooleanSelect)
+                                                     widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                            )
+                                            )
 
     need_diagnostic_no_yes = forms.NullBooleanField(required=True,
                                                     error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                    widget=forms.NullBooleanSelect)
+                                                    widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                            )
+                                            )
 
     continue_diagnostic_no_yes = forms.NullBooleanField(required=True,
                                                     error_messages={'blank': 'Bitte Ja oder Nein auswählen'},
-                                                    widget=forms.NullBooleanSelect)
+                                                    widget=forms.NullBooleanSelect(
+                                                          attrs={
+                                                              'class': 'form-select',
+                                                          }
+                                            )
+                                            )
 
     INDICATION = (
         ('n/a', 'auswählen'),
@@ -736,9 +775,21 @@ class TherapyForm(forms.ModelForm):
 
     patients = forms.ModelChoiceField(queryset=Patient.objects.all())
 
-    therapists = forms.ModelChoiceField(queryset=Therapist.objects.all())
+    therapists = forms.ModelChoiceField(queryset=Therapist.objects.all(),
+                                        widget=forms.Select(
+                                            attrs={
+                                                'class': 'form-select',
+                                            }
+                                        )
+                                        )
 
-    diagnostic_group = forms.ModelChoiceField(queryset=Diagnostic_group.objects.all())
+    diagnostic_group = forms.ModelChoiceField(queryset=Diagnostic_group.objects.all(),
+                                                widget=forms.Select(
+                                                    attrs={
+                                                        'class': 'form-select',
+                                                    }
+                                                )
+                                              )
 
     class Meta:
         model = Therapy
@@ -1000,7 +1051,7 @@ class TherapyReportForm(forms.ModelForm):
     therapy_necessary = forms.NullBooleanField(required=False,  widget=forms.CheckboxInput)
 
     therapy_summary = forms.CharField(required=False,
-                                       max_length=820,
+                                       max_length=1200,
                                        widget=CKEditor5Widget(config_name='text')
                                        )
 
@@ -1040,17 +1091,29 @@ class TherapyReportForm(forms.ModelForm):
                                            )
                                            )
 
-    therapy_therapist_diagnostic = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
+    therapy_therapist_diagnostic = forms.CharField(required=False,
+                                                   max_length=800,
+                                                   widget=CKEditor5Widget(config_name='text'))
 
-    therapy_status = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
+    therapy_status = forms.CharField(required=False,
+                                     max_length=800,
+                                     widget=CKEditor5Widget(config_name='text'))
 
-    therapy_aims = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
+    therapy_aims = forms.CharField(required=False,
+                                   max_length=800,
+                                   widget=CKEditor5Widget(config_name='text'))
 
-    therapy_content = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
+    therapy_content = forms.CharField(required=False,
+                                      max_length=800,
+                                      widget=CKEditor5Widget(config_name='text'))
 
-    therapy_process = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
+    therapy_process = forms.CharField(required=False,
+                                      max_length=800,
+                                      widget=CKEditor5Widget(config_name='text'))
 
-    therapy_compliance = forms.CharField(required=False, widget=CKEditor5Widget(config_name='text'))
+    therapy_compliance = forms.CharField(required=False,
+                                         max_length=800,
+                                         widget=CKEditor5Widget(config_name='text'))
 
     VARIATION = (
         ('0', 'Verordnungs-kurz Bericht Arzt'),

@@ -3,49 +3,24 @@
 {% block extrahead %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
-    <script>
-    window.onload = function () {
-        var x = document.getElementById("id_therapy_break");
-        if (x.checked === 1){
-          document.getElementById("help_check_necessary").checked = true;
-        } else {
-          document.getElementById("help_check_necessary").checked = false;
-        }
-    }
 
-    function change_necessary_top() {
-          if (document.getElementById('help_check_necessary').checked)
-          {
-              document.getElementById('id_therapy_break').checked = true;
-          } else {
-              document.getElementById('id_therapy_break').checked = false;
-          }
-        }
-
-    function change_necessary_button() {
-          if (document.getElementById('id_therapy_break').checked)
-          {
-              document.getElementById('help_check_necessary').checked = true;
-          } else {
-              document.getElementById('help_check_necessary').checked = false;
-          }
-        }
-    </script>
 {% endblock %}
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.therapy.value %}" role="button">zurück</a>
-        </li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.therapy.value %}" role="button">zurück</a>
+            </li>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 
@@ -65,12 +40,12 @@
                 <h4>Therapiebericht anlegen/ändern :</h4>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_necessary.id_for_label }}" class="col-sm-2 control-label">kein Bericht erforderlich: </label>
             <div class="col-sm-2">
                 {{ form.therapy_necessary }}
@@ -83,7 +58,7 @@
             </div>
         </div>
         {% if form.report_date.value == None %}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_report_variation.id_for_label }}" class="col-sm-2 control-label">Berichtsform: </label>
             <div class="col-sm-6">
                 {{ form.therapy_report_variation }}
@@ -95,7 +70,7 @@
         {% endif %}
 
         {% if perms.reports.delete_therapy_report %}
-        <div class="form-group row" id="report_date">
+        <div class="mb-3 row" id="report_date">
             <label for="{{ form.report_date.id_for_label }}" class="col-sm-2 control-label">Versanddatum: </label>
             <div class="col-sm-6">
                 {{ form.report_date }}
@@ -109,122 +84,133 @@
                      <input type="hidden" id="id_report_date" name="report_date">
              {% endif %}
         {% endif %}
-        <div class="form-group row" id="therapy_start">
+        <div class="mb-3 row" id="therapy_start">
             <label for="{{ form.therapy_start.id_for_label }}" class="col-sm-2 control-label">Therapie Start: </label>
             <div class="col-sm-6">
                 {{ form.therapy_start }}
                 <div class="text-danger">{{ form.therapy_start.errors }}</div>
             </div>
         </div>
-        <div class="form-group row" id="therapy_end">
+        <div class="mb-3 row" id="therapy_end">
             <label for="{{ form.therapy_end.id_for_label }}" class="col-sm-2 control-label">Therapie Ende: </label>
             <div class="col-sm-6">
                 {{ form.therapy_end }}
                 <div class="text-danger">{{ form.therapy_end.errors }}</div>
             </div>
         </div>
-        <div class="form-group row" id="therapy_request_of" style="display: none;">
+        <div class="mb-3 row" id="therapy_request_of" style="display: none;">
             <label for="{{ form.therapy_request_of.id_for_label }}" class="col-sm-2 control-label">auf Anforderung von: </label>
             <div class="col-sm-6">
                 {{ form.therapy_request_of }}
                 <div class="text-danger">{{ form.therapy_request_of.errors }}</div>
             </div>
         </div>
-        <div class="form-group row" id="therapy_insurance" style="display: none;">
+        <div class="mb-3 row" id="therapy_insurance" style="display: none;">
             <label for="{{ form.therapy_insurance.id_for_label }}" class="col-sm-2 control-label">Krankenkasse: </label>
             <div class="col-sm-6">
                 {{ form.therapy_insurance }}
                 <div class="text-danger">{{ form.therapy_insurance.errors }}</div>
             </div>
         </div>
-        <div class="form-group row" id="therapy_diagnostic" style="display: none;">
+        <div class="mb-3 row" id="therapy_diagnostic" style="display: none;">
             <label for="{{ form.therapy_diagnostic.id_for_label }}" class="col-sm-2 control-label">Therapeutische Diagnose: </label>
             <div class="col-sm-6">
                 {{ form.therapy_diagnostic }}
                 <div class="text-danger">{{ form.therapy_diagnostic.errors }}</div>
             </div>
         </div>
-        <div class="form-group row" id="therapy_doc_diagnostic" style="display: none;">
+        <div class="mb-3 row" id="therapy_doc_diagnostic" style="display: none;">
             <label for="{{ form.therapy_doc_diagnostic.id_for_label }}" class="col-sm-2 control-label">Ärztliche Diagnose: </label>
             <div class="col-sm-6">
                 {{ form.therapy_doc_diagnostic }}
                 <div class="text-danger">{{ form.therapy_doc_diagnostic.errors }}</div>
             </div>
         </div>
-        <div class="form-group row" id="therapy_therapist_diagnostic" style="display: none;">
+        <div class="mb-3 row" id="therapy_therapist_diagnostic" style="display: none;">
             <label for="{{ form.therapy_therapist_diagnostic.id_for_label }}" class="col-sm-2 control-label">Therapeutische Diagnostik: </label>
             <div class="col-sm-9">
                 {{ form.therapy_therapist_diagnostic }}
                 <div class="text-danger">{{ form.therapy_therapist_diagnostic.errors }}</div>
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_therapist_diagnostic.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_status" style="display: none;">
+        <div class="mb-3 row" id="therapy_status" style="display: none;">
             <label for="{{ form.therapy_status.id_for_label }}" class="col-sm-2 control-label">Status: </label>
             <div class="col-sm-9">
                 {{ form.therapy_status }}
                 <div class="text-danger">{{ form.therapy_status.errors }}</div>
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_status.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_aims" style="display: none;">
+        <div class="mb-3 row" id="therapy_aims" style="display: none;">
             <label for="{{ form.therapy_aims.id_for_label }}" class="col-sm-2 control-label">Ziel/e: </label>
             <div class="col-sm-9">
                 {{ form.therapy_aims }}
                 <div class="text-danger">{{ form.therapy_aims.errors }}</div>
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_aims.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_content" style="display: none;">
+        <div class="mb-3 row" id="therapy_content" style="display: none;">
             <label for="{{ form.therapy_content.id_for_label }}" class="col-sm-2 control-label">Inhalt: </label>
             <div class="col-sm-9">
                 {{ form.therapy_content }}
                 <div class="text-danger">{{ form.therapy_content.errors }}</div>
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_content.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_process" style="display: none;">
+        <div class="mb-3 row" id="therapy_process" style="display: none;">
             <label for="{{ form.therapy_process.id_for_label }}" class="col-sm-2 control-label">Verlauf: </label>
             <div class="col-sm-9">
                 {{ form.therapy_process }}
                 <div class="text-danger">{{ form.therapy_process.errors }}</div>
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_process.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_compliance" style="display: none;">
+        <div class="mb-3 row" id="therapy_compliance" style="display: none;">
             <label for="{{ form.therapy_compliance.id_for_label }}" class="col-sm-2 control-label">Compliance: </label>
             <div class="col-sm-9">
                 {{ form.therapy_compliance }}
                 <div class="text-danger">{{ form.therapy_compliance.errors }}</div>
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_compliance.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
 
 
-        <div class="form-group row" id="therapy_current_result">
+        <div class="mb-3 row" id="therapy_current_result">
             <label for="{{ form.therapy_current_result.id_for_label }}" class="col-sm-2 control-label">Aktueller Stand: </label>
             <div class="col-sm-9">
                 {{ form.therapy_current_result }}
                 {{ form.therapy_current_result.errors }}
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_current_result.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
 
-        <div class="form-group row" id="therapy_emphases">
+        <div class="mb-3 row" id="therapy_emphases">
             <label for="{{ form.therapy_emphases.id_for_label }}" class="col-sm-2 control-label">Therapieschwerpunkte: </label>
             <div class="col-sm-9">
                 {{ form.therapy_emphases }}
                 {{ form.therapy_emphases.errors }}
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_emphases.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_forecast">
+        <div class="mb-3 row" id="therapy_forecast">
             <label for="{{ form.therapy_forecast.id_for_label }}" class="col-sm-2 control-label">Prognose: </label>
             <div class="col-sm-9">
                 {{ form.therapy_forecast }}
                 {{ form.therapy_forecast.errors }}
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_forecast.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_summary" style="display: none;">
+        <div class="mb-3 row" id="therapy_summary" style="display: none;">
             <label for="{{ form.therapy_summary.id_for_label }}" class="col-sm-2 control-label">Zusammenfassung: </label>
             <div class="col-sm-9">
                 {{ form.therapy_summary }}
                 {{ form.therapy_summary.errors }}
+                <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_summary.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
-        <div class="form-group row" id="therapy_indicated">
+
+        <div class="mb-3 row" id="therapy_indicated">
             <label for="{{ form.therapy_indicated.id_for_label }}" class="col-sm-2 control-label">Fortführung: </label>
             <div class="col-sm-6">
                 {{ form.therapy_indicated }}
@@ -232,21 +218,21 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_break.id_for_label }}" class="col-sm-2 control-label">Pause: </label>
             <div class="col-sm-6">
                 {{ form.therapy_break }}
                 {{ form.therapy_break.errors }}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_finish.id_for_label }}" class="col-sm-2 control-label">Beendigung: </label>
             <div class="col-sm-6">
                 {{ form.therapy_finish }}
                 {{ form.therapy_finish.errors }}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_individual.id_for_label }}" class="col-sm-2 control-label">Einzeltherapie: </label>
             <div class="col-sm-1">
                 {{ form.therapy_individual }}
@@ -259,7 +245,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_group.id_for_label }}" class="col-sm-2 control-label">Gruppentherapie: </label>
             <div class="col-sm-1">
                 {{ form.therapy_group }}
@@ -272,7 +258,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_re_introduction.id_for_label }}" class="col-sm-2 control-label">Wiedervorstellung: </label>
             <div class="col-sm-1">
                 {{ form.therapy_re_introduction }}
@@ -285,7 +271,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_frequence.id_for_label }}" class="col-sm-2 control-label">Frequenz: </label>
             <div class="col-sm-1">
                 {{ form.therapy_frequence }}
@@ -298,7 +284,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_another.id_for_label }}" class="col-sm-2 control-label">andere Therapie: </label>
             <div class="col-sm-1">
                 {{ form.therapy_another }}
@@ -311,7 +297,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_home_visit.id_for_label }}" class="col-sm-2 control-label">Hausbesuch: </label>
             <div class="col-sm-6">
                 {{ form.therapy_home_visit }}
@@ -319,7 +305,7 @@
             </div>
         </div>
         <!--
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_break_date.id_for_label }}" class="col-sm-2 control-label">Wiederaufnahme: </label>
             <div class="col-sm-6">
                 {{ form.therapy_break_date }}
@@ -327,7 +313,7 @@
             </div>
         </div>
         -->
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="{{ form.therapy_comment.id_for_label }}" class="col-sm-2 control-label">Bemerkung: </label>
             <div class="col-sm-6">
                 {{ form.therapy_comment }}
@@ -335,7 +321,7 @@
             </div>
         </div>
         <input type="hidden" id="id_therapy" name="therapy" value="{{ form.therapy.value }}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
             </div>
@@ -350,12 +336,27 @@
 $(document).ready(function(){
       var report_variation = $("#id_therapy_report_variation").val();
       hide_show_fields(report_variation)
+      document.querySelectorAll('.ck-word-count').forEach(el => el.style.display = 'none');
 
       $("#id_therapy_report_variation").change(function(){
           report_variation = $(this).val();
           hide_show_fields(report_variation)
       });
+
+     setTimeout(() => {
+        document.querySelectorAll(".ck-editor__editable").forEach((editorElement) => {
+            // Holen der bestehenden Instanz des Editors
+            let editorInstance = editorElement.ckeditorInstance;
+
+            if (editorInstance) {
+                //Event-Listener für die Zeichenanzahl bei jeder Änderung
+                updateCharCount(editorInstance, editorElement);
+            }
+        });
+     }, 500); // Delay, um sicherzustellen, dass CKEditor richtig geladen ist
+
 });
+
 
 function hide_show_fields(report_variation) {
       if (report_variation === "0") {
@@ -375,6 +376,7 @@ function hide_show_fields(report_variation) {
 
             $("#therapy_diagnostic").show();
             $("#therapy_summary").show();
+            document.getElementById("id_therapy_summary").setAttribute("maxlength", "1200");
       } else if (report_variation === "1") {
             $("#therapy_summary").hide();
             $("#therapy_request_of").hide();
@@ -391,6 +393,7 @@ function hide_show_fields(report_variation) {
             $("#therapy_current_result").show();
             $("#therapy_emphases").show();
             $("#therapy_forecast").show();
+            document.getElementById("id_therapy_summary").setAttribute("maxlength", "820");
       } else if (report_variation === "2") {
             $("#therapy_emphases").hide();
 
@@ -405,12 +408,67 @@ function hide_show_fields(report_variation) {
             $("#therapy_process").show();
             $("#therapy_compliance").show();
             $("#therapy_summary").show();
+            document.getElementById("id_therapy_summary").setAttribute("maxlength", "820");
       } else {
           console.log("Keine richtige Auswahl getroffen");
       }
 }
-</script>
 
+</script>
+<script>
+
+   document.addEventListener("DOMContentLoaded", function () {
+        // Nach einer kurzen Verzögerung, um sicherzustellen, dass CKEditor geladen wurde
+        setTimeout(() => {
+            document.querySelectorAll(".ck-editor__editable").forEach((editorElement) => {
+                // Holen der bestehenden Instanz des Editors
+                let editorInstance = editorElement.ckeditorInstance;
+
+                if (editorInstance) {
+                    //Event-Listener für die Zeichenanzahl bei jeder Änderung
+                    editorInstance.model.document.on("change:data", () => {
+                        updateCharCount(editorInstance, editorElement);
+                    });
+                }
+            });
+        }, 500); // Delay, um sicherzustellen, dass CKEditor richtig geladen ist
+    });
+
+        // Funktion zum Berechnen und Anzeigen der Zeichenanzahl
+        function updateCharCount(editorInstance, editorElement) {
+            let content = editorInstance.getData(); // Hole den Editor-Inhalt
+            let result = upTo(editorElement);
+            let charCount = result.maxLength - content.length; // Berechne die Zeichenanzahl
+            let counterElement = document.getElementById("charCount_" + result.textareaId);
+            if (counterElement) {
+                counterElement.innerText = charCount; // Setze den Text auf die Zeichenanzahl
+            }
+        }
+
+        // Funktion um ID und maxlength des Eingabefeldes zu ermitteln
+        function upTo(el) {
+            currentElement = el
+              while (currentElement !== null) {
+                if (currentElement.matches(".ck-editor-container")) {
+                    // Nach unten gehen und nach einem Textarea suchen
+                    let textarea = currentElement.querySelector('textarea');
+
+                    if (textarea) {
+                        let textareaId = textarea.id || 'Keine ID';
+                        let maxLength = textarea.getAttribute('maxlength') || 'Kein Limit';
+                        return { textareaId, maxLength };
+                        break;
+                    } else {
+                        console.log("Kein Textarea gefunden!");
+                    }
+                }
+
+                // Zum Elternknoten des aktuellen Elements wechseln
+                currentElement = currentElement.parentNode;
+             }
+        }
+
+    </script>
 {% endblock %}
 
 

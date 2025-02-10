@@ -7,17 +7,19 @@
 
 {% block nav %}
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.therapy.value %}" role="button">zurück</a>
-      </li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:therapy' form.therapy.value %}" role="button">zurück</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 </nav>
 {% endblock %}
 {% block content %}
@@ -33,19 +35,19 @@
             <h4>Verlauf ergänzen:</h4>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-offset-2 col-sm">
             <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="{{ form.process_treatment.id_for_label }}" class="col-sm-12 control-label">Therapie: </label>
         <div class="col-sm-10">
             {{ form.process_treatment }}
             {{ form.process_treatment.errors }}
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="{{ form.process_content.id_for_label }}" class="col-sm-1 control-label">Inhalt: </label>
         <div class="col-sm-4">
             {{ form.process_content }}
@@ -62,7 +64,7 @@
             {{ form.process_results.errors }}
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="{{ form.process_content_2.id_for_label }}" class="col-sm-1 control-label">Inhalt: </label>
         <div class="col-sm-4">
             {{ form.process_content_2 }}
@@ -79,7 +81,7 @@
             {{ form.process_results_2.errors }}
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="{{ form.process_content_3.id_for_label }}" class="col-sm-1 control-label">Inhalt: </label>
         <div class="col-sm-4">
             {{ form.process_content_3 }}
@@ -97,7 +99,7 @@
         </div>
     </div>
         <input type="hidden" id="id_therapy" name="therapy" value="{{ form.therapy.value }}">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-offset-2 col-sm">
             <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
         </div>

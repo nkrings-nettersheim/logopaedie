@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bootstrap5',
     'django_ckeditor_5',
     'reports.apps.ReportsConfig',
     'parents.apps.ParentsConfig',
@@ -203,10 +204,9 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-
     },
     'text': {
-        'toolbar': ['bold', 'italic', 'underline', '|', 'fontSize', 'fontFamily', ],
+        'toolbar': ['bold', 'italic', 'underline', '|', 'fontSize', 'fontFamily', '|', ],
         'language': 'de',
     },
     'something':
@@ -231,7 +231,7 @@ CKEDITOR_5_CONFIGS = {
         'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
                     'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable',],
+                    'insertTable', ],
         'image': {
             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
                         'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
