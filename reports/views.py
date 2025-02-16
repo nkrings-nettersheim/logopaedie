@@ -1,14 +1,8 @@
-import io
 import os
 import logging
 import datetime
 import locale
-# import json
-# import asyncio
 
-#from datetime import date
-#from datetime import datetime
-from html import escape
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
 from django.contrib.auth.models import User
@@ -26,10 +20,9 @@ from django.db.models import Q, F
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.serializers import serialize
 from email.mime.image import MIMEImage
-from django.utils import timezone
 from weasyprint import HTML, CSS
 
-from logopaedie.settings import BASE_DIR, X_FORWARD, time_green_value, time_orange_value, time_red_value
+from logopaedie.settings import X_FORWARD, time_green_value, time_orange_value, time_red_value
 
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, \
     TherapistForm, SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm, \
@@ -42,6 +35,7 @@ from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Th
 
 logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
+locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
 
 
 ##########################################################################
@@ -51,7 +45,7 @@ locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 def index(request):
     logger.debug(f"User-ID: {request.user.id}; Indexseite wurde geladen")
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
-                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.now(datetime.UTC)}")
     form = IndexForm()
     return render(request, 'reports/index.html', {'form': form})
 
@@ -69,46 +63,6 @@ class PatientView(generic.ListView):
 
     def get_queryset(self):
         return Patient.objects.all()
-
-
-##########################################################################
-# open Reports
-##########################################################################
-@permission_required('reports.view_patient')
-def open_reports(request):
-    therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
-    if therapist_value:
-        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
-                                              therapy_report_no_yes=True).order_by('recipe_date')
-    else:
-        therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
-    reports_list = []
-    for tp_item in therapy_list:
-        report_date_value = ''
-        process_report_value = Process_report.objects.filter(therapy=tp_item.id)
-        process_report_value_count = process_report_value.count()
-        tp_item.prvc = process_report_value_count
-        quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
-        if quotient > 0.6:
-            therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
-            try:
-                report_date_value = therapy_report_result[0].report_date
-            except:
-                logger.debug(f"User-ID: {request.user.id}; Try Exception")
-
-            if not report_date_value:
-                patient_value = Patient.objects.filter(id=tp_item.patients.id)
-                tp_item.pa_last_name = patient_value[0].pa_last_name
-                tp_item.pa_first_name = patient_value[0].pa_first_name
-                reports_list.append(tp_item)
-        logger.debug(f"User-ID: {request.user.id}; "
-                     f"verordnet: {str(tp_item.therapy_regulation_amount)}; "
-                     f"Therapien: {str(process_report_value_count)}; "
-                     f"Quotient: {str(quotient)}; "
-                     f"report_date_value: {str(report_date_value)}")
-
-    logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
-    return render(request, 'reports/open_reports.html', {'reports': reports_list})
 
 
 ##########################################################################
@@ -443,7 +397,7 @@ def search_patient(request):
             first_name = request.POST['first_name']
             date_of_birth = request.POST['date_of_birth']
             phone = request.POST['phone']
-            cell_phone = request.POST['cell_phone']
+            #cell_phone = request.POST['cell_phone']
             try:
                 if request.POST['active']:
                     active = True
@@ -464,9 +418,9 @@ def search_patient(request):
             if data:
                 phone = data.replace(' ', '')
 
-            data = request.POST['cell_phone']
-            if data:
-                cell_phone = data.replace(' ', '')
+            #data = request.POST['cell_phone']
+            #if data:
+            #    phone = data.replace(' ', '')
 
             if last_name != "":
                 if active is True or active is False:
@@ -536,12 +490,14 @@ def search_patient(request):
 
             elif phone != "":
                 if active is True or active is False:
-                    patients_list = Patient.objects.filter(pa_phone__istartswith=phone,
-                                                           pa_active_no_yes=active).order_by('pa_last_name',
-                                                                                             'pa_first_name')
+                    #patients_list = Patient.objects.filter(pa_phone__istartswith=phone,
+                    #                                       pa_active_no_yes=active).order_by('pa_last_name',
+                    #                                                                         'pa_first_name')
+                    patients_list = suche_kunden(phone, True)
                 else:
-                    patients_list = Patient.objects.filter(pa_phone__istartswith=phone).order_by('pa_last_name',
-                                                                                                 'pa_first_name')
+                    #patients_list = Patient.objects.filter(pa_phone__istartswith=phone).order_by('pa_last_name',
+                    #                                                                             'pa_first_name')
+                    patients_list = suche_kunden(phone, False)
 
                 if len(patients_list) > 1:
                     logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit der "
@@ -556,28 +512,6 @@ def search_patient(request):
                                  f"Telefonnummer: {phone} gefunden")
                     return redirect('/reports/')
 
-            elif cell_phone != "":
-                if active is True or active is False:
-                    patients_list = Patient.objects.filter(pa_cell_phone__istartswith=cell_phone,
-                                                           pa_active_no_yes=active).order_by('pa_last_name',
-                                                                                             'pa_first_name')
-                else:
-                    patients_list = Patient.objects.filter(pa_cell_phone__istartswith=cell_phone).order_by(
-                        'pa_last_name', 'pa_first_name')
-
-                if len(patients_list) > 1:
-                    logger.debug(f"User-ID: {request.user.id}; search_patient: Mehrere Patienten mit der "
-                                 f"Mobilfunknummer {cell_phone} gefunden")
-                    return render(request, 'reports/patients.html', {'patients_list': patients_list})
-                elif len(patients_list) == 1:
-                    logger.debug(f"User-ID: {request.user.id}; search_patient: Patient mit der "
-                                 f"Mobilfunknummer: {cell_phone} gefunden")
-                    return redirect('/reports/patient/' + str(patients_list[0].id) + '/')
-                else:
-                    logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Patient mit der "
-                                 f"Mobilfunknummer: {cell_phone} gefunden")
-                    return redirect('/reports/')
-
             else:
                 logger.debug(f"User-ID: {request.user.id}; search_patient: Kein Suchkriterium eingegeben ")
                 return redirect('/reports/')
@@ -586,6 +520,25 @@ def search_patient(request):
         return redirect('/reports/')
     return render(request, 'reports/index_parents.html', {'form': form})
 
+
+def suche_kunden(telefonnummer, active):
+    if active == True:
+        patients = Patient.objects.filter(
+            Q(pa_phone__icontains=telefonnummer) |
+            Q(pa_cell_phone__icontains=telefonnummer) |
+            Q(pa_cell_phone_add1__icontains=telefonnummer) |
+            Q(pa_cell_phone_add2__icontains=telefonnummer)
+            & Q(pa_active_no_yes=active)
+        ).order_by('pa_last_name','pa_first_name')
+    else:
+        patients = Patient.objects.filter(
+            Q(pa_phone__icontains=telefonnummer) |
+            Q(pa_cell_phone__icontains=telefonnummer) |
+            Q(pa_cell_phone_add1__icontains=telefonnummer) |
+            Q(pa_cell_phone_add2__icontains=telefonnummer)
+        ).order_by('pa_last_name','pa_first_name')
+
+    return patients
 
 @permission_required('reports.add_patient')
 def add_patient(request):
@@ -943,6 +896,13 @@ def therapy(request, id=id):
                                                     'process_report': process_report_value})
 
 
+@permission_required('reports.view_therapy')
+def autocomplete_bstn_htmx(request):
+    query = request.GET.get("therapy_doctor", "")
+    results = Doctor.objects.filter(doctor_lanr__icontains=query)[:5]
+    return render(request, "reports/partials/autocomplete_results.html", {"results": results})
+
+
 ##########################################################################
 # Area Process Report (in German: Verlaufsprotokol)
 ##########################################################################
@@ -1211,6 +1171,10 @@ def show_therapy_report(request):
 
     return response
 
+
+##########################################################################
+# Area Waitlist (in German: Warteliste)
+##########################################################################
 
 @permission_required('reports.add_wait_list')
 def add_waitlist(request):
@@ -1515,64 +1479,47 @@ def get_session_timer(request):
     return JsonResponse({"error": ""}, status=400)
 
 
-# Die Klasse ist für getOpenReports wichtig!!!
-class openContext:
-    pass
-
-# Diese Funktion kann beim nächsten aufräumen entfernt werden. getOpenReportsAjex ersetzt sie
+##########################################################################
+# open Reports
+##########################################################################
 @permission_required('reports.view_patient')
-def getOpenReports(request, context=None):
-    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
-                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+def open_reports(request):
     therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
     if therapist_value:
-        therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
-                                              therapy_report_no_yes=True).order_by('recipe_date')
+        therapy_list = Therapy.objects.select_related('therapy_report').filter(
+            therapists=therapist_value[0].id,
+            therapy_report_no_yes=True,
+            therapy_report__report_date__isnull=True
+        )
+
     else:
-        therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
+        therapy_list = Therapy.objects.select_related('therapy_report').filter(
+            therapy_report_no_yes=True,
+            therapy_report__report_date__isnull=True
+        )
+
     reports_list = []
     for tp_item in therapy_list:
-        report_date_value = ''
-        process_report_value = Process_report.objects.filter(therapy=tp_item.id)
-        process_report_value_count = process_report_value.count()
-        tp_item.prvc = process_report_value_count
-        quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
-        if quotient > 0.6:
-            therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
-            try:
-                report_date_value = therapy_report_result[0].report_date
-            except:
-                logger.debug(f"User-ID: {request.user.id}; Try Exception")
 
-            if not report_date_value:
-                patient_value = Patient.objects.filter(id=tp_item.patients.id)
-                tp_item.pa_last_name = patient_value[0].pa_last_name
-                tp_item.pa_first_name = patient_value[0].pa_first_name
+        # Wie viele Behandlungen haben für dieses Rezept schon stattgefunden
+        process_report_value_count = Process_report.objects.filter(therapy=tp_item.id).count()
+
+        tp_item.prvc = process_report_value_count
+
+        quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
+
+        # Nur wenn mehr als 60% der Behandlungen stattgefunden haben, sollen die betroffenen Rezept  ermittelt werden
+        if quotient > 0.6:
+            therapy_report_result = Therapy_report.objects.get(therapy_id=tp_item.id)
+
+            if therapy_report_result.report_date is None:
+                tp_item.pa_last_name = therapy_report_result.therapy.patients.pa_last_name
+                tp_item.pa_first_name = therapy_report_result.therapy.patients.pa_first_name
                 reports_list.append(tp_item)
 
-    # Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
-    if request.user.groups.filter(name='Leitung').exists():
-        therapybreak_count = Therapy_report.objects. \
-            select_related('therapy__patients'). \
-            filter(therapy_break_internal=True,
-                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
-                   therapy__patients__pa_active_no_yes=True).count()
-    else:
-        therapybreak_count = Therapy_report.objects. \
-            select_related('therapy__patients'). \
-            filter(therapy_break_internal=True,
-                   therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
-                   therapy__therapists__tp_user_logopakt=str(request.user),
-                   therapy__patients__pa_active_no_yes=True).count()
+    logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
+    return render(request, 'reports/open_reports.html', {'reports': reports_list})
 
-    openReports = len(reports_list)
-
-    # context = {'getOpenReports': str(openReports)}
-    openContext.getOpenReports = str(openReports)
-    openContext.therapybreak_count = str(therapybreak_count)
-    logger.debug(f"User-ID: {request.user.id}; getOpenReports aufgerufen")
-
-    return render(request, 'getOpenReports.html', {'form': openContext})
 
 @permission_required('reports.view_patient')
 def getOpenReportsAjax(request):
@@ -1580,31 +1527,41 @@ def getOpenReportsAjax(request):
 
         logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
                      f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+
         therapist_value = Therapist.objects.filter(tp_user_logopakt=str(request.user))
         if therapist_value:
-            therapy_list = Therapy.objects.filter(therapists=therapist_value[0].id,
-                                                  therapy_report_no_yes=True).order_by('recipe_date')
+            therapy_list = Therapy.objects.select_related('therapy_report').filter(
+                therapists=therapist_value[0].id,
+                therapy_report_no_yes=True,
+                therapy_report__report_date__isnull=True
+            )
+
         else:
-            therapy_list = Therapy.objects.filter(therapy_report_no_yes=True).order_by('recipe_date')
+            therapy_list = Therapy.objects.select_related('therapy_report').filter(
+                therapy_report_no_yes=True,
+                therapy_report__report_date__isnull=True
+            )
+
         reports_list = []
         for tp_item in therapy_list:
-            report_date_value = ''
-            process_report_value = Process_report.objects.filter(therapy=tp_item.id)
-            process_report_value_count = process_report_value.count()
-            tp_item.prvc = process_report_value_count
-            quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
-            if quotient > 0.6:
-                therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
-                try:
-                    report_date_value = therapy_report_result[0].report_date
-                except:
-                    logger.debug(f"User-ID: {request.user.id}; Try Exception")
 
-                if not report_date_value:
-                    patient_value = Patient.objects.filter(id=tp_item.patients.id)
-                    tp_item.pa_last_name = patient_value[0].pa_last_name
-                    tp_item.pa_first_name = patient_value[0].pa_first_name
+            # Wie viele Behandlungen haben für dieses Rezept schon stattgefunden
+            process_report_value_count = Process_report.objects.filter(therapy=tp_item.id).count()
+
+            tp_item.prvc = process_report_value_count
+
+            quotient = process_report_value_count / int(tp_item.therapy_regulation_amount)
+
+            # Nur wenn mehr als 60% der Behandlungen stattgefunden haben, sollen die betroffenen Rezept  ermittelt werden
+            if quotient > 0.6:
+                therapy_report_result = Therapy_report.objects.get(therapy_id=tp_item.id)
+
+                if therapy_report_result.report_date is None:
+                    tp_item.pa_last_name = therapy_report_result.therapy.patients.pa_last_name
+                    tp_item.pa_first_name = therapy_report_result.therapy.patients.pa_first_name
                     reports_list.append(tp_item)
+
+        openReports = len(reports_list)
 
         # Ermittlung der Therapieberichte bei den "Pause" ausgewählt ist
         if request.user.groups.filter(name='Leitung').exists():
@@ -1620,8 +1577,6 @@ def getOpenReportsAjax(request):
                        therapy_end__lte=datetime.date.today() + datetime.timedelta(days=-21),
                        therapy__therapists__tp_user_logopakt=str(request.user),
                        therapy__patients__pa_active_no_yes=True).count()
-
-        openReports = len(reports_list)
 
         return JsonResponse({'openreports': openReports, 'therapy_break': therapybreak_count})
     else:
@@ -1697,6 +1652,10 @@ def get_special_phone_design(data):
         return data
 
 
+# Die Klasse ist für send_personal_mail wichtig!!!
+class openContext:
+    pass
+
 # helper function
 def send_personal_mail(user, request):
     logger.debug(f"User-ID: {user.id}; Sending an email")
@@ -1752,9 +1711,9 @@ def post_login(sender, request, user, **kwargs):
         logger.debug(f"User-ID: {request.user.id}; User not found")
 
     try:
-        #login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
-        #login_user_agent.last_login = datetime.datetime.now(tz=timezone.utc)
-        #login_user_agent.save()
+        login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
+        login_user_agent.last_login = datetime.datetime.now(datetime.UTC)
+        login_user_agent.save()
         logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: Do nothing")
     except:
         login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)

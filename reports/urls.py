@@ -27,6 +27,7 @@ urlpatterns = [
     path('therapy_report/<id>/', views.therapy_report, name='therapy_report'),
     path('show_therapy_report/', views.show_therapy_report, name='show_therapy_report'),
     path('save_therapyreport_element/', views.save_therapyreport_element, name='save_therapyreport_element'),
+    path("autocomplete-bstn/", views.autocomplete_bstn_htmx, name="autocomplete-bstn"),
 
     path('search/doctor/start', views.search_doctor_start, name='search_doctor_start'),
     path('search/doctor/', views.search_doctor, name='search_doctor'),
@@ -69,7 +70,6 @@ urlpatterns = [
     path('update_report/<id>', views.update_report, name='update_report'),
 
     path('getsessiontimer/', views.get_session_timer, name='getsessiontimer'),
-    path('getOpenReports/', views.getOpenReports, name='getOpenReports'),
     path('getOpenReportsAjax/', views.getOpenReportsAjax, name='getOpenReportsAjax'),
 
     path('add/waitlist/', views.add_waitlist, name='add_waitlist'),

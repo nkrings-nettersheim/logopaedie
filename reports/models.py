@@ -9,7 +9,7 @@ class Doctor(models.Model):
     doctor_street = models.CharField(max_length=50, blank=True, default='')
     doctor_zip_code = models.CharField(max_length=5, blank=True, default='')
     doctor_city = models.CharField(max_length=50, blank=True, default='')
-    doctor_lanr = models.CharField(max_length=9, blank=False, unique=True, default='')
+    doctor_lanr = models.CharField(max_length=9, blank=False, unique=True, default='') #Inzwischen ist es die Betriebsstättennummer
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 

@@ -1,0 +1,8 @@
+<!-- partials/autocomplete_results.html -->
+{% for doctor in results %}
+    <div hx-on:click="document.getElementById('autocomplete').value='{{ doctor.doctor_lanr }}'">
+        {{ doctor.doctor_lanr }}, {{ doctor.doctor_name1 }}
+    </div>
+{% empty %}
+    <div>(Noch) keine Ergebnisse</div>
+{% endfor %}
