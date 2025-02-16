@@ -42,21 +42,21 @@ class IndexForm(forms.Form):
         attrs={
             'class': 'form-control',
             'autocomplete': 'off',
-            'placeholder': 'Format: 02251/11223344'
+            'placeholder': 'Format: 02251/11223344 oder 0171/11223344'
         }
     ),
         required=False
     )
 
-    cell_phone = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'class': 'form-control',
-            'autocomplete': 'off',
-            'placeholder': 'Format: 0171/11223344'
-        }
-    ),
-        required=False
-    )
+    #cell_phone = forms.CharField(widget=forms.TextInput(
+    #    attrs={
+    #        'class': 'form-control',
+    #        'autocomplete': 'off',
+    #        'placeholder': 'Format: 0171/11223344'
+    #    }
+    #),
+    #    required=False
+    #)
 
     active = forms.NullBooleanField(required=False, initial=True, widget=forms.CheckboxInput)
 
@@ -790,7 +790,16 @@ class TherapyForm(forms.ModelForm):
                                      widget=forms.TextInput(
                                          attrs={
                                              'class': 'form-control',
-                                             'placeholder': '9-stellige Arztnummer ...'
+                                             'placeholder': '9-stellige Arztnummer ...',
+                                             "id": "autocomplete",
+                                             "name": "therapy_doctor",
+                                             "hx-get": "/reports/autocomplete-bstn/",  # Die URL zur Autocomplete-View
+                                             "hx-trigger": "keyup changed delay:200ms",
+                                             "hx-target": "#suggestions",
+                                             "hx-swap": "innerHTML",
+                                             "hx-indicator": ".htmx-indicator",
+                                             "hx-on:blur": "setTimeout(() => document.getElementById('suggestions').innerHTML = '', 200)",
+                                             "autocomplete": "off"  # Deaktiviert Browser-Autovervollständigung
                                          }
                                      ))
 

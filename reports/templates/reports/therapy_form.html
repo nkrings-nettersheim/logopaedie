@@ -55,11 +55,15 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">Arzt-Nummer:</label>
+                <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">BSTN-Nummer:</label>
+
                 <div class="col-sm-6">
                     {{ form.therapy_doctor }}
+                    <div class="htmx-indicator">Lade...</div>
+                    <div id="suggestions"></div>
                     <div class="text-danger">{{ form.therapy_doctor.errors }}</div>
                 </div>
+
             </div>
             <div class="mb-3 row">
                 <label for="{{ form.recipe_date.id_for_label }}" class="col-sm-2 control-label">Rezeptdatum: </label>
