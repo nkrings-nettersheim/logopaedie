@@ -1226,6 +1226,7 @@ def edit_waitlist(request, id=None):
 def waitlist(request, status):
     logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
                  f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    #change reihenfolge
     waitlist = Wait_list.objects.filter(wl_active=status).order_by('-wl_call_date')
 
     for waitlist_item in waitlist:
