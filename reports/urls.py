@@ -84,5 +84,7 @@ urlpatterns = [
 
     path('shortcuts/', views.readShortcuts, name='shortcuts'),
 
+    path('mailtest/', views.send_welcome_email, name='mailtest')
+
 ]
 

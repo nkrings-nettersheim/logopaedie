@@ -605,6 +605,15 @@ class TherapyForm(forms.ModelForm):
         data = data.replace(",", ".")
         return data
 
+    def clean_therapy_rid_of_method(self):
+        data_therapy_rid_of = self.cleaned_data['therapy_rid_of']
+        data_therapy_rid_of_method = self.cleaned_data['therapy_rid_of_method']
+
+        if data_therapy_rid_of and data_therapy_rid_of_method == '0':  # Prüfung nur, wenn field_a True ist
+            #self.add_error('data_therapy_rid_of_method', 'Dieses Feld darf nicht "Bitte wählen" sein, wenn Feld A aktiviert ist.')
+            raise forms.ValidationError("Bitte Rechnungsmethode auswählen")
+
+        return data_therapy_rid_of_method
 
     recipe_date = forms.DateField(required=True,
                                   widget=forms.DateInput(
@@ -663,7 +672,7 @@ class TherapyForm(forms.ModelForm):
         ('0', 'keine Auswahl'),
         ('1', 'per Post'),
         ('2', 'per Mail'),
-        ('3', 'Therapeut kassiert mitgeben'),
+        ('3', 'Therapeut kassiert RG, mitgeben'),
         ('4', 'RG. Therap. mitgeben ohne kassieren'),
     )
 

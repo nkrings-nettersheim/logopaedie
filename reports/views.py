@@ -2,6 +2,7 @@ import os
 import logging
 import datetime
 import locale
+import certifi
 
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
@@ -37,6 +38,7 @@ logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
 
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 ##########################################################################
 # Area start and patient search
@@ -1187,7 +1189,9 @@ def add_waitlist(request):
             item.save()
             logger.info(f"User-ID: {request.user.id}; add_waitlist: Waitlist "
                         f"mit der ID: 'wl{str(item.id)}' gespeichert")
-            return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
+            #return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
+            return redirect('/reports/waitlist/True')
+
         else:
             print('Problems with form')
     else:
@@ -1209,7 +1213,8 @@ def edit_waitlist(request, id=None):
     if form.is_valid():
         form.save()
         logger.info(f"User-ID: {request.user.id}; edit_waitlist: Wait_list mit der ID: 'wl{str(item.id)}' geändert")
-        return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
+        #return redirect('/reports/edit/waitlist/' + str(item.id) + '/')
+        return redirect('/reports/waitlist/True')
     logger.debug(f"User-ID: {request.user.id}; edit_waitlist: Wait-list "
                  f"mit der ID: {str(id)} zwecks Änderung aufgerufen")
     form.id = item.id
@@ -1721,6 +1726,17 @@ def post_login(sender, request, user, **kwargs):
         logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: send e-mail to {user}")
         send_personal_mail(user, request)
 
+
+def send_welcome_email(request):
+    send_mail(
+        subject="Willkommen bei uns!",
+        message="Danke für deine Registrierung.",
+        from_email="logopakt@logoeu.uber.space",  # Oder DEFAULT_FROM_EMAIL
+        recipient_list=["norbert.krings@xkgmbh.de"],
+        fail_silently=False,
+    )
+
+    return JsonResponse({"message": "E-Mail wurde versendet!"})
 
 @receiver(user_logged_out)
 def post_logout(sender, request, user, **kwargs):
