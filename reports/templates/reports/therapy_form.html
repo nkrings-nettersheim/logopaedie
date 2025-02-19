@@ -136,7 +136,7 @@
                 </div>
                 <div class="col-sm-2">
                     {{ form.therapy_rid_of_method }}
-                    <div class="text-danger">{{ form.therapy_rid_of_method.errors }}</div>
+                    <div class="text-danger" id="therapy_rid_of_method.errors">{{ form.therapy_rid_of_method.errors }}</div>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -176,13 +176,21 @@
     function prüfeUndVersteckeFeld() {
         let select = document.getElementById("id_therapy_rid_of");
         let feld = document.getElementById("id_therapy_rid_of_method");
+        let feld2 = document.getElementById("therapy_rid_of_method.errors");
 
+        //console.log ("Status: " + select.value)
         // Falls "false" gewählt ist, verstecke das Feld
         if (select.value === "false") {
             feld.value = "0";
             feld.hidden = true;
+            feld2.hidden = true;
+        } else if (select.value === "unknown") {
+            feld.value = "0";
+            feld.hidden = true;
+            feld2.hidden = true;
         } else {
             feld.hidden = false;
+            feld2.hidden = false;
         }
 
     }

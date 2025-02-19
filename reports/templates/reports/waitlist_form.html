@@ -27,11 +27,15 @@
 {% endblock %}
 
 {% block content %}
+
 <content>
     <p></p>
-    <form method="POST" enctype="multipart/form-data" action="" id="form">
+    <form method="POST" enctype="multipart/form-data" action="" id="waitlist">
         {% csrf_token %}
         {{ form.media }}
+
+        <input type="hidden" id="interactionFix" name="interactionFix"> <!-- Fix für Safari -->
+
     <div class="container">
         <div class="row text-danger">{{ form.non_field_errors }}</div>
         <div class="row">
@@ -219,14 +223,26 @@
 
 {% block script %}
 
-<script src="{% static 'reports/js_files/jquery.dirty.js' %}"></script>
-
 <script>
+    $(document).ready(function () {
+        let formDirty = false;
 
-$("#form").dirty({
-  preventLeaving:true,
-  leavingMessage: "Man Toni!."
-});
+        // Wenn sich ein Input-Feld ändert, merken wir uns, dass das Formular verändert wurde
+        $("#waitlist").on("input", function () {
+            formDirty = true;
+        });
 
+        // Vor dem Verlassen der Seite prüfen, ob das Formular verändert wurde
+        $(window).on("beforeunload", function () {
+            if (formDirty) {
+                return "Sie haben ungespeicherte Änderungen. Wirklich verlassen?";
+            }
+        });
+
+        // Beim Absenden wird das Formular als "gespeichert" markiert
+        $("#waitlist").on("submit", function () {
+            formDirty = false;
+        });
+    });
 </script>
 {% endblock %}
