@@ -1516,12 +1516,17 @@ def open_reports(request):
 
         # Nur wenn mehr als 60% der Behandlungen stattgefunden haben, sollen die betroffenen Rezept  ermittelt werden
         if quotient > 0.6:
-            therapy_report_result = Therapy_report.objects.get(therapy_id=tp_item.id)
+            try:
+                therapy_report_result = Therapy_report.objects.get(therapy_id=tp_item.id)
 
-            if therapy_report_result.report_date is None:
-                tp_item.pa_last_name = therapy_report_result.therapy.patients.pa_last_name
-                tp_item.pa_first_name = therapy_report_result.therapy.patients.pa_first_name
-                reports_list.append(tp_item)
+                if therapy_report_result.report_date is None:
+                    tp_item.pa_last_name = therapy_report_result.therapy.patients.pa_last_name
+                    tp_item.pa_first_name = therapy_report_result.therapy.patients.pa_first_name
+                    reports_list.append(tp_item)
+            except Therapy_report.DoesNotExist:
+                logger.info(f"Kein Therapiebericht mit Therapy_id: {tp_item.id} gefunden")
+            except Therapy_report.MultipleObjectsReturned:
+                logger.info(f"Mehrere Therapieberichte mit Therapy_id: {tp_item.id} gefunden")
 
     logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
     return render(request, 'reports/open_reports.html', {'reports': reports_list})
