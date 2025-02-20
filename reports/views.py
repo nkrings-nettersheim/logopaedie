@@ -1506,7 +1506,7 @@ def open_reports(request):
 
     reports_list = []
     for tp_item in therapy_list:
-
+        report_date_value = ''
         # Wie viele Behandlungen haben für dieses Rezept schon stattgefunden
         process_report_value_count = Process_report.objects.filter(therapy=tp_item.id).count()
 
@@ -1516,17 +1516,18 @@ def open_reports(request):
 
         # Nur wenn mehr als 60% der Behandlungen stattgefunden haben, sollen die betroffenen Rezept  ermittelt werden
         if quotient > 0.6:
-            try:
-                therapy_report_result = Therapy_report.objects.get(therapy_id=tp_item.id)
+            therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
 
-                if therapy_report_result.report_date is None:
-                    tp_item.pa_last_name = therapy_report_result.therapy.patients.pa_last_name
-                    tp_item.pa_first_name = therapy_report_result.therapy.patients.pa_first_name
-                    reports_list.append(tp_item)
-            except Therapy_report.DoesNotExist:
-                logger.info(f"Kein Therapiebericht mit Therapy_id: {tp_item.id} gefunden")
-            except Therapy_report.MultipleObjectsReturned:
-                logger.info(f"Mehrere Therapieberichte mit Therapy_id: {tp_item.id} gefunden")
+            try:
+                report_date_value = therapy_report_result[0].report_date
+            except:
+                logger.debug(f"User-ID: {request.user.id}; Try Exception")
+
+            if not report_date_value:
+                patient_value = Patient.objects.filter(id=tp_item.patients.id)
+                tp_item.pa_last_name = patient_value[0].pa_last_name
+                tp_item.pa_first_name = patient_value[0].pa_first_name
+                reports_list.append(tp_item)
 
     logger.debug(f"User-ID: {request.user.id}; Open_Reports wurde geladen")
     return render(request, 'reports/open_reports.html', {'reports': reports_list})
@@ -1555,7 +1556,7 @@ def getOpenReportsAjax(request):
 
         reports_list = []
         for tp_item in therapy_list:
-
+            report_date_value = ''
             # Wie viele Behandlungen haben für dieses Rezept schon stattgefunden
             process_report_value_count = Process_report.objects.filter(therapy=tp_item.id).count()
 
@@ -1565,17 +1566,18 @@ def getOpenReportsAjax(request):
 
             # Nur wenn mehr als 60% der Behandlungen stattgefunden haben, sollen die betroffenen Rezept  ermittelt werden
             if quotient > 0.6:
-                try:
-                    therapy_report_result = Therapy_report.objects.get(therapy_id=tp_item.id)
+                therapy_report_result = Therapy_report.objects.filter(therapy_id=tp_item.id)
 
-                    if therapy_report_result.report_date is None:
-                        tp_item.pa_last_name = therapy_report_result.therapy.patients.pa_last_name
-                        tp_item.pa_first_name = therapy_report_result.therapy.patients.pa_first_name
-                        reports_list.append(tp_item)
-                except Therapy_report.DoesNotExist:
-                    logger.info(f"Kein Therapiebericht mit Therapy_id: {tp_item.id} gefunden")
-                except Therapy_report.MultipleObjectsReturned:
-                    logger.info(f"Mehrere Therapieberichte mit Therapy_id: {tp_item.id} gefunden")
+                try:
+                    report_date_value = therapy_report_result[0].report_date
+                except:
+                    logger.debug(f"User-ID: {request.user.id}; Try Exception")
+
+                if not report_date_value:
+                    patient_value = Patient.objects.filter(id=tp_item.patients.id)
+                    tp_item.pa_last_name = patient_value[0].pa_last_name
+                    tp_item.pa_first_name = patient_value[0].pa_first_name
+                    reports_list.append(tp_item)
 
         openReports = len(reports_list)
 
