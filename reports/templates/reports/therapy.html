@@ -87,7 +87,6 @@
             <div class="col-sm">
                 Rezeptdatum: <strong>{{ therapy.recipe_date|date:"d.m.Y" }}</strong>
             </div>
-
         </div>
         <br>
        <div class="row">
@@ -163,40 +162,45 @@
     </div>
     <br>
     <div class="col">
-        <div class="container-fluid">
+        <div class="container-fluid mt-3">
          <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-              {% if request.GET.window == "1" %}
-                <a class="nav-link active" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Diagnose</a>
-              {% else %}
-                <a class="nav-link" id="erstbefund-tab" data-toggle="tab" href="#erstbefund" role="tab" aria-controls="erstbefund" aria-selected="false">Diagnose</a>
-              {% endif %}
+              <button class="nav-link {% if request.GET.window == '1' %}active{% endif %}"
+                      id="erstbefund-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#erstbefund"
+                      type="button"
+                      role="tab"
+                      aria-controls="erstbefund"
+                      aria-selected="{% if request.GET.window == '1' %}true{% else %}false{% endif %}">
+                    Diagnose
+              </button>
           </li>
-<!--
-          <li class="nav-item">
-              {% if request.GET.window == "2" %}
-                <a class="nav-link active" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
-              {% else %}
-                <a class="nav-link" id="sonstiges-tab" data-toggle="tab" href="#sonstiges" role="tab" aria-controls="sonstiges" aria-selected="false">Sonstiges</a>
-              {% endif %}
+          <li class="nav-item" role="presentation">
+              <button class="nav-link {% if request.GET.window == '3' or request.GET.window is None %}active{% endif %}"
+                      id="verlauf-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#verlauf"
+                      type="button"
+                      role="tab"
+                      aria-controls="verlauf"
+                      aria-selected="{% if request.GET.window == '3' %}true{% else %}false{% endif %}">
+                    Verlauf
+                </button>
           </li>
--->
-          <li class="nav-item">
-              {% if request.GET.window == "3" %}
-                <a class="nav-link active" id="verlauf-tab" data-toggle="tab" href="#verlauf" role="tab" aria-controls="verlauf" aria-selected="false">Verlauf</a>
-              {% elif request.GET.window == None %}
-                <a class="nav-link active" id="verlauf-tab" data-toggle="tab" href="#verlauf" role="tab" aria-controls="verlauf" aria-selected="false">Verlauf</a>
-              {% else%}
-                <a class="nav-link" id="verlauf-tab" data-toggle="tab" href="#verlauf" role="tab" aria-controls="verlauf" aria-selected="false">Verlauf</a>
-              {% endif %}
+
+          <li class="nav-item" role="presentation">
+              <button class="nav-link {% if request.GET.window == '4' %}active{% endif %}"
+                      id="therapiebericht-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#therapiebericht"
+                      type="button"
+                      role="tab"
+                      aria-controls="verlauf"
+                      aria-selected="{% if request.GET.window == '4' %}true{% else %}false{% endif %}">
+                    Therapiebericht
+                </button>
           </li>
-          <li class="nav-item">
-              {% if request.GET.window == "4" %}
-                <a class="nav-link active" id="therapiebericht-tab" data-toggle="tab" href="#therapiebericht" role="tab" aria-controls="therapiebericht" aria-selected="false">Therapiebericht</a>
-              {% else %}
-                <a class="nav-link" id="therapiebericht-tab" data-toggle="tab" href="#therapiebericht" role="tab" aria-controls="therapiebericht" aria-selected="false">Therapiebericht</a>
-              {% endif %}
-          </li>
+
          </ul>
         </div>
         <div class="container-fluid">
