@@ -40,6 +40,8 @@ locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
 
 os.environ["SSL_CERT_FILE"] = certifi.where()
 
+# assert False
+
 ##########################################################################
 # Area start and patient search
 ##########################################################################

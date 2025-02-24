@@ -56,6 +56,11 @@
             <a class="nav-link" href="{% url 'reports:waitlist' True%}" >Warteliste</a>
           </li>
         {% endif %}
+        {% if perms.reports.view_wait_list %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'parents:parents-qr-code' %}" >EB-QR-Code</a>
+          </li>
+        {% endif %}
         </ul>
       </div>
     </div>

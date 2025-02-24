@@ -23,6 +23,10 @@ six==1.17.0
 sqlparse==0.5.3
 tinycss2==1.4.0
 tinyhtml5==2.0.0
-weasyprint==64.0
+weasyprint==52.5
 webencodings==0.5.1
 zopfli==0.2.3.post1
+
+qrcode~=8.0
+itsdangerous~=2.2.0
+certifi~=2025.1.31

@@ -36,7 +36,15 @@
 <body>
     {% include "header_parents.html" %}
 
+{% if user.is_authenticated %}
+
+    {% block nav %}{% endblock %}
+
     {% block content %}{% endblock %}
+
+{% else %}
+    {% include "notlogin.html" %}
+{% endif %}
 
     {% include "footer_parents.html" %}
     {% bootstrap_javascript %}

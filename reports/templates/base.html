@@ -4,10 +4,12 @@
 <html lang="de">
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     {% load static %}
     {% bootstrap_css %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 
     {% if user.is_authenticated %}
@@ -36,6 +38,7 @@
     <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
     {% block extrahead %}{% endblock %}
+
     <title>LogoPAkt V4</title>
 </head>
 
