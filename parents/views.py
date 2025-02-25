@@ -14,7 +14,9 @@ from django.shortcuts import render
 from itsdangerous import BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer
 
-from parents.forms import ParentsSheetForm
+from parents.forms import (ParentsSheetFormStep1, ParentsSheetFormStep2, ParentsSheetFormStep3,
+                           ParentsSheetFormStep4, ParentsSheetFormStep5, ParentsSheetFormStep6)
+
 from parents.models import Parents_sheet
 
 logger = logging.getLogger(__name__)
@@ -42,7 +44,7 @@ def add_parentssheet(request, token=None):
         # Falls die UUID gültig ist, Formular anzeigen
         #return render(request, "fragebogen.html", {"patient_uuid": patient_uuid})
         if request.method == "POST":
-            form = ParentsSheetForm(request.POST)
+            form = ParentsSheetFormStep1(request.POST)
             if form.is_valid():
                 parents_item = form.save(commit=False)
                 parents_item.save()
@@ -50,7 +52,7 @@ def add_parentssheet(request, token=None):
                 return redirect('/parents/index/')
         else:
             logger.debug('add_parentssheet: else')
-            form = ParentsSheetForm()
+            form = ParentsSheetFormStep1()
         return render(request, 'parents/parents_form.html', {'form': form})
 
     except SignatureExpired:
