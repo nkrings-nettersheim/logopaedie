@@ -395,10 +395,10 @@ def search_patient(request):
     if request.method == 'POST':
         form = IndexForm(request.POST)
         if form.is_valid():
-            last_name = request.POST['last_name']
-            first_name = request.POST['first_name']
-            date_of_birth = request.POST['date_of_birth']
-            phone = request.POST['phone']
+            last_name = request.POST['last_name'].strip()
+            first_name = request.POST['first_name'].strip()
+            date_of_birth = request.POST['date_of_birth'].strip()
+            phone = request.POST['phone'].strip()
             #cell_phone = request.POST['cell_phone']
             try:
                 if request.POST['active']:
@@ -1284,7 +1284,7 @@ def copy_waitlist_item(request, id=id):
             logger.info(f"User-ID: {request.user.id}; copy_waitlist_item: Fehler beim speichern: {str(e)}")
 
     # Info to Webfrontwend
-    waitlist = Wait_list.objects.filter(wl_active=True).order_by('wl_call_date')
+    waitlist = Wait_list.objects.filter(wl_active=True).order_by('-wl_call_date')
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
 
 

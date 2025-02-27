@@ -398,7 +398,10 @@ function hide_show_fields(report_variation) {
             $("#therapy_current_result").show();
             $("#therapy_emphases").show();
             $("#therapy_forecast").show();
-            document.getElementById("id_therapy_summary").setAttribute("maxlength", "820");
+            document.getElementById("id_therapy_current_result").setAttribute("maxlength", "720");
+            document.getElementById("id_therapy_emphases").setAttribute("maxlength", "720");
+            document.getElementById("id_therapy_forecast").setAttribute("maxlength", "720");
+
       } else if (report_variation === "2") {
             $("#therapy_emphases").hide();
 
@@ -413,7 +416,7 @@ function hide_show_fields(report_variation) {
             $("#therapy_process").show();
             $("#therapy_compliance").show();
             $("#therapy_summary").show();
-            document.getElementById("id_therapy_summary").setAttribute("maxlength", "820");
+            document.getElementById("id_therapy_summary").setAttribute("maxlength", "1200");
       } else {
           console.log("Keine richtige Auswahl getroffen");
       }
@@ -444,9 +447,35 @@ function hide_show_fields(report_variation) {
             let content = editorInstance.getData(); // Hole den Editor-Inhalt
             let result = upTo(editorElement);
             let charCount = result.maxLength - content.length; // Berechne die Zeichenanzahl
+            let maxCount = result.maxLength
             let counterElement = document.getElementById("charCount_" + result.textareaId);
             if (counterElement) {
-                counterElement.innerText = charCount; // Setze den Text auf die Zeichenanzahl
+                counterElement.innerText = charCount;
+            }
+
+            if (charCount < 0 ) {
+                document.getElementById("charCount_" + result.textareaId).setAttribute("class", "text-danger");
+            }
+            else {
+                document.getElementById("charCount_" + result.textareaId).setAttribute("class", "");
+            }
+
+            //console.log(content.length + ";maxCount: " + maxCount + "; " + editorElement );
+
+            if (content.length > maxCount) {
+                // Setze den Wert zurück auf die erlaubte Länge
+
+                //let truncatedContent = content.substring(0, maxCount-4);
+                // Speichere die aktuelle Cursor-Position
+                //let selection = editorInstance.model.document.selection.getLastPosition();
+
+                //console.log("content: " + truncatedContent);
+                //editorInstance.setData(truncatedContent);
+
+                //editorInstance.model.change(writer => {
+                //    let endPosition = editorInstance.model.document.getRoot().endPosition;
+                //    writer.setSelection(endPosition);
+                //});
             }
         }
 

@@ -1424,6 +1424,13 @@ class DocumentForm(forms.ModelForm):
 
     parents_form = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
+    document = forms.FileField(
+        label = "Datei hochladen",
+        widget=forms.ClearableFileInput(
+            attrs={'class': 'form-control'}
+        )
+    )
+
     class Meta:
         model = Document
         fields = [
@@ -1444,6 +1451,13 @@ class DocumentTherapyForm(forms.ModelForm):
                                       }
                                   )
                                   )
+
+    document = forms.FileField(
+        label="Datei hochladen",
+        widget=forms.ClearableFileInput(
+            attrs={'class': 'form-control'}
+        )
+    )
 
     class Meta:
         model = Document_therapy
