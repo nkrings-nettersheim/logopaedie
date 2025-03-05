@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'django_ckeditor_5',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'reports.apps.ReportsConfig',
     'parents.apps.ParentsConfig',
     'debug_toolbar',

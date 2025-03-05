@@ -1,0 +1,187 @@
+{% extends "base_registration.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<content>
+    <form method="POST" enctype="multipart/form-data" action="" id="registration-form">
+    <p></p>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Anmeldung</h4>
+                <h5>Wichtige Patienteninfo / Vereinbarung in der Logopädischen Praxis Schumacher</h5>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="{{ form.reg_name.id_for_label }}" class="col-sm-2 control-label">Name:</label>
+            <div class="col-sm-4">
+                 {{ form.reg_name }}
+                <div class="text-danger">{{ form.reg_name.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
+            <div class="col-sm-4">
+                 {{ form.reg_first_name }}
+                <div class="text-danger">{{ form.reg_first_name.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_street.id_for_label }}" class="col-sm-2 control-label">Strasse:</label>
+            <div class="col-sm-6">
+                 {{ form.reg_street }}
+                <div class="text-danger">{{ form.reg_street.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_zip_code.id_for_label }}" class="col-sm-2 control-label">PLZ:</label>
+            <div class="col-sm-2">
+                 {{ form.reg_zip_code }}
+                <div class="text-danger">{{ form.reg_zip_code.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_city.id_for_label }}" class="col-sm-2 control-label">Ort:</label>
+            <div class="col-sm-6">
+                 {{ form.reg_city }}
+                <div class="text-danger">{{ form.reg_city.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtsdatum:</label>
+            <div class="col-sm-4">
+                 {{ form.reg_date_of_birth }}
+                <div class="text-danger">{{ form.reg_date_of_birth.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_doctor.id_for_label }}" class="col-sm-2 control-label">Haus-/Kinderarzt:</label>
+            <div class="col-sm-6">
+                 {{ form.reg_doctor }}
+                <div class="text-danger">{{ form.reg_doctor.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_phone.id_for_label }}" class="col-sm-2 control-label">Telefon:</label>
+            <div class="col-sm-4">
+                 {{ form.reg_phone }}
+                <div class="text-danger">{{ form.reg_phone.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobil:</label>
+            <div class="col-sm-4">
+                 {{ form.reg_cell_phone }}
+                <div class="text-danger">{{ form.reg_cell_phone.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_email.id_for_label }}" class="col-sm-2 control-label">E-Mail:</label>
+            <div class="col-sm-6">
+                 {{ form.reg_email }}
+                <div class="text-danger">{{ form.reg_email.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+
+                <h4>Verehrter Patient, </h4>
+                <p>    Termine, die Sie nicht wahrnehmen können, müssen abgesagt werden. Unabhängig vom Grund Ihrer Absage,
+                    stellen wir Ihnen 45,- € in Rechnung. Ein Rezept verliert nach einer 14tägigen Behandlungsunterbrechung
+                    die Gültigkeit, ausgenommen sind Schulferien und Urlaub des Patienten / Therapeuten. Bei Krankheit
+                    des Patienten benötigen wir zusätzlich ein Attest, um gegebenenfalls die Rezeptgültigkeit aufrecht zu erhalten. <br>
+                    Wenn Sie auf dem Rezept für eine nicht erbrachte Behandlung unterschreiben, oder unseren Therapeuten
+                    ansprechen, dass Sie eine Unterschrift leisten möchten, ohne dass eine Behandlung stattgefunden hat,
+                    werden Sie sofort aus unserer Praxis verwiesen und wir behalten uns rechtliche Schritte gegen Sie vor. </p>
+                <h5>Videotherapie:</h5>
+                    <p>Hiermit willige ich ein, sofern nötig und möglich, die Logopädie Therapie als
+                    Videotherapie durchzuführen. <br>Ich bestätige und sorge dafür, dass keine Aufnahmen jeglicher Art
+                    oder Fotos gemacht werden. Auf Seite der Therapiepraxis werden Sie nur von denjenigen gesehen,
+                    die Sie selbst auch im Bild sehen können. <br>
+                    Wir sehen Sie und den Hintergrund des Raumes, in dem Sie sich befinden. Es erfolgt keine
+                    Aufzeichnung der Therapie. Wir übernehmen keine Haftung für die Datensicherheit der Übertragung
+                    sowie für Speicherungen bei Drittanbietern (z.B. Software für den Videoanruf).  </p>
+                <h5>Verhalten in der Praxis</h5>
+                    <p>Die <b>Schuhe</b> müssen vor Betreten des Behandlungsraums ausgezogen werden.</p>
+                <h5>Einwilligungserklärung gemäß Datenschutz, Datenverwendung</h5>
+                    <p>Durch Ihre Unterschrift willigen Sie ein, dass Ihre persönlichen Daten bzw. des Patienten
+                    (Name, Anschrift, Tel, Fax, Mail, Krankenkasse) zur Verarbeitung in der Logopädischen Praxis
+                    Schumacher genutzt werden. Sie dienen zum Zweck der Abrechnung (Weitergabe an die Krankenasse,
+                    Abrechnungsstelle, Steuerbüro), Austausch mit Ärzten (telefonisch und schriftlich (Berichte),
+                    Rechnungserstellung privat und zur Erreichbarkeit Ihrerseits per Telefon, Mail, Fax. Die
+                    Aufbewahrung ihrer Daten beträgt mind. 12 Jahre. Sie dienen der Nachweispflicht für das Finanzamt.
+                    Papierdaten werden durch eine Fachfirma ordnungsgemäß entsorgt. <br>
+                    Hiermit entbinde ich die Logopädische Praxis Schumacher von der gesetzlichen Schweigepflicht
+                    gegenüber Schulen und Kindergärten. Zudem entbinde ich die Logopädische Praxis Schumacher und die
+                    behandelnden Ärzte/Pflegepersonal zum beiderseitigen Austausch von der gesetzlichen Schweigepflicht.
+                    Wir weisen darauf hin, dass die Aufsichtspflicht für Ihre/n Tochter / Sohn nur für den vereinbarten
+                        Therapiezeitraum gilt. Diese beginnt bei Therapieanfang und endet bei Therapieende.</p>
+                    <h5>Dysphagietherapie</h5>
+                    <p>Ich (Patient, Angehörige) bin über die möglichen Ziele und eventuellen Risiken der Dysphagietherapie
+                        vom Therapeuten aufgeklärt worden und bin mit der Behandlung einverstanden.</p>
+                    <br>
+                    <p>Hiermit erkenne ich die Praxis,- Daten,- u. Schweigepflichtsregeln an.
+                    Des Weiteren akzeptiere ich die derzeit geltenden Corona Regeln und komme meiner Meldepflicht
+                    gegenüber der Praxis bei festgestellten Infektionen nach.</p>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="id_unterschrift" class="col-sm-3 control-label">Unterschrift <br> Erziehungsberechtigter / Patient / Familienmitglied:</label>
+            <div class="col-sm-5">
+                <canvas id="signature-pad" width="450" height="100" style="border:1px solid #000000"></canvas>
+                {{ form.signature_data }}
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-secondary" id="clear">Löschen</button>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</content>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var canvas = document.getElementById("signature-pad");
+            var signaturePad = new SignaturePad(canvas);
+            var clearButton = document.getElementById("clear");
+            var form = document.getElementById("registration-form");
+            var signatureInput = document.getElementById("id_signature_data");  // <-- Hier angepasst
+
+            // Löschen-Button: Unterschrift zurücksetzen
+            clearButton.addEventListener("click", function () {
+                signaturePad.clear();
+                signatureInput.value = ""; // Signaturfeld wirklich leeren
+            });
+
+            // Beim Absenden prüfen, ob unterschrieben wurde
+            form.addEventListener("submit", function (event) {
+                if (signaturePad.isEmpty()) {
+                    alert("Bitte unterschreiben Sie!");  // Warnung anzeigen
+                    event.preventDefault(); // Verhindert das Absenden
+                } else {
+                    signatureInput.value = signaturePad.toDataURL("image/png"); // Bild speichern
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+

@@ -25,31 +25,37 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'reports:search_doctor_start' %}" >Arzt suchen</a>
           </li>
+
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Pflege Referenzen</a>
+              <ul class="dropdown-menu">
         {% if perms.reports.add_doctor %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'reports:add_doctor' %}" >Arzt anlegen</a>
-          </li>
+          <li><a class="dropdown-item" href="{% url 'reports:add_doctor' %}" >Arzt anlegen</a></li>
         {% endif %}
         {% if perms.reports.view_therapist %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'reports:search_therapist_start' %}" >TP suchen</a>
+          <li>
+            <a class="dropdown-item" href="{% url 'reports:search_therapist_start' %}" >TP suchen</a>
           </li>
         {% endif %}
         {% if perms.reports.add_therapist %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'reports:add_therapist' %}" >TP anlegen</a>
+          <li>
+            <a class="dropdown-item" href="{% url 'reports:add_therapist' %}" >TP anlegen</a>
           </li>
         {% endif %}
         {% if perms.reports.view_diagnostic_group %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'reports:search_diagnostic_group_start' %}" >DG su.</a>
+          <li>
+            <a class="dropdown-item" href="{% url 'reports:search_diagnostic_group_start' %}" >DG su.</a>
           </li>
         {% endif %}
         {% if perms.reports.add_diagnostic_group %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
+          <li>
+            <a class="dropdown-item" href="{% url 'reports:add_diagnostic_group' %}" >DG an.</a>
           </li>
         {% endif %}
+              </ul>
+          </li>
+
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'reports:open_reports' %}" >Offene Berichte: <div id="openreports" class="nav-link inline"></div></a>
           </li>
@@ -61,6 +67,13 @@
             <a class="nav-link" href="{% url 'reports:waitlist' True%}" >Warteliste</a>
           </li>
         {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Anmeldung</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'reports:registration-qr-code' %}" >QR-Code erzeugen</a></li>
+                <li><a class="dropdown-item" href="{% url 'reports:registration-liste' %}" >Offene Anmeldungen</a></li>
+              </ul>
+            </li>
         </ul>
       </div>
     </div>

@@ -3,6 +3,9 @@ import logging
 import datetime
 import locale
 import certifi
+import base64
+import qrcode
+import uuid
 
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
@@ -20,19 +23,24 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.serializers import serialize
+from django.core.files.base import ContentFile
 from email.mime.image import MIMEImage
 from weasyprint import HTML, CSS
+from itsdangerous import BadSignature, SignatureExpired
+from itsdangerous.url_safe import URLSafeTimedSerializer
+from io import BytesIO
+from django.views.generic import ListView
 
 from logopaedie.settings import X_FORWARD, time_green_value, time_orange_value, time_red_value
 
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, \
     TherapistForm, SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm, \
     DocumentTherapyForm, PatientSomethingForm, Diagnostic_groupForm, SearchDiagnostic_groupForm, \
-    WaitlistForm
+    WaitlistForm, RegistrationForm, RegistrationListForm
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
     Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts, \
-    Login_User_Agent
+    Login_User_Agent, Registration
 
 logger = logging.getLogger(__name__)
 locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
@@ -1851,3 +1859,195 @@ def readShortcuts(request):
     logger.debug(f"User-ID: {request.user.id}; Shortcuts konnten nicht gelesen werden")
     return JsonResponse({"error": ""}, status=400)
 # **************************************************************************************************
+
+##########################################################################
+# Area Registration  (Patientenanmeldung) mit Online Formular
+##########################################################################
+
+def generate_temporary_link():
+    s = URLSafeTimedSerializer(settings.SECRET_KEY)
+    patient_uuid = str(uuid.uuid4())
+    token = s.dumps({"patient_uuid": patient_uuid})
+
+    return f"{settings.URL_REGISTRATION}{token}/"
+
+@login_required
+def generate_qr_code(request):
+    temp_link = generate_temporary_link()
+    qr = qrcode.make(temp_link)
+
+    buffer = BytesIO()
+    qr.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+    return render(request, 'reports/registration_qr_code.html', {"qr_code": qr_base64, "temp_link": temp_link})
+
+
+def registration(request, token=None):
+    request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    s = URLSafeTimedSerializer(settings.SECRET_KEY)
+
+    try:
+        data = s.loads(token, max_age=7200) #Zeitangabe in Sekunden
+        patient_uuid = data.get("patient_uuid")
+
+        if request.method == "POST":
+            logger.debug(f"Registrierungsformular per POST gesendet")
+            form = RegistrationForm(request.POST)
+            #assert False
+            if form.is_valid():
+                logger.debug(f"RegistrationForm is valid")
+                cleaned_data = form.cleaned_data
+                reg_name = form.cleaned_data['reg_name']
+                reg_first_name = form.cleaned_data['reg_first_name']
+                #signature_data = form.cleaned_data['signature_data']
+                signature_data = cleaned_data.pop("signature_data")
+                logger.debug(f"Name: {reg_name}; Vorname: {reg_first_name}")
+                # Die Base64-Daten in eine Bilddatei umwandeln
+                format, imgstr = signature_data.split(';base64,')
+                ext = format.split('/')[-1]
+                data = ContentFile(base64.b64decode(imgstr), name=f'signature_{reg_name}_{reg_first_name}.{ext}')
+
+                # Modell speichern
+                registration = Registration(**cleaned_data)
+                if data:
+                    registration.reg_signature = data
+
+                registration.save()
+
+                return render(request, 'reports/registration.html', {'registration': registration})
+            else:
+                print(form.errors)
+                logger.debug(f"Formular ist nicht valide")
+
+    except SignatureExpired:
+        return HttpResponse("Der Link ist abgelaufen.", status=410)
+    except BadSignature:
+        return HttpResponse("Ungültiger Link.", status=400)
+
+
+    else:
+        logger.debug(f"initialer RegistrationForm aufruf")
+        form = RegistrationForm()
+
+    return render(request, 'reports/registration_form.html', {'form': form})
+
+
+class RegistrationListeView(ListView):
+    model = Registration
+    template_name = "reports/registration_liste.html"  # Dein Template
+    context_object_name = "registration_list"  # Name der Variable im Template
+    #paginate_by = 10  # Falls Paginierung gewünscht
+
+    def get_queryset(self):
+        queryset = Registration.objects.filter(reg_created=False)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = RegistrationListForm()  # Leere Form für jeden Eintrag
+        return context
+
+
+@permission_required('reports.add_patient')
+def add_patient_after_registration(request, pk):
+    logger.debug(f"User-ID: {request.user.id}; Sessions-ID: {request.session.session_key}; "
+                 f"{request.session.get_expiry_date()}; {datetime.datetime.utcnow()}")
+    registration = get_object_or_404(Registration, pk=pk)
+
+    if request.method == "POST":
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            logger.info(f"User-ID: {request.user.id}; add_patient: add patient with ID: "
+                        f"'pa{str(item.id)}'; "
+                        f"[ pa_first_name: {str(item.pa_first_name)},pa_last_name: {str(item.pa_last_name)},"
+                        f"pa_street: {str(item.pa_street)},pa_zip_code: {str(item.pa_zip_code)},"
+                        f"pa_city: {str(item.pa_city)},pa_phone: {str(item.pa_phone)},"
+                        f"pa_cell_phone: {str(item.pa_cell_phone)},pa_cell_phone_add1: {str(item.pa_cell_phone_add1)},"
+                        f"pa_cell_phone_add2: {str(item.pa_cell_phone_add2)},pa_cell_phone_sms: {str(item.pa_cell_phone_sms)},"
+                        f"pa_email: {str(item.pa_email)},pa_date_of_birth: {str(item.pa_date_of_birth)},"
+                        f"pa_gender: {str(item.pa_gender)},pa_active_no_yes: {str(item.pa_active_no_yes)},"
+                        f"pa_invoice_mail: {str(item.pa_invoice_mail)},pa_sms_no_yes: {str(item.pa_sms_no_yes)},"
+                        f"pa_email_no_yes: {str(item.pa_email_no_yes)} ]")
+
+            filepath_doc = registrationreport(str(pk), str(item.id))
+
+            try:
+                patient = Patient.objects.get(id=str(item.id))
+                document = Document(description='Anmeldebogen', document=filepath_doc, patient=patient, registration_form=True)
+                document.save()
+            except Exception as e:
+                logger.error(f"Fehler beim Datenbank-Update: {str(e)}")
+
+            try:
+                registration.reg_created = True
+                registration.save(update_fields=["reg_created"])
+            except Exception as e:
+                logger.error(f"Fehler beim Datenbank-Update: {str(e)}")
+
+            return redirect('/reports/patient/' + str(item.id) + '/')
+    else:
+        logger.debug(f"User-ID: {request.user.id}; add_patient: Formular aufgerufen")
+        form = PatientForm(initial={
+            'pa_last_name': registration.reg_name,
+            'pa_first_name': registration.reg_first_name,
+            'pa_street': registration.reg_street,
+            'pa_zip_code': registration.reg_zip_code,
+            'pa_city': registration.reg_city,
+            'pa_phone': registration.reg_phone,
+            'pa_cell_phone': registration.reg_cell_phone,
+            'pa_email': registration.reg_email,
+            'pa_date_of_birth': registration.reg_date_of_birth
+        })
+
+    logger.info(f"User-ID: {request.user.id}; add_Patient: POST")
+    return render(request, 'reports/patient_form.html', {'form': form})
+
+
+@permission_required('reports.add_patient')
+def move_registration_to_patient(request, pk):
+    registration = get_object_or_404(Registration, pk=pk)
+    patientId = request.POST.get('patientId')
+
+    filepath_doc = registrationreport(str(pk), str(patientId))
+    print(f"PatientID: {patientId}")
+    try:
+        patient = Patient.objects.get(id=patientId)
+        document = Document(description='Anmeldebogen', document=filepath_doc, patient=patient, registration_form=True)
+        document.save()
+    except Exception as e:
+        logger.error(f"Fehler beim Datenbank-Update: {str(e)}")
+
+    try:
+        registration.reg_created = True
+        registration.save(update_fields=["reg_created"])
+    except Exception as e:
+        logger.error(f"Fehler beim Datenbank-Update: {str(e)}")
+
+    return redirect('/reports/patient/' + str(patientId) + '/')
+
+
+def registrationreport(sourceId, targetId):
+
+    registration = Registration.objects.get(id=sourceId)
+
+    html_file = 'pdf_templates/registration_report.html'
+    css_file = os.path.join(settings.STATIC_ROOT, 'reports/registration_report.css')
+    registration.signature_file = os.path.join(settings.MEDIA_ROOT, str(registration.reg_signature))
+    html_string = render_to_string(html_file, {'registration': registration})
+
+    filename = "Anmeldebogen_" + registration.reg_name + "_" + registration.reg_first_name + ".pdf"
+
+    pdf_directory = os.path.join(settings.MEDIA_ROOT, "patient/" + targetId)
+    os.makedirs(pdf_directory, exist_ok=True)  # Sicherstellen, dass der Ordner existiert
+
+    pdf_path = os.path.join(pdf_directory, filename)
+    filepath_doc = "patient/" + str(targetId) + "/" + filename
+
+    HTML(string=html_string).write_pdf(pdf_path, stylesheets=[CSS(filename=css_file)])
+
+    return filepath_doc
+
