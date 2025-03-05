@@ -64,7 +64,7 @@ def add_parentssheet(request, token=None):
 def edit_parentssheet(request, id=None):
     request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
     item = get_object_or_404(Parents_sheet, id=id)
-    form = ParentsSheetForm(request.POST or None, instance=item)
+    form = ParentsSheetFormStep1(request.POST or None, instance=item)
     if form.is_valid():
         form.save()
         logger.info('Daten werden gespeichert')
