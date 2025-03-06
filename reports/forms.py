@@ -1852,6 +1852,7 @@ class RegistrationForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Nachname eingeben ...',
+                'autofocus': 'autofocus',
             }
         )
     )
@@ -1924,7 +1925,7 @@ class RegistrationForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Telefon-Nummer eingeben ...',
+                'placeholder': 'Format 02251/12345 ...',
             }
         )
     )
@@ -1935,15 +1936,15 @@ class RegistrationForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Mobil-Nummer eingeben ...',
+                'placeholder': 'Format 0171/1234567 ...',
             }
         )
     )
 
-    reg_email = forms.CharField(
+    reg_email = forms.EmailField(
         required=False,
         max_length=250,
-        widget=forms.TextInput(
+        widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'E-Mail Adresse eingeben ...',

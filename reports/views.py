@@ -1917,19 +1917,14 @@ def registration(request, token=None):
                 registration.save()
 
                 return render(request, 'reports/registration.html', {'registration': registration})
-            else:
-                print(form.errors)
-                logger.debug(f"Formular ist nicht valide")
+        else:
+            logger.debug(f"initialer RegistrationForm aufruf")
+            form = RegistrationForm()
 
     except SignatureExpired:
         return HttpResponse("Der Link ist abgelaufen.", status=410)
     except BadSignature:
         return HttpResponse("Ungültiger Link.", status=400)
-
-
-    else:
-        logger.debug(f"initialer RegistrationForm aufruf")
-        form = RegistrationForm()
 
     return render(request, 'reports/registration_form.html', {'form': form})
 
