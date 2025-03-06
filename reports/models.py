@@ -334,3 +334,25 @@ class Shortcuts(models.Model):
 
     def __str__(self):
         return self.short
+
+
+class Registration (models.Model):
+    reg_name = models.CharField(max_length=50, default='', null=True)
+    reg_first_name = models.CharField(max_length=50, default='', null=True)
+    reg_street = models.CharField(max_length=100, default='', null=True)
+    reg_zip_code = models.CharField(max_length=10, default='', null=True)
+    reg_city = models.CharField(max_length=255, default='', null=True)
+    reg_date_of_birth = models.DateField(default='1900-01-01')
+    reg_doctor = models.CharField(max_length=100, default='', null=True)
+    reg_phone = models.CharField(max_length=100, blank=True, default='', null=True)
+    reg_cell_phone = models.CharField(max_length=100, blank=True, default='', null=True)
+    reg_email = models.EmailField(max_length=254, blank=True)
+    reg_signature = models.ImageField(upload_to='signatures/')  # Hier wird die Unterschrift gespeichert
+    reg_created = models.BooleanField(default=False, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.reg_name
+
+
