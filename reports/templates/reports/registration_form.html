@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="{{ form.reg_street.id_for_label }}" class="col-sm-2 control-label">Strasse:</label>
+            <label for="{{ form.reg_street.id_for_label }}" class="col-sm-2 control-label">Strasse/HsNr.:</label>
             <div class="col-sm-6">
                  {{ form.reg_street }}
                 <div class="text-danger">{{ form.reg_street.errors }}</div>
@@ -98,10 +98,12 @@
             <div class="col-sm-10">
 
                 <h4>Verehrter Patient, </h4>
-                <p>    Termine, die Sie nicht wahrnehmen können, müssen abgesagt werden. Unabhängig vom Grund Ihrer Absage,
-                    stellen wir Ihnen 45,- € in Rechnung. Ein Rezept verliert nach einer 14tägigen Behandlungsunterbrechung
+                <p> Termine, die Sie nicht wahrnehmen können, müssen abgesagt werden. Unabhängig vom Grund der Absage
+                    behalten wir uns vor, den Ausfall mit 55,- € in Rechnung zu stellen. Ein Rezept verliert nach einer
+                    14-tägigen Behandlungsunterbrechung
                     die Gültigkeit, ausgenommen sind Schulferien und Urlaub des Patienten / Therapeuten. Bei Krankheit
-                    des Patienten benötigen wir zusätzlich ein Attest, um gegebenenfalls die Rezeptgültigkeit aufrecht zu erhalten. <br>
+                    des Patienten benötigen wir zusätzlich ein Attest, um gegebenenfalls die Rezeptgültigkeit
+                    aufrechtzuerhalten. <br>
                     Wenn Sie auf dem Rezept für eine nicht erbrachte Behandlung unterschreiben, oder unseren Therapeuten
                     ansprechen, dass Sie eine Unterschrift leisten möchten, ohne dass eine Behandlung stattgefunden hat,
                     werden Sie sofort aus unserer Praxis verwiesen und wir behalten uns rechtliche Schritte gegen Sie vor. </p>
@@ -133,8 +135,7 @@
                         vom Therapeuten aufgeklärt worden und bin mit der Behandlung einverstanden.</p>
                     <br>
                     <p>Hiermit erkenne ich die Praxis,- Daten,- u. Schweigepflichtsregeln an.
-                    Des Weiteren akzeptiere ich die derzeit geltenden Corona Regeln und komme meiner Meldepflicht
-                    gegenüber der Praxis bei festgestellten Infektionen nach.</p>
+                    Des Weiteren komme ich meiner Meldepflicht gegenüber der Praxis bei festgestellten Infektionen nach.</p>
             </div>
         </div>
         <div class="mb-3 row">
@@ -143,7 +144,10 @@
                 <canvas id="signature-pad" width="450" height="100" style="border:1px solid #000000"></canvas>
                 {{ form.signature_data }}
             </div>
-            <div class="col-sm-3">
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-3">&nbsp;</div>
+            <div class="col-sm-2">
                 <button type="button" class="btn btn-secondary" id="clear">Löschen</button>
             </div>
         </div>
