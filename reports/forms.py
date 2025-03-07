@@ -102,7 +102,7 @@ class SearchDoctorForm(forms.Form):
                                attrs={
                                    'class': 'form-control',
                                    'autofocus': 'autofocus',
-                                   'placeholder': 'Arztnummer eingeben (Zahnarzt mit "Z" starten) ...'
+                                   'placeholder': 'Betriebsstättennr. eingeben (Zahnarzt mit "Z" starten) ...'
                                }
                            )
                            )
