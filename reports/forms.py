@@ -1801,6 +1801,72 @@ class WaitlistForm(forms.ModelForm):
         )
     )
 
+    wl_mo = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Montagstermine ?',
+            }
+        )
+    )
+
+    wl_di = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Dienstagstermine ?',
+    }
+        )
+    )
+
+    wl_mi = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Mittwochstermine ?',
+            }
+        )
+    )
+
+    wl_do = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Donnerstagstermine ?',
+            }
+        )
+    )
+
+    wl_fr = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Freitagstermine ?',
+            }
+        )
+    )
+
+    wl_sa = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Samstagstermine ?',
+            }
+        )
+    )
+
     class Meta:
         model = Wait_list
         fields = [
@@ -1825,5 +1891,11 @@ class WaitlistForm(forms.ModelForm):
             'wl_diagnostic',
             'wl_appointment',
             'wl_insurance',
-            'wl_recipe'
+            'wl_recipe',
+            'wl_mo',
+            'wl_di',
+            'wl_mi',
+            'wl_do',
+            'wl_fr',
+            'wl_sa'
         ]

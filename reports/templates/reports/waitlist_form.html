@@ -190,7 +190,49 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="{{ form.wl_appointment.id_for_label }}" class="col-sm-2 control-label">mögliche Termine:</label>
+            <label for="{{ form.wl_mo.id_for_label }}" class="col-sm-2 control-label">Montag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_mo }}
+                <div class="text-danger">{{ form.wl_mo.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_di.id_for_label }}" class="col-sm-2 control-label">Dienstag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_di }}
+                <div class="text-danger">{{ form.wl_di.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_mi.id_for_label }}" class="col-sm-2 control-label">Mittwoch:</label>
+            <div class="col-sm-6">
+                {{ form.wl_mi }}
+                <div class="text-danger">{{ form.wl_mi.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_do.id_for_label }}" class="col-sm-2 control-label">Donnerstag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_do }}
+                <div class="text-danger">{{ form.wl_do.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_fr.id_for_label }}" class="col-sm-2 control-label">Freitag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_fr }}
+                <div class="text-danger">{{ form.wl_fr.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_sa.id_for_label }}" class="col-sm-2 control-label">Samstag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_sa }}
+                <div class="text-danger">{{ form.wl_sa.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_appointment.id_for_label }}" class="col-sm-2 control-label">Sonstige Terminhinweise:</label>
             <div class="col-sm-6">
                 {{ form.wl_appointment }}
                 <div class="text-danger">{{ form.wl_appointment.errors }}</div>

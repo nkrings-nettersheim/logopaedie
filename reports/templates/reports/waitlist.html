@@ -127,7 +127,7 @@
                 <div class="small inline">Telefon: </div>
             </div>
             <div class="col-sm-4 inline">
-                <div class="small inline">Mögliche Termine: </div>
+                <div class="small inline">Hinweis Termine: </div>
             </div>
             <div class="col-sm-4 inline">
                 <div class="small inline">Diagnose: </div>
@@ -140,7 +140,7 @@
         <div class="row">
             <div class="col-sm-2 inline">
                 {% if item.wl_phone %}
-                    {{ item.wl_phone}}
+                    {{ item.wl_phone}}<br>
                 {% endif %}
                 {% if item.wl_cell_phone %}
                     {{ item.wl_cell_phone}}
@@ -155,7 +155,76 @@
             <div class="col-sm-2 inline">
                 {{ item.wl_recipe}}
             </div>
+        </div>
 
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm text-center">
+                Mo.
+            </div>
+            <div class="col-sm text-center">
+                Di.
+            </div>
+            <div class="col-sm text-center">
+                Mi.
+            </div>
+            <div class="col-sm text-center">
+                Do.
+            </div>
+            <div class="col-sm text-center">
+                Fr.
+            </div>
+            <div class="col-sm text-center">
+                Sa.
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm text-center">
+                {% if item.wl_mo %}
+                    {{ item.wl_mo }}
+                {% else %}
+                    ---
+                {% endif %}
+            </div>
+            <div class="col-sm text-center">
+                {% if item.wl_di %}
+                    {{ item.wl_di }}
+                {% else %}
+                    ---
+                {% endif %}
+            </div>
+            <div class="col-sm text-center">
+                {% if item.wl_mi %}
+                    {{ item.wl_mi }}
+                {% else %}
+                    ---
+                {% endif %}
+            </div>
+            <div class="col-sm text-center">
+                {% if item.wl_do %}
+                    {{ item.wl_do }}
+                {% else %}
+                    ---
+                {% endif %}
+            </div>
+            <div class="col-sm text-center">
+                {% if item.wl_fr %}
+                    {{ item.wl_fr}}
+                {% else %}
+                    ---
+                {% endif %}
+            </div>
+            <div class="col-sm text-center">
+                {% if item.wl_sa %}
+                    {{ item.wl_sa}}
+                {% else %}
+                    ---
+                {% endif %}
+            </div>
         </div>
 
         <div class="row">
