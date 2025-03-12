@@ -1280,7 +1280,14 @@ def copy_waitlist_item(request, id=id):
                                    pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
                                    pa_email=waitlist.wl_email,
                                    pa_gender=waitlist.wl_gender,
-                                   pa_note=waitlist.wl_information
+                                   pa_note=waitlist.wl_information,
+                                   pa_mo=waitlist.wl_mo,
+                                   pa_di=waitlist.wl_di,
+                                   pa_mi=waitlist.wl_mi,
+                                   pa_do=waitlist.wl_do,
+                                   pa_fr=waitlist.wl_fr,
+                                   pa_sa=waitlist.wl_sa,
+                                   pa_appointment=waitlist.wl_appointment
                                    )
             # set status waitlist object to False
             waitlist.wl_active = False
