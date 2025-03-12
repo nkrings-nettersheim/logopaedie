@@ -180,6 +180,60 @@
                 <div class="text-danger">{{ form.pa_note.errors }}</div>
             </div>
         </div>
+        <div class="mb-3 row">
+            <div class="col-sm-2">
+                Hinweise zu den möglichen Terminen:
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_mo.id_for_label }}" class="col-sm-2 control-label">Montags:</label>
+            <div class="col-sm-6">
+                {{ form.pa_mo }}
+                <div class="text-danger">{{ form.pa_mo.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_di.id_for_label }}" class="col-sm-2 control-label">Dienstags:</label>
+            <div class="col-sm-6">
+                {{ form.pa_di }}
+                <div class="text-danger">{{ form.pa_di.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_mi.id_for_label }}" class="col-sm-2 control-label">Mittwochs:</label>
+            <div class="col-sm-6">
+                {{ form.pa_mi }}
+                <div class="text-danger">{{ form.pa_mi.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_do.id_for_label }}" class="col-sm-2 control-label">Donnerstags:</label>
+            <div class="col-sm-6">
+                {{ form.pa_do }}
+                <div class="text-danger">{{ form.pa_do.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_fr.id_for_label }}" class="col-sm-2 control-label">Freitags:</label>
+            <div class="col-sm-6">
+                {{ form.pa_fr }}
+                <div class="text-danger">{{ form.pa_fr.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_sa.id_for_label }}" class="col-sm-2 control-label">Samstags:</label>
+            <div class="col-sm-6">
+                {{ form.pa_sa }}
+                <div class="text-danger">{{ form.pa_sa.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.pa_appointment.id_for_label }}" class="col-sm-2 control-label">Terminhinweise:</label>
+            <div class="col-sm-6">
+                {{ form.pa_appointment }}
+                <div class="text-danger">{{ form.pa_appointment.errors }}</div>
+            </div>
+        </div>
        <div class="mb-3 row">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-primary btn-sm">Speichern</button>

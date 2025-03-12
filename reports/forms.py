@@ -554,6 +554,83 @@ class PatientForm(forms.ModelForm):
                                               widget=forms.CheckboxInput)
 
 
+    pa_mo = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Montags ..."
+            }
+        )
+    )
+
+    pa_di = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Dienstags ..."
+            }
+        )
+    )
+
+    pa_mi = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Mittwochs ..."
+            }
+        )
+    )
+
+    pa_do = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Donnerstags ..."
+            }
+        )
+    )
+
+    pa_fr = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Freitags ..."
+            }
+        )
+    )
+
+    pa_sa = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Samstags ..."
+            }
+        )
+    )
+
+    pa_appointment = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Terminhinweise ..."
+            }
+        )
+    )
+
     class Meta:
         model = Patient
         fields = ['pa_first_name',
@@ -574,7 +651,14 @@ class PatientForm(forms.ModelForm):
                   'pa_active_no_yes',
                   'pa_invoice_mail',
                   'pa_sms_no_yes',
-                  'pa_email_no_yes'
+                  'pa_email_no_yes',
+                  'pa_mo',
+                  'pa_di',
+                  'pa_mi',
+                  'pa_do',
+                  'pa_fr',
+                  'pa_sa',
+                  'pa_appointment'
                   ]
 
 

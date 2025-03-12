@@ -186,14 +186,125 @@
         </div>
         <br>
         {% endif %}
-        {% if patient.pa_note %}
+        <!--{% if patient.pa_note %}
         <div class="row">
             <div class="col-sm">
                 <div class="small">Bemerkung: </div> <div class="small text-success inline"> {{ patient.pa_note | linebreaks }}</div>
             </div>
         </div>
         {% endif %}
+        -->
     </div>
+
+    <div class="container">
+         <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#bemerkungen">Bemerkungen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#terminhinweise">Terminhinweise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#wiedervorlage">Bemerk. Wiedervorstellung</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div class="tab-pane container active" id="bemerkungen">
+               {% if patient.pa_note %}
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="small text-success inline"> {{ patient.pa_note | linebreaks }}</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane container fade" id="terminhinweise">
+
+                <div class="row">
+                    <div class="col-sm">
+                        Allgemeiner Hinweis: {{ patient.pa_appointment }}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm text-center small">
+                        Mo.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Di.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Mi.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Do.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Fr.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Sa.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm text-center">
+                        {% if patient.pa_mo %}
+                            {{ patient.pa_mo }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_di %}
+                            {{ patient.pa_di }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_mi %}
+                            {{ patient.pa_mi }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_do %}
+                            {{ patient.pa_do }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_fr %}
+                            {{ patient.pa_fr}}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_sa %}
+                            {{ patient.pa_sa}}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane container fade" id="wiedervorlage">
+                (kütt demnächs)
+            </div>
+        </div>
+
+    </div>
+
 
     <div class="container">
         <hr>
