@@ -2059,7 +2059,7 @@ def registrationreport(sourceId, targetId):
     return filepath_doc
 
 
-@csrf_exempt  # Nur für lokale Tests – in Produktion besser mit Token-Authentifizierung
+@permission_required('reports.view_patient')
 def update_patient_wiedervorstellung(request, item_id):
     if request.method == "POST":
         try:
@@ -2088,7 +2088,7 @@ def update_patient_wiedervorstellung(request, item_id):
     return JsonResponse({"error": "Nur POST-Anfragen erlaubt"}, status=405)
 
 
-@csrf_exempt
+@permission_required('reports.view_patient')
 def get_patient(request, item_id):
     try:
         patient = Patient.objects.get(id=item_id)
