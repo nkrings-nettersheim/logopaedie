@@ -23,8 +23,13 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavbar"
+              aria-controls="collapsibleNavbar"
+              aria-expanded="false"
+              aria-label="Navigation umschalten">
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
@@ -61,7 +66,7 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <div class="small inline">Name: </div> <strong> {{ patient.pa_last_name}}</strong>
+                <div class="small inline">Name: ({{ patient.id }})</div> <strong> {{ patient.pa_last_name}}</strong>
             </div>
             <div class="col-sm">
                 <div class="small inline">Vorname: </div> <strong> {{ patient.pa_first_name}}</strong>

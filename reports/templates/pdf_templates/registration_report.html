@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% load static %}
+    <meta charset="utf-8">
+    <title>Anmeldebogen</title>
+    <meta name="description" content="Anmeldebogen Logopädische Praxis Schumacher">
+    <meta name="author" content="Norbert Krings">
+</head>
+<body>
+
+<div id="kopf1">Anmeldung - Wichtige Patienteninfo / Vereinbarung in der Logopädischen Praxis Schumacher</div>
+
+
+<div id="last_name">Name: </div>
+<div id="last_name2">{{ registration.reg_name }}</div>
+
+<div id="first_name">Vorname: </div>
+<div id="first_name2">{{ registration.reg_first_name }}</div>
+
+<div id="street">Straße:</div>
+<div id="street2">{{ registration.reg_street }}</div>
+
+<div id="zip_code">PLZ:</div>
+<div id="zip_code2">{{ registration.reg_zip_code }}</div>
+
+<div id="city">Ort:</div>
+<div id="city2">{{ registration.reg_city }}</div>
+
+<div id="birthday">Geburtsdatum:</div>
+<div id="birthday2">{{ registration.reg_date_of_birth }}</div>
+
+<div id="arzt">Haus-/Kinderarzt:</div>
+<div id="arzt2">{{ registration.reg_doctor }}</div>
+
+<div id="phone">Telefon:</div>
+<div id="phone2">{{ registration.reg_phone }}</div>
+
+<div id="cell_phone">Mobil:</div>
+<div id="cell_phone2">{{ registration.reg_cell_phone }}</div>
+
+<div id="email">E-Mail:</div>
+<div id="email2">{{ registration.reg_email }}</div>
+
+<div id="content1">
+    <h4>Verehrter Patient, </h4>Termine, die Sie nicht wahrnehmen können, müssen abgesagt werden. Unabhängig vom Grund
+    der Absage behalten wir uns vor, den Ausfall mit 55,- € in Rechnung zu stellen. Ein Rezept verliert nach einer
+    14-tägigen Behandlungsunterbrechung
+    die Gültigkeit, ausgenommen sind Schulferien und Urlaub des Patienten / Therapeuten. Bei Krankheit
+    des Patienten benötigen wir zusätzlich ein Attest, um gegebenenfalls die Rezeptgültigkeit aufrechtzuerhalten. <br>
+    Wenn Sie auf dem Rezept für eine nicht erbrachte Behandlung unterschreiben, oder unseren Therapeuten
+    ansprechen, dass Sie eine Unterschrift leisten möchten, ohne dass eine Behandlung stattgefunden hat,
+    werden Sie sofort aus unserer Praxis verwiesen und wir behalten uns rechtliche Schritte gegen Sie vor.
+    <h4>Videotherapie</h4>Hiermit willige ich ein, sofern nötig und möglich, die Logopädie Therapie als
+    Videotherapie durchzuführen. <br>Ich bestätige und sorge dafür, dass keine Aufnahmen jeglicher Art
+    oder Fotos gemacht werden. Auf Seite der Therapiepraxis werden Sie nur von denjenigen gesehen,
+    die Sie selbst auch im Bild sehen können. <br>
+    Wir sehen Sie und den Hintergrund des Raumes, in dem Sie sich befinden. Es erfolgt keine
+    Aufzeichnung der Therapie. Wir übernehmen keine Haftung für die Datensicherheit der Übertragung
+    sowie für Speicherungen bei Drittanbietern (z.B. Software für den Videoanruf).
+    <h4>Verhalten in der Praxis</h4>
+    Die <b>Schuhe</b> müssen vor Betreten des Behandlungsraums ausgezogen werden.
+    <h4>Einwilligungserklärung gemäß Datenschutz, Datenverwendung</h4>
+    Durch Ihre Unterschrift willigen Sie ein, dass Ihre persönlichen Daten bzw. des Patienten
+    (Name, Anschrift, Tel, Fax, Mail, Krankenkasse) zur Verarbeitung in der Logopädischen Praxis
+    Schumacher genutzt werden. Sie dienen zum Zweck der Abrechnung (Weitergabe an die Krankenasse,
+    Abrechnungsstelle, Steuerbüro), Austausch mit Ärzten (telefonisch und schriftlich (Berichte),
+    Rechnungserstellung privat und zur Erreichbarkeit Ihrerseits per Telefon, Mail, Fax. Die
+    Aufbewahrung ihrer Daten beträgt mind. 12 Jahre. Sie dienen der Nachweispflicht für das Finanzamt.
+    Papierdaten werden durch eine Fachfirma ordnungsgemäß entsorgt. <br>
+    Hiermit entbinde ich die Logopädische Praxis Schumacher von der gesetzlichen Schweigepflicht
+    gegenüber Schulen und Kindergärten. Zudem entbinde ich die Logopädische Praxis Schumacher und die
+    behandelnden Ärzte/Pflegepersonal zum beiderseitigen Austausch von der gesetzlichen Schweigepflicht.
+    Wir weisen darauf hin, dass die Aufsichtspflicht für Ihre/n Tochter / Sohn nur für den vereinbarten
+    Therapiezeitraum gilt. Diese beginnt bei Therapieanfang und endet bei Therapieende.
+    <h3>Dysphagietherapie</h3>
+    Ich (Patient, Angehörige) bin über die möglichen Ziele und eventuellen Risiken der Dysphagietherapie
+    vom Therapeuten aufgeklärt worden und bin mit der Behandlung einverstanden.<br><br>
+    Hiermit erkenne ich die Praxis,- Daten,- u. Schweigepflichtsregeln an.
+    Des Weiteren komme ich meiner Meldepflicht gegenüber der Praxis bei festgestellten Infektionen nach.
+</div>
+
+<img id="signature" src="file:///{{ registration.signature_file }}">
+<div id="date_signature">Datum: {{ registration.created_at | date:"d.m.Y" }}</div>
+<div id="underline_signature">___________________________________________________________________________________________</div>
+<div id="underline_signature2">Unterschrift - Erziehungsberechtigter / Patient / Familienmitglieder</div>
+
+</body>
+</html>

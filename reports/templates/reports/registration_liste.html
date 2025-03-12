@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavbar"
+              aria-controls="collapsibleNavbar"
+              aria-expanded="false"
+              aria-label="Navigation umschalten">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<content>
+    <p></p>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Liste unbearbeitete Anmeldungen</h4>
+            </div>
+        </div>
+        {% if registration_list %}
+            {% for registration in registration_list %}
+            <form method="post" action="{% url 'reports:move-registration' registration.id %}">
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="{% url 'reports:add-patient-reg' registration.id %}">
+                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"> Patient anlegen</i></button>
+                    </a>
+                </div>
+                <div class="col-sm-2">{{ registration.reg_name }}, {{ registration.reg_first_name }}</div>
+                <div class="col-sm-2">{{ registration.reg_street }}</div>
+                <div class="col-sm-2">{{ registration.reg_zip_code }} {{ registration.reg_city }}</div>
+                <div class="col-sm-1">
+                    {{ form.patientId }}
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary btn-sm">PDF ablegen</button>
+                </div>
+            </div>
+            </form>
+            <div class="row">&nbsp;</div>
+            {% endfor %}
+        {% else %}
+            <p>Keine offenen Anmeldungen mehr!</p>
+        {% endif %}
+        </div>
+</content>
+{% endblock %}
+

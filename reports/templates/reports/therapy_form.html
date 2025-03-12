@@ -9,8 +9,13 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavbar"
+              aria-controls="collapsibleNavbar"
+              aria-expanded="false"
+              aria-label="Navigation umschalten">
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
@@ -55,7 +60,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">BSTN-Nummer:</label>
+                <label for="{{ form.therapy_doctor.id_for_label }}" class="col-sm-2 control-label">BSTN:</label>
 
                 <div class="col-sm-6">
                     {{ form.therapy_doctor }}

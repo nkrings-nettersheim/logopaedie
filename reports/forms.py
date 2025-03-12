@@ -2,7 +2,7 @@ import datetime
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, \
-    Document, Document_therapy, Therapy_Something, Patient_Something, Diagnostic_group, Wait_list
+    Document, Document_therapy, Therapy_Something, Patient_Something, Diagnostic_group, Wait_list, Registration
 
 
 class IndexForm(forms.Form):
@@ -102,7 +102,7 @@ class SearchDoctorForm(forms.Form):
                                attrs={
                                    'class': 'form-control',
                                    'autofocus': 'autofocus',
-                                   'placeholder': 'Arztnummer eingeben (Zahnarzt mit "Z" starten) ...'
+                                   'placeholder': 'Betriebsstättennr. eingeben (Zahnarzt mit "Z" starten) ...'
                                }
                            )
                            )
@@ -1424,6 +1424,13 @@ class DocumentForm(forms.ModelForm):
 
     parents_form = forms.NullBooleanField(required=False, widget=forms.CheckboxInput)
 
+    document = forms.FileField(
+        label = "Datei hochladen",
+        widget=forms.ClearableFileInput(
+            attrs={'class': 'form-control'}
+        )
+    )
+
     class Meta:
         model = Document
         fields = [
@@ -1444,6 +1451,13 @@ class DocumentTherapyForm(forms.ModelForm):
                                       }
                                   )
                                   )
+
+    document = forms.FileField(
+        label="Datei hochladen",
+        widget=forms.ClearableFileInput(
+            attrs={'class': 'form-control'}
+        )
+    )
 
     class Meta:
         model = Document_therapy
@@ -1899,3 +1913,148 @@ class WaitlistForm(forms.ModelForm):
             'wl_fr',
             'wl_sa'
         ]
+
+
+class RegistrationForm(forms.ModelForm):
+
+    reg_name = forms.CharField(
+        required=True,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Nachname eingeben ...',
+                'autofocus': 'autofocus',
+            }
+        )
+    )
+
+    reg_first_name = forms.CharField(
+        required=True,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Vorname eingeben ...',
+            }
+        )
+    )
+
+    reg_street = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Strasse eingeben ...',
+            }
+        )
+    )
+
+    reg_zip_code = forms.CharField(
+        required=False,
+        max_length=10,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'PLZ eingeben ...',
+            }
+        )
+    )
+
+    reg_city = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Ort eingeben ...',
+            }
+        )
+    )
+
+    reg_date_of_birth = forms.DateField(
+        required=False,
+        widget=forms.DateInput(format='%d.%m.%Y',
+                               attrs={'class': 'form-control',
+                                      'placeholder': 'TT.MM.JJJJ'})
+    )
+
+    reg_doctor = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Haus-/Kinderarzt eingeben ...',
+            }
+        )
+    )
+
+    reg_phone = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Format 02251/12345 ...',
+            }
+        )
+    )
+
+    reg_cell_phone = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Format 0171/1234567 ...',
+            }
+        )
+    )
+
+    reg_email = forms.EmailField(
+        required=False,
+        max_length=250,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'E-Mail Adresse eingeben ...',
+            }
+        )
+    )
+
+    signature_data = forms.CharField(required=True,
+                                     widget=forms.HiddenInput(
+                                         attrs={
+                                             'required': 'True'
+                                         }
+                                     )
+                                     )  # Verstecktes Feld für die Unterschrift
+
+    class Meta:
+        model = Registration
+        fields = [
+            'reg_name',
+            'reg_first_name',
+            'reg_street',
+            'reg_zip_code',
+            'reg_city',
+            'reg_date_of_birth',
+            'reg_doctor',
+            'reg_phone',
+            'reg_cell_phone',
+            'reg_email'
+        ]
+
+
+class RegistrationListForm(forms.Form):
+    patientId = forms.IntegerField(required=True,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'form-control',
+                                        'autocomplete': 'off',
+                                        'placeholder': 'Pat.ID'
+                                    }
+                                )
+                                )

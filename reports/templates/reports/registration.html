@@ -1,0 +1,114 @@
+{% extends "base_registration.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<content>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm"><h4>Wir haben folgende Daten von Ihnen erhalten:</h4></div>
+        </div>
+        <br>
+          <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Name:</div>
+            </div>
+              <div class="col-sm-6">
+                 <strong>{{ registration.reg_name }}</strong>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Vorname:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_first_name }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Straße/Nr.:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_street }}</strong>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">PLZ:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_zip_code }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Ort:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_city }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Geburtsdatum:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_date_of_birth }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Haus-/Kinderarzt:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_doctor }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Telefon:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_phone }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Mobil:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_cell_phone }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">E-Mail:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ registration.reg_email }}</strong>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm">Stimmen die Daten nicht? Wenden Sie sich bitte an die Praxisleitung oder die Therapeutin.</div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-2"><button class="btn btn-secondary" onclick="window.close();">Fenster schließen</button> </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Sollte dies nicht funktionieren, schließen das Browserfenster bzw. den Tab manuell</div>
+        </div>
+   </div>
+</content>
+
+{% endblock %}

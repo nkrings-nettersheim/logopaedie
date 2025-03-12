@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import RegistrationListeView
 
 app_name = 'reports'
 
@@ -84,7 +85,13 @@ urlpatterns = [
 
     path('shortcuts/', views.readShortcuts, name='shortcuts'),
 
-    path('mailtest/', views.send_welcome_email, name='mailtest')
+    path('mailtest/', views.send_welcome_email, name='mailtest'),
+
+    path('registration-qr-code/', views.generate_qr_code, name='registration-qr-code'),
+    path('registration/<str:token>/', views.registration, name='registration'),
+    path("registration-liste/", RegistrationListeView.as_view(), name="registration-liste"),
+    path('add/patient/<int:pk>/', views.add_patient_after_registration, name='add-patient-reg'),
+    path('move/registration/<int:pk>/', views.move_registration_to_patient, name='move-registration'),
 
 ]
 

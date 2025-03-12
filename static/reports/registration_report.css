@@ -1,0 +1,194 @@
+/* @charset "UTF-8"; */
+/* @import url("https://fonts.googleapis.com/css?family=Pacifico|Source+Sans+Pro:400,700"); */
+
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/static/fonts/TIMESBD0.TTF') format('TTF');
+    font-family: 'Helvetica';
+    src: url('/static/fonts/Helvetica.ttf') format('TTF');
+}
+
+@page {
+    size: A4 portrait;
+    margin-top: 0cm;
+    margin-left: 0cm;
+    margin-right: 1.0cm;
+    margin-bottom: 0cm;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 10pt;
+}
+
+
+#kopf1 {
+    position: absolute;
+    left: 1.5cm;
+    top: 1.0cm;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#last_name {
+    position: absolute;
+    left: 1.5cm;
+    top: 2.0cm;
+}
+#last_name2 {
+    position: absolute;
+    left: 5.0cm;
+    top: 2.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+
+#first_name {
+    position: absolute;
+    left: 11.0cm;
+    top: 2.0cm;
+}
+#first_name2 {
+    position: absolute;
+    left: 14.5cm;
+    top: 2.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+
+#street {
+    position: absolute;
+    left: 1.5cm;
+    top: 3.0cm;
+}
+#street2 {
+    position: absolute;
+    left: 5.0cm;
+    top: 3.0cm;
+    font-weight: bold;
+}
+
+
+#zip_code {
+    position: absolute;
+    left: 1.5cm;
+    top: 4.0cm;
+}
+#zip_code2 {
+    position: absolute;
+    left: 5.0cm;
+    top: 4.0cm;
+    font-weight: bold;
+}
+
+
+#city {
+    position: absolute;
+    left: 11.0cm;
+    top: 4.0cm;
+}
+#city2 {
+    position: absolute;
+    left: 14.5cm;
+    top: 4.0cm;
+    font-weight: bold;
+}
+
+
+#birthday {
+    position: absolute;
+    left: 1.5cm;
+    top: 5.0cm;
+}
+#birthday2 {
+    position: absolute;
+    left: 5.0cm;
+    top: 5.0cm;
+    font-weight: bold;
+}
+
+
+#arzt {
+    position: absolute;
+    left: 11.0cm;
+    top: 5.0cm;
+}
+#arzt2 {
+    position: absolute;
+    left: 14.5cm;
+    top: 5.0cm;
+    font-weight: bold;
+}
+
+
+#phone {
+    position: absolute;
+    left: 1.5cm;
+    top: 6.0cm;
+}
+#phone2 {
+    position: absolute;
+    left: 5.0cm;
+    top: 6.0cm;
+    font-weight: bold;
+}
+
+
+#cell_phone {
+    position: absolute;
+    left: 11.0cm;
+    top: 6.0cm;
+}
+#cell_phone2 {
+    position: absolute;
+    left: 14.5cm;
+    top: 6.0cm;
+    font-weight: bold;
+}
+
+
+#email {
+    position: absolute;
+    left: 1.5cm;
+    top: 7.0cm;
+}
+#email2 {
+    position: absolute;
+    left: 5.0cm;
+    top: 7.0cm;
+    font-weight: bold;
+}
+
+
+#content1 {
+    position: absolute;
+    left: 1.5cm;
+    top: 8.0cm;
+}
+
+#signature {
+    position: absolute;
+    left: 1.5cm;
+    top: 26.5cm;
+    height: 80px;
+}
+
+#date_signature {
+    position: absolute;
+    left: 14.5cm;
+    top: 28.0cm;
+}
+
+#underline_signature {
+    position: absolute;
+    left: 1.5cm;
+    top: 28.1cm;
+}
+
+#underline_signature2 {
+    position: absolute;
+    left: 1.5cm;
+    top: 28.7cm;
+}
