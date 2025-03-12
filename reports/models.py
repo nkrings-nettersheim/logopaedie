@@ -72,6 +72,7 @@ class Patient(models.Model):
     pa_fr = models.CharField(max_length=50, blank=True, default='')
     pa_sa = models.CharField(max_length=50, blank=True, default='')
     pa_appointment = models.CharField(max_length=200, blank=True, default='', null=True)
+    pa_wiedervorstellung_info = models.CharField(max_length=254, default='')
 
     def __str__(self):
         return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city

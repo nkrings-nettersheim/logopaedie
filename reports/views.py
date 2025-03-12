@@ -6,6 +6,7 @@ import certifi
 import base64
 import qrcode
 import uuid
+import json
 
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
@@ -15,15 +16,18 @@ from django.dispatch import receiver
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, CreateView
 from django.conf import settings
 from django.views import generic
+from django.views.generic import DeleteView, CreateView
+from django.views.decorators.csrf import csrf_exempt
+
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.serializers import serialize
 from django.core.files.base import ContentFile
+
 from email.mime.image import MIMEImage
 from weasyprint import HTML, CSS
 from itsdangerous import BadSignature, SignatureExpired
@@ -2053,3 +2057,40 @@ def registrationreport(sourceId, targetId):
 
     return filepath_doc
 
+
+@csrf_exempt  # Nur für lokale Tests – in Produktion besser mit Token-Authentifizierung
+def update_patient_wiedervorstellung(request, item_id):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)  # JSON aus dem Request-Body lesen
+            wiedervorstellung_info = data.get("wiedervorstellung_info")  # Wert aus JSON extrahieren
+
+            if not wiedervorstellung_info:
+                return JsonResponse({"error": "Info fehlt"}, status=400)
+
+            #assert False
+            # Item aus der DB holen
+            try:
+                patient = Patient.objects.get(id=item_id)
+            except Patient.DoesNotExist:
+                return JsonResponse({"error": "Patient nicht gefunden"}, status=404)
+
+            # Feld aktualisieren und speichern
+            patient.pa_wiedervorstellung_info = wiedervorstellung_info
+            patient.save()
+
+            return JsonResponse({"message": "Update erfolgreich", "id": patient.id, "wiedervorstellung_info": patient.pa_wiedervorstellung_info}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Ungültiges JSON"}, status=400)
+
+    return JsonResponse({"error": "Nur POST-Anfragen erlaubt"}, status=405)
+
+
+@csrf_exempt
+def get_patient(request, item_id):
+    try:
+        patient = Patient.objects.get(id=item_id)
+        return JsonResponse({"wiedervorstellung_info": patient.pa_wiedervorstellung_info})  # Nur das relevante Feld zurückgeben
+    except Patient.DoesNotExist:
+        return JsonResponse({"error": "Item nicht gefunden"}, status=404)
