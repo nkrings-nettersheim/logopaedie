@@ -135,6 +135,8 @@
     const closeModalBtn = document.getElementById("closeModal");
     const saveButton = document.getElementById("saveButton");
     const inputText = document.getElementById("inputText");
+    const url = "{{ settings.URL_REPORTS }}";
+    console.log("Link:", url)
 
      // Alle "Hinweise"-Buttons holen
     document.querySelectorAll(".openModal").forEach(button => {
@@ -147,7 +149,7 @@
 
             // Vorhandene Daten laden
             try {
-                const response = await fetch(`http://127.0.0.1:8000/reports/get-patient/${currentItemId}/`);
+                const response = await fetch(`${url}get-patient/${currentItemId}/`);
                 const data = await response.json();
                 inputText.value = data.wiedervorstellung_info || ""; // Falls leer, Eingabefeld leeren
             } catch (error) {
@@ -170,7 +172,7 @@
         const data = { wiedervorstellung_info: inputText.value };
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/reports/update-patient/${currentItemId}/`, {
+            const response = await fetch(`${url}update-patient/${currentItemId}/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)

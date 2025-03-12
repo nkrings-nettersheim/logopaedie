@@ -108,7 +108,8 @@ def therapy_breaks(request):
     return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
                                                            'time_green': time_green,
                                                            'time_orange': time_orange,
-                                                           'time_red': time_red
+                                                           'time_red': time_red,
+                                                           'settings': settings
                                                            })
 
 
