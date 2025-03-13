@@ -81,7 +81,11 @@
                     {% endif %}
                 </div>
                 <div class="col-sm-2">
-                    <button type="button" class="openModal btn btn-primary btn-sm" data-id="{{ item.therapy.patients.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    {% if item.therapy.patients.pa_wiedervorstellung_info %}
+                        <button type="button" class="openModal btn btn-danger btn-sm" data-id="{{ item.therapy.patients.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    {% else %}
+                        <button type="button" class="openModal btn btn-primary btn-sm" data-id="{{ item.therapy.patients.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    {% endif %}
                     <a href="{% url 'reports:update_report' item.id %}">
                         <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>
                     </a>
@@ -138,7 +142,7 @@
     const inputText = document.getElementById("inputText");
     const url = "{{ settings.URL_REPORTS }}";
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    //console.log("CSRF:", csrftoken);
+    console.log("Link:", url);
 
      // Alle "Hinweise"-Buttons holen
     document.querySelectorAll(".openModal").forEach(button => {
