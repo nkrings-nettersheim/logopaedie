@@ -38,6 +38,7 @@
 {% block content %}
 <content>
     <p></p>
+    {% csrf_token %}
     <div class="container">
            <div class="mb-3 row">
                <div class="col-sm-4">
@@ -136,7 +137,8 @@
     const saveButton = document.getElementById("saveButton");
     const inputText = document.getElementById("inputText");
     const url = "{{ settings.URL_REPORTS }}";
-    console.log("Link:", url);
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    //console.log("CSRF:", csrftoken);
 
      // Alle "Hinweise"-Buttons holen
     document.querySelectorAll(".openModal").forEach(button => {
@@ -145,7 +147,7 @@
             if (!buttonElement) return;
 
             currentItemId = buttonElement.dataset.id; // ID aus data-id lesen
-            console.log("Aktuelle ID:", currentItemId); // Zur Kontrolle in der Konsole
+            //console.log("Aktuelle ID:", currentItemId); // Zur Kontrolle in der Konsole
 
             // Vorhandene Daten laden
             try {
@@ -174,12 +176,14 @@
         try {
             const response = await fetch(`${url}update-patient/${currentItemId}/`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    'X-CSRFToken': csrftoken },
                 body: JSON.stringify(data)
             });
 
             const result = await response.json();
-            console.log("Antwort vom Server:", result);
+            //console.log("Antwort vom Server:", result);
             alert("Hinweise gespeichert!");
 
         } catch (error) {
