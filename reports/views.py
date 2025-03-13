@@ -2092,6 +2092,7 @@ def update_patient_wiedervorstellung(request, item_id):
 def get_patient(request, item_id):
     try:
         patient = Patient.objects.get(id=item_id)
+        logger.info(f"Daten des Patienten {item_id} gelesen")
         return JsonResponse({"wiedervorstellung_info": patient.pa_wiedervorstellung_info})  # Nur das relevante Feld zurückgeben
     except Patient.DoesNotExist:
         return JsonResponse({"error": "Item nicht gefunden"}, status=404)
