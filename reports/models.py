@@ -65,6 +65,14 @@ class Patient(models.Model):
     pa_invoice_mail = models.BooleanField(default=False, null=True)
     pa_sms_no_yes = models.BooleanField(default=False, null=True)
     pa_email_no_yes = models.BooleanField(default=False, null=True)
+    pa_mo = models.CharField(max_length=50, blank=True, default='')
+    pa_di = models.CharField(max_length=50, blank=True, default='')
+    pa_mi = models.CharField(max_length=50, blank=True, default='')
+    pa_do = models.CharField(max_length=50, blank=True, default='')
+    pa_fr = models.CharField(max_length=50, blank=True, default='')
+    pa_sa = models.CharField(max_length=50, blank=True, default='')
+    pa_appointment = models.CharField(max_length=200, blank=True, default='', null=True)
+    pa_wiedervorstellung_info = models.CharField(max_length=254, default='', null=True, blank=True)
 
     def __str__(self):
         return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city
@@ -323,6 +331,12 @@ class Wait_list (models.Model):
     wl_appointment = models.CharField(max_length=200, blank=True, default='', null=True)
     wl_insurance = models.CharField(max_length=1, choices=INSURANCE, default='1')
     wl_recipe = models.CharField(max_length=200, blank=True, default='', null=True)
+    wl_mo = models.CharField(max_length=50, blank=True, default='')
+    wl_di = models.CharField(max_length=50, blank=True, default='')
+    wl_mi = models.CharField(max_length=50, blank=True, default='')
+    wl_do = models.CharField(max_length=50, blank=True, default='')
+    wl_fr = models.CharField(max_length=50, blank=True, default='')
+    wl_sa = models.CharField(max_length=50, blank=True, default='')
 
     def __str__(self):
         return self.wl_last_name + ' ' + self.wl_first_name + '; ' + self.wl_city

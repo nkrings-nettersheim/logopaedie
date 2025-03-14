@@ -12,9 +12,10 @@
 <content>
     <p></p>
     <div class="container">
-        <div class="d-none">Ergebnis
+        <div class="row">
+            <div class="col-sm"><h4>Wir haben folgende Daten von Ihnen erhalten:</h4></div>
         </div>
-
+        <br>
           <div class="row">
             <div class="col-sm-2">
                 <div class="small inline">Name:</div>
@@ -96,7 +97,18 @@
                 <strong>{{ registration.reg_email }}</strong>
             </div>
         </div>
-
+        <br><br>
+        <div class="row">
+            <div class="col-sm">Stimmen die Daten nicht? Wenden Sie sich bitte an die Praxisleitung oder die Therapeutin.</div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-2"><button class="btn btn-secondary" onclick="window.close();">Fenster schließen</button> </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">Sollte dies nicht funktionieren, schließen das Browserfenster bzw. den Tab manuell</div>
+        </div>
    </div>
 </content>
+
 {% endblock %}

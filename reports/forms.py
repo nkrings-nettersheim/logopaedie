@@ -102,7 +102,7 @@ class SearchDoctorForm(forms.Form):
                                attrs={
                                    'class': 'form-control',
                                    'autofocus': 'autofocus',
-                                   'placeholder': 'Arztnummer eingeben (Zahnarzt mit "Z" starten) ...'
+                                   'placeholder': 'Betriebsstättennr. eingeben (Zahnarzt mit "Z" starten) ...'
                                }
                            )
                            )
@@ -554,6 +554,83 @@ class PatientForm(forms.ModelForm):
                                               widget=forms.CheckboxInput)
 
 
+    pa_mo = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Montags ..."
+            }
+        )
+    )
+
+    pa_di = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Dienstags ..."
+            }
+        )
+    )
+
+    pa_mi = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Mittwochs ..."
+            }
+        )
+    )
+
+    pa_do = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Donnerstags ..."
+            }
+        )
+    )
+
+    pa_fr = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Freitags ..."
+            }
+        )
+    )
+
+    pa_sa = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Samstags ..."
+            }
+        )
+    )
+
+    pa_appointment = forms.CharField(
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': "Terminhinweise ..."
+            }
+        )
+    )
+
     class Meta:
         model = Patient
         fields = ['pa_first_name',
@@ -574,7 +651,14 @@ class PatientForm(forms.ModelForm):
                   'pa_active_no_yes',
                   'pa_invoice_mail',
                   'pa_sms_no_yes',
-                  'pa_email_no_yes'
+                  'pa_email_no_yes',
+                  'pa_mo',
+                  'pa_di',
+                  'pa_mi',
+                  'pa_do',
+                  'pa_fr',
+                  'pa_sa',
+                  'pa_appointment'
                   ]
 
 
@@ -1815,6 +1899,72 @@ class WaitlistForm(forms.ModelForm):
         )
     )
 
+    wl_mo = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Montagstermine ?',
+            }
+        )
+    )
+
+    wl_di = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Dienstagstermine ?',
+    }
+        )
+    )
+
+    wl_mi = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Mittwochstermine ?',
+            }
+        )
+    )
+
+    wl_do = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Donnerstagstermine ?',
+            }
+        )
+    )
+
+    wl_fr = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Freitagstermine ?',
+            }
+        )
+    )
+
+    wl_sa = forms.CharField(
+        required=False,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Samstagstermine ?',
+            }
+        )
+    )
+
     class Meta:
         model = Wait_list
         fields = [
@@ -1839,7 +1989,13 @@ class WaitlistForm(forms.ModelForm):
             'wl_diagnostic',
             'wl_appointment',
             'wl_insurance',
-            'wl_recipe'
+            'wl_recipe',
+            'wl_mo',
+            'wl_di',
+            'wl_mi',
+            'wl_do',
+            'wl_fr',
+            'wl_sa'
         ]
 
 
@@ -1852,6 +2008,7 @@ class RegistrationForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Nachname eingeben ...',
+                'autofocus': 'autofocus',
             }
         )
     )
@@ -1924,7 +2081,7 @@ class RegistrationForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Telefon-Nummer eingeben ...',
+                'placeholder': 'Format 02251/12345 ...',
             }
         )
     )
@@ -1935,15 +2092,15 @@ class RegistrationForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Mobil-Nummer eingeben ...',
+                'placeholder': 'Format 0171/1234567 ...',
             }
         )
     )
 
-    reg_email = forms.CharField(
+    reg_email = forms.EmailField(
         required=False,
         max_length=250,
-        widget=forms.TextInput(
+        widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'E-Mail Adresse eingeben ...',

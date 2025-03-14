@@ -2,6 +2,12 @@
 workspace.xml
 db.sqlite3
 logopaedie.log
+logopaedie.log1
+logopaedie.log2
+logopaedie.log3
+logopaedie.log4
+logopaedie.log5
+logopaedie.log6
 secrets.json
 logopaedie/__pycache__/
 reports/__pycache__/

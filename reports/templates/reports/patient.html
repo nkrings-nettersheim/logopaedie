@@ -17,6 +17,21 @@
     }
     </script>
 
+    <style>
+        .nav-tabs .nav-link.active {
+            background-color: #007bff; /* Blaue Hintergrundfarbe für aktiven Tab */
+            color: #fff; /* Weiße Schriftfarbe */
+            border-color: #007bff; /* Optional: Randfarbe anpassen */
+        }
+        .nav-tabs .nav-link {
+            color: black; /* Weiße Schriftfarbe */
+        }
+        .nav-tabs {
+            border-color: #007bff; /* Optional: Randfarbe anpassen */
+            border-bottom: 3px solid #007bff;
+        }
+    </style>
+
 {% endblock %}
 
 {% block nav %}
@@ -66,7 +81,7 @@
         </div>
         <div class="row">
             <div class="col-sm">
-                <div class="small inline">Name: </div> <strong> {{ patient.pa_last_name}}</strong>
+                <div class="small inline">Name: ({{ patient.id }})</div> <strong> {{ patient.pa_last_name}}</strong>
             </div>
             <div class="col-sm">
                 <div class="small inline">Vorname: </div> <strong> {{ patient.pa_first_name}}</strong>
@@ -186,20 +201,126 @@
         </div>
         <br>
         {% endif %}
-        {% if patient.pa_note %}
-        <div class="row">
-            <div class="col-sm">
-                <div class="small">Bemerkung: </div> <div class="small text-success inline"> {{ patient.pa_note | linebreaks }}</div>
-            </div>
-        </div>
-        {% endif %}
     </div>
 
     <div class="container">
+         <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#bemerkungen">Bemerkungen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#terminhinweise">Termine</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#wiedervorlage">Hinweise Wiedervorst.</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div class="tab-pane container active" id="bemerkungen">
+               {% if patient.pa_note %}
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="small text-success inline"> {{ patient.pa_note | linebreaks }}</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane container fade" id="terminhinweise">
+
+                <div class="row">
+                    <div class="col-sm">
+                        {% if patient.pa_appointment %}
+                        Allgemeiner Hinweis: {{ patient.pa_appointment }}
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm text-center small">
+                        Mo.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Di.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Mi.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Do.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Fr.
+                    </div>
+                    <div class="col-sm text-center small">
+                        Sa.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm text-center">
+                        {% if patient.pa_mo %}
+                            {{ patient.pa_mo }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_di %}
+                            {{ patient.pa_di }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_mi %}
+                            {{patient.pa_mi}}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_do %}
+                            {{patient.pa_do}}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_fr %}
+                            {{patient.pa_fr}}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                    <div class="col-sm text-center">
+                        {% if patient.pa_sa %}
+                            {{patient.pa_sa}}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane container fade" id="wiedervorlage">
+                {{patient.pa_wiedervorstellung_info}}
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <br>
         <hr>
         <div class="row">
             <div class="col-sm">
-                Es wurden seit dem 01.01.2021 <strong>{{ therapy_count }}</strong> Rezepte ausgestellt und <strong>{{ process_count }}</strong> Gesamtbehandlungen durchgeführt:
+                Es wurden seit dem 01.01.2021 <strong>{{therapy_count}}</strong> Rezepte ausgestellt und <strong>{{process_count}}</strong> Gesamtbehandlungen durchgeführt:
             </div>
 
         </div>

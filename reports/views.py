@@ -6,6 +6,7 @@ import certifi
 import base64
 import qrcode
 import uuid
+import json
 
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
@@ -15,15 +16,18 @@ from django.dispatch import receiver
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, CreateView
 from django.conf import settings
 from django.views import generic
+from django.views.generic import DeleteView, CreateView
+from django.views.decorators.csrf import csrf_exempt
+
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.serializers import serialize
 from django.core.files.base import ContentFile
+
 from email.mime.image import MIMEImage
 from weasyprint import HTML, CSS
 from itsdangerous import BadSignature, SignatureExpired
@@ -106,7 +110,8 @@ def therapy_breaks(request):
     return render(request, 'reports/therapy_breaks.html', {'breaks': therapy_reports,
                                                            'time_green': time_green,
                                                            'time_orange': time_orange,
-                                                           'time_red': time_red
+                                                           'time_red': time_red,
+                                                           'settings': settings
                                                            })
 
 
@@ -1282,7 +1287,14 @@ def copy_waitlist_item(request, id=id):
                                    pa_cell_phone_sms=waitlist.wl_cell_phone_sms,
                                    pa_email=waitlist.wl_email,
                                    pa_gender=waitlist.wl_gender,
-                                   pa_note=waitlist.wl_information
+                                   pa_note=waitlist.wl_information,
+                                   pa_mo=waitlist.wl_mo,
+                                   pa_di=waitlist.wl_di,
+                                   pa_mi=waitlist.wl_mi,
+                                   pa_do=waitlist.wl_do,
+                                   pa_fr=waitlist.wl_fr,
+                                   pa_sa=waitlist.wl_sa,
+                                   pa_appointment=waitlist.wl_appointment
                                    )
             # set status waitlist object to False
             waitlist.wl_active = False
@@ -1919,19 +1931,14 @@ def registration(request, token=None):
                 registration.save()
 
                 return render(request, 'reports/registration.html', {'registration': registration})
-            else:
-                print(form.errors)
-                logger.debug(f"Formular ist nicht valide")
+        else:
+            logger.debug(f"initialer RegistrationForm aufruf")
+            form = RegistrationForm()
 
     except SignatureExpired:
         return HttpResponse("Der Link ist abgelaufen.", status=410)
     except BadSignature:
         return HttpResponse("Ungültiger Link.", status=400)
-
-
-    else:
-        logger.debug(f"initialer RegistrationForm aufruf")
-        form = RegistrationForm()
 
     return render(request, 'reports/registration_form.html', {'form': form})
 
@@ -2053,3 +2060,41 @@ def registrationreport(sourceId, targetId):
 
     return filepath_doc
 
+
+@permission_required('reports.view_patient')
+def update_patient_wiedervorstellung(request, item_id):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)  # JSON aus dem Request-Body lesen
+            wiedervorstellung_info = data.get("wiedervorstellung_info")  # Wert aus JSON extrahieren
+
+            if not wiedervorstellung_info:
+                return JsonResponse({"error": "Info fehlt"}, status=400)
+
+            #assert False
+            # Item aus der DB holen
+            try:
+                patient = Patient.objects.get(id=item_id)
+            except Patient.DoesNotExist:
+                return JsonResponse({"error": "Patient nicht gefunden"}, status=404)
+
+            # Feld aktualisieren und speichern
+            patient.pa_wiedervorstellung_info = wiedervorstellung_info
+            patient.save()
+
+            return JsonResponse({"message": "Update erfolgreich", "id": patient.id, "wiedervorstellung_info": patient.pa_wiedervorstellung_info}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Ungültiges JSON"}, status=400)
+
+    return JsonResponse({"error": "Nur POST-Anfragen erlaubt"}, status=405)
+
+
+@permission_required('reports.view_patient')
+def get_patient(request, item_id):
+    try:
+        patient = Patient.objects.get(id=item_id)
+        logger.info(f"Daten des Patienten {item_id} gelesen")
+        return JsonResponse({"wiedervorstellung_info": patient.pa_wiedervorstellung_info})  # Nur das relevante Feld zurückgeben
+    except Patient.DoesNotExist:
+        return JsonResponse({"error": "Item nicht gefunden"}, status=404)
