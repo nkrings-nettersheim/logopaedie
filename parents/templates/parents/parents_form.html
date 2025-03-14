@@ -1,0 +1,118 @@
+{% extends "base_parents.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+{% endblock %}
+
+
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<content>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>Liebe Eltern<br>
+                Um Auffälligkeiten Ihres Kindes, für die Sie unseren Rat suchen, richtig bewerten zu können, brauchen wir
+                Informationen über seine Entwicklung. Beantworten Sie die nachfolgenden Fragen bitte so vollständig
+                wie möglich. Offen gebliebene Fragen können wir beim Anamnesegespräch gemeinsam klären.
+                <br>Wir danken für Ihre Mitarbeit.
+                </p>
+            </div>
+        </div>
+        <form method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <h5>Kind:</h5>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.child_last_name.id_for_label }}" class="col-form-label">{{ form.child_last_name.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.child_last_name }}
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.child_first_name.id_for_label }}" class="col-form-label">{{ form.child_first_name.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.child_first_name }}
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.child_day_of_birth.id_for_label }}" class="col-form-label">{{ form.child_day_of_birth.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.child_day_of_birth }}
+                </div>
+            </div>
+            <p>&nbsp;</p>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.health_assurance.id_for_label }}" class="col-form-label">{{ form.health_assurance.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.health_assurance }}
+                </div>
+            </div>
+
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.doctor.id_for_label }}" class="col-form-label">{{ form.doctor.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.doctor }}
+                </div>
+            </div>
+            <p>&nbsp;</p>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.phone.id_for_label }}" class="col-form-label">{{ form.phone.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.phone }}
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.cellphone.id_for_label }}" class="col-form-label">{{ form.cellphone.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.cellphone }}
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.phone_work.id_for_label }}" class="col-form-label">{{ form.phone_work.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.phone_work }}
+                </div>
+            </div>
+            <div class="row align-items-center mb-3">
+                <div class="col-md-2">
+                    <label for="{{ form.email.id_for_label }}" class="col-form-label">{{ form.email.label }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ form.email }}
+                </div>
+            </div>
+            <h5>Mutter:</h5>
+
+            <h5>Vater:</h5>
+
+            <h5>Geschwister</h5>
+
+            <button type="submit">Speichern</button>
+        </form>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+</content>
+{% endblock %}
