@@ -1,10 +1,24 @@
 from django.db import models
 
 class Parents_sheet(models.Model):
+
+    AGEADVICE_CHOICES = [
+        ('unbekannt', 'keine Auswahl'),
+        ('verspaetet', 'verspätet'),
+        ('altersgerecht', 'altersgerecht'),
+    ]
+
+    LANGUAGEUSE_CHOICES = [
+        ('viel', 'viel'),
+        ('weniger', 'weniger'),
+        ('kaum', 'kaum'),
+        ('gar_nicht', 'gar nicht'),
+    ]
+
     child_session_id = models.CharField(max_length=75, blank=True, default='')
     child_last_name = models.CharField(max_length=75, blank=True, default='')
     child_first_name = models.CharField(max_length=75, blank=True, default='')
-    child_day_of_birth = models.CharField(max_length=75, blank=True, default='')
+    child_day_of_birth = models.DateField(default='2000-01-01', blank=True, null=True)
     health_assurance = models.CharField(max_length=75, blank=True, default='')
     doctor = models.CharField(max_length=75, blank=True, default='')
     phone = models.CharField(max_length=75, blank=True, default='')
@@ -13,11 +27,11 @@ class Parents_sheet(models.Model):
     email = models.CharField(max_length=75, blank=True, default='')
     mother_last_name = models.CharField(max_length=75, blank=True, default='')
     mother_first_name = models.CharField(max_length=75, blank=True, default='')
-    mother_day_of_birth = models.CharField(max_length=75, blank=True, default='')
+    mother_day_of_birth = models.DateField(default='1950-01-01', blank=True, null=True)
     mother_job = models.CharField(max_length=75, blank=True, default='')
     father_last_name = models.CharField(max_length=75, blank=True, default='')
     father_first_name = models.CharField(max_length=75, blank=True, default='')
-    father_day_of_birth = models.CharField(max_length=75, blank=True, default='')
+    father_day_of_birth = models.DateField(default='1950-01-01', blank=True, null=True)
     father_job = models.CharField(max_length=75, blank=True, default='')
     siblings1_last_name = models.CharField(max_length=75, blank=True, default='')
     siblings1_first_name = models.CharField(max_length=75, blank=True, default='')
@@ -35,9 +49,9 @@ class Parents_sheet(models.Model):
     child_allergy   = models.BooleanField(default=True, null=True)
     child_allergy_yes = models.CharField(max_length=75, blank=True, default='')
     crawl_age = models.CharField(max_length=75, blank=True, default='')
-    crawl_age_advise = models.CharField(max_length=75, blank=True, default='')
+    crawl_age_advise = models.CharField(max_length=20, choices=AGEADVICE_CHOICES, default='unbekannt')
     walk_age = models.CharField(max_length=75, blank=True, default='')
-    walk_age_advise = models.CharField(max_length=75, blank=True, default='')
+    walk_age_advise = models.CharField(max_length=20, choices=AGEADVICE_CHOICES, default='unbekannt')
     child_dev_1 = models.CharField(max_length=75, blank=True, default='')
     child_dev_2 = models.CharField(max_length=75, blank=True, default='')
     child_dev_3 = models.CharField(max_length=75, blank=True, default='')
@@ -63,14 +77,15 @@ class Parents_sheet(models.Model):
     child_hearing_aid = models.BooleanField(default=True, null=True)
     child_problems_sleeping_hearing = models.BooleanField(default=True, null=True)
     child_problems_sleeping_hearing_yes = models.CharField(max_length=75, blank=True, default='')
-    child_use_of_language = models.BooleanField(default=True, null=True)
+    child_use_of_language = models.CharField(max_length=20, choices=LANGUAGEUSE_CHOICES, default='weniger')
     child_speaking_interrupt = models.BooleanField(default=True, null=True)
     child_speaking_interrupt_yes = models.CharField(max_length=75, blank=True, default='')
     child_speaking_dev = models.BooleanField(default=True, null=True)
     child_speaking_dev_yes = models.CharField(max_length=75, blank=True, default='')
-    child_mimik = models.BooleanField(default=True, null=True)
-    child_understanding = models.BooleanField(default=True, null=True)
-    child_gestik = models.BooleanField(default=True, null=True)
+    child_mimik = models.BooleanField(default=False, null=True)
+    child_understanding = models.BooleanField(default=False, null=True)
+    child_stranger = models.BooleanField(default=False, null=True)
+    child_gestik = models.BooleanField(default=False, null=True)
     child_letter_wrong = models.BooleanField(default=True, null=True)
     child_letter_wrong_yes = models.CharField(max_length=75, blank=True, default='')
     child_sentence_construction = models.BooleanField(default=True, null=True)
@@ -89,7 +104,14 @@ class Parents_sheet(models.Model):
     child_caregivers = models.CharField(max_length=75, blank=True, default='')
     child_speech_therapy = models.BooleanField(default=True, null=True)
     child_speech_therapy_yes = models.CharField(max_length=75, blank=True, default='')
-    child_speech_therapy_advise = models.CharField(max_length=75, blank=True, default='')
+    child_speech_therapy_advise = models.CharField(max_length=254, blank=True, default='')
+    child_comments_1 = models.CharField(max_length=255, blank=True, default='')
+    child_comments_2 = models.CharField(max_length=255, blank=True, default='')
+    child_comments_3 = models.CharField(max_length=255, blank=True, default='')
+    child_comments_4 = models.CharField(max_length=255, blank=True, default='')
+    child_comments_5 = models.CharField(max_length=255, blank=True, default='')
+    child_comments_6 = models.CharField(max_length=255, blank=True, default='')
+    sheet_created = models.BooleanField(default=False, null=True)
 
     def __str__(self):
-        return self.child_session_id
+        return self.child_last_name + ", " + self.child_first_name

@@ -1,0 +1,43 @@
+/* @charset "UTF-8"; */
+/* @import url("https://fonts.googleapis.com/css?family=Pacifico|Source+Sans+Pro:400,700"); */
+
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/static/fonts/TIMESBD0.TTF') format('TTF');
+    font-family: 'Helvetica';
+    src: url('/static/fonts/Helvetica.ttf') format('TTF');
+}
+
+@page {
+    size: A4 portrait;
+    margin-top: 0cm;
+    margin-left: 0cm;
+    margin-right: 1.0cm;
+    margin-bottom: 0cm;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 10pt;
+}
+
+#kopf1 {
+    position: absolute;
+    left: 1.5cm;
+    top: 1.0cm;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#child_last_name_label {
+    position: absolute;
+    left: 1.5cm;
+    top: 2.0cm;
+}
+#child_last_name {
+    position: absolute;
+    left: 5.0cm;
+    top: 2.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
