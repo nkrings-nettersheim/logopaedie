@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'reports/parents.css' %}">
+
+{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'reports:index' %}" >Patient suchen</a>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavbar"
+              aria-controls="collapsibleNavbar"
+              aria-expanded="false"
+              aria-label="Navigation umschalten">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-primary btn-sm" href="{% url 'reports:index' %}" role="button">zurück</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<content>
+    <p></p>
+        <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h4>Liste offene Elternbögen</h4>
+            </div>
+        </div>
+        {% if parents_sheet_list %}
+            {% for parents_sheet in parents_sheet_list %}
+            <form method="post" action="{% url 'parents:move_parents_sheet' parents_sheet.id %}">
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-1">
+                    <a href="{% url 'parents:parents_sheet_edit' parents_sheet.id %}">
+                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button>
+                    </a>
+                </div>
+                <div class="col-sm-2">{{ parents_sheet.child_last_name }}, {{ parents_sheet.child_first_name }}</div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    {{ form.patientId }}
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary btn-sm">PDF ablegen</button>
+                </div>
+            </div>
+            </form>
+            <div class="row">&nbsp;</div>
+            {% endfor %}
+        {% else %}
+            <p>Keine offenen Elternbögen vorhanden!</p>
+        {% endif %}
+        </div>
+</content>
+{% endblock %}
+

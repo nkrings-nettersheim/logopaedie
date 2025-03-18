@@ -1,15 +1,21 @@
+
 <!doctype html>
     {% load django_bootstrap5 %}
 <html lang="de">
 <head>
-    {% load static %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
-    <!-- Stylesheets -->
+    {% load static %}
     {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static 'parents/logopaedie.css' %}">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+
+    {% if user.is_authenticated %}
+    {% else %}
+        <meta http-equiv="refresh" content="0; URL=/accounts/login/">
+    {% endif %}
+
+    <link rel="stylesheet" href="{% static 'reports/logopaedie.css' %}">
 
     <!-- Add favicon in static file -->
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
@@ -29,18 +35,34 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
-
-    {% block head %}{% endblock %}
-
-    <title>Logopädische Praxis Petra Klein</title>
+    {% block extrahead %}{% endblock %}
+    <title>LogoPAkt V4</title>
 </head>
 
 <body>
-    {% include "header_parents.html" %}
+
+{% include "header.html" %}
+
+{% if user.is_authenticated %}
+
+    {% block nav %}{% endblock %}
 
     {% block content %}{% endblock %}
 
-    {% include "footer_parents.html" %}
-    {% bootstrap_javascript %}
+{% else %}
+    {% include "notlogin.html" %}
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+
+{% include "footer.html" %}
+
+{% bootstrap_javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="{% static 'reports/js_files/countdown.js' %}?v1.6"></script>
+{% block script %}{% endblock %}
 </body>
 </html>

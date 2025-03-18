@@ -535,7 +535,7 @@ def search_patient(request):
     else:
         logger.debug(f"User-ID: {request.user.id}; search_patient: Kein POST Befehl erhalten")
         return redirect('/reports/')
-    return render(request, 'reports/index_parents.html', {'form': form})
+    return render(request, 'reports/index.html', {'form': form})
 
 
 def suche_kunden(telefonnummer, active):
@@ -2022,7 +2022,7 @@ def move_registration_to_patient(request, pk):
     patientId = request.POST.get('patientId')
 
     filepath_doc = registrationreport(str(pk), str(patientId))
-    print(f"PatientID: {patientId}")
+    #print(f"PatientID: {patientId}")
     try:
         patient = Patient.objects.get(id=patientId)
         document = Document(description='Anmeldebogen', document=filepath_doc, patient=patient, registration_form=True)
@@ -2067,9 +2067,10 @@ def update_patient_wiedervorstellung(request, item_id):
         try:
             data = json.loads(request.body)  # JSON aus dem Request-Body lesen
             wiedervorstellung_info = data.get("wiedervorstellung_info")  # Wert aus JSON extrahieren
-
-            if not wiedervorstellung_info:
-                return JsonResponse({"error": "Info fehlt"}, status=400)
+            logger.debug(f"update_patient_wiedervorstellung: Rückgabewert: {wiedervorstellung_info}"  )
+            #if not wiedervorstellung_info:
+            #    logger.debug(f"update_patient_wiedervorstellung: wiedervorstellung_info ist leer!")
+            #    return JsonResponse({"error": "Info fehlt"}, status=400)
 
             #assert False
             # Item aus der DB holen

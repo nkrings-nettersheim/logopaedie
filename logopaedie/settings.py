@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'formtools',
     'django_bootstrap5',
     'django_ckeditor_5',
     'crispy_forms',
@@ -48,6 +49,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
 ]
 
+#Crispy packs
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,10 +166,6 @@ SESSION_EXPIRE_SECONDS = 30*60+5
 #SESSION_TIMEOUT_REDIRECT = 'songarchiv/'
 
 USE_X_FORWARDED_HOST = True
-
-#Crispy packs
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Email settings
 EMAIL_HOST = 'look at local_settings'

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Anmeldebogen</title>
+    <meta name="description" content="Elternbogen Logopädische Praxis Schumacher">
+    <meta name="author" content="Norbert Krings">
+</head>
+<body>
+
+<!-- ----------------------------- Beginn Seite 1 --------------------------------- -->
+
+<div style='page-break-after: always' id="kopf1">Elternbogen</div>
+
+<div id='child_last_name_label'>Name des Kindes:</div>
+<div id='child_last_name'>{{ parents_sheet.child_last_name }}</div>
+
+<div id='child_first_name_label'>Vorname des Kindes:</div>
+<div id='child_first_name'>{{ parents_sheet.child_first_name }}</div>
+
+<div id='child_day_of_birth_label'>Geburtstag:</div>
+<div id='child_day_of_birth'>{{ parents_sheet.child_day_of_birth | date:"d.m.Y" }}</div>
+
+<div id='health_assurance_label'>Krankenkasse:</div>
+<div id='health_assurance'>{{ parents_sheet.health_assurance }}</div>
+
+<div id='doctor_label'>Hausarzt/Kinderarzt:</div>
+<div id='doctor'>{{ parents_sheet.doctor }}</div>
+
+<div id='phone_label'>Telefon:</div>
+<div id='phone'>{{ parents_sheet.phone }}</div>
+
+<div id='cellphone_label'>Mobil:</div>
+<div id='cellphone'>{{ parents_sheet.cellphone }}</div>
+
+<div id='phone_work_label'>Dienstlich:</div>
+<div id='phone_work'>{{ parents_sheet.phone_work }}</div>
+
+<div id='email_label'>E-Mail</div>
+<div id='email'>{{ parents_sheet.email }}</div>
+
+<div id='mother_last_name_label'>Name der Mutter:</div>
+<div id='mother_last_name'>{{ parents_sheet.mother_last_name }}</div>
+
+<div id='mother_first_name_label'>Vorname:</div>
+<div id='mother_first_name'>{{ parents_sheet.mother_first_name }}</div>
+
+<div id='mother_day_of_birth_label'>Geburtstag:</div>
+<div id='mother_day_of_birth'>{{ parents_sheet.mother_day_of_birth | date:"d.m.Y" }}</div>
+
+<div id='mother_job_label'>Beruf:</div>
+<div id='mother_job'>{{ parents_sheet.mother_job }}</div>
+
+<div id='father_last_name_label'>Name des Vater:</div>
+<div id='father_last_name'>{{ parents_sheet.father_last_name }}</div>
+
+<div id='father_first_name_label'>Vorname:</div>
+<div id='father_first_name'>{{ parents_sheet.father_first_name }}</div>
+
+<div id='father_day_of_birth_label'>Geburtstag:</div>
+<div id='father_day_of_birth'>{{ parents_sheet.father_day_of_birth | date:"d.m.Y" }}</div>
+
+<div id='father_job_label'>Beruf:</div>
+<div id='father_job'>{{ parents_sheet.father_job }}</div>
+
+<div id='siblings1_last_name_label'>Name Geschwister 1:</div>
+<div id='siblings1_last_name'>{{ parents_sheet.siblings1_last_name }}</div>
+
+<div id='siblings1_first_name_label'>Vorname:</div>
+<div id='siblings1_first_name'>{{ parents_sheet.siblings1_first_name }}</div>
+
+<div id='siblings1_age_label'>Alter:</div>
+<div id='siblings1_age'>{{ parents_sheet.siblings1_age }}</div>
+
+<div id='siblings2_last_name_label'>Name Geschwister 2:</div>
+<div id='siblings2_last_name'>{{ parents_sheet.siblings2_last_name }}</div>
+
+<div id='siblings2_first_name_label'>Vorname:</div>
+<div id='siblings2_first_name'>{{ parents_sheet.siblings2_first_name }}</div>
+
+<div id='siblings2_age_label'>Alter:</div>
+<div id='siblings2_age'>{{ parents_sheet.siblings2_age }}</div>
+
+<div id='siblings3_last_name_label'>Name Geschwister 3:</div>
+<div id='siblings3_last_name'>{{ parents_sheet.siblings3_last_name }}</div>
+
+<div id='siblings3_first_name_label'>Vorname:</div>
+<div id='siblings3_first_name'>{{ parents_sheet.siblings3_first_name }}</div>
+
+<div id='siblings3_age_label'>Alter:</div>
+<div id='siblings3_age'>{{ parents_sheet.siblings3_age }}</div>
+
+<div id='child_allergy_label'>Hat Ihr Kind eine Allergie?</div>
+<div id='child_allergy'>
+    {% if parents_sheet.child_allergy %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='child_allergy_yes_label'>Wenn ja, welche?</div>
+<div id='child_allergy_yes'>{{ parents_sheet.child_allergy_yes }}</div>
+
+<div id='child_comments_1_label'>Hinweise der Therapeutin:</div>
+<div id='child_comments_1'>{{ parents_sheet.child_comments_1 }}</div>
+
+
+<!-- ----------------------------- Beginn Seite 2 --------------------------------- -->
+
+<div style='break-before: page;' id="headline_page2">Themenblock 2</div>
+
+<div id='headline_page2_right'>Elternbogen von {{ parents_sheet.child_first_name }} {{ parents_sheet.child_last_name }} </div>
+
+<div id='problems_pregnancy_label'>Gab es Schwierigkeiten bei der Schwangerschaft / Geburt?</div>
+<div id='problems_pregnancy'>
+    {% if parents_sheet.problems_pregnancy %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='problems_pregnancy_yes_label'>Wenn ja, welche?</div>
+<div id='problems_pregnancy_yes'>{{ parents_sheet.problems_pregnancy_yes }}</div>
+
+<div id='problems_family_speak_listen_label'>Hat oder hatte jemand in der Familie (Verwandschaft) Schwierigkeiten mit dem Sprechen oder Hören?</div>
+<div id='problems_family_speak_listen'>
+    {% if parents_sheet.problems_family_speak_listen %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='problems_family_speak_listen_yes_label'>Wenn ja, welche?</div>
+<div id='problems_family_speak_listen_yes'>{{ parents_sheet.problems_family_speak_listen_yes }}</div>
+
+
+<div id='crawl_age_label'>Ab welchem Lebensmonat hat das Kind gekrabbelt?</div>
+<div id='crawl_age'>{{ parents_sheet.crawl_age }}; {{ parents_sheet.get_crawl_age_advise_display }}</div>
+
+<div id="walk_description">Geben Sie das ungefähre Alter des Kindes (in Monaten an,
+in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
+
+<div id='walk_age_label'>Ab welchem Lebensmonat hat das Kind gelaufen?</div>
+<div id='walk_age'>{{ parents_sheet.walk_age }}; {{ parents_sheet.get_walk_age_advise_display }}</div>
+
+
+<div id='child_dev_1_label'>Wann war das Kind sauber?</div>
+<div id='child_dev_1'>{{ parents_sheet.child_dev_1 }}</div>
+
+<div id='child_dev_2_label'>Erste Lall-Laute (erre, grr, äää)</div>
+<div id='child_dev_2'>{{ parents_sheet.child_dev_2 }}</div>
+
+<div id='child_dev_3_label'>Erste Worte (Mama, Ball, ...)</div>
+<div id='child_dev_3'>{{ parents_sheet.child_dev_3 }}</div>
+
+<div id='child_dev_4_label'>Erste Zwei-Wort-Sätze</div>
+<div id='child_dev_4'>{{ parents_sheet.child_dev_4 }}</div>
+
+<div id='child_dev_language_label'>Wächst Ihr Kind mehrsprachig auf (auch Dialekte)?</div>
+<div id='child_dev_language'>
+    {% if parents_sheet.child_dev_language %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_dev_language_yes_label'Wenn ja, welche?></div>
+<div id='child_dev_language_yes'>{{ parents_sheet.child_dev_language_yes }}</div>
+
+<div id='child_dev_5_label'>Hat/Hatte Ihr Kind Lutschgewohnheiten (Daumen, Schnuller, Finger ... u.s.w.)?</div>
+<div id='child_dev_5'>
+    {% if parents_sheet.child_dev_5 %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_left_handed_label'>Ist Ihr Kind Linkshänder/in?</div>
+<div id='child_left_handed'>
+    {% if parents_sheet.child_left_handed %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_comments_2_label'>Anmerkungen der Therapeutin</div>
+<div id='child_comments_2'>{{ parents_sheet.child_comments_2 }}</div>
+
+
+<!-- ----------------------------- Beginn Seite 3 --------------------------------- -->
+
+<div style='break-before: page;' id="headline_page3">Themenblock 3</div>
+
+<div id='headline_page3_right'>Elternbogen von {{ parents_sheet.child_first_name }} {{ parents_sheet.child_last_name }} </div>
+
+<div id='child_chronic_disease_label'>Liegt eine chronische Erkrankung oder eine Behinderung vor?</div>
+<div id='child_chronic_disease'>
+    {% if parents_sheet.child_chronic_disease %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='child_chronic_disease_yes_label'>Wenn ja, welche?</div>
+<div id='child_chronic_disease_yes'>{{ parents_sheet.child_chronic_disease_yes }}</div>
+
+<div id='child_nutrition_label'>Wie ist die Ernährung? (vom Stillen bis heute)</div>
+<div id='child_nutrition'>{{ parents_sheet.child_nutrition }}</div>
+
+<div id='child_hospital_visits_label'>Krankenhausaufenthalte (Mandeln/Polypen, ...)?</div>
+<div id='child_hospital_visits'>
+    {% if parents_sheet.child_hospital_visits %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='child_hospital_visits_yes_label'>Wenn ja, welche?</div>
+<div id='child_hospital_visits_yes'>{{ parents_sheet.child_hospital_visits_yes }}</div>
+
+<div id='child_medicine_label'>Nimmt Ihr Kind Medikamente?</div>
+<div id='child_medicine'>
+    {% if parents_sheet.child_medicine %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='child_medicine_yes_label'>Wenn ja, welche?</div>
+<div id='child_medicine_yes'>{{ parents_sheet.child_medicine_yes }}</div>
+
+<div id='child_count_colds_label'>Ist Ihr Kind häufiger als 3 mal im Jahr erkältet?</div>
+<div id='child_count_colds'>
+    {% if parents_sheet.child_count_colds %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_timpani_tube_label'>Hat Ihr Kind Paukenröhrchen?</div>
+<div id='child_timpani_tube'>
+    {% if parents_sheet.child_timpani_tube %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_listen_label'>Haben Sie das Gefühl, dass Ihr Kind phasenweise schlecht hört?</div>
+<div id='child_listen'>
+    {% if parents_sheet.child_listen %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_illness_1_label'>Hatte Ihr Kind bisher mehr als 3 Mittelohrentzündungen?</div>
+<div id='child_illness_1'>
+    {% if parents_sheet.child_illness_1 %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_illness_2_label'>Ist Ihr Kind Mundatmer und / oder schnarcht es?</div>
+<div id='child_illness_2'>
+    {% if parents_sheet.child_illness_2 %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_what_teething_label'>Welche Kinderkrankheiten hatte Ihr Kind?</div>
+<div id='child_what_teething'>{{ parents_sheet.child_what_teething }}</div>
+
+<div id='child_comments_3_label'>Anmerkungen der Therapeutin</div>
+<div id='child_comments_3'>{{ parents_sheet.child_comments_3 }}</div>
+
+
+<!-- ----------------------------- Beginn Seite 4 --------------------------------- -->
+
+<div style='break-before: page;' id="headline_page4">Themenblock 4</div>
+
+<div id='headline_page4_right'>Elternbogen von {{ parents_sheet.child_first_name }} {{ parents_sheet.child_last_name }} </div>
+
+<div id='child_glases_label'>Trägt Ihr Kind ständig eine Brille oder nur beim Lesen?</div>
+<div id='child_glases'>
+    {% if parents_sheet.child_glases %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_hearing_aid_label'>Trägt Ihr Kind ein Hörgerät oder ist eines vorgesehen?</div>
+<div id='child_hearing_aid'>
+    {% if parents_sheet.child_hearing_aid %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_problems_sleeping_hearing_label'>Gibt es Schwierigkeiten in Bezug auf Sprache, Hören, Schlafen, Fernsehen?</div>
+<div id='child_problems_sleeping_hearing'>
+    {% if parents_sheet.child_problems_sleeping_hearing %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='child_problems_sleeping_hearing_yes_label'>Wenn ja, welche?</div>
+<div id='child_problems_sleeping_hearing_yes'>{{ parents_sheet.child_problems_sleeping_hearing_yes }}</div>
+
+<div id='child_use_of_language_label'>Wie schätzen Sie den Sprachgebrauch Ihres Kindes während seiner Sprachentwicklung ein? </div>
+<div id='child_use_of_language'>Es hat eher <strong>{{ parents_sheet.get_child_use_of_language_display }}</strong> gesprochen.</div>
+
+<div id='child_speaking_interrupt_label'>Hat Ihr Kind zwar zu sprechen begonnen, dann aber damit plötzlich aufgehört?</div>
+<div id='child_speaking_interrupt'>
+    {% if parents_sheet.child_speaking_interrupt %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_speaking_interrupt_yes_label'>Wenn ja, wann?</div>
+<div id='child_speaking_interrupt_yes'>{{ parents_sheet.child_speaking_interrupt_yes }}</div>
+
+<div id='child_speaking_dev_label'>Hat sich die Sprache Ihres Kindes ab einem bestimmten Zeitpunkt nicht mehr weiterentwickelt?</div>
+<div id='child_speaking_dev'>
+    {% if parents_sheet.child_speaking_dev %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_speaking_dev_yes_label'>Wenn ja, wann?</div>
+<div id='child_speaking_dev_yes'>{{ parents_sheet.child_speaking_dev_yes }}</div>
+
+<div id='child_mimik_label'>Müssen Sie Ihre Äußerungen durch Mimik und Gesten unterstützen, damit Ihr Kind Sie versteht?</div>
+<div id='child_mimik'>
+    {% if parents_sheet.child_mimik %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_understanding_label'>Fällt es Ihnen und nahestehenden Personen schwer, Ihr Kind zu verstehen?</div>
+<div id='child_understanding'>
+    {% if parents_sheet.child_understanding %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_stranger_label'>Fällt es Fremden schwer, Ihr Kind zu verstehen?</div>
+<div id='child_stranger'>
+    {% if parents_sheet.child_stranger %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+<div id='child_gestik_label'>Verständigt sich Ihr Kind hauptsächlich durch Gestik und Mimik?</div>
+
+<div id='child_gestik'>
+    {% if parents_sheet.child_gestik %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+
+<div id='child_letter_wrong_label'>Bildet Ihr Kind bestimmte Buchstaben falsch?</div>
+<div id='child_letter_wrong'>
+    {% if parents_sheet.child_letter_wrong %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_letter_wrong_yes_label'>Wenn ja, welche?</div>
+<div id='child_letter_wrong_yes'>{{ parents_sheet.child_letter_wrong_yes }}</div>
+
+<div id='child_sentence_construction_label'>Erscheint Ihnen der Satzbau Ihres Kindes, im Vergleich zu anderen gleichaltrigen Kindern, auffällig?</div>
+<div id='child_sentence_construction'>
+    {% if parents_sheet.child_sentence_construction %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_speech_label'>Ist die Stimme Ihres Kindes auffällig (rauh, heißer, ...)?</div>
+<div id='child_speech'>
+    {% if parents_sheet.child_speech %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_noises_reaktion_label'>Hat Ihr Kind Probleme, auf alltägliche Geräusche (z.B. Türklingel, Telefon, Kaffeemaschine) <br>zu reagieren, v.a. wenn diese nicht in unmittelbarer Nähe sind?</div>
+<div id='child_noises_reaktion'>
+    {% if parents_sheet.child_noises_reaktion %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_watch_contact_label'>Benötigt Ihr Kind Blickkontakt, um auf Ihre Ansprache reagieren zu können?</div>
+<div id='child_watch_contact'>
+    {% if parents_sheet.child_watch_contact %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_talking_label'>Überschlägt sich Ihr Kind beim Sprechen? Lässt es Wörter oder Satzteile aus?</div>
+<div id='child_talking'>
+    {% if parents_sheet.child_talking %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_stutter_label'>Haben Sie den Eindruck, dass Ihr Kind stottert?</div>
+<div id='child_stutter'>
+    {% if parents_sheet.child_stutter %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_comments_4_label'>Anmerkungen der Therapeutin</div>
+<div id='child_comments_4'>{{ parents_sheet.child_comments_4 }}</div>
+
+
+<!-- ----------------------------- Beginn Seite 5 --------------------------------- -->
+
+<div style='break-before: page;' id="headline_page5">Themenblock 5</div>
+
+<div id='headline_page5_right'>Elternbogen von {{ parents_sheet.child_first_name }} {{ parents_sheet.child_last_name }} </div>
+
+<div id='child_development_label'>Ist die allgemeine Entwicklung altersgerecht (Selbstständigkeit, Konzentration, ...)?</div>
+<div id='child_development'>
+    {% if parents_sheet.child_development %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_playing_1_label'>Spielt es gerne mit anderen Kindern?</div>
+<div id='child_playing_1'>
+    {% if parents_sheet.child_playing_1 %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_playing_2_label'>Spielt es auch alleine?</div>
+<div id='child_playing_2'>
+    {% if parents_sheet.child_playing_2 %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_playing_3_label'>Womit spielt es gerne?</div>
+<div id='child_playing_3'>{{ parents_sheet.child_playing_3 }}</div>
+
+<div id='child_school_label'>Geht Ihr Kind in den Kindergarten / in die Schule?</div>
+<div id='child_school'>
+    {% if parents_sheet.child_school %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}</div>
+
+<div id='child_school_yes_label'>Wenn ja, seit wann?</div>
+<div id='child_school_yes'>{{ parents_sheet.child_school_yes }}</div>
+
+<div id='child_school_which_label'>in welche(n)?</div>
+<div id='child_school_which'>{{ parents_sheet.child_school_which }}</div>
+
+<div id='child_comments_5_label'>Anmerkungen der Therapeutin</div>
+<div id='child_comments_5'>{{ parents_sheet.child_comments_5 }}</div>
+
+
+<!-- ----------------------------- Beginn Seite 6 --------------------------------- -->
+
+<div style='break-before: page;' id="headline_page6">Themenblock 6</div>
+
+<div id='headline_page6_right'>Elternbogen von {{ parents_sheet.child_first_name }} {{ parents_sheet.child_last_name }} </div>
+
+<div id='child_caregivers_label'>Welche Bezugspersonen hat Ihr Kind hauptsächlich? (Erziehungssituation)</div>
+<div id='child_caregivers'>{{ parents_sheet.child_caregivers }}</div>
+
+
+<div id='child_speech_therapy_label'>
+    War oder ist Ihr Kind in logopädischer Behandlung? (sonstige Behandlungen):
+</div>
+<div id='child_speech_therapy'>
+    {% if parents_sheet.child_speech_therapy %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}
+</div>
+
+<div id='child_speech_therapy_yes_label'>Wenn ja, bei wem? (Nennen Sie Zeitraum und Anzahl der Therapiestunden)</div>
+<div id='child_speech_therapy_yes'>{{ parents_sheet.child_speech_therapy_yes }}</div>
+
+<div id='child_speech_therapy_advise_label'>Beschreiben Sie, warum Sie logopädischen Rat einholen möchten? (persönliche Beweggründe)</div>
+<div id='child_speech_therapy_advise'>{{ parents_sheet.child_speech_therapy_advise }}</div>
+
+<div id='child_comments_6_label'>Anmerkungen der Therapeutin</div>
+<div id='child_comments_6'>{{ parents_sheet.child_comments_6 }}</div>
+
+</body>
+</html>

@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from parents.models import Parents_sheet
+
+admin.site.register(Parents_sheet)
