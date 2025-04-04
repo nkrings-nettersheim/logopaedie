@@ -6,8 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         targetIds.forEach(targetId => {
             let extraField = document.getElementById(targetId.trim());
-            if (extraField) {
-                extraField.style.display = selectedRadio.value === "True" ? "block" : "none";
+            console.log(targetId.trim());
+            if (targetId.trim() == "div_id_4-child_development_no") {
+                if (extraField) {
+                    extraField.style.display = selectedRadio.value === "False" ? "block" : "none";
+                }
+            }
+            else {
+                if (extraField) {
+                    extraField.style.display = selectedRadio.value === "True" ? "block" : "none";
+                }
             }
         });
     }

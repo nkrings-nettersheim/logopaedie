@@ -186,9 +186,12 @@ class ParentsSheetFormStep2(ModelForm):
     child_dev_language_yes = forms.CharField(label="Wenn ja, welche?", required=False)
 
     child_dev_5 = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
-                                    widget=forms.RadioSelect(),
+                                    widget=forms.RadioSelect(attrs={
+                                                   'data-target': 'div_id_1-child_dev_5_yes'
+                                               }),
                                     label="Hat/Hatte Ihr Kind Lutschgewohnheiten (Daumen, Schnuller, Finger ... u.s.w.)?",
                                     required=False)
+    child_dev_5_yes = forms.CharField(label="Wenn ja, welche?", required=False)
 
     child_left_handed = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
                                           widget=forms.RadioSelect(),
@@ -219,6 +222,7 @@ class ParentsSheetFormStep2(ModelForm):
             'child_dev_language',
             'child_dev_language_yes',
             'child_dev_5',
+            'child_dev_5_yes',
             'child_left_handed',
             'child_comments_2'
         ]
@@ -245,6 +249,7 @@ class ParentsSheetFormStep2(ModelForm):
             Field("problems_family_speak_listen_yes", css_class="form-control"),
             Field("child_allergy", css_class="custom-radio"),
             Field("child_allergy_yes", css_class="form-control"),
+            HTML("<p><strong>Geben Sie das ungefähre Alter des Kindes (in Monaten) an, in welchem folgende Leistungen von ihm sicher erbracht werden konnten.</strong></p>"),
             Field("crawl_age", css_class="form-control"),
             Field("crawl_age_advise", css_class="custom-radio"),
             Field("walk_age", css_class="form-control"),
@@ -256,6 +261,7 @@ class ParentsSheetFormStep2(ModelForm):
             Field("child_dev_language", css_class="custom-radio"),
             Field("child_dev_language_yes", css_class="form-control"),
             Field("child_dev_5", css_class="custom-radio"),
+            Field("child_dev_5_yes", css_class="form-control"),
             Field("child_left_handed", css_class="custom-radio"),
         ]
 
@@ -402,7 +408,7 @@ class ParentsSheetFormStep3(ModelForm):
 class ParentsSheetFormStep4(ModelForm):
     child_glases = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
                                      widget=forms.RadioSelect,
-                                     label="Trägt Ihr Kind ständig eine Brille oder nur beim Lesen?",
+                                     label="Trägt Ihr Kind ständig eine Brille?",
                                      required=False)
 
     child_hearing_aid = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
@@ -584,8 +590,12 @@ class ParentsSheetFormStep4(ModelForm):
 
 class ParentsSheetFormStep5(ModelForm):
     child_development = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
-                                      widget=forms.RadioSelect,
+                                      widget=forms.RadioSelect(attrs={
+                                                   'data-target': 'div_id_4-child_development_no'
+                                               }),
                                           label="Ist die allgemeine Entwicklung altersgerecht (Selbstständigkeit, Konzentration, ...)?", required=False)
+    child_development_no = forms.CharField(label="Wenn nein, warum?", required=False)
+
     child_playing_1 = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
                                       widget=forms.RadioSelect,
                                          label="Spielt es gerne mit anderen Kindern?", required=False)
@@ -594,14 +604,13 @@ class ParentsSheetFormStep5(ModelForm):
                                          label="Spielt es auch alleine?", required=False)
     child_playing_3 = forms.CharField(label="Womit spielt es gerne?", required=False)
 
-    child_school = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
-                                      widget=forms.RadioSelect(attrs={
-                                                   'data-target': 'div_id_4-child_school_yes, div_id_4-child_school_which'
-                                               }),
-                                      label="Geht Ihr Kind in den Kindergarten / in die Schule?", required=False)
-    child_school_yes = forms.CharField(label="Wenn ja, seit wann?", required=False)
+    child_kindergarten = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
+                                      widget=forms.RadioSelect,
+                                      label="Geht Ihr Kind in den Kindergarten?", required=False)
 
-    child_school_which = forms.CharField(label="in welche(n)?", required=False)
+    child_school = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
+                                      widget=forms.RadioSelect,
+                                      label="Geht Ihr Kind in die Schule?", required=False)
 
     child_comments_5 = forms.CharField(widget=forms.Textarea(),
                                        label=mark_safe("<strong>Anmerkungen der Therapeutin</strong>"),
@@ -610,12 +619,12 @@ class ParentsSheetFormStep5(ModelForm):
         model = Parents_sheet
         fields = [
             'child_development',
+            'child_development_no',
             'child_playing_1',
             'child_playing_2',
             'child_playing_3',
+            'child_kindergarten',
             'child_school',
-            'child_school_yes',
-            'child_school_which',
             'child_comments_5'
         ]
 
@@ -637,12 +646,12 @@ class ParentsSheetFormStep5(ModelForm):
             HTML("<h4 class='text-center'>Spielerische und schulische Entwicklung des Kindes:</h4><br>"),
 
             Field("child_development", css_class="custom-radio"),
+            Field("child_development_no", css_class="form-control"),
             Field("child_playing_1", css_class="custom-radio"),
             Field("child_playing_2", css_class="custom-radio"),
             Field("child_playing_3", css_class="form-control"),
+            Field("child_kindergarten", css_class="custom-radio"),
             Field("child_school", css_class="custom-radio"),
-            Field("child_school_yes", css_class="form-control"),
-            Field("child_school_which", css_class="form-control"),
 
         ]
 
@@ -811,9 +820,12 @@ class ParentsSheetForm(ModelForm):
     child_dev_language_yes = forms.CharField(label="Wenn ja, welche?", required=False)
 
     child_dev_5 = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
-                                    widget=forms.RadioSelect(),
+                                    widget=forms.RadioSelect(attrs={
+                                                   'data-target': 'div_id_1-child_dev_5_yes'
+                                               }),
                                     label="Hat/Hatte Ihr Kind Lutschgewohnheiten (Daumen, Schnuller, Finger ... u.s.w.)?",
                                     required=False)
+    child_dev_5_yes = forms.CharField(label="Wenn ja, welche?", required=False)
 
     child_left_handed = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
                                           widget=forms.RadioSelect(),
@@ -883,7 +895,7 @@ class ParentsSheetForm(ModelForm):
 
     child_glases = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
                                      widget=forms.RadioSelect,
-                                     label="Trägt Ihr Kind ständig eine Brille oder nur beim Lesen?",
+                                     label="Trägt Ihr Kind ständig eine Brille?",
                                      required=False)
 
     child_hearing_aid = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
@@ -982,8 +994,12 @@ class ParentsSheetForm(ModelForm):
                                        required=False)
 
     child_development = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
-                                      widget=forms.RadioSelect,
+                                      widget=forms.RadioSelect(attrs={
+                                               'data-target': 'div_id_3-child_development_no'
+                                           }),
                                           label="Ist die allgemeine Entwicklung altersgerecht (Selbstständigkeit, Konzentration, ...)?", required=False)
+    child_development_no = forms.CharField(label="Wenn nein, warum?", required=False)
+
     child_playing_1 = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
                                       widget=forms.RadioSelect,
                                          label="Spielt es gerne mit anderen Kindern?", required=False)
@@ -992,14 +1008,14 @@ class ParentsSheetForm(ModelForm):
                                          label="Spielt es auch alleine?", required=False)
     child_playing_3 = forms.CharField(label="Womit spielt es gerne?", required=False)
 
-    child_school = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
-                                      widget=forms.RadioSelect(attrs={
-                                                   'data-target': 'div_id_4-child_school_yes, div_id_4-child_school_which'
-                                               }),
-                                      label="Geht Ihr Kind in den Kindergarten / in die Schule?", required=False)
-    child_school_yes = forms.CharField(label="Wenn ja, seit wann?", required=False)
+    child_kindergarten = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
+                                     widget=forms.RadioSelect,
+                                     label="Geht Ihr Kind in den Kindergarten?", required=False)
 
-    child_school_which = forms.CharField(label="in welche(n)?", required=False)
+    child_school = forms.ChoiceField(choices=[(True, "Ja"), (False, "Nein")],
+                                      widget=forms.RadioSelect,
+                                      label="Geht Ihr Kind in die Schule?", required=False)
+
 
     child_comments_5 = forms.CharField(widget=forms.Textarea(),
                                        label=mark_safe("<strong>Anmerkungen der Therapeutin (Themenblock 5)</strong>"),
@@ -1082,6 +1098,9 @@ class ParentsSheetForm(ModelForm):
             Field("problems_family_speak_listen_yes", css_class="form-control"),
             Field("child_allergy", css_class="custom-radio"),
             Field("child_allergy_yes", css_class="custom-radio"),
+            HTML("<p><strong>Geben Sie das ungefähre Alter des Kindes (in Monaten) an, in welchem folgende Leistungen "
+                 "von ihm sicher erbracht werden konnten.</strong></p>"),
+
             Field("crawl_age", css_class="form-control"),
             Field("crawl_age_advise", css_class="form-control"),
             Field("walk_age", css_class="form-control"),
@@ -1093,6 +1112,7 @@ class ParentsSheetForm(ModelForm):
             Field("child_dev_language", css_class="custom-radio"),
             Field("child_dev_language_yes", css_class="form-control"),
             Field("child_dev_5", css_class="custom-radio"),
+            Field("child_dev_5_yes", css_class="form-control"),
             Field("child_left_handed", css_class="custom-radio"),
             Field("child_comments_2", css_class="form-control"),
 
@@ -1138,12 +1158,12 @@ class ParentsSheetForm(ModelForm):
 
             HTML("<h4 class='text-center'>Spielerische und schulische Entwicklung des Kindes:</h4><br>"),
             Field("child_development", css_class="custom-radio"),
+            Field("child_development_no", css_class="form-control"),
             Field("child_playing_1", css_class="custom-radio"),
             Field("child_playing_2", css_class="custom-radio"),
             Field("child_playing_3", css_class="form-control"),
+            Field("child_kindergarten", css_class="custom-radio"),
             Field("child_school", css_class="custom-radio"),
-            Field("child_school_yes", css_class="form-control"),
-            Field("child_school_which", css_class="form-control"),
             Field("child_comments_5", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Fragen zur logopädischen Behandlung:</h4><br>"),

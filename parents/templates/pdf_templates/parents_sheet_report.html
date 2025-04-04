@@ -138,7 +138,7 @@
 <div id='crawl_age_label'>Ab welchem Lebensmonat hat das Kind gekrabbelt?</div>
 <div id='crawl_age'>{{ parents_sheet.crawl_age }}; {{ parents_sheet.get_crawl_age_advise_display }}</div>
 
-<div id="walk_description">Geben Sie das ungefähre Alter des Kindes (in Monaten an,
+<div id="walk_description">Geben Sie das ungefähre Alter des Kindes (in Monaten) an,
 in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
 
 <div id='walk_age_label'>Ab welchem Lebensmonat hat das Kind gelaufen?</div>
@@ -177,6 +177,8 @@ in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
     Ja / <b><i>Nein</i></b>
     {% endif %}
 </div>
+<div id='child_dev_5_yes_label'Wenn ja, welche?></div>
+<div id='child_dev_5_yes'>{{ parents_sheet.child_dev_5_yes }}</div>
 
 <div id='child_left_handed_label'>Ist Ihr Kind Linkshänder/in?</div>
 <div id='child_left_handed'>
@@ -291,7 +293,7 @@ in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
 
 <div id='headline_page4_right'>Elternbogen von {{ parents_sheet.child_first_name }} {{ parents_sheet.child_last_name }} </div>
 
-<div id='child_glases_label'>Trägt Ihr Kind ständig eine Brille oder nur beim Lesen?</div>
+<div id='child_glases_label'>Trägt Ihr Kind ständig eine Brille?</div>
 <div id='child_glases'>
     {% if parents_sheet.child_glases %}
     <b><i>Ja</i></b> / Nein
@@ -468,6 +470,9 @@ in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
     Ja / <b><i>Nein</i></b>
     {% endif %}
 </div>
+<div id='child_development_no_label'>Wenn ja, welche?</div>
+<div id='child_development_no'>{{ parents_sheet.child_letter_wrong_yes }}</div>
+
 
 <div id='child_playing_1_label'>Spielt es gerne mit anderen Kindern?</div>
 <div id='child_playing_1'>
@@ -490,7 +495,15 @@ in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
 <div id='child_playing_3_label'>Womit spielt es gerne?</div>
 <div id='child_playing_3'>{{ parents_sheet.child_playing_3 }}</div>
 
-<div id='child_school_label'>Geht Ihr Kind in den Kindergarten / in die Schule?</div>
+<div id='child_kindergarten_label'>Geht Ihr Kind in den Kindergarten?</div>
+<div id='child_kindergarten'>
+    {% if parents_sheet.child_kindergarten %}
+    <b><i>Ja</i></b> / Nein
+    {% else %}
+    Ja / <b><i>Nein</i></b>
+    {% endif %}</div>
+
+<div id='child_school_label'>Geht Ihr Kind in die Schule?</div>
 <div id='child_school'>
     {% if parents_sheet.child_school %}
     <b><i>Ja</i></b> / Nein
@@ -498,11 +511,6 @@ in welchem folgende Leistungen von ihm sicher erbracht werden konnten:</div>
     Ja / <b><i>Nein</i></b>
     {% endif %}</div>
 
-<div id='child_school_yes_label'>Wenn ja, seit wann?</div>
-<div id='child_school_yes'>{{ parents_sheet.child_school_yes }}</div>
-
-<div id='child_school_which_label'>in welche(n)?</div>
-<div id='child_school_which'>{{ parents_sheet.child_school_which }}</div>
 
 <div id='child_comments_5_label'>Anmerkungen der Therapeutin</div>
 <div id='child_comments_5'>{{ parents_sheet.child_comments_5 }}</div>
