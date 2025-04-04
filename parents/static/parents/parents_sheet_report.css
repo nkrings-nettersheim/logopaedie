@@ -1,5 +1,4 @@
 /* @charset "UTF-8"; */
-/* @import url("https://fonts.googleapis.com/css?family=Pacifico|Source+Sans+Pro:400,700"); */
 
 @font-face {
     font-family: 'Times New Roman';
@@ -13,7 +12,12 @@
     margin-top: 0cm;
     margin-left: 0cm;
     margin-right: 1.0cm;
-    margin-bottom: 0cm;
+    margin-bottom: 1cm;
+
+    @bottom-center {
+        content: "Seite " counter(page) " von " counter(pages);
+        font-size: 10pt;
+    }
 }
 
 body {
@@ -22,22 +26,1238 @@ body {
 }
 
 #kopf1 {
-    position: absolute;
-    left: 1.5cm;
-    top: 1.0cm;
-    font-size: 11pt;
+    position: relative;
+    left: 9.0cm;
+    top: 0.5cm;
+    font-size: 16pt;
     font-weight: bold;
 }
 
 #child_last_name_label {
     position: absolute;
-    left: 1.5cm;
+    left: 1.0cm;
     top: 2.0cm;
 }
 #child_last_name {
     position: absolute;
-    left: 5.0cm;
+    left: 6.0cm;
     top: 2.0cm;
+    font-weight: bold;
+}
+
+#child_first_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.0cm;
+}
+#child_first_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 3.0cm;
+    font-weight: bold;
+}
+
+#child_day_of_birth_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.0cm;
+}
+#child_day_of_birth {
+    position: absolute;
+    left: 6.0cm;
+    top: 4.0cm;
+    font-weight: bold;
+}
+
+#health_assurance_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.0cm;
+}
+#health_assurance {
+    position: absolute;
+    left: 6.0cm;
+    top: 5.0cm;
+    font-weight: bold;
+}
+
+#doctor_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.5cm;
+}
+#doctor {
+    position: absolute;
+    left: 6.0cm;
+    top: 5.5cm;
+    font-weight: bold;
+}
+
+#phone_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.0cm;
+}
+#phone {
+    position: absolute;
+    left: 6.0cm;
+    top: 6.0cm;
+    font-weight: bold;
+}
+
+#cellphone_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.5cm;
+}
+#cellphone {
+    position: absolute;
+    left: 6.0cm;
+    top: 6.5cm;
+    font-weight: bold;
+}
+
+#phone_work_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 7.0cm;
+}
+#phone_work {
+    position: absolute;
+    left: 6.0cm;
+    top: 7.0cm;
+    font-weight: bold;
+}
+
+#email_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 7.5cm;
+}
+#email {
+    position: absolute;
+    left: 6.0cm;
+    top: 7.5cm;
+    font-weight: bold;
+}
+
+#mother_last_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.5cm;
+}
+#mother_last_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 8.5cm;
+    font-weight: bold;
+}
+
+#mother_first_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 9.0cm;
+}
+#mother_first_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 9.0cm;
+    font-weight: bold;
+}
+
+#mother_day_of_birth_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 9.5cm;
+}
+#mother_day_of_birth {
+    position: absolute;
+    left: 6.0cm;
+    top: 9.5cm;
+    font-weight: bold;
+}
+
+#mother_job_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 10.0cm;
+}
+#mother_job {
+    position: absolute;
+    left: 6.0cm;
+    top: 10.0cm;
+    font-weight: bold;
+}
+
+#father_last_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 11.0cm;
+}
+#father_last_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 11.0cm;
+    font-weight: bold;
+}
+
+#father_first_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 11.5cm;
+}
+#father_first_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 11.5cm;
+    font-weight: bold;
+}
+
+#father_day_of_birth_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 12.0cm;
+}
+#father_day_of_birth {
+    position: absolute;
+    left: 6.0cm;
+    top: 12.0cm;
+    font-weight: bold;
+}
+
+#father_job_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 12.5cm;
+}
+#father_job {
+    position: absolute;
+    left: 6.0cm;
+    top: 12.5cm;
+    font-weight: bold;
+}
+
+#siblings1_last_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 13.5cm;
+}
+#siblings1_last_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 13.5cm;
+    font-weight: bold;
+}
+
+#siblings1_first_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 14.0cm;
+}
+#siblings1_first_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 14.0cm;
+    font-weight: bold;
+}
+
+#siblings1_age_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 14.5cm;
+}
+#siblings1_age {
+    position: absolute;
+    left: 6.0cm;
+    top: 14.5cm;
+    font-weight: bold;
+}
+
+#siblings2_last_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 15.5cm;
+}
+#siblings2_last_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 15.5cm;
+    font-weight: bold;
+}
+
+#siblings2_first_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 16.0cm;
+}
+#siblings2_first_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 16.0cm;
+    font-weight: bold;
+}
+
+#siblings2_age_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 16.5cm;
+}
+#siblings2_age {
+    position: absolute;
+    left: 6.0cm;
+    top: 16.5cm;
+    font-weight: bold;
+}
+
+#siblings3_last_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 17.5cm;
+}
+#siblings3_last_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 17.5cm;
+    font-weight: bold;
+}
+
+#siblings3_first_name_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 18.0cm;
+}
+#siblings3_first_name {
+    position: absolute;
+    left: 6.0cm;
+    top: 18.0cm;
+    font-weight: bold;
+}
+
+#siblings3_age_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 18.5cm;
+}
+#siblings3_age {
+    position: absolute;
+    left: 6.0cm;
+    top: 18.5cm;
+    font-weight: bold;
+}
+
+#child_allergy_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 20.5cm;
+    font-size: 12pt;
+}
+#child_allergy {
+    position: absolute;
+    left: 18.0cm;
+    top: 20.5cm;
+    font-size: 12pt;
+}
+
+#child_allergy_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 21.0cm;
+    font-size: 12pt;
+}
+#child_allergy_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 21.5cm;
     font-size: 12pt;
     font-weight: bold;
 }
+
+
+#child_comments_1_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 23.5cm;
+}
+#child_comments_1 {
+    position: absolute;
+    left: 1.0cm;
+    top: 24.0cm;
+    font-weight: bold;
+}
+
+/*----------------------------------- Beginn Seite 2 -------------------------------------------*/
+
+#headline_page2 {
+    position: relative;
+    left: 0.8cm;
+    top: 1.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#headline_page2_right {
+    position: absolute;
+    left: 13.0cm;
+    top: 1.0cm;
+}
+
+#problems_pregnancy_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.0cm;
+}
+#problems_pregnancy {
+    position: absolute;
+    left: 18.0cm;
+    top: 3.0cm;
+    font-size: 12pt;
+}
+
+#problems_pregnancy_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.5cm;
+}
+#problems_pregnancy_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.0cm;
+    font-weight: bold;
+}
+
+#problems_family_speak_listen_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.0cm;
+}
+#problems_family_speak_listen {
+    position: absolute;
+    left: 18.0cm;
+    top: 5.0cm;
+    font-size: 12pt;
+}
+
+#problems_family_speak_listen_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.5cm;
+}
+#problems_family_speak_listen_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.0cm;
+    font-weight: bold;
+}
+
+
+#walk_description {
+    position: absolute;
+    left: 1.0cm;
+    top: 9.0cm;
+}
+
+#crawl_age_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 10.0cm;
+}
+#crawl_age {
+    position: absolute;
+    left: 10.0cm;
+    top: 10.0cm;
+    font-weight: bold;
+}
+
+
+#walk_age_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 11.0cm;
+}
+#walk_age {
+    position: absolute;
+    left: 10.0cm;
+    top: 11.0cm;
+    font-weight: bold;
+}
+
+
+#child_dev_1_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 12.0cm;
+}
+#child_dev_1 {
+    position: absolute;
+    left: 10.0cm;
+    top: 12.0cm;
+    font-weight: bold;
+}
+
+#child_dev_2_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 13.0cm;
+}
+#child_dev_2 {
+    position: absolute;
+    left: 10.0cm;
+    top: 13.0cm;
+    font-weight: bold;
+}
+
+#child_dev_3_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 14.0cm;
+}
+#child_dev_3 {
+    position: absolute;
+    left: 10.0cm;
+    top: 14.0cm;
+    font-weight: bold;
+}
+
+#child_dev_4_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 15.0cm;
+}
+#child_dev_4 {
+    position: absolute;
+    left: 10.0cm;
+    top: 15.0cm;
+    font-weight: bold;
+}
+
+#child_dev_language_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 17.5cm;
+}
+#child_dev_language {
+    position: absolute;
+    left: 18.0cm;
+    top: 17.5cm;
+    font-size: 12pt;
+}
+
+#child_dev_language_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 18.0cm;
+}
+#child_dev_language_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 18.0cm;
+    font-weight: bold;
+}
+
+#child_dev_5_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 19.0cm;
+}
+#child_dev_5 {
+    position: absolute;
+    left: 18.0cm;
+    top: 19.0cm;
+    font-size: 12pt;
+}
+#child_dev_5_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 20.0cm;
+}
+#child_dev_5_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 20.0cm;
+    font-weight: bold;
+}
+
+
+#child_left_handed_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 21.0cm;
+}
+#child_left_handed {
+    position: absolute;
+    left: 18.0cm;
+    top: 21.0cm;
+    font-size: 12pt;
+}
+
+#child_comments_2_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 23.0cm;
+}
+#child_comments_2 {
+    position: absolute;
+    left: 1.0cm;
+    top: 23.5cm;
+    font-weight: bold;
+}
+
+/*----------------------------------- Beginn Seite 3 -------------------------------------------*/
+
+#headline_page3 {
+    position: relative;
+    left: 0.8cm;
+    top: 1.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#headline_page3_right {
+    position: absolute;
+    left: 13.0cm;
+    top: 1.0cm;
+}
+
+#child_chronic_disease_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.0cm;
+}
+#child_chronic_disease {
+    position: absolute;
+    left: 18.0cm;
+    top: 2.0cm;
+    font-size: 12pt;
+}
+
+#child_chronic_disease_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.5cm;
+}
+#child_chronic_disease_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.0cm;
+    font-weight: bold;
+}
+
+#child_nutrition_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.0cm;
+}
+#child_nutrition {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.5cm;
+    font-weight: bold;
+}
+
+#child_hospital_visits_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.5cm;
+}
+#child_hospital_visits {
+    position: absolute;
+    left: 18.0cm;
+    top: 5.5cm;
+    font-size: 12pt;
+}
+
+#child_hospital_visits_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.0cm;
+}
+#child_hospital_visits_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.5cm;
+    font-weight: bold;
+}
+
+#child_medicine_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 7.5cm;
+}
+#child_medicine {
+    position: absolute;
+    left: 18.0cm;
+    top: 7.5cm;
+    font-size: 12pt;
+}
+
+#child_medicine_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.0cm;
+}
+#child_medicine_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.5cm;
+    font-weight: bold;
+}
+
+#child_count_colds_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 9.5cm;
+}
+#child_count_colds {
+    position: absolute;
+    left: 18.0cm;
+    top: 9.5cm;
+    font-size: 12pt;
+}
+
+#child_timpani_tube_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 10.5cm;
+}
+#child_timpani_tube {
+    position: absolute;
+    left: 18.0cm;
+    top: 10.5cm;
+    font-size: 12pt;
+}
+
+#child_listen_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 11.5cm;
+}
+#child_listen {
+    position: absolute;
+    left: 18.0cm;
+    top: 11.5cm;
+    font-size: 12pt;
+}
+
+#child_illness_1_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 12.5cm;
+}
+#child_illness_1 {
+    position: absolute;
+    left: 18.0cm;
+    top: 12.5cm;
+    font-size: 12pt;
+}
+
+#child_illness_2_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 13.5cm;
+}
+#child_illness_2 {
+    position: absolute;
+    left: 18.0cm;
+    top: 13.5cm;
+    font-size: 12pt;
+}
+
+#child_what_teething_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 14.5cm;
+}
+#child_what_teething {
+    position: absolute;
+    left: 1.0cm;
+    top: 15.0cm;
+    font-weight: bold;
+}
+
+#child_comments_3_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 20.0cm;
+}
+#child_comments_3 {
+    position: absolute;
+    left: 1.0cm;
+    top: 20.5cm;
+    font-weight: bold;
+}
+
+
+/*----------------------------------- Beginn Seite 4 -------------------------------------------*/
+
+#headline_page4 {
+    position: relative;
+    left: 0.8cm;
+    top: 1.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#headline_page4_right {
+    position: absolute;
+    left: 13.0cm;
+    top: 1.0cm;
+}
+
+#child_glases_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.0cm;
+}
+#child_glases {
+    position: absolute;
+    left: 18.0cm;
+    top: 2.0cm;
+    font-size: 12pt;
+}
+
+#child_hearing_aid_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.0cm;
+}
+#child_hearing_aid {
+    position: absolute;
+    left: 18.0cm;
+    top: 3.0cm;
+    font-size: 12pt;
+}
+
+#child_problems_sleeping_hearing_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.0cm;
+}
+#child_problems_sleeping_hearing {
+    position: absolute;
+    left: 18.0cm;
+    top: 4.0cm;
+    font-size: 12pt;
+}
+
+#child_problems_sleeping_hearing_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.5cm;
+}
+#child_problems_sleeping_hearing_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.0cm;
+    font-weight: bold;
+}
+
+#child_use_of_language_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.0cm;
+}
+#child_use_of_language {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.5cm;
+}
+
+#child_speaking_interrupt_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.5cm;
+}
+#child_speaking_interrupt {
+    position: absolute;
+    left: 18.0cm;
+    top: 8.5cm;
+    font-size: 12pt;
+}
+
+#child_speaking_interrupt_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 9.0cm;
+}
+#child_speaking_interrupt_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 9.5cm;
+    font-weight: bold;
+}
+
+#child_speaking_dev_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 10.5cm;
+}
+#child_speaking_dev {
+    position: absolute;
+    left: 18.0cm;
+    top: 10.5cm;
+    font-size: 12pt;
+}
+
+#child_speaking_dev_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 11.0cm;
+}
+#child_speaking_dev_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 11.5cm;
+    font-weight: bold;
+}
+
+#child_mimik_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 12.5cm;
+}
+#child_mimik {
+    position: absolute;
+    left: 18.0cm;
+    top: 12.5cm;
+    font-size: 12pt;
+}
+
+#child_understanding_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 13.5cm;
+}
+#child_understanding {
+    position: absolute;
+    left: 18.0cm;
+    top: 13.5cm;
+    font-size: 12pt;
+}
+
+#child_stranger_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 14.5cm;
+}
+#child_stranger {
+    position: absolute;
+    left: 18.0cm;
+    top: 14.5cm;
+    font-size: 12pt;
+}
+
+#child_gestik_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 15.5cm;
+}
+#child_gestik {
+    position: absolute;
+    left: 18.0cm;
+    top: 15.5cm;
+    font-size: 12pt;
+}
+
+#child_letter_wrong_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 16.5cm;
+}
+#child_letter_wrong {
+    position: absolute;
+    left: 18.0cm;
+    top: 16.5cm;
+    font-size: 12pt;
+}
+
+#child_letter_wrong_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 17.0cm;
+}
+#child_letter_wrong_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 17.5cm;
+    font-weight: bold;
+}
+
+#child_sentence_construction_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 18.5cm;
+}
+#child_sentence_construction {
+    position: absolute;
+    left: 18.0cm;
+    top: 18.5cm;
+    font-size: 12pt;
+}
+
+#child_speech_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 19.5cm;
+}
+#child_speech {
+    position: absolute;
+    left: 18.0cm;
+    top: 19.5cm;
+    font-size: 12pt;
+}
+
+#child_noises_reaktion_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 20.5cm;
+}
+#child_noises_reaktion {
+    position: absolute;
+    left: 18.0cm;
+    top: 20.5cm;
+    font-size: 12pt;
+}
+
+#child_watch_contact_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 21.5cm;
+}
+#child_watch_contact {
+    position: absolute;
+    left: 18.0cm;
+    top: 21.5cm;
+    font-size: 12pt;
+}
+
+#child_talking_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 22.5cm;
+}
+#child_talking {
+    position: absolute;
+    left: 18.0cm;
+    top: 22.5cm;
+    font-size: 12pt;
+
+}
+
+#child_stutter_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 23.5cm;
+}
+#child_stutter {
+    position: absolute;
+    left: 18.0cm;
+    top: 23.5cm;
+    font-size: 12pt;
+}
+
+#child_comments_4_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 25.0cm;
+}
+#child_comments_4 {
+    position: absolute;
+    left: 1.0cm;
+    top: 25.5cm;
+    font-weight: bold;
+}
+
+
+/*-----------------------------------Beginn Seite 5-------------------------------------------*/
+
+#headline_page5 {
+    position: relative;
+    left: 0.8cm;
+    top: 1.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#headline_page5_right {
+    position: absolute;
+    left: 13.0cm;
+    top: 1.0cm;
+}
+
+#child_development_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.0cm;
+}
+#child_development {
+    position: absolute;
+    left: 18.0cm;
+    top: 2.0cm;
+    font-size: 12pt;
+}
+#child_development_no_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.0cm;
+}
+#child_development_no {
+    position: absolute;
+    left: 1.0cm;
+    top: 3.5cm;
+    font-weight: bold;
+}
+
+
+
+#child_playing_1_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.0cm;
+}
+#child_playing_1 {
+    position: absolute;
+    left: 18.0cm;
+    top: 4.0cm;
+    font-size: 12pt;
+}
+
+#child_playing_2_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.0cm;
+}
+#child_playing_2 {
+    position: absolute;
+    left: 18.0cm;
+    top: 5.0cm;
+    font-size: 12pt;
+}
+
+#child_playing_3_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.0cm;
+}
+#child_playing_3 {
+    position: absolute;
+    left: 5.0cm;
+    top: 6.0cm;
+    font-weight: bold;
+}
+
+#child_kindergarten_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 7.0cm;
+}
+#child_kindergarten {
+    position: absolute;
+    left: 18.0cm;
+    top: 7.0cm;
+    font-size: 12pt;
+}
+
+#child_school_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.0cm;
+}
+#child_school {
+    position: absolute;
+    left: 18.0cm;
+    top: 8.0cm;
+    font-size: 12pt;
+}
+
+#child_comments_5_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 10.0cm;
+}
+#child_comments_5 {
+    position: absolute;
+    left: 1.0cm;
+    top: 10.5cm;
+    font-weight: bold;
+}
+
+
+/*-----------------------------------Beginn Seite 6-------------------------------------------*/
+
+#headline_page6 {
+    position: relative;
+    left: 0.8cm;
+    top: 1.0cm;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#headline_page6_right {
+    position: absolute;
+    left: 13.0cm;
+    top: 1.0cm;
+}
+
+#child_caregivers_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.0cm;
+}
+#child_caregivers {
+    position: absolute;
+    left: 1.0cm;
+    top: 2.5cm;
+    font-weight: bold;
+}
+
+
+#child_speech_therapy_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.0cm;
+}
+#child_speech_therapy {
+    position: absolute;
+    left: 18.0cm;
+    top: 4.0cm;
+    font-size: 12pt;
+}
+
+#child_speech_therapy_yes_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 4.5cm;
+}
+#child_speech_therapy_yes {
+    position: absolute;
+    left: 1.0cm;
+    top: 5.0cm;
+    font-weight: bold;
+}
+
+
+#child_speech_therapy_advise_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.0cm;
+}
+#child_speech_therapy_advise {
+    position: absolute;
+    left: 1.0cm;
+    top: 6.5cm;
+    font-weight: bold;
+}
+
+
+#child_comments_6_label {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.0cm;
+}
+#child_comments_6 {
+    position: absolute;
+    left: 1.0cm;
+    top: 8.5cm;
+    font-weight: bold;
+}
+
