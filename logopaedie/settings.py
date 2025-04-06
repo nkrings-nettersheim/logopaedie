@@ -19,6 +19,9 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_VERSION = '20250406'
+APP_VERSION = 'V4.73'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -79,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'logopaedie.context_processors.static_version',
+                'logopaedie.context_processors.app_version',
             ],
         },
     },
@@ -145,25 +150,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/reports/'
 LOGOUT_REDIRECT_URL = '/reports/'
 
-#SESSION_EXPIRE_SECONDS = 900  # 900 - >15 minutes = 15 * 60
-#SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-#SESSION_SAVE_EVERY_REQUEST = True
-
 # 30 * 60 = 30 Minuten + 5 Sekunden, damit die Session noch existiert, wenn nach 30 Minuten der Logout erfolgt
 SESSION_EXPIRE_SECONDS = 30*60+5
 
-#SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-#SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60 # group by minute
-
-# Eingefügt nk 21.07.2019
-#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-#SESSION_TIMEOUT_REDIRECT = 'songarchiv/'
 
 USE_X_FORWARDED_HOST = True
 

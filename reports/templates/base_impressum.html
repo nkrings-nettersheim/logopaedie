@@ -8,13 +8,7 @@
     {% load static %}
     {% bootstrap_css %}
 
-
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
-
-    <!-- Add additional CSS in static file
-    <link rel="stylesheet" href="{% static 'reports/style.css' %}">
-    -->
-    <link rel="stylesheet" href="{% static 'reports/logopaedie.css' %}">
+    <link rel="stylesheet" href="{% static 'reports/logopaedie.css' %}?v={{ STATIC_VERSION }}">
 
     <!-- Add favicon in static file -->
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">

@@ -2,7 +2,7 @@
 
 {% block extrahead %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}">
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}?v={{ STATIC_VERSION }}">
 {% endblock %}
 
 {% block content %}

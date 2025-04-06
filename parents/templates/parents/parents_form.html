@@ -5,7 +5,7 @@
 
 {% block head %}
     {{ wizard.form.media }}
-    <link rel="stylesheet" href="{% static 'parents/parents.css' %}">
+    <link rel="stylesheet" href="{% static 'parents/parents.css' %}?v={{ STATIC_VERSION }}">
 {% endblock %}
 
 
@@ -43,5 +43,5 @@
     <br>
     <br>
 </content>
-<script src="{% static 'parents/js_files/parents.js' %}"></script>
+<script src="{% static 'parents/js_files/parents.js' %}?v={{ STATIC_VERSION }}"></script>
 {% endblock %}

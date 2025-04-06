@@ -3,7 +3,7 @@
 {% block extrahead %}
     {% load static %}
     {% load crispy_forms_tags %}
-    <link rel="stylesheet" href="{% static 'parents/parents.css' %}">
+    <link rel="stylesheet" href="{% static 'parents/parents.css' %}?v={{ STATIC_VERSION }}">
 {% endblock %}
 
 
