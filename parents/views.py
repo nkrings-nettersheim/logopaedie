@@ -124,7 +124,7 @@ def move_parents_sheet_to_document(request, pk):
 
     try:
         parents_sheet.sheet_created = True
-        parents_sheet.save(update_fields=["sheet_created"])
+        #parents_sheet.save(update_fields=["sheet_created"])
     except Exception as e:
         logger.error(f"Fehler beim Datenbank-Update: {str(e)}")
 

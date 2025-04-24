@@ -106,12 +106,12 @@ class Parents_sheet(models.Model):
     child_speech_therapy = models.BooleanField(default=True, null=True)
     child_speech_therapy_yes = models.CharField(max_length=75, blank=True, default='')
     child_speech_therapy_advise = models.CharField(max_length=254, blank=True, default='')
-    child_comments_1 = models.CharField(max_length=255, blank=True, default='')
-    child_comments_2 = models.CharField(max_length=255, blank=True, default='')
-    child_comments_3 = models.CharField(max_length=255, blank=True, default='')
-    child_comments_4 = models.CharField(max_length=255, blank=True, default='')
-    child_comments_5 = models.CharField(max_length=255, blank=True, default='')
-    child_comments_6 = models.CharField(max_length=255, blank=True, default='')
+    child_comments_1 = models.TextField(blank=True, default='')
+    child_comments_2 = models.TextField(blank=True, default='')
+    child_comments_3 = models.TextField(blank=True, default='')
+    child_comments_4 = models.TextField(blank=True, default='')
+    child_comments_5 = models.TextField(blank=True, default='')
+    child_comments_6 = models.TextField(blank=True, default='')
     sheet_created = models.BooleanField(default=False, null=True)
 
     def __str__(self):
