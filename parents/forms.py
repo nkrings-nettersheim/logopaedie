@@ -1049,6 +1049,7 @@ class ParentsSheetForm(ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = "post"
         layout_fields = [
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div>"),
             HTML("<h4 class='text-center'>Angaben zum Kind:</h4>"),
 
             Field("child_last_name", css_class="form-control"),
@@ -1091,6 +1092,7 @@ class ParentsSheetForm(ModelForm):
             Field("siblings3_age", css_class="form-control"),
             Field("child_comments_1", css_class="form-control"),
 
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div><br>"),
             HTML("<h4 class='text-center'>Allgemeine Entwicklung des Kindes:</h4><br>"),
             Field("problems_pregnancy", css_class="custom-radio"),
             Field("problems_pregnancy_yes", css_class="form-control"),
@@ -1116,6 +1118,8 @@ class ParentsSheetForm(ModelForm):
             Field("child_left_handed", css_class="custom-radio"),
             Field("child_comments_2", css_class="form-control"),
 
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div><br>"),
+
             HTML("<h4 class='text-center'>Erkrankungen des Kindes:</h4><br>"),
             Field("child_chronic_disease", css_class="custom-radio"),
             Field("child_chronic_disease_yes", css_class="form-control"),
@@ -1131,6 +1135,8 @@ class ParentsSheetForm(ModelForm):
             Field("child_illness_2", css_class="custom-radio"),
             Field("child_what_teething", css_class="form-control"),
             Field("child_comments_3", css_class="form-control"),
+
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div><br>"),
 
             HTML("<h4 class='text-center'>Hören, Sprechen, Verstehen:</h4><br>"),
             Field("child_glases", css_class="custom-radio"),
@@ -1156,6 +1162,8 @@ class ParentsSheetForm(ModelForm):
             Field("child_stutter", css_class="custom-radio"),
             Field("child_comments_4", css_class="form-control"),
 
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div><br>"),
+
             HTML("<h4 class='text-center'>Spielerische und schulische Entwicklung des Kindes:</h4><br>"),
             Field("child_development", css_class="custom-radio"),
             Field("child_development_no", css_class="form-control"),
@@ -1166,6 +1174,8 @@ class ParentsSheetForm(ModelForm):
             Field("child_school", css_class="custom-radio"),
             Field("child_comments_5", css_class="form-control"),
 
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div><br>"),
+
             HTML("<h4 class='text-center'>Fragen zur logopädischen Behandlung:</h4><br>"),
             Field("child_caregivers", css_class="form-control"),
             Field("child_speech_therapy", css_class="custom-radio"),
@@ -1173,7 +1183,7 @@ class ParentsSheetForm(ModelForm):
             Field("child_speech_therapy_advise", css_class="form-control"),
             Field("child_comments_6", css_class="form-control"),
 
-            HTML("<br><div><button type='submit' class='btn btn-primary'>Final absenden</button></div>")
+            HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div>")
 
         ]
 

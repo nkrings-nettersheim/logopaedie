@@ -22,6 +22,5 @@ urlpatterns = [
     path('parents-sheet-list/', ParentsSheetListView.as_view(), name='parents_sheet_list'),
     path('parents-sheet/edit/<int:pk>/', ParentsSheetUpdateView.as_view(), name='parents_sheet_edit'),
     path('move/parents_sheet/<int:pk>/', move_parents_sheet_to_document, name='move_parents_sheet'),
-    #path('move/parents_sheet/<id>/', parents_sheet_report_test, name='move_parents_sheet'),
 ]
 

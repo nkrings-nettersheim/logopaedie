@@ -34,47 +34,6 @@ logger = logging.getLogger(__name__)
 
 # assert False
 
-def add_parentssheet(request, token=None):
-    request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
-    s = URLSafeTimedSerializer(settings.SECRET_KEY)
-
-    try:
-        data = s.loads(token, max_age=7200) #Zeitangabe in Sekunden
-        patient_uuid = data.get("patient_uuid")
-
-        # Falls die UUID gültig ist, Formular anzeigen
-        #return render(request, "fragebogen.html", {"patient_uuid": patient_uuid})
-        if request.method == "POST":
-            form = ParentsSheetFormStep1(request.POST)
-            if form.is_valid():
-                parents_item = form.save(commit=False)
-                parents_item.save()
-                logger.info('add_parentssheet')
-                return redirect('/parents/index/')
-        else:
-            logger.debug('add_parentssheet: else')
-            form = ParentsSheetFormStep1()
-        return render(request, 'parents/parents_form.html', {'form': form})
-
-    except SignatureExpired:
-        return HttpResponse("Der Link ist abgelaufen.", status=410)
-    except BadSignature:
-        return HttpResponse("Ungültiger Link.", status=400)
-
-
-def edit_parentssheet(request, id=None):
-    request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
-    item = get_object_or_404(Parents_sheet, id=id)
-    form = ParentsSheetFormStep1(request.POST or None, instance=item)
-    if form.is_valid():
-        form.save()
-        logger.info('Daten werden gespeichert')
-        return redirect('/index/')
-    logger.debug('edit_parentssheet')
-    form.id = item.id
-    return render(request, 'parents/parents_form.html', {'form': form})
-
-
 class ParentsSheetWizard(SessionWizardView):
     form_list = [
         ParentsSheetFormStep1,
@@ -118,6 +77,7 @@ class ParentsSheetListView(ListView):
         context["form"] = ParentsSheetListForm()  # Leere Form für jeden Eintrag
         return context
 
+
 class ParentsSheetUpdateView(UpdateView):
     model = Parents_sheet
     form_class = ParentsSheetForm
@@ -157,7 +117,7 @@ def move_parents_sheet_to_document(request, pk):
     #print(f"PatientID: {patientId}")
     try:
         patient = Patient.objects.get(id=patientId)
-        document = Document(description='Elternbogen', document=filepath_doc, patient=patient, registration_form=True)
+        document = Document(description='Elternbogen', document=filepath_doc, patient=patient, parents_form=True)
         document.save()
     except Exception as e:
         logger.error(f"Fehler beim Datenbank-Update: {str(e)}")
@@ -191,32 +151,3 @@ def parents_sheet_report(sourceId, targetId):
 
     return filepath_doc
 
-
-def parents_sheet_report_test(request, id):
-    targetId = 18
-    parents_sheet = Parents_sheet.objects.get(id=id)
-
-    html_file = 'pdf_templates/parents_sheet_report.html'
-    css_file = os.path.join(settings.STATIC_ROOT, 'parents/parents_sheet_report.css')
-    html_string = render_to_string(html_file, {'parents_sheet': parents_sheet})
-
-    filename = "Elternbogen_" + parents_sheet.child_last_name + "_" + parents_sheet.child_first_name + ".pdf"
-
-    pdf_directory = os.path.join(settings.MEDIA_ROOT, "patient/" + str(targetId))
-    os.makedirs(pdf_directory, exist_ok=True)  # Sicherstellen, dass der Ordner existiert
-
-    pdf_path = os.path.join(pdf_directory, filename)
-    filepath_doc = "patient/" + str(targetId) + "/" + filename
-
-
-    html_string = render_to_string(html_file, {'parents_sheet': parents_sheet})
-
-    html = HTML(string=html_string, base_url=request.build_absolute_uri())
-
-    #html = HTML(string=html_string).write_pdf(pdf_path, stylesheets=[CSS(filename=css_file)])
-
-    pdf = html.write_pdf(stylesheets=[CSS(filename=css_file)])
-    response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename=' + filename
-
-    return response
