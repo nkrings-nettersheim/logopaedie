@@ -17,6 +17,7 @@ from django.http import FileResponse, HttpResponseRedirect, HttpResponse, JsonRe
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.conf import settings
+from django.utils.text import normalize_newlines
 from django.views import generic
 from django.views.generic import DeleteView, CreateView
 from django.views.decorators.csrf import csrf_exempt
@@ -36,6 +37,8 @@ from io import BytesIO
 from django.views.generic import ListView
 
 from logopaedie.settings import X_FORWARD, time_green_value, time_orange_value, time_red_value
+from . import forms
+from django import forms
 
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, \
     TherapistForm, SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm, \
@@ -1215,6 +1218,58 @@ def add_waitlist(request):
     return render(request, 'reports/waitlist_form.html', {'form': form})
 
 
+
+def add_waitlist_qr_code(request, token=None):
+    request.session.set_expiry(settings.SESSION_EXPIRE_SECONDS)
+    s = URLSafeTimedSerializer(settings.SECRET_KEY)
+
+    try:
+        data = s.loads(token, max_age=7200)  # Zeitangabe in Sekunden
+        patient_uuid = data.get("patient_uuid")
+
+        if request.method == "POST":
+            logger.debug(f"Waitlistformular per POST gesendet")
+            form = WaitlistForm(request.POST)
+            # assert False
+            if form.is_valid():
+                logger.debug(f"WartelistenForm is valid")
+                item = form.save(commit=False)
+                item.save()
+                #cleaned_data = form.cleaned_data
+                #reg_name = form.cleaned_data['reg_name']
+                #reg_first_name = form.cleaned_data['reg_first_name']
+                # signature_data = form.cleaned_data['signature_data']
+                #signature_data = cleaned_data.pop("signature_data")
+                #logger.debug(f"Name: {reg_name}; Vorname: {reg_first_name}")
+                # Die Base64-Daten in eine Bilddatei umwandeln
+                #format, imgstr = signature_data.split(';base64,')
+                #ext = format.split('/')[-1]
+                #data = ContentFile(base64.b64decode(imgstr), name=f'signature_{reg_name}_{reg_first_name}.{ext}')
+
+                # Modell speichern
+                #registration = Registration(**cleaned_data)
+                #if data:
+                #    registration.reg_signature = data
+
+                #registration.save()
+                logger.info(f"User-ID: {request.user.id}; add_waitlist: Waitlist "
+                            f"mit der ID: 'wl{str(item.id)}' gespeichert")
+
+                return render(request, 'reports/waitlist_qr_code_result.html', {'form': item})
+        else:
+            logger.debug(f"initialer WaitlistForm aufruf")
+            form = WaitlistForm()
+
+    except SignatureExpired:
+        return HttpResponse("Der Link ist abgelaufen.", status=410)
+    except BadSignature:
+        return HttpResponse("Ungültiger Link.", status=400)
+    #Felder auf "hidden" setzen
+    form.fields['wl_active'].widget = forms.HiddenInput()
+    form.fields['wl_call_date'].widget = forms.HiddenInput()
+
+    return render(request, 'reports/waitlist_form_qr_code.html', {'form': form})
+
 @permission_required('reports.change_wait_list')
 def edit_waitlist(request, id=None):
     double_entry = 0
@@ -1361,6 +1416,26 @@ def set_waitlist_item_active(request, id=None):
             waitlist_item.double_entry = 1
 
     return render(request, 'reports/waitlist.html', {'waitlist': waitlist, 'status': 'True'})
+
+
+def generate_temporary_link_waitlist():
+    s = URLSafeTimedSerializer(settings.SECRET_KEY)
+    patient_uuid = str(uuid.uuid4())
+    token = s.dumps({"patient_uuid": patient_uuid})
+
+    return f"{settings.URL_WAITLIST}{token}/"
+
+@login_required
+def generate_qr_code_waitlist(request):
+    temp_link = generate_temporary_link_waitlist()
+    qr = qrcode.make(temp_link)
+
+    buffer = BytesIO()
+    qr.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+    return render(request, 'reports/waitlist_qr_code.html', {"qr_code": qr_base64, "temp_link": temp_link})
 
 
 ##########################################################################

@@ -80,6 +80,8 @@ urlpatterns = [
     path('delete/waitlistitem/<pk>/', views.delete_waitlist_item.as_view(), name='delete_waitlist_item'),
     path('set/waitlistitem_inactive/<id>/', views.set_waitlist_item_inactive, name='set_waitlist_item_inactive'),
     path('set/waitlistitem_active/<id>/', views.set_waitlist_item_active, name='set_waitlist_item_active'),
+    path('waitlist-qr-code/', views.generate_qr_code_waitlist, name='waitlist_qr_code'),
+    path('add/waitlist_qr_code/<str:token>/', views.add_waitlist_qr_code, name='add_waitlist_qr_code'),
 
     path('list_meta_info/', views.list_meta_info, name='list_meta_info'),
 

@@ -1,0 +1,97 @@
+{% extends "base_registration.html" %}
+
+{% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}?v={{ STATIC_VERSION }}">
+    <meta http-equiv="refresh" content="10;url=https://www.logopaedie-schumacher-euskirchen.de">
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<content>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm"><h4>Wir haben folgende Daten für unsere Warteliste von Ihnen erhalten:</h4></div>
+        </div>
+        <br>
+          <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Name:</div>
+            </div>
+              <div class="col-sm-6">
+                 <strong>{{ form.wl_last_name }}</strong>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Vorname:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_first_name }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Straße/Nr.:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_street }}</strong>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Ort:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_city }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Geburtsdatum:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_date_of_birth }}</strong>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Telefon:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_phone }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">Mobil:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_cell_phone }}</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="small inline">E-Mail:</div>
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ form.wl_email }}</strong>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm">Stimmen die Daten nicht? Wenden Sie sich bitte an die Praxisleitung oder die Therapeutin.</div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-2">Sie werden in 10 Sekunden auf unsere Startseite weitergeleitet.<br> <a href="https://www.logopaedie-schumacher-euskirchen.de">Jetzt weiter zur Homepage</a> </div>
+        </div>
+   </div>
+</content>
+
+{% endblock %}
