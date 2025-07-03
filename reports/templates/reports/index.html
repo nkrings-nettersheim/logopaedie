@@ -70,6 +70,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Anmeldung</a>
               <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'reports:waitlist_qr_code' %}" >QR-Code Warteliste erzeugen</a></li>
                 <li><a class="dropdown-item" href="{% url 'reports:registration-qr-code' %}" >QR-Code Anmeldung erzeugen</a></li>
                 <li><a class="dropdown-item" href="{% url 'reports:registration-liste' %}" >Offene Anmeldungen</a></li>
                 <li><a class="dropdown-item" href="{% url 'parents:parents_qr_code' %}" >QR-Code Elternbogen erzeugen</a></li>

@@ -1,0 +1,250 @@
+{% extends "base_registration.html" %}
+
+{% block extrahead %}
+    {% load static %}
+
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+
+<content>
+    <p></p>
+    <form method="POST" enctype="multipart/form-data" action="" id="waitlist">
+        {% csrf_token %}
+        {{ form.media }}
+
+        <input type="hidden" id="interactionFix" name="interactionFix"> <!-- Fix für Safari -->
+
+    <div class="container">
+        <div class="row text-danger">{{ form.non_field_errors }}</div>
+        <div class="row">
+            <div class="col-sm">
+                <h4>Anmeldung für die Warteliste:</h4>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-6">
+                {{ form.wl_active }}
+                <div class="text-danger">{{ form.wl_active.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-6">
+                {{ form.wl_call_date }}
+                <div class="text-danger">{{ form.wl_call_date.errors }}</div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="{{ form.wl_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
+            {% if form.double_entry == 1 %}
+                <div class="col-sm-6 text-danger">
+                    Hinweis: Einen Patienten mit diesem Namen/Vornamen gibt es schon!
+                    {{ form.wl_last_name }}
+                    <div class="text-danger">{{ form.wl_last_name.errors }}</div>
+                </div>
+            {% else %}
+                <div class="col-sm-6">
+                    {{ form.wl_last_name }}
+                    <div class="text-danger">{{ form.wl_last_name.errors }}</div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
+            <div class="col-sm-6">
+                {{ form.wl_first_name }}
+                <div class="text-danger">{{ form.wl_first_name.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_street.id_for_label }}" class="col-sm-2 control-label">Strasse/Nr.:</label>
+            <div class="col-sm-6">
+                {{ form.wl_street }}
+                <div class="text-danger">{{ form.wl_street.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_city.id_for_label }}" class="col-sm-2 control-label">Ort:</label>
+            <div class="col-sm-6">
+                {{ form.wl_city }}
+                <div class="text-danger">{{ form.wl_city.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_gender.id_for_label }}" class="col-sm-2 control-label">Geschlecht:</label>
+            <div class="col-sm-6">
+                {{ form.wl_gender }}
+                <div class="text-danger">{{ form.wl_gender.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_old.id_for_label }}" class="col-sm-2 control-label">wie alt:</label>
+            <div class="col-sm-6">
+                {{ form.wl_old }}
+                <div class="text-danger">{{ form.wl_old.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_date_of_birth.id_for_label }}" class="col-sm-2 control-label">Geburtsdatum:</label>
+            <div class="col-sm-6">
+                {{ form.wl_date_of_birth }}
+                <div class="text-danger">{{ form.wl_date_of_birth.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_phone.id_for_label }}" class="col-sm-2 control-label">Telefonnummer:</label>
+            <div class="col-sm-6">
+                {{ form.wl_phone }}
+                <div class="text-danger">{{ form.wl_phone.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_cell_phone.id_for_label }}" class="col-sm-2 control-label">Mobilfunk:</label>
+            <div class="col-sm-6">
+                {{ form.wl_cell_phone }}
+                <div class="text-danger">{{ form.wl_cell_phone.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_cell_phone_add1.id_for_label }}" class="col-sm-2 control-label">Telefonnr.:</label>
+            <div class="col-sm-6">
+                {{ form.wl_cell_phone_add1 }}
+                <div class="text-danger">{{ form.wl_cell_phone_add1.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_cell_phone_add2.id_for_label }}" class="col-sm-2 control-label">Telefonnr:</label>
+            <div class="col-sm-6">
+                {{ form.wl_cell_phone_add2 }}
+                <div class="bg_warning">{{ form.wl_cell_phone_add2.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_cell_phone_sms.id_for_label }}" class="col-sm-2 control-label">SMS-Versand-Nr:</label>
+            <div class="col-sm-3">
+                {{ form.wl_cell_phone_sms }}
+                <div class="text-danger">{{ form.wl_cell_phone_sms.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_email.id_for_label }}" class="col-sm-2 control-label">E-Mail Adresse:</label>
+            <div class="col-sm-3">
+                {{ form.wl_email }}
+                <div class="text-danger">{{ form.wl_email.errors }}</div>
+            </div>
+        </div>
+         <div class="mb-3 row">
+            <label for="{{ form.wl_diagnostic.id_for_label }}" class="col-sm-2 control-label">Diagnose:</label>
+            <div class="col-sm-6">
+                {{ form.wl_diagnostic }}
+                <div class="text-danger">{{ form.wl_diagnostic.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_mo.id_for_label }}" class="col-sm-2 control-label">Montag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_mo }}
+                <div class="text-danger">{{ form.wl_mo.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_di.id_for_label }}" class="col-sm-2 control-label">Dienstag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_di }}
+                <div class="text-danger">{{ form.wl_di.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_mi.id_for_label }}" class="col-sm-2 control-label">Mittwoch:</label>
+            <div class="col-sm-6">
+                {{ form.wl_mi }}
+                <div class="text-danger">{{ form.wl_mi.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_do.id_for_label }}" class="col-sm-2 control-label">Donnerstag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_do }}
+                <div class="text-danger">{{ form.wl_do.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_fr.id_for_label }}" class="col-sm-2 control-label">Freitag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_fr }}
+                <div class="text-danger">{{ form.wl_fr.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_sa.id_for_label }}" class="col-sm-2 control-label">Samstag:</label>
+            <div class="col-sm-6">
+                {{ form.wl_sa }}
+                <div class="text-danger">{{ form.wl_sa.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_appointment.id_for_label }}" class="col-sm-2 control-label">Sonstige Terminhinweise:</label>
+            <div class="col-sm-6">
+                {{ form.wl_appointment }}
+                <div class="text-danger">{{ form.wl_appointment.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_insurance.id_for_label }}" class="col-sm-2 control-label">Krankenkasse:</label>
+            <div class="col-sm-6">
+                {{ form.wl_insurance }}
+                <div class="text-danger">{{ form.wl_insurance.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_recipe.id_for_label }}" class="col-sm-2 control-label">Rezept:</label>
+            <div class="col-sm-6">
+                {{ form.wl_recipe }}
+                <div class="text-danger">{{ form.wl_recipe.errors }}</div>
+            </div>
+        </div>
+
+       <div class="mb-3 row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-primary btn-sm">Speichern</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</content>
+{% endblock %}
+
+{% block script %}
+
+<script>
+    $(document).ready(function () {
+        let formDirty = false;
+
+        // Wenn sich ein Input-Feld ändert, merken wir uns, dass das Formular verändert wurde
+        $("#waitlist").on("input", function () {
+            formDirty = true;
+        });
+
+        // Vor dem Verlassen der Seite prüfen, ob das Formular verändert wurde
+        $(window).on("beforeunload", function () {
+            if (formDirty) {
+                return "Sie haben ungespeicherte Änderungen. Wirklich verlassen?";
+            }
+        });
+
+        // Beim Absenden wird das Formular als "gespeichert" markiert
+        $("#waitlist").on("submit", function () {
+            formDirty = false;
+        });
+    });
+</script>
+{% endblock %}
