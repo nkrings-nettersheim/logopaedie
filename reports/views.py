@@ -1200,14 +1200,19 @@ def show_therapy_report(request):
 @permission_required('reports.view_therapy_report')
 def getOpenaiSuggestionAjax(request, pk):
     if request.method == "GET":
-        record_id = pk
+
         logger.debug(f"User-ID: {request.user.id}; Aufruf getOpenaiSuggestionAjax richtig aufgerufen ")
         patient = get_object_or_404(Patient, id=2)
         therapy = get_object_or_404(Therapy, id=pk)
         icd_codes = [therapy.therapy_icd_cod, therapy.therapy_icd_cod_2, therapy.therapy_icd_cod_3]
         logger.debug(f"User-ID: {request.user.id}; OpenAI: Therapy gefunden ")
 
-        process_report_value = Process_report.objects.filter(therapy_id=pk).order_by('-process_treatment')
+        try:
+            process_report_value = Process_report.objects.filter(therapy_id=pk).order_by('-process_treatment')
+        except:
+            logger.debug(f"User-ID: {request.user.id}; Processreport mit der ID {pk} konnte nicht gefunden werden ")
+            process_report_value = ""
+
         logger.debug(f"User-ID: {request.user.id}; OpenAI: Therapienotizen gefunden ")
         therapienotizen = process_report_value
 
@@ -1220,38 +1225,9 @@ def getOpenaiSuggestionAjax(request, pk):
         return JsonResponse({"error": "Falscher Header!"}, status=400)
 
 
-@permission_required('reports.view_therapy_report')
-def create_report(request):
-    patient = get_object_or_404(Patient, id=2)
-    therapy = get_object_or_404(Therapy, id=6)
-    process_report_value = Process_report.objects.filter(therapy_id=6).order_by('-process_treatment')
-
-    #icd_codes = [d.code for d in patient.diagnosen.all()]
-    icd_codes = [therapy.therapy_icd_cod, therapy.therapy_icd_cod_2, therapy.therapy_icd_cod_3]
-
-
-    therapienotizen = process_report_value
-
-    bericht = generate_arztbericht(patient.pa_first_name, icd_codes, therapienotizen)
-
-    # Optional: Bericht in DB speichern
-    #patient.arztbericht = bericht
-    #patient.save()
-    #print(bericht)
-    #return render(request, "patient/report.html", {"patient": patient, "bericht": bericht})
-    return render(request, 'reports/openai_test.html', {"bericht": bericht} )
-
-
 def generate_arztbericht(patient_name, icd_codes, therapienotizen):
     # ICD-Code-Text vorbereiten
     icd_list = "\n".join([f"- {code}" for code in icd_codes])
-
-    #system_prompt = """
-    #Du bist ein erfahrener medizinischer Fachtexter für Logopädie.
-    #Erstelle einen strukturierten Arztbericht für den Hausarzt basierend auf ICD-Codes und Therapienotizen.
-    #Die Sprache soll fachlich, präzise, aber gut lesbar sein.
-    #Gliedere in: 1) Anamnese, 2) Diagnosen, 3) Therapieverlauf, 4) Empfehlung.
-    #"""
 
     system_prompt = """
     Du bist ein erfahrener medizinischer Fachtexter für Logopädie.
