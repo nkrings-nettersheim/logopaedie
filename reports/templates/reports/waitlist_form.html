@@ -96,7 +96,14 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="{{ form.wl_last_name.id_for_label }}" class="col-sm-2 control-label">Nachname:</label>
+            <label for="{{ form.wl_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
+            <div class="col-sm-6">
+                {{ form.wl_first_name }}
+                <div class="text-danger">{{ form.wl_first_name.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.wl_last_name.id_for_label }}" class="col-sm-2 control-label">Familien-Name:</label>
             {% if form.double_entry == 1 %}
                 <div class="col-sm-6 text-danger">
                     Hinweis: Einen Patienten mit diesem Namen/Vornamen gibt es schon!
@@ -109,13 +116,6 @@
                     <div class="text-danger">{{ form.wl_last_name.errors }}</div>
                 </div>
             {% endif %}
-        </div>
-        <div class="mb-3 row">
-            <label for="{{ form.wl_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
-            <div class="col-sm-6">
-                {{ form.wl_first_name }}
-                <div class="text-danger">{{ form.wl_first_name.errors }}</div>
-            </div>
         </div>
         <div class="mb-3 row">
             <label for="{{ form.wl_street.id_for_label }}" class="col-sm-2 control-label">Strasse/Nr.:</label>

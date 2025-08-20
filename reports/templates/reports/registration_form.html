@@ -25,17 +25,17 @@
         </div>
 
         <div class="mb-3 row">
-            <label for="{{ form.reg_name.id_for_label }}" class="col-sm-2 control-label">Name:</label>
-            <div class="col-sm-4">
-                 {{ form.reg_name }}
-                <div class="text-danger">{{ form.reg_name.errors }}</div>
-            </div>
-        </div>
-        <div class="mb-3 row">
             <label for="{{ form.reg_first_name.id_for_label }}" class="col-sm-2 control-label">Vorname:</label>
             <div class="col-sm-4">
                  {{ form.reg_first_name }}
                 <div class="text-danger">{{ form.reg_first_name.errors }}</div>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="{{ form.reg_name.id_for_label }}" class="col-sm-2 control-label">Familien-Name:</label>
+            <div class="col-sm-4">
+                 {{ form.reg_name }}
+                <div class="text-danger">{{ form.reg_name.errors }}</div>
             </div>
         </div>
         <div class="mb-3 row">

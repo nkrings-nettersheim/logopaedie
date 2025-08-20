@@ -9,8 +9,9 @@ from parents.models import Parents_sheet
 
 
 class ParentsSheetFormStep1(ModelForm):
-    child_last_name = forms.CharField(label="Name", required=True)
+
     child_first_name = forms.CharField(label="Vorname", required=True)
+    child_last_name = forms.CharField(label="Familien-Name", required=True)
     child_day_of_birth = forms.DateField(label="Geburtsdatum", widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     health_assurance = forms.CharField(label="Krankenkasse", required=False)
     doctor = forms.CharField(label="überweisender Arzt", required=False)
@@ -18,22 +19,22 @@ class ParentsSheetFormStep1(ModelForm):
     cellphone = forms.CharField(label="Mobil", required=False)
     phone_work = forms.CharField(label="Dienstlich", required=False)
     email = forms.CharField(label="E-Mail", required=False)
-    mother_last_name = forms.CharField(label="Name", required=False)
     mother_first_name = forms.CharField(label="Vorname", required=False)
+    mother_last_name = forms.CharField(label="Familien-Name", required=False)
     mother_day_of_birth = forms.DateField(label="Geburtsdatum", widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     mother_job = forms.CharField(label="Beruf", required=False)
-    father_last_name = forms.CharField(label="Name", required=False)
     father_first_name = forms.CharField(label="Vorname", required=False)
+    father_last_name = forms.CharField(label="Familien-Name", required=False)
     father_day_of_birth = forms.DateField(label="Geburtsdatum", widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     father_job = forms.CharField(label="Beruf", required=False)
-    siblings1_last_name = forms.CharField(label="Name", required=False)
     siblings1_first_name = forms.CharField(label="Vorname", required=False)
+    siblings1_last_name = forms.CharField(label="Familien-Name", required=False)
     siblings1_age = forms.CharField(label="Alter", required=False)
-    siblings2_last_name = forms.CharField(label="Name", required=False)
     siblings2_first_name = forms.CharField(label="Vorname", required=False)
+    siblings2_last_name = forms.CharField(label="Familien-Name", required=False)
     siblings2_age = forms.CharField(label="Alter", required=False)
-    siblings3_last_name = forms.CharField(label="Name", required=False)
     siblings3_first_name = forms.CharField(label="Vorname", required=False)
+    siblings3_last_name = forms.CharField(label="Familien-Name", required=False)
     siblings3_age = forms.CharField(label="Alter", required=False)
     child_comments_1 = forms.CharField(widget=forms.Textarea(),
                                        label=mark_safe("<strong>Anmerkungen der Therapeutin</strong>"),
@@ -42,8 +43,8 @@ class ParentsSheetFormStep1(ModelForm):
     class Meta:
         model = Parents_sheet
         fields = [
-            'child_last_name',
             'child_first_name',
+            'child_last_name',
             'child_day_of_birth',
             'health_assurance',
             'doctor',
@@ -51,22 +52,22 @@ class ParentsSheetFormStep1(ModelForm):
             'cellphone',
             'phone_work',
             'email',
-            'mother_last_name',
             'mother_first_name',
+            'mother_last_name',
             'mother_day_of_birth',
             'mother_job',
-            'father_last_name',
             'father_first_name',
+            'father_last_name',
             'father_day_of_birth',
             'father_job',
-            'siblings1_last_name',
             'siblings1_first_name',
+            'siblings1_last_name',
             'siblings1_age',
-            'siblings2_last_name',
             'siblings2_first_name',
+            'siblings2_last_name',
             'siblings2_age',
-            'siblings3_last_name',
             'siblings3_first_name',
+            'siblings3_last_name',
             'siblings3_age',
             'child_comments_1'
         ]
@@ -82,8 +83,8 @@ class ParentsSheetFormStep1(ModelForm):
             Hidden("wizard_step", "{{ wizard.steps.step1 }}"),  # Formtools Hidden-Input
             HTML("<h4 class='text-center'>Angaben zum Kind:</h4>"),
 
-            Field("child_last_name", css_class="form-control"),
             Field("child_first_name", css_class="form-control"),
+            Field("child_last_name", css_class="form-control"),
             Field("child_day_of_birth", css_class="form-control"),
             Field("health_assurance", css_class="form-control"),
             Field("doctor", css_class="form-control"),
@@ -91,29 +92,29 @@ class ParentsSheetFormStep1(ModelForm):
             Field("email", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Angaben zur Mutter:</h4>"),
-            Field("mother_last_name", css_class="form-control"),
             Field("mother_first_name", css_class="form-control"),
+            Field("mother_last_name", css_class="form-control"),
             Field("mother_day_of_birth", css_class="form-control"),
             Field("mother_job", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Angaben zum Vater</h4>"),
-            Field("father_last_name", css_class="form-control"),
             Field("father_first_name", css_class="form-control"),
+            Field("father_last_name", css_class="form-control"),
             Field("father_day_of_birth", css_class="form-control"),
             Field("father_job", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Angaben zu den Geschwistern:</h4>"),
             HTML("<h5 class='text-center'>Erstes Geschwisterkind:</h5>"),
-            Field("siblings1_last_name", css_class="form-control"),
             Field("siblings1_first_name", css_class="form-control"),
+            Field("siblings1_last_name", css_class="form-control"),
             Field("siblings1_age", css_class="form-control"),
             HTML("<h5 class='text-center'>Zweites Geschwisterkind:</h5>"),
-            Field("siblings2_last_name", css_class="form-control"),
             Field("siblings2_first_name", css_class="form-control"),
+            Field("siblings2_last_name", css_class="form-control"),
             Field("siblings2_age", css_class="form-control"),
             HTML("<h5 class='text-center'>Drittes Geschwisterkind:</h5>"),
-            Field("siblings3_last_name", css_class="form-control"),
             Field("siblings3_first_name", css_class="form-control"),
+            Field("siblings3_last_name", css_class="form-control"),
             Field("siblings3_age", css_class="form-control"),
         ]
 
@@ -741,7 +742,7 @@ class ParentsSheetFormStep6(ModelForm):
 
 
 class ParentsSheetForm(ModelForm):
-    child_last_name = forms.CharField(label="Name", required=True)
+    child_last_name = forms.CharField(label="Familien-Name", required=True)
     child_first_name = forms.CharField(label="Vorname", required=True)
     child_day_of_birth = forms.DateField(label="Geburtsdatum", required=False)
     health_assurance = forms.CharField(label="Krankenkasse", required=False)
@@ -750,21 +751,21 @@ class ParentsSheetForm(ModelForm):
     cellphone = forms.CharField(label="Mobil", required=False)
     phone_work = forms.CharField(label="Dienstlich", required=False)
     email = forms.CharField(label="E-Mail", required=False)
-    mother_last_name = forms.CharField(label="Name", required=False)
+    mother_last_name = forms.CharField(label="Familien-Name", required=False)
     mother_first_name = forms.CharField(label="Vorname", required=False)
     mother_day_of_birth = forms.DateField(label="Geburtsdatum", required=False)
     mother_job = forms.CharField(label="Beruf", required=False)
-    father_last_name = forms.CharField(label="Name", required=False)
+    father_last_name = forms.CharField(label="Familien-Name", required=False)
     father_first_name = forms.CharField(label="Vorname", required=False)
     father_day_of_birth = forms.DateField(label="Geburtsdatum", required=False)
     father_job = forms.CharField(label="Beruf", required=False)
-    siblings1_last_name = forms.CharField(label="Name", required=False)
+    siblings1_last_name = forms.CharField(label="Familien-Name", required=False)
     siblings1_first_name = forms.CharField(label="Vorname", required=False)
     siblings1_age = forms.CharField(label="Alter", required=False)
-    siblings2_last_name = forms.CharField(label="Name", required=False)
+    siblings2_last_name = forms.CharField(label="Familien-Name", required=False)
     siblings2_first_name = forms.CharField(label="Vorname", required=False)
     siblings2_age = forms.CharField(label="Alter", required=False)
-    siblings3_last_name = forms.CharField(label="Name", required=False)
+    siblings3_last_name = forms.CharField(label="Familien-Name", required=False)
     siblings3_first_name = forms.CharField(label="Vorname", required=False)
     siblings3_age = forms.CharField(label="Alter", required=False)
     child_comments_1 = forms.CharField(widget=forms.Textarea(),
@@ -1052,8 +1053,8 @@ class ParentsSheetForm(ModelForm):
             HTML("<br><div><button type='submit' class='btn btn-primary'>Speichern</button></div>"),
             HTML("<h4 class='text-center'>Angaben zum Kind:</h4>"),
 
-            Field("child_last_name", css_class="form-control"),
             Field("child_first_name", css_class="form-control"),
+            Field("child_last_name", css_class="form-control"),
             Field("child_day_of_birth", css_class="form-control"),
             Field("health_assurance", css_class="form-control"),
             Field("doctor", css_class="form-control"),
@@ -1063,32 +1064,32 @@ class ParentsSheetForm(ModelForm):
             Field("email", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Angaben zur Mutter:</h4>"),
-            Field("mother_last_name", css_class="form-control"),
             Field("mother_first_name", css_class="form-control"),
+            Field("mother_last_name", css_class="form-control"),
             Field("mother_day_of_birth", css_class="form-control"),
             Field("mother_job", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Angaben zum Vater</h4>"),
-            Field("father_last_name", css_class="form-control"),
             Field("father_first_name", css_class="form-control"),
+            Field("father_last_name", css_class="form-control"),
             Field("father_day_of_birth", css_class="form-control"),
             Field("father_job", css_class="form-control"),
 
             HTML("<h4 class='text-center'>Angaben zu den Geschwistern:</h4>"),
 
             HTML("<h5 class='text-center'>Erstes Geschwisterkind:</h5>"),
-            Field("siblings1_last_name", css_class="form-control"),
             Field("siblings1_first_name", css_class="form-control"),
+            Field("siblings1_last_name", css_class="form-control"),
             Field("siblings1_age", css_class="form-control"),
 
             HTML("<h5 class='text-center'>Zweites Geschwisterkind:</h5>"),
-            Field("siblings2_last_name", css_class="form-control"),
             Field("siblings2_first_name", css_class="form-control"),
+            Field("siblings2_last_name", css_class="form-control"),
             Field("siblings2_age", css_class="form-control"),
 
             HTML("<h5 class='text-center'>Drittes Geschwisterkind:</h5>"),
-            Field("siblings3_last_name", css_class="form-control"),
             Field("siblings3_first_name", css_class="form-control"),
+            Field("siblings3_last_name", css_class="form-control"),
             Field("siblings3_age", css_class="form-control"),
             Field("child_comments_1", css_class="form-control"),
 
@@ -1202,4 +1203,13 @@ class ParentsSheetListForm(forms.Form):
                                     }
                                 )
                                 )
+
+
+class ParentsEmailSenden(forms.Form):
+    email = forms.EmailField(
+        required=True,
+        label="E-Mail-Adresse",
+        widget=forms.EmailInput(attrs={'placeholder': 'Deine E-Mail-Adresse'})
+    )
+
 

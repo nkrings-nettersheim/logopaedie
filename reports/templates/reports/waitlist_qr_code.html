@@ -3,6 +3,7 @@
 {% block extrahead %}
     {% load static %}
     {% load crispy_forms_tags %}
+    {% load django_bootstrap5 %}
     <link rel="stylesheet" href="{% static 'reports/style_e2.css' %}?v={{ STATIC_VERSION }}">
 {% endblock %}
 
@@ -47,6 +48,26 @@
                 <a href="{{temp_link}}">Link zum Anmeldebogen</a>
             </div>
             <div class="col-2"></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-8">
+            <h3>Link per E-Mail zusenden lassen:</h3>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="temp_link" value="{{temp_link}}">
+                <input type="hidden" name="qr_code" value="{{qr_code}}">
+                {% bootstrap_form email_form layout="floating" %}
+                {% bootstrap_button "Link zusenden" button_type="submit" button_class="btn-primary" %}
+            </form>
+
+            {% if success %}
+              <div class="alert alert-success mt-3">
+                ✔ Der Link wurde an Ihre E-Mail-Adresse gesendet.
+              </div>
+            {% endif %}
+            </div>
         </div>
     </div>
     <p>&nbsp;</p>
