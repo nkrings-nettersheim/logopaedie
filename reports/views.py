@@ -4,10 +4,13 @@ import datetime
 import locale
 import certifi
 import base64
+
+#import openai
 import qrcode
 import uuid
 import json
 
+from openai import OpenAI
 from dateutil.parser import parse
 from django.contrib.auth import user_logged_in, user_logged_out, user_login_failed
 from django.contrib.auth.models import User
@@ -43,7 +46,7 @@ from django import forms
 from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, TherapyReportForm, DoctorForm, \
     TherapistForm, SearchDoctorForm, SearchTherapistForm, InitialAssessmentForm, DocumentForm, TherapySomethingForm, \
     DocumentTherapyForm, PatientSomethingForm, Diagnostic_groupForm, SearchDiagnostic_groupForm, \
-    WaitlistForm, RegistrationForm, RegistrationListForm
+    WaitlistForm, RegistrationForm, RegistrationListForm, WaitlistEmailSenden
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
     Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts, \
@@ -54,6 +57,8 @@ locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
 
 os.environ["SSL_CERT_FILE"] = certifi.where()
+
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 # assert False
 
@@ -1100,7 +1105,7 @@ def edit_therapy_report(request, id=None):
 
     logger.debug(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht anlegen mit ID: {id}")
 
-    return render(request, 'reports/therapy_report_form.html', {'form': form})
+    return render(request, 'reports/therapy_report_form.html', {'form': form, 'id': item.therapy_id })
 
 
 @permission_required('reports.change_therapy_report')
@@ -1192,6 +1197,91 @@ def show_therapy_report(request):
     return response
 
 
+@permission_required('reports.view_therapy_report')
+def getOpenaiSuggestionAjax(request, pk):
+    if request.method == "GET":
+        record_id = pk
+        logger.debug(f"User-ID: {request.user.id}; Aufruf getOpenaiSuggestionAjax richtig aufgerufen ")
+        patient = get_object_or_404(Patient, id=2)
+        therapy = get_object_or_404(Therapy, id=pk)
+        icd_codes = [therapy.therapy_icd_cod, therapy.therapy_icd_cod_2, therapy.therapy_icd_cod_3]
+        logger.debug(f"User-ID: {request.user.id}; OpenAI: Therapy gefunden ")
+
+        process_report_value = Process_report.objects.filter(therapy_id=pk).order_by('-process_treatment')
+        logger.debug(f"User-ID: {request.user.id}; OpenAI: Therapienotizen gefunden ")
+        therapienotizen = process_report_value
+
+        suggestion = generate_arztbericht("Maxim Musterfrau", icd_codes, therapienotizen)
+
+        return JsonResponse({'suggestion': suggestion})
+
+    else:
+        logger.debug(f"User-ID: {request.user.id}; Aufruf getOpenaiSuggestionAjax falsch aufgerufen ")
+        return JsonResponse({"error": "Falscher Header!"}, status=400)
+
+
+@permission_required('reports.view_therapy_report')
+def create_report(request):
+    patient = get_object_or_404(Patient, id=2)
+    therapy = get_object_or_404(Therapy, id=6)
+    process_report_value = Process_report.objects.filter(therapy_id=6).order_by('-process_treatment')
+
+    #icd_codes = [d.code for d in patient.diagnosen.all()]
+    icd_codes = [therapy.therapy_icd_cod, therapy.therapy_icd_cod_2, therapy.therapy_icd_cod_3]
+
+
+    therapienotizen = process_report_value
+
+    bericht = generate_arztbericht(patient.pa_first_name, icd_codes, therapienotizen)
+
+    # Optional: Bericht in DB speichern
+    #patient.arztbericht = bericht
+    #patient.save()
+    #print(bericht)
+    #return render(request, "patient/report.html", {"patient": patient, "bericht": bericht})
+    return render(request, 'reports/openai_test.html', {"bericht": bericht} )
+
+
+def generate_arztbericht(patient_name, icd_codes, therapienotizen):
+    # ICD-Code-Text vorbereiten
+    icd_list = "\n".join([f"- {code}" for code in icd_codes])
+
+    #system_prompt = """
+    #Du bist ein erfahrener medizinischer Fachtexter für Logopädie.
+    #Erstelle einen strukturierten Arztbericht für den Hausarzt basierend auf ICD-Codes und Therapienotizen.
+    #Die Sprache soll fachlich, präzise, aber gut lesbar sein.
+    #Gliedere in: 1) Anamnese, 2) Diagnosen, 3) Therapieverlauf, 4) Empfehlung.
+    #"""
+
+    system_prompt = """
+    Du bist ein erfahrener medizinischer Fachtexter für Logopädie.
+    Erstelle einen kurzen Arztbericht für den Hausarzt basierend auf ICD-Codes und Therapienotizen.
+    Die Sprache soll fachlich, präzise, aber gut lesbar sein.
+    Keine Gliederung, nur die Zusammenfassung als Text.
+    """
+
+    user_prompt = f"""
+    Patient: {patient_name}
+    ICD-Codes:
+    {icd_list}
+
+    Therapienotizen:
+    {therapienotizen}
+
+    Erstelle bitte den Bericht mit maximal 600 Zeichen.
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
+        temperature=0.2
+    )
+    return response.choices[0].message.content
+
+
 ##########################################################################
 # Area Waitlist (in German: Warteliste)
 ##########################################################################
@@ -1259,6 +1349,7 @@ def add_waitlist_qr_code(request, token=None):
         else:
             logger.debug(f"initialer WaitlistForm aufruf")
             form = WaitlistForm()
+
 
     except SignatureExpired:
         return HttpResponse("Der Link ist abgelaufen.", status=410)
@@ -1427,15 +1518,49 @@ def generate_temporary_link_waitlist():
 
 @login_required
 def generate_qr_code_waitlist(request):
-    temp_link = generate_temporary_link_waitlist()
-    qr = qrcode.make(temp_link)
 
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
-    buffer.seek(0)
 
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-    return render(request, 'reports/waitlist_qr_code.html', {"qr_code": qr_base64, "temp_link": temp_link})
+    if request.method == "POST":
+        form = WaitlistEmailSenden(request.POST)
+        if form.is_valid():
+            user_email = form.cleaned_data["email"]
+            temp_link = request.POST.get('temp_link')
+            qr_base64 = request.POST.get('qr_code')
+            # Mail versenden
+            subject = "Ihr persönlicher Formular-Link"
+            body = f"""
+               Guten Tag,
+
+               hier ist Ihr persönlicher Link zum Wartelisten-Formular:
+               {temp_link}
+
+               Viele Grüße
+               Ihr Praxisteam der Logopädie Schumacher
+               """
+            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [user_email])
+            return render(request, "reports/waitlist_qr_code.html", {
+                "temp_link": temp_link,
+                "qr_code": qr_base64,  # falls du QR speicherst
+                "email_form": WaitlistEmailSenden(),  # leeres Formular zurückgeben
+                "success": True
+            })
+    else:
+        temp_link = generate_temporary_link_waitlist()
+        qr = qrcode.make(temp_link)
+
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+        buffer.seek(0)
+
+        qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+        email_form = WaitlistEmailSenden()
+
+    return render(request, 'reports/waitlist_qr_code.html', {"qr_code": qr_base64,
+                                                             "temp_link": temp_link,
+                                                             'email_form': email_form
+                                                             })
+
+
 
 
 ##########################################################################
@@ -1962,15 +2087,43 @@ def generate_temporary_link():
 
 @login_required
 def generate_qr_code(request):
-    temp_link = generate_temporary_link()
-    qr = qrcode.make(temp_link)
+    if request.method == "POST":
+        form = WaitlistEmailSenden(request.POST)
+        if form.is_valid():
+            user_email = form.cleaned_data["email"]
+            temp_link = request.POST.get('temp_link')
+            qr_base64 = request.POST.get('qr_code')
+            # Mail versenden
+            subject = "Ihr persönlicher Formular-Link"
+            body = f"""
+                Guten Tag,
 
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
-    buffer.seek(0)
+                hier ist Ihr persönlicher Link zum Registrierungs-Formular:
+                {temp_link}
 
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-    return render(request, 'reports/registration_qr_code.html', {"qr_code": qr_base64, "temp_link": temp_link})
+                Viele Grüße
+                Ihr Praxisteam der Logopädie Schumacher
+                """
+            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [user_email])
+            return render(request, "reports/registration_qr_code.html", {
+                "temp_link": temp_link,
+                "qr_code": qr_base64,  # falls du QR speicherst
+                "email_form": WaitlistEmailSenden(),  # leeres Formular zurückgeben
+                "success": True
+            })
+    else:
+        temp_link = generate_temporary_link()
+        qr = qrcode.make(temp_link)
+
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+        buffer.seek(0)
+
+        qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+    return render(request, 'reports/registration_qr_code.html', {"qr_code": qr_base64,
+                                                                 "temp_link": temp_link,
+                                                                 "email_form": WaitlistEmailSenden()
+                                                                 })
 
 
 def registration(request, token=None):

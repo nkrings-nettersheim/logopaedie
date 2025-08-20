@@ -1999,6 +1999,13 @@ class WaitlistForm(forms.ModelForm):
         ]
 
 
+class WaitlistEmailSenden(forms.Form):
+    email = forms.EmailField(
+        required=True,
+        label="E-Mail-Adresse",
+        widget=forms.EmailInput(attrs={'placeholder': 'Deine E-Mail-Adresse'})
+    )
+
 class RegistrationForm(forms.ModelForm):
 
     reg_name = forms.CharField(

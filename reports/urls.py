@@ -72,6 +72,7 @@ urlpatterns = [
 
     path('getsessiontimer/', views.get_session_timer, name='getsessiontimer'),
     path('getOpenReportsAjax/', views.getOpenReportsAjax, name='getOpenReportsAjax'),
+    path('getOpenaiSuggestionAjax/<int:pk>/', views.getOpenaiSuggestionAjax, name='getOpenaiSuggestionAjax'),
 
     path('add/waitlist/', views.add_waitlist, name='add_waitlist'),
     path('edit/waitlist/<id>/', views.edit_waitlist, name='edit_waitlist'),
@@ -97,6 +98,8 @@ urlpatterns = [
 
     path('update-patient/<int:item_id>/', views.update_patient_wiedervorstellung, name='update-patient'),
     path('get-patient/<int:item_id>/', views.get_patient, name='get-patient'),
+
+    #path('get-create-report/', views.create_report, name='create-report'),
 
 ]
 

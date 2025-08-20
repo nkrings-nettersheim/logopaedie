@@ -3,20 +3,21 @@ import os
 import uuid
 import qrcode
 import base64
-#import pdb
+import openai
+
 
 from django.conf import settings
-from django.shortcuts import get_object_or_404, render, redirect
+from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, redirect
 from io import BytesIO
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+#from django.contrib.auth.mixins import LoginRequiredMixin
 
-from itsdangerous import BadSignature, SignatureExpired
+#from itsdangerous import BadSignature, SignatureExpired
 from itsdangerous.url_safe import URLSafeTimedSerializer
 from formtools.wizard.views import SessionWizardView
 
@@ -24,7 +25,7 @@ from weasyprint import HTML, CSS
 
 from parents.forms import (ParentsSheetFormStep1, ParentsSheetFormStep2, ParentsSheetFormStep3,
                            ParentsSheetFormStep4, ParentsSheetFormStep5, ParentsSheetFormStep6, ParentsSheetForm,
-                           ParentsSheetListForm)
+                           ParentsSheetListForm, ParentsEmailSenden)
 
 from parents.models import Parents_sheet
 
@@ -96,16 +97,44 @@ def generate_temporary_link():
 
 @login_required
 def generate_qr_code(request):
-    temp_link = generate_temporary_link()  # Temporären Link erstellen
-    qr = qrcode.make(temp_link)
 
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
-    buffer.seek(0)
+    if request.method == "POST":
+        form = ParentsEmailSenden(request.POST)
+        if form.is_valid():
+            user_email = form.cleaned_data["email"]
+            temp_link = request.POST.get('temp_link')
+            qr_base64 = request.POST.get('qr_code')
+            # Mail versenden
+            subject = "Ihr persönlicher Formular-Link"
+            body = f"""
+               Guten Tag,
 
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-    #return HttpResponse(buffer.getvalue(), content_type="image/png")
-    return render(request, 'parents/parents_qr_code.html', {"qr_code": qr_base64, "temp_link": temp_link})
+               hier ist Ihr persönlicher Link zum Elternbogen:
+               {temp_link}
+
+               Viele Grüße
+               Ihr Praxisteam der Logopädie Schumacher
+               """
+            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [user_email])
+            return render(request, "parents/parents_qr_code.html", {
+                "temp_link": temp_link,
+                "qr_code": qr_base64,  # falls du QR speicherst
+                "email_form": ParentsEmailSenden(),  # leeres Formular zurückgeben
+                "success": True
+            })
+    else:
+        temp_link = generate_temporary_link()  # Temporären Link erstellen
+        qr = qrcode.make(temp_link)
+
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+        buffer.seek(0)
+
+        qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+        email_form = ParentsEmailSenden()
+
+    return render(request, 'parents/parents_qr_code.html', {"qr_code": qr_base64, "temp_link": temp_link, 'email_form': email_form})
 
 
 @permission_required('reports.add_patient')

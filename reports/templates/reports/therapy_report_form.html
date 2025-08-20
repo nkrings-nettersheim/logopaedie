@@ -42,7 +42,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <h4>Therapiebericht anlegen/ändern :</h4>
+                <h4>Therapiebericht anlegen/ändern : </h4>
             </div>
         </div>
         <div class="mb-3 row">
@@ -206,8 +206,9 @@
                 <p>Zeichenvorrat noch : <span id="charCount_{{ form.therapy_forecast.id_for_label }}">0</span> Zeichen </p>
             </div>
         </div>
+
         <div class="mb-3 row" id="therapy_summary" style="display: none;">
-            <label for="{{ form.therapy_summary.id_for_label }}" class="col-sm-2 control-label">Zusammenfassung: </label>
+            <label for="{{ form.therapy_summary.id_for_label }}" class="col-sm-2 control-label">Zusammenfassung: <button type="button" class="btn btn-danger btn-sm" id="fetch-text-btn">KI fragen</button></label>
             <div class="col-sm-9">
                 {{ form.therapy_summary }}
                 {{ form.therapy_summary.errors }}
@@ -502,7 +503,52 @@ function hide_show_fields(report_variation) {
              }
         }
 
+
     </script>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const fieldId = 'id_therapy_summary';
+
+      function wireButton(editor) {
+        // Nur einmal verbinden
+        const btn = document.getElementById('fetch-text-btn');
+        if (!btn) return;
+
+        btn.addEventListener('click', function () {
+            //console.log("ID:" + {{id}})
+          fetch('/reports/getOpenaiSuggestionAjax/{{id}}/')
+            .then(r => r.json())
+            .then(data => {
+              // Falls dein JSON "suggestion" oder "text" heißt – beides abfangen
+              const txt = (data.suggestion ?? data.text ?? '').toString();
+              editor.setData('<p>' + txt + '</p>');
+            })
+            .catch(err => console.error('Fehler:', err));
+        });
+      }
+
+      // 1) Bevorzugt: über django-ckeditor-5 Registry
+      if (window.editors && window.editors[fieldId]) {
+        wireButton(window.editors[fieldId]);
+        return;
+      }
+
+      // 2) Falls die Registry noch nicht befüllt ist: Callback registrieren
+      if (window.ckeditorRegisterCallback) {
+        window.ckeditorRegisterCallback(fieldId, wireButton);
+        return;
+      }
+
+      // 3) Fallback: Instanz aus dem DOM holen (CKEditor-Standard)
+      const editable = document.querySelector('#' + fieldId + ' + .ck .ck-editor__editable');
+      if (editable && editable.ckeditorInstance) {
+        wireButton(editable.ckeditorInstance);
+      }
+    });
+    </script>
+
 {% endblock %}
 
 
