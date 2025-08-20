@@ -1202,8 +1202,10 @@ def getOpenaiSuggestionAjax(request, pk):
     if request.method == "GET":
 
         logger.debug(f"User-ID: {request.user.id}; Aufruf getOpenaiSuggestionAjax richtig aufgerufen. pk={pk} ")
-        #patient = get_object_or_404(Patient, id=2)
+
         therapy = get_object_or_404(Therapy, id=pk)
+        patient = get_object_or_404(Patient, id=therapy.patients.id)
+
         logger.debug(f"User-ID: {request.user.id}; Therapy gefunden: {therapy.id} ")
 
         icd_codes = [therapy.therapy_icd_cod, therapy.therapy_icd_cod_2, therapy.therapy_icd_cod_3]
@@ -1219,6 +1221,8 @@ def getOpenaiSuggestionAjax(request, pk):
         therapienotizen = process_report_value
 
         suggestion = generate_arztbericht("Maxim Musterfrau", icd_codes, therapienotizen)
+
+        suggestion = suggestion.replace("Maxim Musterfrau", patient.pa_first_name + " " + patient.pa_last_name)
 
         return JsonResponse({'suggestion': suggestion})
 
