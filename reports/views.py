@@ -1201,9 +1201,11 @@ def show_therapy_report(request):
 def getOpenaiSuggestionAjax(request, pk):
     if request.method == "GET":
 
-        logger.debug(f"User-ID: {request.user.id}; Aufruf getOpenaiSuggestionAjax richtig aufgerufen ")
-        patient = get_object_or_404(Patient, id=2)
+        logger.debug(f"User-ID: {request.user.id}; Aufruf getOpenaiSuggestionAjax richtig aufgerufen. pk={pk} ")
+        #patient = get_object_or_404(Patient, id=2)
         therapy = get_object_or_404(Therapy, id=pk)
+        logger.debug(f"User-ID: {request.user.id}; Therapy gefunden: {therapy.id} ")
+
         icd_codes = [therapy.therapy_icd_cod, therapy.therapy_icd_cod_2, therapy.therapy_icd_cod_3]
         logger.debug(f"User-ID: {request.user.id}; OpenAI: Therapy gefunden ")
 
