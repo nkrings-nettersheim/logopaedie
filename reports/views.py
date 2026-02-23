@@ -1307,23 +1307,7 @@ def add_waitlist_qr_code(request, token=None):
                 logger.debug(f"WartelistenForm is valid")
                 item = form.save(commit=False)
                 item.save()
-                #cleaned_data = form.cleaned_data
-                #reg_name = form.cleaned_data['reg_name']
-                #reg_first_name = form.cleaned_data['reg_first_name']
-                # signature_data = form.cleaned_data['signature_data']
-                #signature_data = cleaned_data.pop("signature_data")
-                #logger.debug(f"Name: {reg_name}; Vorname: {reg_first_name}")
-                # Die Base64-Daten in eine Bilddatei umwandeln
-                #format, imgstr = signature_data.split(';base64,')
-                #ext = format.split('/')[-1]
-                #data = ContentFile(base64.b64decode(imgstr), name=f'signature_{reg_name}_{reg_first_name}.{ext}')
 
-                # Modell speichern
-                #registration = Registration(**cleaned_data)
-                #if data:
-                #    registration.reg_signature = data
-
-                #registration.save()
                 logger.info(f"User-ID: {request.user.id}; add_waitlist: Waitlist "
                             f"mit der ID: 'wl{str(item.id)}' gespeichert")
 
@@ -1337,6 +1321,7 @@ def add_waitlist_qr_code(request, token=None):
         return HttpResponse("Der Link ist abgelaufen.", status=410)
     except BadSignature:
         return HttpResponse("Ungültiger Link.", status=400)
+
     #Felder auf "hidden" setzen
     form.fields['wl_active'].widget = forms.HiddenInput()
     form.fields['wl_call_date'].widget = forms.HiddenInput()
@@ -1889,21 +1874,32 @@ def send_personal_mail(user, request):
     openContext.static_root = settings.STATIC_ROOT
     openContext.media_root = settings.MEDIA_ROOT
     openContext.user = user
+
     image = 'logopaedie.png'
     file_path = os.path.join(settings.STATIC_ROOT + '/images/', image)
+
     with open(file_path, 'rb') as f:
         img = MIMEImage(f.read())
-        img.add_header('Content-ID', '<{name}>'.format(name=image))
+        #img.add_header('Content-ID', '<{name}>'.format(name=image))
+        img.add_header('Content-ID', f'<{image}>')
         img.add_header('Content-Disposition', 'inline', filename=image)
 
-    text_content = 'Sie haben sich gerade an der Anwendung LogoPAkt angemeldet. Sollte dies nicht stimmen, ' \
-                   'bitte umgehend Toni Schumacher informieren!!!'
+    text_content = ('Sie haben sich gerade an der Anwendung LogoPAkt angemeldet. Sollte dies nicht stimmen, ' \
+                   'bitte umgehend Toni Schumacher informieren!!!')
+
     html_content = render_to_string('mail_templates/login_mail.html',
                                     {'openContext': openContext, 'meta': request.META})
 
-    msg = EmailMultiAlternatives(subject, text_content, from_email, email_list)
-    msg.mixed_subtype = 'related'
-    msg.attach_alternative(html_content, "text/html")
+    # WICHTIG: subtype="related" setzen
+    msg = EmailMultiAlternatives(
+        subject,
+        text_content,
+        from_email,
+        email_list,
+        alternatives=[(html_content, "text/html")],
+        subtype="related",  # ← ersetzt mixed_subtype
+    )
+
     msg.attach(img)
     msg.send()
     logger.debug(f"User-ID: {user.id}; EMail was send")
