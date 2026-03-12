@@ -1898,8 +1898,8 @@ def send_personal_mail(user, request):
         email_list,
     )
 
-    #msg.attach(img)
     msg.attach_alternative(html_content, "text/html")
+    msg.attach(img)
     msg.send()
     logger.debug(f"User-ID: {user.id}; EMail was send")
 
