@@ -1516,7 +1516,7 @@ def generate_qr_code_waitlist(request):
         qr = qrcode.make(temp_link)
 
         buffer = BytesIO()
-        qr.save(buffer, format="PNG")
+        qr.save(buffer)
         buffer.seek(0)
 
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
@@ -1890,17 +1890,16 @@ def send_personal_mail(user, request):
     html_content = render_to_string('mail_templates/login_mail.html',
                                     {'openContext': openContext, 'meta': request.META})
 
-    # WICHTIG: subtype="related" setzen
+
     msg = EmailMultiAlternatives(
         subject,
         text_content,
         from_email,
         email_list,
-        alternatives=[(html_content, "text/html")],
-        subtype="related",  # ← ersetzt mixed_subtype
     )
 
     msg.attach(img)
+    msg.attach_alternative(html_content, "text/html")
     msg.send()
     logger.debug(f"User-ID: {user.id}; EMail was send")
 
@@ -2094,7 +2093,7 @@ def generate_qr_code(request):
         qr = qrcode.make(temp_link)
 
         buffer = BytesIO()
-        qr.save(buffer, format="PNG")
+        qr.save(buffer)
         buffer.seek(0)
 
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()

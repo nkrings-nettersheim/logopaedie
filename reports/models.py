@@ -110,10 +110,10 @@ class Therapy(models.Model):
     def __str__(self):
         return str(self.recipe_date)
 
-    def save(self, force_insert=False, force_update=False, using=False):
+    def save(self, force_insert = False, force_update = False, using = None, update_fields=None, **kwargs):
         self.therapy_icd_cod = self.therapy_icd_cod.upper()
         self.therapy_icd_cod_2 = self.therapy_icd_cod_2.upper()
-        super(Therapy, self).save(force_insert, force_update, using)
+        super(Therapy, self).save()
 
 
 class Therapy_report(models.Model):

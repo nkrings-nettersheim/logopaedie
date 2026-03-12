@@ -127,7 +127,7 @@ def generate_qr_code(request):
         qr = qrcode.make(temp_link)
 
         buffer = BytesIO()
-        qr.save(buffer, format="PNG")
+        qr.save(buffer)
         buffer.seek(0)
 
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
