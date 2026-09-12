@@ -1103,14 +1103,14 @@ def edit_therapy_report(request, id=None):
 
         return redirect('/reports/therapy/' + str(item.therapy_id) + '/?window=4')
 
-    logger.debug(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht anlegen mit ID: {id}")
+    logger.info(f"User-ID: {request.user.id}; edit_therapy_report: Therapiebericht anlegen mit ID: {id}")
 
     return render(request, 'reports/therapy_report_form.html', {'form': form, 'id': item.therapy_id })
 
 
 @permission_required('reports.change_therapy_report')
 def save_therapyreport_element(request):
-    # logger.info("Hallo Start")
+    logger.info(f"User-ID: {request.user.id}; save_therapyreport_element: Aufruf der Funktion")
     if request.is_ajax():
         id_therapy = request.POST.get('id_therapy')
         data_field = request.POST.get('field')

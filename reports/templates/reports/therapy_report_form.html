@@ -62,7 +62,7 @@
                 {{ form.therapy_break_internal.errors }}
             </div>
         </div>
-        {% if form.report_date.value == None %}
+        {% if form.‚.value == None %}
         <div class="mb-3 row">
             <label for="{{ form.therapy_report_variation.id_for_label }}" class="col-sm-2 control-label">Berichtsform: </label>
             <div class="col-sm-6">
@@ -366,7 +366,6 @@ $(document).ready(function(){
 
 function hide_show_fields(report_variation) {
       if (report_variation === "0") {
-            //$('label[for=id_report_date], input#id_report_date').hide();
             $("#therapy_current_result").hide();
             $("#therapy_emphases").hide();
             $("#therapy_forecast").hide();
