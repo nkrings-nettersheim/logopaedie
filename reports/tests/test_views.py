@@ -262,17 +262,22 @@ class BasicViewTest(TestCase):
 class JsonServicesTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        pass
+        cls.credentials = {
+            'username': 'testuser_json',
+            'password': 'testuser_json'}
+        user = User.objects.create_user(email='logopakt@logoeu.uber.space', **cls.credentials)
+        user.user_permissions.add(Permission.objects.get(codename='view_patient'))
 
     def setUp(self):
-        pass
+        self.client = Client(HTTP_USER_AGENT='Test-Client')
+        self.client.post('/accounts/login/', data=self.credentials, follow=True)
 
     def test_list_meta_info(self):
         response = self.client.get(reverse('reports:list_meta_info'))
         self.assertEqual(response.status_code, 200)
 
     def test_readShortcuts(self):
-        response = self.client.get(reverse('reports:shortcuts'))
+        response = self.client.get(reverse('reports:shortcuts'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('reports:shortcuts'))

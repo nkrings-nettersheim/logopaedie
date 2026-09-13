@@ -1,9 +1,10 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 from .models import Patient, Therapy, Therapy_report, Process_report, Doctor, Therapist, InitialAssessment
 from .models import Document, Document_therapy, Diagnostic_group, Wait_list, Login_Failed, Shortcuts, Registration
 
 
-class TherapyAdmin(admin.ModelAdmin):
+class TherapyAdmin(SimpleHistoryAdmin):
     list_display = ('recipe_date', 'patients')
 
 class DoctorAdmin(admin.ModelAdmin):
@@ -11,17 +12,17 @@ class DoctorAdmin(admin.ModelAdmin):
 
 admin.site.site_header = "Admin Bereich Logopädische Praxis Schumacher"
 
-admin.site.register(Patient)
+admin.site.register(Patient, SimpleHistoryAdmin)
 admin.site.register(Therapy, TherapyAdmin)
-admin.site.register(Therapy_report)
-admin.site.register(Process_report)
+admin.site.register(Therapy_report, SimpleHistoryAdmin)
+admin.site.register(Process_report, SimpleHistoryAdmin)
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(Therapist)
-admin.site.register(InitialAssessment)
+admin.site.register(InitialAssessment, SimpleHistoryAdmin)
 admin.site.register(Document)
 admin.site.register(Document_therapy)
 admin.site.register(Diagnostic_group)
 admin.site.register(Wait_list)
 admin.site.register(Login_Failed)
 admin.site.register(Shortcuts)
-admin.site.register(Registration)
+admin.site.register(Registration, SimpleHistoryAdmin)

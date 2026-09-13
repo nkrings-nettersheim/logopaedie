@@ -1,5 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from simple_history.models import HistoricalRecords
 
 
 class Doctor(models.Model):
@@ -73,6 +74,7 @@ class Patient(models.Model):
     pa_sa = models.CharField(max_length=50, blank=True, default='')
     pa_appointment = models.CharField(max_length=200, blank=True, default='', null=True)
     pa_wiedervorstellung_info = models.CharField(max_length=254, default='', null=True, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.pa_last_name + ' ' + self.pa_first_name + '; ' + self.pa_city
@@ -106,6 +108,7 @@ class Therapy(models.Model):
     first_diagnostic_no_yes = models.BooleanField(default=False, null=True)
     need_diagnostic_no_yes = models.BooleanField(default=False, null=True)
     continue_diagnostic_no_yes = models.BooleanField(default=False, null=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.recipe_date)
@@ -156,6 +159,7 @@ class Therapy_report(models.Model):
     therapy_process = CKEditor5Field('Text', config_name='extends')
     therapy_compliance = CKEditor5Field('Text', config_name='extends')
     therapy_report_variation = models.IntegerField(default=0)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.report_date)
@@ -175,6 +179,7 @@ class Process_report(models.Model):
     therapy = models.ForeignKey(Therapy, on_delete=models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.process_content
@@ -218,6 +223,7 @@ class InitialAssessment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
     ia_diagnostic_level = models.CharField(max_length=2, choices=DIAGNOSTIC_LEVEL, default='ED')
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.ia_assessment
@@ -365,6 +371,7 @@ class Registration (models.Model):
     reg_created = models.BooleanField(default=False, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.reg_name

@@ -8,7 +8,7 @@ from reports.views import index, impressum, search_patient, add_patient, edit_pa
     search_diagnostic_group, edit_diagnostic_group, add_diagnostic_group, diagnostic_group, add_ia, edit_ia, \
     upload_document, download_document, del_document, upload_document_therapy, download_document_therapy, \
     del_document_therapy, add_therapy_something, edit_therapy_something, open_reports, therapy_breaks, update_report,\
-    get_session_timer, getOpenReports, add_waitlist, edit_waitlist, delete_waitlist_item, set_waitlist_item_inactive, \
+    get_session_timer, getOpenReportsAjax, add_waitlist, edit_waitlist, delete_waitlist_item, set_waitlist_item_inactive, \
     set_waitlist_item_active, add_pa_something, edit_pa_something, save_therapyreport_element, waitlist, \
     copy_waitlist_item, list_meta_info, readShortcuts
 
@@ -233,8 +233,8 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(resolve(url).func, get_session_timer)
 
     def test_url_getOpenReports_is_resolved(self):
-        url = reverse('reports:getOpenReports')
-        self.assertEqual(resolve(url).func, getOpenReports)
+        url = reverse('reports:getOpenReportsAjax')
+        self.assertEqual(resolve(url).func, getOpenReportsAjax)
 
     ################################################################################################
     def test_url_add_waitlist_is_resolved(self):

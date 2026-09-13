@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'reports.apps.ReportsConfig',
     'parents.apps.ParentsConfig',
     'debug_toolbar',
+    'simple_history',
 ]
 
 #Crispy packs
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'reports.middleware.IPAccessCheck',
+    'simple_history.middleware.HistoryRequestMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 

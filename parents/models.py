@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 class Parents_sheet(models.Model):
 
@@ -113,6 +114,7 @@ class Parents_sheet(models.Model):
     child_comments_5 = models.TextField(blank=True, default='')
     child_comments_6 = models.TextField(blank=True, default='')
     sheet_created = models.BooleanField(default=False, null=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.child_last_name + ", " + self.child_first_name

@@ -2,12 +2,7 @@
 workspace.xml
 db.sqlite3
 logopaedie.log
-logopaedie.log1
-logopaedie.log2
-logopaedie.log3
-logopaedie.log4
-logopaedie.log5
-logopaedie.log6
+logopaedie.log.*
 secrets.json
 logopaedie/__pycache__/
 reports/__pycache__/
@@ -16,6 +11,7 @@ media/
 reports/tests/__pycache__/
 static/admin/
 static/ckeditor/
+static/django_ckeditor_5/
 logopaedie/local_settings.py
 static/parents/
 .idea/
@@ -139,5 +135,4 @@ GitHub.sublime-settings
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_12_21,_08_00_[Default_Changelist]/shelved.patch
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_12_21,_08_00_[Default_Changelist]1/shelved.patch
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_12_21__08_00__Default_Changelist_.xml
-/logopaedie.log.2
 /jquery.dirty.js

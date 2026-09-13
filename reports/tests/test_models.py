@@ -746,17 +746,17 @@ class TherapyReportModelTest(TestCase):
     def test_therapy_current_result_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_current_result').verbose_name
-        self.assertEqual(field_label, 'therapy current result')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_emphases_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_emphases').verbose_name
-        self.assertEqual(field_label, 'therapy emphases')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_forecast_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_forecast').verbose_name
-        self.assertEqual(field_label, 'therapy forecast')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_indicated_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
@@ -851,7 +851,7 @@ class TherapyReportModelTest(TestCase):
     def test_therapy_summary_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_summary').verbose_name
-        self.assertEqual(field_label, 'therapy summary')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_request_of_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
@@ -876,32 +876,32 @@ class TherapyReportModelTest(TestCase):
     def test_therapy_therapist_diagnostic_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_therapist_diagnostic').verbose_name
-        self.assertEqual(field_label, 'therapy therapist diagnostic')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_status_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_status').verbose_name
-        self.assertEqual(field_label, 'therapy status')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_aims_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_aims').verbose_name
-        self.assertEqual(field_label, 'therapy aims')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_content_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_content').verbose_name
-        self.assertEqual(field_label, 'therapy content')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_process_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_process').verbose_name
-        self.assertEqual(field_label, 'therapy process')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_compliance_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
         field_label = therapy_report._meta.get_field('therapy_compliance').verbose_name
-        self.assertEqual(field_label, 'therapy compliance')
+        self.assertEqual(field_label, 'Text')
 
     def test_therapy_report_variation_label(self):
         therapy_report = Therapy_report.objects.get(id=1)
