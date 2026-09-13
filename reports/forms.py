@@ -2071,17 +2071,6 @@ class RegistrationForm(forms.ModelForm):
                                       'placeholder': 'TT.MM.JJJJ'})
     )
 
-    reg_doctor = forms.CharField(
-        required=False,
-        max_length=50,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Haus-/Kinderarzt eingeben ...',
-            }
-        )
-    )
-
     reg_phone = forms.CharField(
         required=False,
         max_length=50,
@@ -2132,7 +2121,6 @@ class RegistrationForm(forms.ModelForm):
             'reg_zip_code',
             'reg_city',
             'reg_date_of_birth',
-            'reg_doctor',
             'reg_phone',
             'reg_cell_phone',
             'reg_email'

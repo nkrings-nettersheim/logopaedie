@@ -363,7 +363,6 @@ class Registration (models.Model):
     reg_zip_code = models.CharField(max_length=10, default='', null=True)
     reg_city = models.CharField(max_length=255, default='', null=True)
     reg_date_of_birth = models.DateField(default='1900-01-01')
-    reg_doctor = models.CharField(max_length=100, default='', null=True)
     reg_phone = models.CharField(max_length=100, blank=True, default='', null=True)
     reg_cell_phone = models.CharField(max_length=100, blank=True, default='', null=True)
     reg_email = models.EmailField(max_length=254, blank=True)

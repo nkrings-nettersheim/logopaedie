@@ -110,19 +110,6 @@ body {
 }
 
 
-#arzt {
-    position: absolute;
-    left: 11.0cm;
-    top: 5.0cm;
-}
-#arzt2 {
-    position: absolute;
-    left: 14.5cm;
-    top: 5.0cm;
-    font-weight: bold;
-}
-
-
 #phone {
     position: absolute;
     left: 1.5cm;
