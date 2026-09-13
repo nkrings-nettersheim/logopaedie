@@ -298,10 +298,16 @@ class Login_User_Agent(models.Model):
     user_name = models.CharField(max_length=100, blank=True, default='')
     ip_address = models.CharField(max_length=100, blank=True, default='')
     user_agent = models.CharField(max_length=255, blank=True, default='')
-    last_login = models.DateTimeField(auto_now_add=True, blank=True)
+    last_login = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return self.user_name
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user_name', 'ip_address', 'user_agent'],
+                                    name='unique login_user_agent'),
+        ]
 
 
 class Wait_list (models.Model):

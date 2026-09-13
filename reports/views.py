@@ -1927,12 +1927,13 @@ def post_login(sender, request, user, **kwargs):
         logger.debug(f"User-ID: {request.user.id}; User not found")
 
     try:
-        login_user_agent = Login_User_Agent.objects.get(ip_address=ip_address, user_agent=http_user_agent)
-        login_user_agent.last_login = datetime.datetime.now(datetime.UTC)
-        login_user_agent.save()
+        login_user_agent = Login_User_Agent.objects.get(
+            user_name=user.username, ip_address=ip_address, user_agent=http_user_agent)
+        login_user_agent.save()  # last_login wird durch auto_now automatisch aktualisiert
         logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: Do nothing")
-    except:
-        login_user_agent = Login_User_Agent(user_name=request.user, ip_address=ip_address, user_agent=http_user_agent)
+    except Login_User_Agent.DoesNotExist:
+        login_user_agent = Login_User_Agent(
+            user_name=user.username, ip_address=ip_address, user_agent=http_user_agent)
         login_user_agent.save()
         logger.debug(f"User-ID: {request.user.id}; post_login; check user_agent; result: send e-mail to {user}")
         send_personal_mail(user, request)
