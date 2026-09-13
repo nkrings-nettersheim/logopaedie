@@ -218,7 +218,7 @@ class InitialAssessment(models.Model):
     ia_test_result = models.CharField(max_length=1, choices=RESULT, default='1')
     ia_enhancement = models.BooleanField(default=False, null=True)
     ia_information = models.CharField(max_length=500, blank=True, default='')
-    ia_first_diagnostic = CKEditor5Field('Text', config_name='extends')
+    ia_first_diagnostic = CKEditor5Field('Text', config_name='extends', blank=True, default='')
     therapy = models.OneToOneField(Therapy, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
