@@ -3,7 +3,7 @@ from datetime import date, datetime
 from django.test import TestCase
 from reports.models import Doctor, Therapist, Diagnostic_group, Patient, Therapy, Therapy_report, Process_report, \
     InitialAssessment, Document, Document_therapy, Therapy_Something, Patient_Something, Login_Failed, \
-    Login_User_Agent, Wait_list, Shortcuts
+    Login_User_Agent, Wait_list
 
 
 class DoctorModelTest(TestCase):
@@ -1361,18 +1361,4 @@ class WaitListModelTest(TestCase):
         wait_list = Wait_list.objects.get(id=1)
         expected_object_name = f'{wait_list.wl_last_name} {wait_list.wl_first_name}; {wait_list.wl_city}'
         self.assertEqual(expected_object_name, str(wait_list))
-
-
-class ShortcutsModelTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        Shortcuts.objects.create(
-            short='SRV'
-        )
-
-    # test objects
-    def test_initialassessment_str(self):
-        shortcuts = Shortcuts.objects.get(id=1)
-        expected_object_name = f'{shortcuts.short}'
-        self.assertEqual(expected_object_name, str(shortcuts))
 

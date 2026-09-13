@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from reports.models import Doctor, Therapist, Diagnostic_group, Patient, Therapy, Therapy_report, Process_report, \
     InitialAssessment, Document, Document_therapy, Therapy_Something, Patient_Something, Login_Failed, \
-    Login_User_Agent, Wait_list, Shortcuts
+    Login_User_Agent, Wait_list
 
 import json
 
@@ -275,10 +275,3 @@ class JsonServicesTest(TestCase):
     def test_list_meta_info(self):
         response = self.client.get(reverse('reports:list_meta_info'))
         self.assertEqual(response.status_code, 200)
-
-    def test_readShortcuts(self):
-        response = self.client.get(reverse('reports:shortcuts'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.post(reverse('reports:shortcuts'))
-        self.assertEqual(response.status_code, 400)

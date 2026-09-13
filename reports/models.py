@@ -348,14 +348,6 @@ class Wait_list (models.Model):
         return self.wl_last_name + ' ' + self.wl_first_name + '; ' + self.wl_city
 
 
-class Shortcuts(models.Model):
-    short = models.CharField(max_length=10)
-    long = models.CharField(max_length=200, blank=True, default='', null=True)
-
-    def __str__(self):
-        return self.short
-
-
 class Registration (models.Model):
     reg_name = models.CharField(max_length=50, default='', null=True)
     reg_first_name = models.CharField(max_length=50, default='', null=True)

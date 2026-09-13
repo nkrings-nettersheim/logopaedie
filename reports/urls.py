@@ -86,8 +86,6 @@ urlpatterns = [
 
     path('list_meta_info/', views.list_meta_info, name='list_meta_info'),
 
-    path('shortcuts/', views.readShortcuts, name='shortcuts'),
-
     path('mailtest/', views.send_welcome_email, name='mailtest'),
 
     path('registration-qr-code/', views.generate_qr_code, name='registration-qr-code'),

@@ -10,7 +10,7 @@ from reports.views import index, impressum, search_patient, add_patient, edit_pa
     del_document_therapy, add_therapy_something, edit_therapy_something, open_reports, therapy_breaks, update_report,\
     get_session_timer, getOpenReportsAjax, add_waitlist, edit_waitlist, delete_waitlist_item, set_waitlist_item_inactive, \
     set_waitlist_item_active, add_pa_something, edit_pa_something, save_therapyreport_element, waitlist, \
-    copy_waitlist_item, list_meta_info, readShortcuts
+    copy_waitlist_item, list_meta_info
 
 
 class TestUrls(SimpleTestCase):
@@ -269,8 +269,3 @@ class TestUrls(SimpleTestCase):
     def test_url_list_meta_info_is_resolved(self):
         url = reverse('reports:list_meta_info')
         self.assertEqual(resolve(url).func, list_meta_info)
-
-    ################################################################################################
-    def test_url_shortcuts_is_resolved(self):
-        url = reverse('reports:shortcuts')
-        self.assertEqual(resolve(url).func, readShortcuts)

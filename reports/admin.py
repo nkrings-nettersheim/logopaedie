@@ -1,7 +1,7 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
 from .models import Patient, Therapy, Therapy_report, Process_report, Doctor, Therapist, InitialAssessment
-from .models import Document, Document_therapy, Diagnostic_group, Wait_list, Login_Failed, Shortcuts, Registration
+from .models import Document, Document_therapy, Diagnostic_group, Wait_list, Login_Failed, Registration
 
 
 class PatientAdmin(SimpleHistoryAdmin):
@@ -39,5 +39,4 @@ admin.site.register(Document_therapy)
 admin.site.register(Diagnostic_group)
 admin.site.register(Wait_list)
 admin.site.register(Login_Failed)
-admin.site.register(Shortcuts)
 admin.site.register(Registration, RegistrationAdmin)

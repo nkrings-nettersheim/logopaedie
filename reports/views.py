@@ -29,7 +29,6 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Q, F
 from django.core.mail import send_mail, EmailMultiAlternatives
-from django.core.serializers import serialize
 from django.core.files.base import ContentFile
 
 from email.mime.image import MIMEImage
@@ -49,7 +48,7 @@ from .forms import IndexForm, PatientForm, TherapyForm, ProcessReportForm, Thera
     WaitlistForm, RegistrationForm, RegistrationListForm, WaitlistEmailSenden
 
 from .models import Patient, Therapy, Process_report, Therapy_report, Doctor, Therapist, InitialAssessment, Document, \
-    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, Shortcuts, \
+    Therapy_Something, Document_therapy, Patient_Something, Login_Failed, Diagnostic_group, Wait_list, \
     Login_User_Agent, Registration
 
 logger = logging.getLogger(__name__)
@@ -2037,18 +2036,6 @@ def list_meta_info(request):
 
     return render(request, 'reports/list_meta_info.html', {'meta_info': meta_info, 'meta': request.META})
 
-# Aufruf dieser Funktion erfolgt aus der plugin.js des Moduls "CKEditor" (static/ckeditor/ckeditor/plugins/autocorrection/plugin.js)
-@permission_required('reports.view_patient')
-def readShortcuts(request):
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
-        shortcuts = Shortcuts.objects.all()
-
-        data = serialize("json", shortcuts, fields=('short', 'long'))
-        logger.debug(f"User-ID: {request.user.id}; Shortcuts gelesen")
-        return JsonResponse({'shortcuts': data}, status=200)
-
-    logger.debug(f"User-ID: {request.user.id}; Shortcuts konnten nicht gelesen werden")
-    return JsonResponse({"error": ""}, status=400)
 # **************************************************************************************************
 
 ##########################################################################
